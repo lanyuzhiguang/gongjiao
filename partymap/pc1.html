@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="shortcut icon" href="img/logo.ico">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+	    <script src="js/jquery.min.js"></script>
+	    <script src="js/bootstrap.min.js"></script>
+		<style>
+			@font-face {
+			  font-family: '苹方';   /*字体名称*/
+			  src: url;       /*字体源文件*/
+			}
+			body{
+				background: rgb(241,243,247)
+			}
+			*{
+				margin: 0;
+				padding: 0;
+				font-style: normal;
+				list-style: none;
+				text-decoration: none;
+			}
+			a:hover{
+				text-decoration: none;
+				color: red;
+			}
+			tr{
+				line-height: 2.6rem;
+			}
+			header{
+				width: 100%;
+				height: 78px;
+				line-height: 78px;
+				color: #fff;
+				font-size: 18px;
+				background-image: linear-gradient(#FF111E,#CF0000);
+			}
+			header span:nth-of-type(1){
+				position: absolute;
+				left: 76px;
+			}
+			select {
+			  	border: none;
+			  	font-size: 18px;
+			    appearance:none;
+			    -moz-appearance:none;
+			    -webkit-appearance:none;
+			    padding-right: 74px;
+			    color: #fff;
+				background:url(img/753649843346315699.png) no-repeat scroll right center transparent;
+				position: absolute;
+				left: 220px;
+				top: 27px;
+			}
+			option{color: #333;}
+			select::-ms-expand { display: none; }
+			.img5{
+				margin: 24px 42px 54px 24px!important;
+			}
+			.dy{
+				width: 250px;
+				height: 100px;
+				background: #fff;
+				margin-left: 25px;
+			}
+			.dyrs{
+				width: 100px;
+				height: 100px;
+				position: absolute;
+    			top: 85px;
+    			left: 8.6%;
+				display: inline-block;
+			}
+			.dyrs div:nth-of-type(1){
+				height: 30px;
+				line-height: 30px;
+				padding-top: 10px;
+			}
+			.dyrs div:nth-of-type(2){
+				padding-top: 10px;
+			}
+			#tab{
+				position: absolute;
+			}
+			#head{
+				width:400px;
+				height:30px;
+				margin:6px 0 0 25px;
+			}
+			#head ul{
+				padding:0; 
+				margin:0;
+			}
+			#head ul li{ 
+				list-style:none; 
+				display:block;
+				width:130px;
+				height:69.4px; 
+				line-height: 70px;
+				text-align: center;
+				position:relative;
+			}
+			.imgg{
+				width: 2.125rem;
+				height: 2.125rem;
+				border-radius: 50%;
+				overflow: hidden;
+				margin-left: 2.5rem;
+			}
+			.imgg img{
+				margin-top:-0.5rem;
+			}
+			#head ul li a{ 
+				text-decoration:none; 
+				color: #797E80;
+			}
+			#head ul li a:visited{ 
+				text-decoration:none;
+				color: #797E80;
+			}
+			#L1,#L2,#L3,#L4,#L5,#L6{
+				border: 1px solid #eef0f2;
+				border-bottom: none;
+				background: #fff;
+			}
+			#d1,#d2,#d3,#d4,#d5,#d6{
+				border:none;
+				background: #fff;
+				width:560px;
+				height:420px;
+				position:absolute;
+				margin-top:-28px;
+				margin-left: 158px;
+				z-index:1;
+				overflow: hidden;
+			}
+			#d1{
+				display: block;
+			}
+			#d2,#d3,#d4,#d5,#d6{
+				display: none;
+			}
+			#a1{
+				display: block;
+			}
+			#a2,#a3,#a4{
+				display: none;
+			}
+			 .p{
+			 	width: 100%;
+			 	height: 46px;
+			 	line-height: 46px;
+			 	text-align: center;
+			 	color: #797E80;
+			 	font-size: 18px;
+			 	font-family: "苹方";
+			 	border-bottom:1px solid #EEF0F2;
+			 	margin: 0 0 0 0;
+			 	padding-left: 10px;
+			 }
+			 #zzinfo{
+			 	width: 40%;
+			 	height: 418px;
+			 	background: #fff;
+			 	position: absolute;
+			 	right: 3rem;
+			 	top: 11.78rem;
+			}
+			.name1,.detail{
+				margin: 14px 12px 24px 30px;
+				font-size: 14px;
+				color: #797E80;
+				font-family: "苹方";
+			}
+			#zzss{
+				width: 51.3%;
+				background: #fff;
+				display: inline-block;
+				margin-left: 26px;
+				position: absolute;
+				top: 40rem;
+				padding-bottom: 3rem;
+			}
+			#zbrank{
+				width: 40%;
+				height: 476px;
+				background: #fff;
+				display: inline-block;
+				position: absolute;
+				right:3rem;
+				top: 40rem;
+			}
+			.ul1{
+				width: 100%;
+				overflow: hidden;
+				height: 60px;
+				border-bottom: 1px solid #EEF0F2;
+				margin-left: 0;
+			}
+			.ul1 li{
+				line-height: 60px;
+				float: left;
+				width: 25%;
+				text-align: center;
+				box-sizing: border-box;
+				color: #797E80;
+				font-size: 16px;
+				cursor: pointer;
+				border-right: 1px solid #EEF0F2;
+			}
+			.ul1 li.active{
+				background: #D71E07;
+				color: #fff;
+			}
+			#a1,#a2,#a3,#a4{
+				color: #797E80;
+			}
+			.div1{
+				margin: 14px 0 0 44px;
+			}
+			.div2{
+				margin:18px 0 0 44px;
+			}
+			.div3{
+				margin:18px 0 0 68px;
+			}
+			.imga{
+				margin-right: 24px;
+			}
+			.spp{
+				width: 150px;
+				display: inline-block;
+				margin-right: 60px;
+			}
+			.xxx{
+				position: absolute;
+				top: 148px;
+				left: 54px;
+			}
+			table{
+				width: 96%;
+			}
+			tr{
+				margin-top: 20px;
+			}
+			td{
+				text-align: right;
+			}
+			td:nth-of-type(1){
+				width: 10%;
+			}
+			td:nth-of-type(2){
+				width: 15%;
+			}
+			td:nth-of-type(3){
+				width:40%;
+			}
+			td:nth-of-type(4){
+				width: 35%;
+			}
+			#score1{
+				color: #D71E07;
+			}
+			.aaa{
+				color: #797E80;
+				margin-left: 25%;
+			}
+			#L6{
+				border: none!important;
+			}
+			#container{
+				padding-bottom: 12rem;
+			}
+			.xxx1{
+				position: absolute;
+				top: 18.375rem;
+				left: 3.375rem;
+			}
+			.xxx2{
+				position: absolute;
+				top: 27.8125rem;
+				left: 3.375rem;
+			}
+			.xxx3{
+				position: absolute;
+				top: 37.5rem;
+				left: 3.375rem;
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<span>丹凤县江南医院党支部</span>
+			<!--<select>
+			    <option>选项1</option>
+			    <option>选项2</option>
+			    <option>选项3</option>    
+			</select>-->
+		</header>
+		<div id="contianer">
+			<div class="dy">
+				<img src="img/dyrs.png"  class="img5"/>
+				<div class="dyrs">
+					<div style="text-align: center;">12</div>
+					<div style="text-align: center;">党员人数</div>
+				</div>
+			</div>
+			<div id="tab">
+				<div id="head">
+					<ul>
+						<li id="L1" onclick="Tab(1),init()"><a href="#">党员性别</a></li>
+						<li id="L2" onclick="Tab(2),a()"><a href="#">党员民族</a></li>
+						<li id="L3" onclick="Tab(3),b()"><a href="#">党员学历</a></li>
+						<li id="L4" onclick="Tab(4),c()"><a href="#">年龄阶段</a></li>
+						<li id="L5" onclick="Tab(5),d()"><a href="#">职业类型</a></li>
+						<li id="L6" onclick="Tab(6),e()"><a href="#"></a></li>
+						<li>
+					</ul>
+				</div>
+				<div id="d1">
+					<p class="p">党员性别</p> 
+				    <canvas id="canvas_circle" width="560" height="380"></canvas> 
+				</div>
+				<div id="d2">
+					<p class="p">党员民族</p> 
+				    <canvas id="canvas_circle1" width="560" height="376"></canvas> 
+				</div>
+				<div id="d3">
+					<p class="p">党员学历</p> 
+				    <canvas id="canvas_circle2" width="560" height="376"></canvas> 
+				</div>
+				<div id="d4">
+					<p class="p">年龄阶段</p> 
+				    <canvas id="canvas_circle3" width="560" height="376"></canvas> 
+				</div>
+				<div id="d5">
+					<p class="p">职业类型</p> 
+				    <canvas id="canvas_circle4" width="560" height="376"></canvas> 
+				</div>
+				<div id="d6">
+					<p class="p">学习时长</p> 
+				  	<canvas id="canvas_circle5" width="560" height="376"></canvas> 
+				</div>
+			</div>
+			<div id="zzinfo">
+				<p class="p" style="text-align: center;">组织信息</p>
+				<!--<a href="#" class="aaa">更多》</a>-->
+				<div>
+					<div class="name1">书记：<span id="sjname">贺怀德</span></div>
+					<div class="detail">丹凤县江南医院党支部成立于2012年8月，现有党员10名，2017年发展党员2名，要求进步向党组织递交入党申请书的青年22人。江南医院党支部认真贯彻落实全县四位一体部署，强推社会组织党建工作，坚持以“巩固提升年”活动为抓手，以创建“党建强、服务优”支部为目标，突出发挥社会组织党组织服务发展、服务医院、服务员工的作用，积极实施“三个纳入、四个带头、五大工程”和“评星晋级，争创双强”活动，全面加强社会组织服务型党组织建设，实现党建与服务两促进两提升，2017年医院党支部被商洛市委授予“先进基层党组织”。</div>
+				</div>
+			</div>
+			<div id="zzss">
+				<p class="p">组织生活
+					<!--<a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;查看更多》
+					</a>-->
+				</p>
+				<ul class="ul1">
+					<li class="active">支部党员大会</li>
+					<li class="">支部委员会</li>
+					<li class="">党小组会</li>
+					<li class="">党课</li>
+				</ul>
+				<div class="a">
+					<div style="width: 1px; height: 130px; border-left: 1px solid #D71E07;display: inline-block;"class="xxx"></div>
+					<div class="div1">
+						<img src="img/lc.png" class="imga"/>
+						<span>学习贯彻党的十九大精神，总结2017年工作</span>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/zb.png" />
+								<span>支部委员会</span>
+							</span>
+							<span class="spp">
+								<img src="img/home.png" />
+								<span>所属支部</span>
+							</span>
+						</div>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/date.png" />
+								<span>1.5</span>
+							</span>
+							<span class="spp">
+								<img src="img/address.png" />
+								<span>所属党支部</span>
+							</span>
+						</div>
+						<div class="div3">
+							<span>应到<span id="num4">12</span>人，实到<span id="num5">12</span>人</span>
+						</div>
+					</div>
+					<div style="width: 1px; height: 130px; border-left: 1px solid #D71E07;display: inline-block;"class="xxx1"></div>
+					<div class="div1">
+						<img src="img/lc.png" class="imga"/>
+						<span>“学报告走基层访贫困送温暖”主题党日动员会</span>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/zb.png" />
+								<span>支部党员大会</span>
+							</span>
+							<span class="spp">
+								<img src="img/home.png" />
+								<span>所属党支部</span>
+							</span>
+						</div>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/date.png" />
+								<span>1.2</span>
+							</span>
+							<span class="spp">
+								<img src="img/address.png" />
+								<span>所属党支部</span>
+							</span>
+						</div>
+						<div class="div3">
+							<span>应到<span id="num4">12</span>人，实到<span id="num5">12</span>人</span>
+						</div>
+					</div>
+					<div style="width: 1px; height: 130px; border-left: 1px solid #D71E07;display: inline-block;"class="xxx2"></div>
+					<div class="div1">
+						<img src="img/lc.png" class="imga"/>
+						<span>“履行党员义务、自觉缴纳党费”主题党日动员会</span>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/zb.png" />
+								<span>支部党员大会</span>
+							</span>
+							<span class="spp">
+								<img src="img/home.png" />
+								<span>所属党支部</span>
+							</span>
+						</div>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/date.png" />
+								<span>2.22</span>
+							</span>
+							<span class="spp">
+								<img src="img/address.png" />
+								<span>所属党支部</span>
+							</span>
+						</div>
+						<div class="div3">
+							<span>应到<span id="num4">12</span>人，实到<span id="num5">12</span>人</span>
+						</div>
+					</div>
+					<div style="width: 1px; height: 130px; border-left: 1px solid #D71E07;display: inline-block;"class="xxx3"></div>
+					<div class="div1">
+						<img src="img/lc.png" class="imga"/>
+						<span>支部书记述职评议工作会</span>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/zb.png" />
+								<span>支部党员大会</span>
+							</span>
+							<span class="spp">
+								<img src="img/home.png" />
+								<span>所属党支部</span>
+							</span>
+						</div>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/date.png" />
+								<span>2.28</span>
+							</span>
+							<span class="spp">
+								<img src="img/address.png" />
+								<span>所属党支部</span>
+							</span>
+						</div>
+						<div class="div3">
+							<span>应到<span id="num4">12</span>人，实到<span id="num5">11</span>人</span>
+						</div>
+					</div>
+					<div class="div1">
+						<img src="img/lc.png" class="imga"/>
+						<span>学习两会精神，做合格党员暨第二季度工作布置会</span>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/zb.png" />
+								<span>支部党员大会</span>
+							</span>
+							<span class="spp">
+								<img src="img/home.png" />
+								<span>所属党支部</span>
+							</span>
+						</div>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/date.png" />
+								<span>3.30</span>
+							</span>
+							<span class="spp">
+								<img src="img/address.png" />
+								<span>所属党支部</span>
+							</span>
+						</div>
+						<div class="div3">
+							<span>应到<span id="num4">12</span>人，实到<span id="num5">12</span>人</span>
+						</div>
+					</div>
+				</div>
+				<div class="a" style="display: none;">
+					<div style="width: 1px; height: 130px; border-left: 1px solid #D71E07;display: inline-block;" class="xxx"></div>
+					<div class="div1">
+						<img src="img/lc.png" class="imga"/>
+						<span>总结2017年工作成绩，谋划2018年支部工作</span>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/zb.png" />
+								<span>支部党员大会</span>
+							</span>
+							<span class="spp">
+								<img src="img/home.png" />
+								<span>所属党支部</span>
+							</span>
+						</div>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/date.png" />
+								<span>1.5</span>
+							</span>
+							<span class="spp">
+								<img src="img/address.png" />
+								<span>所属党支部</span>
+							</span>
+						</div>
+						<div class="div3">
+							<span>应到<span id="num4">6</span>人，实到<span id="num5">6</span>人</span>
+						</div>
+					</div>
+					<div style="width: 1px; height: 130px; border-left: 1px solid #D71E07;display: inline-block;" class="xxx1"></div>
+					<div class="div1">
+						<img src="img/lc.png" class="imga"/>
+						<span>述职评议、组织生活会筹备会</span>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/zb.png" />
+								<span>支部委员会</span>
+							</span>
+							<span class="spp">
+								<img src="img/home.png" />
+								<span>所属党支部</span>
+							</span>
+						</div>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/date.png" />
+								<span>2.26</span>
+							</span>
+							<span class="spp">
+								<img src="img/address.png" />
+								<span>所属党支部</span>
+							</span>
+						</div>
+						<div class="div3">
+							<span>应到<span id="num4">6</span>人，实到<span id="num5">6</span>人</span>
+						</div>
+					</div>
+					<div class="div1">
+						<img src="img/lc.png" class="imga"/>
+						<span>两学一做坚守信念，争做合格党员专题研讨会</span>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/zb.png" />
+								<span>支部委员会</span>
+							</span>
+							<span class="spp">
+								<img src="img/home.png" />
+								<span>所属支部</span>
+							</span>
+						</div>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/date.png" />
+								<span>3.14</span>
+							</span>
+							<span class="spp">
+								<img src="img/address.png" />
+								<span>所属党支部</span>
+							</span>
+						</div>
+						<div class="div3">
+							<span>应到<span id="num4">6</span>人，实到<span id="num5">6</span>人</span>
+						</div>
+					</div>
+				</div>
+				<div class="a" style="display: none;">
+					<!--<div style="width: 1px; height: 130px; border-left: 1px solid #D71E07;display: inline-block;
+						"class="xxx"></div>-->
+					<!--<div class="div1">
+						<img src="img/lc.png" class="imga"/>
+						<span>关于“不忘初心”主题党日活动的安排会议</span>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/zb.png" />
+								<span>支部委员会</span>
+							</span>
+							<span class="spp">
+								<img src="img/home.png" />
+								<span>所属支部</span>
+							</span>
+						</div>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/date.png" />
+								<span>2018-03-16 9:00</span>
+							</span>
+							<span class="spp">
+								<img src="img/address.png" />
+								<span>党员活动室</span>
+							</span>
+						</div>
+						<div class="div3">
+							<span>应到<span id="num4">3</span>人，实到<span id="num5">3</span>人</span>
+						</div>
+					</div>
+					<div class="div1">
+						<img src="img/lc.png" class="imga"/>
+						<span>会议标题会议标题</span>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/zb.png" />
+								<span>支部党员大会</span>
+							</span>
+							<span class="spp">
+								<img src="img/home.png" />
+								<span>所属党支部</span>
+							</span>
+						</div>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/date.png" />
+								<span>2018-01-01 9:00</span>
+							</span>
+							<span class="spp">
+								<img src="img/address.png" />
+								<span>所属党支部</span>
+							</span>
+						</div>
+						<div class="div3">
+							<span>应到<span id="num4">xx</span>人，实到<span id="num5">xx</span>人</span>
+						</div>
+					</div>-->
+				</div>
+				<div class="a" style="display: none;">
+					<div class="div1">
+						<img src="img/lc.png" class="imga"/>
+						<span>学习贯彻党的十九大精神，打造五星级党支部</span>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/zb.png" />
+								<span>支部委员会</span>
+							</span>
+							<span class="spp">
+								<img src="img/home.png" />
+								<span>所属支部</span>
+							</span>
+						</div>
+						<div class="div2">
+							<span class="spp">
+								<img src="img/date.png" />
+								<span>2.6</span>
+							</span>
+							<span class="spp">
+								<img src="img/address.png" />
+								<span>所属党支部</span>
+							</span>
+						</div>
+						<div class="div3">
+							<span>应到<span id="num4">12</span>人，实到<span id="num5">12</span>人</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="zbrank">
+				<p class="p">支部排名
+					<!--<a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;更多》
+					</a>-->
+				</p>
+				<table>
+					<tbody>
+						<tr>
+							<td class="td1"><img src="img/1icon.png" /></td>
+							<td class="td2"><div class="imgg"><img src="img/logo.png" /></div></td>
+							<td class="td3">贺怀德</td>
+							<td class="td4"><span id="score1">5792</span>分</td>
+						</tr>
+						<tr>
+							<td class="td1"><img src="img/2icon.png" /></td>
+							<td class="td2"><div class="imgg"><img src="img/logo.png" /></div></td>
+							<td class="td3">索顺平</td>
+							<td class="td4"><span id="score1">5201</span>分</td>
+						</tr>
+						<tr>
+							<td class="td1"><img src="img/3icon.png" /></td>
+							<td class="td2"><div class="imgg"><img src="img/logo.png" /></div></td>
+							<td class="td3">邱莉盈</td>
+							<td class="td4"><span id="score1">4723</span>分</td>
+						</tr>
+						<tr>
+							<td class="td1"><img src="" /></td>
+							<td class="td2"><div class="imgg"><img src="img/logo.png" /></div></td>
+							<td class="td3">王敏灵</td>
+							<td class="td4"><span id="score1">4392</span>分</td>
+						</tr>
+						<tr>
+							<td class="td1"><img src="" /></td>
+							<td class="td2"><div class="imgg"><img src="img/logo.png" /></div></td>
+							<td class="td3">王文宏</td>
+							<td class="td4"><span id="score1">3891</span>分</td>
+						</tr>
+						<tr>
+							<td class="td1"><img src="" /></td>
+							<td class="td2"><div class="imgg"><img src="img/logo.png" /></div></td>
+							<td class="td3">李敏盈</td>
+							<td class="td4"><span id="score1">3692</span>分</td>
+						</tr>
+						<tr>
+							<td class="td1"><img src="" /></td>
+							<td class="td2"><div class="imgg"><img src="img/logo.png" /></div></td>
+							<td class="td3">王雅洁</td>
+							<td class="td4"><span id="score1">3021</span>分</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
+<script language="javascript">
+	
+	function Tab(num)
+	{
+	    for(var i=1;i<=6;i++)
+	    {
+	        if(i==num)
+	           	document.getElementById("d"+i).style.display="block";
+	        else
+	           	document.getElementById("d"+i).style.display="none";
+	    }
+	}
+	
+	
+	//轮播
+	
+	var ls = document.querySelectorAll('.ul1 li');
+    var aas = document.getElementsByClassName('a');
+    for(var i=0; i < ls.length; i++){
+        ls[i].index = i;
+        ls[i].onclick=function () {
+        	
+            for(var i=0; i < aas.length;i++){
+                ls[i].className = '';
+                aas[i].style.display = 'none';
+            }
+            //设置当前为高亮显示
+            this.className = 'active';
+            aas[this.index].style.display = 'block';
+        }
+    }
+    //绘制饼图  
+    function drawCircle(canvasId, data_arr, color_arr, text_arr)  
+    {  
+        var c = document.getElementById(canvasId);  
+        var ctx = c.getContext("2d");  
+        var radius = c.height / 3 - 20; 
+        var ox = radius + 60, oy = radius + 60; //圆心  
+        var width = 10, height = 10; //图例宽和高  
+		var posX = ox * 2 + 20, posY = 100;   //  
+        var textX = posX + width + 5, textY = posY + 10;  
+        var startAngle = 0; //起始弧度  
+        var endAngle = 0;   //结束弧度  
+        for (var i = 0; i < data_arr.length; i++)  
+        {  
+            //绘制饼图  
+            endAngle = endAngle + data_arr[i] * Math.PI * 2; //结束弧度  
+            ctx.fillStyle = color_arr[i];  
+            ctx.beginPath();  
+            ctx.moveTo(ox, oy); //移动到到圆心  
+            ctx.arc(ox, oy, radius, startAngle, endAngle, false);  
+            ctx.closePath();  
+            ctx.fill();  
+            startAngle = endAngle; //设置起始弧度  
+  
+            //绘制比例图及文字  
+            ctx.fillStyle = color_arr[i];  
+            ctx.fillRect(posX-30, posY + 20 * i, width, height);  
+            ctx.moveTo(posX, posY + 20 * i);  
+            ctx.font = 'bold 14px 苹方';    //斜体 30像素 微软雅黑字体  
+            ctx.fillStyle = color_arr[i]; //"#000000";  
+            var percent = text_arr[i] + "：" + 100 * data_arr[i] + "%";  
+                    ctx.fillText(percent, textX-30, textY + 20 * i);  
+                }  
+            }  
+  			window.addEventListener("resize", resizeCanvas, false);
+
+			function resizeCanvas() {
+			    w = canvas.width = window.innerWidth*51.3/100;
+			}
+            function init() {  
+		        var data_arr = [0.416,0.584];  
+		        var color_arr = ["#f00", "#FFAA00"];  
+		        var text_arr = ["男", "女"];  
+		        drawCircle("canvas_circle", data_arr, color_arr, text_arr);  
+		    }
+            function a() {  
+		        var data_arr = [1];  
+		        var color_arr = ["#FFAA00"];  
+		        var text_arr = ["汉"];  
+		        drawCircle("canvas_circle1", data_arr, color_arr, text_arr);  
+		    }
+            function b() {  
+		        var data_arr = [0.584,0.416];
+		        var color_arr = ["#FFAA00",'green'];  
+		        var text_arr = ["中专", "大专"];  
+		        drawCircle("canvas_circle2", data_arr, color_arr, text_arr);  
+		    }
+            function c() {  
+		        var data_arr = [0.08,0.25,0.42,0.25];  
+		        var color_arr = ["#f00", "#FFAA00",'black','green'];  
+		        var text_arr = ["60以上", "40-50","30-40","30以下"];  
+		        drawCircle("canvas_circle3", data_arr, color_arr, text_arr);  
+		    }
+            function d() {  
+		        var data_arr = [0.917,0.083];  
+		        var color_arr = ["#f00",'green'];  
+		        var text_arr = ["民办非企业专业技术岗位", "民办非企业管理岗位"];  
+		        drawCircle("canvas_circle4", data_arr, color_arr, text_arr);  
+		    }
+            function e() {  
+		        var data_arr = [0.5,0.3,0.3,0.2];  
+		        var color_arr = ["#f00", "#FFAA00",'black','green'];  
+		        var text_arr = ["汉", "回族","阿昌族","布依族"];  
+		        drawCircle("canvas_circle5", data_arr, color_arr, text_arr);  
+		    }
+    //页面加载时执行init()函数  
+    window.onload = init;
+</script>

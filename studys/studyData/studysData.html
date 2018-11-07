@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>学习资料管理</title>
+		<link rel="stylesheet" type="text/css" href="../css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap-datetimepicker.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/resoueceLibrary.css"/>
+		<link rel="stylesheet" type="text/css" href="../layui/css/modules/layer/default/layer.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/zTreeStyle.css"/>
+		<style type="text/css">
+			article.container-fluid .tableBox{
+				margin: 0;
+				height: 585px;
+				border: 1px solid #ddd;
+				border-top: 0;
+			}
+			aside{
+				border: 1px solid #ddd;
+				border-right: 0px;
+			}
+			aside>.title{
+				height: 35px;
+				margin: 0;
+				line-height: 35px;
+				margin-left: 8px;
+				font-weight: 600;
+			}
+			aside>.ztreeBox{
+				height: 548px;
+				overflow: auto;
+				border-top: 1px solid #ddd;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<header class="container-fluid">
+				<div class="row">
+					<div class="col-xs-6 text-left">
+						<!--<a href="javascript:history.go(-1);" style="color: #333;"><i class="fa fa-angle-double-left"></i>返回</a>-->
+						<h4>学习资料管理</h4>
+					</div>
+					<div class="col-xs-6 text-right">
+						<button class="btn btn-primary">分类管理</button>
+						<button class="btn btn-primary">添加资料</button>
+					</div>
+				</div>
+			</header>
+		</div>
+		<article class="container-fluid">
+			<div class="row content_header">
+				<div class="form-inline col-xs-4 curriculumName">
+					<div class="col-xs-12">
+						<label class="col-xs-3" style="width: 70px;">资料名称：</label>
+						<div class="col-xs-3">
+							<input type="text" class="form-control nameSearch" placeholder="输入课程名称" />
+						</div>
+					</div>
+				</div>
+				<div class="form-inline col-xs-6 timeInp">
+					<div style="display: inline-block;">
+						<label style="width: 70px;">创建时间</label>
+						<input type="text" id="datetimeStart" class="form-control" style="width: 120px;" readonly="readonly" />
+						<label class="text-center" style="width: 20px;">至</label>
+						<input type="text" id="datetimeEnd" class="form-control" style="width: 120px;" readonly="readonly" />
+					</div>
+					<button class="btn btn-primary serchBtn">查询</button>
+				</div>
+			</div>
+			<div class="content col-xs-12">
+				<aside class="aside col-xs-2">
+					<p class="title">课程分类</p>
+					<div class="ztreeBox">
+						<ul id="treeDemo" class="ztree"></ul>
+					</div>
+				</aside>
+				<div class="tableBox col-xs-10">
+					<table class="table table-bordered table-hover">
+						<tr>
+							<th>序号</th>
+							<th>资料名称</th>
+							<th>创建时间</th>
+							<th>操作</th>
+						</tr>
+						<tr class="trList" style="display: none;">
+							<td>1</td>
+							<td>习近平新时代中国特色社会主义思想</td>
+							<td>2018-05-02</td>
+							<td>
+								<a href="javascript:;">编辑</a>
+								<input type="hidden" />
+								<a href="javascript:;">删除</a>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="navfooter" style="text-align: center;">
+				
+			</div>
+		</article>
+	</body>
+</html>
+<script src="../js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/bootstrap-paginator.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery.ztree.core.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery.ztree.excheck.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../../r/wx/common/pathimage"></script>
+<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="../layui/lay/modules/layer.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function(){
+		//调用日历插件
+		$("#datetimeStart").datetimepicker({
+	        format: 'yyyy-mm-dd',
+	        minView:'month',
+	        language: 'zh-CN',
+	        autoclose:true
+	    }).on("click",function(){
+	        $("#datetimeStart").datetimepicker("setEndDate",$("#datetimeEnd").val())
+	    });
+	    $("#datetimeEnd").datetimepicker({
+	        format: 'yyyy-mm-dd',
+	        minView:'month',
+	        language: 'zh-CN',
+	        autoclose:true,
+	        startDate:new Date()
+	    }).on("click",function(){
+	        $("#datetimeEnd").datetimepicker("setStartDate",$("#datetimeStart").val())
+	    });
+	    
+	    
+		var trList = $(".trList"),
+			classIdArr = [],
+			classIdStr = '',
+			page = 1,
+			size = 15;
+		trList.remove();
+		//ztree
+		var setting = {
+			view: {
+				showIcon: showIconForTree
+			},
+			data: {
+				simpleData: {
+					enable: true,
+					idKey: "_id",
+					pIdKey: "parentId",
+				}
+			},
+			callback: {
+				onClick: ztreeClick
+			}
+		};
+		function showIconForTree(treeId, treeNode) {
+			return !treeNode.isParent;
+		};
+		
+		function ztreeClick(e,id,node){
+			classIdArr = [];
+			if (!node.parentId) {
+				classIdStr = "";
+			} else if(node.parentId == 0) {
+				if (node.children) {
+					classIdArr.push(node._id);
+					for (var i = 0;i<node.children.length;i++) {
+						classIdArr.push(node.children[i]._id);
+					}
+				} else{
+					classIdArr.push(node._id);
+				}
+				classIdStr = classIdArr.join(",");
+			} else {
+				classIdStr = node._id;
+			}
+			pageFun(page);
+		}
+
+		$.ajax({
+			type:"get",
+			url:_ctxPath + "pc/dataClassPc/findTentClass.action",
+			success: function(data){
+				if (data.success) {
+					var data = data.data;
+					data.unshift({"_id":"0","name":"全部","parentId":"-1","open":"true"});
+					$.fn.zTree.init($("#treeDemo"), setting, data);
+				} else{
+					layer.open({
+					  	title: '提示',
+					  	content: data.message
+					});
+				}
+			}
+		});
+		//查询
+		$(".serchBtn").off("click").on("click",function(){
+			pageFun(page);
+		});
+		pageFun(page);
+		function pageFun(page){
+			$.ajax({
+				type:"get",
+				url:_ctxPath + "pc/docDataPc/query.action",
+				data: {
+					"regex:name": $(".nameSearch").val(),
+					"gte:createTime|date": $("#datetimeStart").val(),
+					"lte:createTime|date": $("#datetimeEnd").val(),
+					"in:classIds|array": classIdStr,
+					"page": page,
+					"size": size
+				},
+				success: function(datas){
+					if (datas.success) {
+						var datas = datas.data;
+						var data = datas.data;
+						$("table .trList").remove();
+						if (data.length > 0) {
+							for (var a = 0;a<data.length;a++) {
+								var trListItem = trList.clone();
+								trListItem.css("display","");
+								trListItem.find("td").eq(0).text((page-1)*15+(a+1));
+								trListItem.find("td").eq(1).text(data[a].name);
+								trListItem.find("td").eq(2).text(data[a].frmtCreateTime);
+								trListItem.find("input").val(data[a]._id);
+								trListItem.find("a").off("click").on("click",function(){
+									if ($(this).text() == "编辑") {
+										var _id = $(this).next().val();
+										location.href = "newStatusData.html?id="+_id;
+									} else if($(this).text() == "删除") {
+										var _id = $(this).prev().val();
+										layer.open({
+									  		content: '删除后将无法恢复。确定要删除此资料?',
+									  		fixed: false,
+										  	resize: false,
+											scrollbar: false,
+											move: false,
+									  		btn: ['确定', '取消'],
+									  		yes: function(index, layero){
+									  			$.ajax({
+													type:"get",
+													url:_ctxPath + "pc/docDataPc/del/" + _id + ".action",
+													dataType: "json",
+													success:function(datasd){
+														layer.close(index);
+														if (datasd.success){
+															page = 1;
+															pageFun(page);
+														} else{
+									  						layer.open({
+															  	title: '提示',
+															  	content: datasd.message
+															});
+														}
+													}
+												});
+									  		},
+									  		btn2: function(index, layero){
+									    		
+											},
+											btn3: function(index, layero){
+									    		
+											}
+										});
+									}
+								});
+								$("table").append(trListItem);
+							}
+						} else{
+							//数据为空
+						}
+						$(".navfooter").html('<nav class="navi" aria-label="Page navigation"><ul class="pagination paginationLists" id="paginationLists"></ul></nav>');
+						$('#paginationLists').bootstrapPaginator({
+						    currentPage: datas.page,//当前的请求页面。
+						    totalPages: datas.pages,//一共多少页。
+						    size:"normal",//应该是页眉的大小。
+						    bootstrapMajorVersion: 3,//bootstrap的版本要求。
+						    alignment:"right",
+						    numberOfPages:15,//一页列出多少数据。
+						    itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+						        switch (type) {
+							        case "prev": return "上一页";
+							        case "next": return "下一页";
+							        case "page": return page;
+						        }
+						    }
+						});
+						$("#paginationLists a").off("click").on("click",function(){
+							if ($(this).text() == "下一页") {
+								if (page >= datas.pages) {
+									page = datas.pages;
+								} else{
+									page++;
+								}
+								pageFun(page);
+							} else if($(this).text() == "上一页") {
+								if (page <= 1) {
+									page = 1;
+								} else{
+									page--;
+								}
+								pageFun(page);
+							} else{
+								page = $(this).text();
+								pageFun(page);
+							}
+						})
+					} else{
+						layer.open({
+						  	title: '提示',
+						  	content: datas.message
+						});
+					}
+				}
+			});
+		}
+		$(".header button").off("click").on("click",function(){
+			if ($(this).text() == "分类管理") {
+				location.href = "studysClass.html";
+			} else if($(this).text() == "添加资料"){
+				location.href = "newStatusData.html";
+			}
+		});
+	});
+</script>

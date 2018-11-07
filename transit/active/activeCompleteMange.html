@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>党建活动完成情况</title>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/index.css"/>
+		<style type="text/css">
+			td img:first-of-type,th img {
+				width: 12px;
+				margin-right: 5px;
+			}
+			td img:last-of-type{
+				width: 12px;
+			}
+			td img.seeDetaile,td img.seeContent,td img.seeAuditing,td img.seePlanDetaile {
+				width: 18px;
+			}
+		</style>
+	</head>
+	<body>
+		<aside>
+			<img src="../img/nonews.png"/>
+		</aside>
+		<nav class="header">
+			<ol class="breadcrumb">
+			  <li><a href="javascript:;">经费管理</a></li>
+			  <li><a href="javascript:;">活动经费管理</a></li>
+			  <li><a href="javascript:;">党建活动管理</a></li>
+			  <li class="active cursor">党建活动计划</li>
+			</ol>
+		</nav>
+		<article>
+			<nav>
+				<ul class="clear">
+					<li class="left cursor active">党建活动完成情况查询</li>
+					<li class="left cursor">党建活动完成情况审核</li>
+					<li class="left cursor">党建活动计划填报</li>
+				</ul>
+			</nav>
+			<div class="tabCon">
+				<div class="tabContent1">
+					<section class="lineHeight form-inline row">
+						<label for="">选择年份：</label>
+						<select class="form-control widthMin verticalalignTop">
+							<option>2018</option>
+						</select>
+						<button class="btnbg">查询</button>
+					</section>
+					<section>
+						<table class="table table-striped table-layout tableNoBor">
+							<tr>
+								<th>单位名称</th>
+								<th>计划执行时间</th>
+								<th>状态</th>
+								<th>党员人数</th>
+								<th>党费情况</th>
+								<th>操作</th>
+							</tr>
+							<tr style="display: none;"></tr>
+							<tr>
+								<td>××××党委××××支部</td>
+								<td>2018-08-26 12:56</td>
+								<td>已完成</td>
+								<td>100</td>
+								<td>30000</td>
+								<td>
+									<img class="seeDetaile" src="../img/see.png" />
+									<img src="../img/export.png"/>
+								</td>
+							</tr>
+							<tr>
+								<td>××××党委××××支部</td>
+								<td>2018-08-26 12:56</td>
+								<td>已完成</td>
+								<td>100</td>
+								<td>30000</td>
+								<td>
+									<img class="seeDetaile" src="../img/see.png" />
+									<img src="../img/export.png"/>
+								</td>
+							</tr>
+						</table>
+					</section>
+				</div>
+				<div class="tabContent2">
+					<section>
+						<label for="">选择单位：</label>
+						<select class="form-control widthMin verticalalignTop">
+							<option>请选择</option>
+							<option>××××党委</option>
+						</select>
+						<button class="btnbg">查询</button>
+						<button class="btnbg2">提交上及审核</button>
+					</section>
+					<section>
+						<table class="table table-striped tableNoBor">
+							<tr>
+								<th>单位名称</th>
+								<th>计划执行时间</th>
+								<th>状态</th>
+								<th>操作</th>
+							</tr>
+							<tr style="display: none;"></tr>
+							<tr>
+								<td>××××党委××××支部</td>
+								<td>2018-08-26 12:56</td>
+								<td>待审核</td>
+								<td>
+									<a href="javascript:;" class="auditing">审核</a>
+								</td>
+							</tr>
+							<tr>
+								<td>××××党委××××支部</td>
+								<td>2018-08-26 12:56</td>
+								<td>本级已通过</td>
+								<td>
+									<a href="javascript:;" class="auditing">查看</a>
+								</td>
+							</tr>
+							<tr>
+								<td>××××党委××××支部</td>
+								<td>2018-08-26 12:56</td>
+								<td><span class="red">本级审核未通过</span><a href="javascript:;">查看原因</a></td>
+								<td>
+									<a href="javascript:;" class="auditing">退回填写人</a>
+								</td>
+							</tr>
+							<tr>
+								<td>××××党委××××支部</td>
+								<td>2018-08-26 12:56</td>
+								<td><span class="red">上级审核未通过</span><a href="javascript:;">查看原因</a></td>
+								<td>
+									<a href="javascript:;" class="auditing">退回填写人</a>
+								</td>
+							</tr>
+						</table>
+					</section>
+				</div>
+				<div class="tabContent3">
+					<section class="lineHeight form-inline row">
+						<label for="">选择时间：</label>
+						<select class="form-control widthMin verticalalignTop">
+							<option>请选择</option>
+							<option>2018</option>
+						</select>
+						<button class="btnbg">查询</button>
+					</section>
+					<section>
+						<table class="table table-striped tableNoBor">
+							<tr>
+								<th>单位名称</th>
+								<th>计划执行时间</th>
+								<th>状态</th>
+								<th>党员人数</th>
+								<th>党费情况</th>
+								<th>操作</th>
+							</tr>
+							<tr style="display: none;"></tr>
+							<tr>
+								<td>××××××党支部</td>
+								<td>2018年</td>
+								<td>审核中</td>
+								<td>100</td>
+								<td>30000</td>
+								<td><a href="javascript:;" class="addComplete">填写完成情况</a></td>
+							</tr>
+							<tr>
+								<td>××××××党支部</td>
+								<td>2017年</td>
+								<td><span class="red">未通过</span><a class="reason" href="javascript:;">查看原因</a></td>
+								<td>100</td>
+								<td>30000</td>
+								<td><a href="javascript:;">修改</a></td>
+							</tr>
+							<tr>
+								<td>××××××党支部</td>
+								<td>2016年</td>
+								<td>已完成</td>
+								<td>100</td>
+								<td>30000</td>
+								<td>
+									<img class="seePlanDetaile" src="../img/see.png"/>
+									<img src="../img/export.png"/>
+								</td>
+							</tr>
+						</table>
+					</section>
+				</div>
+			</div>
+		</article>
+	</body>
+</html>
+<script src="../../../moduleweb/resources/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../resources/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function(){
+		//tab切换
+		$("article>nav li").off("click").on("click",function() {
+			$(".tabCon>div").eq($(this).index()).show().siblings().hide();
+			$(this).addClass("active").siblings().removeClass("active");
+		});
+		//查看详情
+		$(".seeDetaile").off("click").on("click",function(){
+			location.href = "activeCompleteDetaile.html";
+		});
+		//添加完成情况
+		$(".addComplete").off("click").on("click",function(){
+			location.href = "addcomplete.html";
+		});
+		//审核
+		$(".auditing").on("clcik").on("click",function(){
+			location.href = "auditingDetaile.html";
+		});
+	})
+</script>

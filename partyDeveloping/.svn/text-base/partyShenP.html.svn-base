@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/partyShenP.css">
+    <link rel="stylesheet" href="../css/poperConfirm.css">
+    <style>
+        /*已成功*/
+        .suss{
+            color: #2198f2!important;
+        }
+        /*正在审核的*/
+        .sH{
+            color: #e1080c;
+        }
+        /*成功后面的红线*/
+        .redLine.itemdiv::before {
+            background-color: #e1080c!important;
+            border: 1px solid #e1080c!important;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div>
+        <div class="talkRecord">
+
+            <img src="../img/back.png"><span class="back">返回</span><span>预备党员审批</span>
+        </div>
+        <div>
+            <div class="left">
+                <div class="developObj">
+                    <span>党委预审</span><span>通过审批</span>
+                </div>
+                <div style="clear:both;"></div>
+                <div class="developW">当前发展过程</div>
+                <div class="boxWrapper">
+                    <div class="inner">
+                        <div class="hangding itemdiv dialogdiv">
+                            <div class="user  onHanding">
+                                <div><img src="../img/liC.png"></div>
+                            </div>
+                            <div class="body onWord">
+                                <div class="suss">
+                                    入党申请人
+                                </div>
+                                <div class="applyTime">
+                                    2018-01-21
+                                </div>
+                            </div>
+                        </div>
+                        <div class="itemdiv dialogdiv">
+                            <div class="user">
+                                <div><img src="../img/handing.png"></div>
+                            </div>
+                            <div class="body">
+                                <div class="sH">
+                                    积极分子
+                                </div>
+                                <div class="applyTime">
+                                    2018-01-21
+                                </div>
+                            </div>
+                        </div>
+                        <div class="itemdiv dialogdiv">
+                            <div class="user">
+                                <div><img src="../img/noHand.png"></div>
+                            </div>
+                            <div class="body">
+                                <div>发展对象</div>
+                            </div>
+                        </div>
+                        <div class="itemdiv dialogdiv">
+                            <div class="user">
+                                <div><img src="../img/noHand.png"></div>
+                            </div>
+                            <div class="body">
+                                <div>
+                                    预备党员
+                                </div>
+                            </div>
+                        </div>
+                        <div class="itemdiv dialogdiv">
+                            <div class="user">
+                                <div><img src="../img/noHand.png"></div>
+                            </div>
+                            <div class="body">
+                                <div>
+                                    正式党员
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+                <div class="list">
+                    <div class="listLeft">
+                        <div>
+                            <div>姓名:</div>
+                            <div>张三</div>
+                        </div>
+                        <div>
+                            <div>性别:</div>
+                            <div>男</div>
+                        </div>
+                        <div>
+                            <div>民族:</div>
+                            <div>汉</div>
+                        </div>
+                        <div>
+                            <div>身份证号:</div>
+                            <div>10023903294239</div>
+                        </div>
+                        <div>
+                            <div>出生日期:</div>
+                            <div>2017-01-23</div>
+                        </div>
+                        <div>
+                            <div>学历:</div>
+                            <div>大学</div>
+                        </div>
+                    </div>
+                    <div class="listRight">
+                        <div>
+                            <div>职务:</div>
+                            <div>人力资源经理</div>
+                        </div>
+                        <div>
+                            <div>职称:</div>
+                            <div>初级</div>
+                        </div>
+                        <div>
+                            <div>籍贯:</div>
+                            <div class="jG"><span>河北省</span><span>保定市</span><span>雄安新区</span></div>
+                        </div>
+                        <div>
+                            <div>出生地:</div>
+                            <div class="birthL"><span>河北省</span><span>保定市</span><span>雄安新区</span></div>
+                        </div>
+                        <div>
+                            <div>家庭住址:</div>
+                            <div>北京市东城区广渠门外冠城名敦道7号楼1512</div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="sugest">发展对象提交资料</div>
+                <div class="list thoughtB">
+                    <div>思想汇报</div><div class="submitB">已提交<span>4</span>份，点击查看</div>
+                </div>
+                <div class="sugest">流程</div>
+                <div class="list yiJ">
+                    <div class="list_Left">
+                        <div>
+                            <div>培养联系人:</div>
+                            <div class="person"><span>张三</span><span>李四</span></div>
+                        </div>
+                        <div>
+                            <div>政治审查报告:</div>
+                            <div><span>点击查看</span></div>
+                        </div>
+                        <div>
+                            <div>集中培训记录:</div>
+                            <div><span>已完成20学时，点击查看</span></div>
+                        </div>
+                        <div>
+                            <div>支委会审查意见:</div>
+                            <div><span>点击查看</span></div>
+                        </div>
+                        <!--<div>-->
+                        <!--<div>党支部考察意见:</div>-->
+                        <!--<div><span>已提交2份，点击查看</span></div>-->
+                        <!--</div>-->
+                    </div>
+                    <div class="list_Right">
+                    <div>
+                    <div>党委预审:</div>
+                    <div>通过</div>
+                    </div>
+                    <div>
+                    <div>支部大会决议:</div>
+                    <div><span>点击查看</span></div>
+                    </div>
+                    <div>
+                    <div>党组织谈话记录:</div>
+                    <div><span>点击查看</span></div>
+                    </div>
+                    <div>
+                    <div>党委审核:</div>
+                    <div>通过</div>
+                    </div>
+                    <!--<div>-->
+                    <!--<div>支部委员会意见:</div>-->
+                    <!--<div><span>点击查看</span></div>-->
+                    <!--</div>-->
+                    <!--<div>-->
+                    <!--<div>培养考察表:</div>-->
+                    <!--<div><span>点击查看</span></div>-->
+                    <!--</div>-->
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <!--<div class="rightTop">-->
+                <!--<div class="ziL">入党申请人提交材料</div>-->
+                <!--<div class="p"><img src="../img/uploadSb.png"><span>入党申请书</span><span class="sure">确定</span></div>-->
+                <!--<div class="p"><img src="../img/uploadSb.png"><span class="personR">个人简历</span><span class="sure">确定</span></div>-->
+                <!--</div>-->
+                <div class="rightBottom">
+                    <div class="waitB">待办</div>
+                    <div class="waitList">
+                        <ul>
+                            <li><img src="../img/waitB.png"><span>指定培联系人</span></li>
+                            <li><img src="../img/waitB.png"><span>上传谈话记录</span></li>
+                            <li><img src="../img/waitB.png"><span>上传党课培训记录</span></li>
+                            <li><img src="../img/waitB.png"><span>上传培养考察情况（每季度）</span></li>
+                            <li><img src="../img/waitB.png"><span>上传党支部考察情况（每半年）</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="rightBottom geyJ">
+                    <div class="waitB">列为发展对象时各方意见</div>
+                    <div class="waitList">
+                        <ul>
+                            <li><img src="../img/waitB.png"><span>上传党小组意见</span></li>
+                            <li><img src="../img/waitB.png"><span>上传培养联系人意见</span></li>
+                            <li><img src="../img/waitB.png"><span>上传党员意见</span></li>
+                            <li><img src="../img/waitB.png"><span>上传群众意见</span></li>
+                            <li><img src="../img/waitB.png"><span>上传支部委员会意见</span></li>
+                            <li><img src="../img/waitB.png"><span>确定发展对象，报上级党委审批</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<input type="button" value="我是弹窗" id="pop1">
+<div class="mask hid" id="mask"></div>
+<!--指定入党介绍人弹窗-->
+<div class="popBox hid" id="poper">
+    <div class="popB_Top">
+        <span class="addW" id="title">指定入党介绍人</span><span class="close" id="close"><img src="../img/close.png"></span>
+    </div>
+    <div class="popB_bottom">
+        <div id="inputBox">
+            <div>
+                <div>入党介绍人</div>
+                <div><input type="text" value="" ><img src="../img/select.png"></div>
+            </div>
+            <div>
+                <div>入党介绍人</div>
+                <div><input type="text" value="" ><img src="../img/select.png"></div>
+            </div>
+        </div>
+    </div>
+    <div class="btnList" id="twoB"><input type="button" id="sure" value="确定"><input type="button" id="cancel" value="取消"></div>
+</div>
+
+
+</body>
+<script src="../assets/js/jquery.js"></script>
+<!--提示框js-->
+<script src="../js/poperConfirm.js"></script>
+<script>
+    //    成功之后轴的红线
+    $(".suss").parent().parent().next().addClass("redLine");
+    //弹出提示
+    $("#pop").click(function () {
+        //初始化提示框   标题  内容   成功回调
+        initPoper("确定发展对象","确定该党员发展对象人选，并提交上级党委审批",true,function () {
+            alert();
+        })
+    });
+
+
+    $("#mask").height($(document).height());
+    $("#pop1").click(function () {
+        $("#mask").removeClass("hid");
+        $("#poper").removeClass("hid");
+    });
+    $("#mask").click(function () {
+        $(this).addClass("hid");
+        $("#poper").addClass("hid");
+    });
+    $("#cancel").click(function () {
+        $("#mask").addClass("hid");
+        $("#poper").addClass("hid");
+    });
+    $("#close").click(function () {
+        $("#mask").addClass("hid");
+        $("#poper").addClass("hid");
+    })
+</script>
+</html>

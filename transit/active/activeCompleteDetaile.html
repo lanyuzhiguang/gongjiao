@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>查看详情</title>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/index.css"/>
+		<style type="text/css">
+			td img {
+				width: 18px;
+			}
+			article section:first-of-type {
+				padding-bottom: 0;
+			}
+			article section:nth-of-type(2) p {
+				line-height: 30px;
+			}
+			article section:nth-of-type(2) p strong:first-of-type {
+				display: inline-block;
+				margin-right: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		<aside>
+			<img src="../img/nonews.png"/>
+		</aside>
+		<nav class="header">
+			<ol class="breadcrumb">
+			  <li><a href="javascript:;">经费管理</a></li>
+			  <li><a href="javascript:;">活动经费管理</a></li>
+			  <li><a href="javascript:;">党建活动管理</a></li>
+			  <li class="active cursor">党建活动计划</li>
+			</ol>
+		</nav>
+		<article>
+			<section>
+				<button class="btnbg">导出</button>
+			</section>
+			<section>
+				<p><label for="">单位名称：<span>××××党委××××支部</span></label></p>
+				<p>
+					<strong>党员人数：<span>100</span></span></strong>
+					<strong>党费金额：<span>30000</span></strong></p>
+			</section>
+			<section>
+				<table class="table table-striped tableNoBor">
+					<tr style="display: none;"></tr>
+					<tr>
+						<th>时间</th>
+						<th>党建活动名称</th>
+						<th>实际参与人数</th>
+						<th>党建活动经费</th>
+						<th>留存档费（党组织工作经费）</th>
+						<th>纳入管理费（党组织工作经费）</th>
+						<th>发票（张数）</th>
+						<th>是否已上传至e先锋</th>
+						<th>活动效果</th>
+						<th>备注</th>
+					</tr>
+					<tr>
+						<td>2018年1月</td>
+						<td>这是活动名称</td>
+						<td>100</td>
+						<td>30000</td>
+						<td>100</td>
+						<td>100</td>
+						<td>100</td>
+						<td>是</td>
+						<td><img class="seeContent" src="../img/see.png"/></td>
+						<td><img class="seeContent" src="../img/see.png"/></td>
+					</tr>
+				</table>
+			</section>
+		</article>
+		<div class="alertBox">
+			<div class="alert">
+				<div class="header">
+					<p class="ellipsis">内容简介</p>
+					<img class="closeAlert" src="../img/close.png"/>
+				</div>
+				<div class="alert_content">
+					<p class="indent">原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="../../../moduleweb/resources/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../resources/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function(){
+		$(".seeContent").off("click").on("click",function(){
+			$(".alertBox").fadeIn();
+		});
+		$(".alertBox .closeAlert").off("click").on("click",function(){
+			$(".alertBox").fadeOut();
+		});
+	});
+</script>

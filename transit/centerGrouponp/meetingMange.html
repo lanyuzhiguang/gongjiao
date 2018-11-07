@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>会议管理</title>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/index.css"/>
+		<style type="text/css">
+			.tabcontent {
+				padding: 15px;
+			}
+			.tabcontent.row {
+				line-height: 30px;
+			}
+			.tabcontentImg img {
+				float: left;
+				width: 100px;
+				height: 100px;
+				margin-right: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<aside>
+			<img src="../img/nonews.png"/>
+		</aside>
+		<nav class="header">
+			<ol class="breadcrumb">
+			  <li><a href="javascript:;">中心组学习</a></li>
+			  <li><a href="javascript:;">我参与的</a></li>
+			  <li class="active cursor">会议管理</li>
+			</ol>
+		</nav>
+		<article>
+			<nav>
+				<ul class="clear">
+					<li class="left cursor active">学习详情</li>
+					<li class="left cursor">学习记录</li>
+				</ul>
+			</nav>
+			<div class="tabCon">
+				<div class="tabContent1">
+					<section>
+						<div class="con_title">基本信息</div>
+						<div class="tabcontent row">
+							<div class="col-xs-4">
+								<p>标题：<span>学习十九大精神</span></p>
+								<p>结束时间：<span>2018-01-01</span></p>
+								<p>单位名称：<span>某某某党支部</span></p>
+							</div>
+							<div class="col-xs-4">
+								<p>开始时间：<span>2018-01-01</span></p>
+								<p>会议地点：<span>会议室</span></p>
+								<p>参与人员：<span>张三等33人</span><a href="javascript:;">查看</a></p>
+							</div>
+							<div class="col-xs-4">
+								<p>会议状态：<span>未开始</span></p>
+								<p>会议类型：<span>普通会议</span></p>
+							</div>
+						</div>
+					</section>
+					<section>
+						<div class="con_title">学习内容</div>
+						<div class="tabcontent">
+							正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容。
+						</div>
+					</section>
+					<section>
+						<div class="con_title">图片</div>
+						<div class="tabcontent tabcontentImg clear">
+							<img src="../../resources/img/4.jpg"/>
+							<img src="../../resources/img/4.jpg"/>
+						</div>
+					</section>
+					<section>
+						<div class="con_title">学习材料</div>
+						<div class="tabcontent">
+							<p>文档一.docx</p>
+							<p>文档二.docx</p>
+							<p>文档三.docx</p>
+						</div>
+					</section>
+				</div>
+				<div class="tabContent2">
+					<section>
+						<div class="con_title">现场图片</div>
+						<div class="tabcontent tabcontentImg clear">
+							<img src="../../resources/img/4.jpg"/>
+							<img src="../../resources/img/4.jpg"/>
+						</div>
+					</section>
+					<section>
+						<div class="con_title">学习记录</div>
+						<div class="tabcontent">
+							正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容正文内容。
+						</div>
+					</section>
+					<section>
+						<div class="con_title">学习附件</div>
+						<div class="tabcontent">
+							<p>文档一.docx</p>
+							<p>文档二.docx</p>
+							<p>文档三.docx</p>
+						</div>
+					</section>
+				</div>
+			</div>
+		</article>
+	</body>
+</html>
+<script src="../../../moduleweb/resources/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../resources/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function() {
+		//tab切换
+		$("article>nav li").off("click").on("click",function() {
+			$(".tabCon>div").eq($(this).index()).show().siblings().hide();
+			$(this).addClass("active").siblings().removeClass("active");
+		});
+	});
+</script>

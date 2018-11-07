@@ -1,0 +1,145 @@
+body{
+	font-family: "苹方";
+}
+.talkRecord{
+	height:44px;
+	background:#f1f1f1 ;
+	line-height: 44px;
+	font-size: 16px;
+}
+.talkRecord img{
+	width: 15px;
+	margin-left: 42px;
+	margin-right: 10px;
+	vertical-align: middle;
+}
+#backP{
+	cursor: pointer;
+}
+.back{
+	margin-right: 20px;
+}
+.talkInput{
+	width: 80%;
+	margin: auto;
+	overflow: hidden;
+	margin-top: 14px;
+}
+.talkLeft{
+	float: left;
+}
+.talkRight{
+	float: right;
+}
+.time,.local{
+	display: inline-block;
+}
+.inputBox{
+	display: inline-block;
+}
+.talkLeft div>div:first-child,.talkRight div>div:first-child{
+	margin-right: 14px;
+	text-align: right;
+	font-size: 14px;
+	width: 20%;
+}
+.talkLeft div>div,.talkRight div>div{
+	display: inline-block;
+}
+.talkLeft div>div:last-child input,.talkRight div>div:last-child input{
+	width:250px;
+	height: 26px;
+	border: 1px solid #d2d2d2;
+	outline: none;
+	border-radius: 2px;
+}
+.talkLeft{
+	width: 50%;
+}
+.talkRight{
+	width: 50%;
+}
+.talkLeft>div,.talkRight>div{
+	margin-bottom: 12px;
+}
+.textA{
+	width: 100%;
+	clear: both;
+}
+#back{
+	cursor: pointer;
+}
+.textA>div:first-child{
+	display: inline-block;
+	width: 14%;
+	text-align: right;
+	font-size: 14px;
+}
+.textA>div:last-child{
+	display: inline-block;
+	width: 72%;
+	margin-left: 9px;
+}
+.textA>div:last-child textarea{
+	width: 91.2%!important;
+	border: 1px solid #d2d2d2;
+	height: 336px;
+	vertical-align: top;
+	outline: none;
+	border-radius: 2px;
+}
+.fuJ{
+	font-size: 14px;
+	width: 100%;
+	margin-top: 27px;
+}
+.fuJ>div:first-child{
+	width: 14%;
+	text-align: right;
+	margin-right: 14px;
+}
+.fuJ>div:last-child{
+	width: 338px;
+	height: 26px;
+	line-height: 26px;
+	background: #f1f1f1;
+	text-align: center;
+}
+.fuJ>div{
+	display: inline-block;
+}
+.fuJ>div:last-child img{
+	width: 14px;
+	vertical-align: middle;
+	margin-right: 18px;
+}
+.fuJList{
+	width: 100%;
+	margin-top: 20px;
+	margin-left: 12%;
+	font-size: 14px;
+	color:#2198f2;
+}
+.fuJList span{
+	margin-right: 26px;
+}
+#submit{
+	width:268px;
+	height: 46px;
+	line-height: 46px;
+	text-align: center;
+	color: #ffffff;
+	padding: 0 0;
+	border: 1px solid #2198f2;
+	border-radius:4px ;
+	display: block;
+	margin: auto;
+	font-size: 18px;
+	background:#2198f2;
+	margin-top:32px;
+	cursor: pointer;
+}
+#submit{
+	outline: none;
+	border-color:#2198f2;
+}

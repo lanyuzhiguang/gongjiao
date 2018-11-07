@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>课程统计</title>
+		<link rel="stylesheet" type="text/css" href="../css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap-datetimepicker.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/resoueceLibrary.css"/>
+		<link rel="stylesheet" type="text/css" href="../layui/css/modules/layer/default/layer.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/zTreeStyle.css"/>
+		<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css"/>
+		<style type="text/css">
+			.statistics{
+				padding: 8px;
+			}
+			.clear li{
+				width: 50%;
+				float: left;
+				border: 1px solid #ddd;
+				padding: 8px;
+				font-size: 20px;
+			}
+			.clear li .titleName{
+				white-space: nowrap;
+				font-size: 12px;
+			}
+			.statistics .btn-primary{
+				width: 100%;
+				padding: 10px;
+				margin-bottom: 8px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<header class="container-fluid">
+				<div class="row">
+					<div class="col-xs-6 text-left">
+						<a href="javascript:history.go(-1);" style="color: #333;"><i class="fa fa-angle-double-left"></i>返回</a>
+						<h4>课程统计</h4>
+					</div>
+				</div>
+			</header>
+		</div>
+		<article class="container-fluid">
+			<div class="col-xs-2" style="width: 25%;">
+				<div class="statistics">
+					<ul class="clear">
+						<li>
+							<p class="titleName">累计学习人数</p>
+							<strong id="allstudyperople">0</strong>
+						</li>
+						<li>
+							<p class="titleName">累计考试人数</p>
+							<strong id="allexampeople">0</strong>
+						</li>
+						<li>
+							<p class="titleName">已完成学习人数</p>
+							<strong id="allstudyfinish">0</strong>
+						</li>
+						<li>
+							<p class="titleName">考试通过率</p>
+							<strong id="exampassrate">0</strong>
+						</li>
+						<li>
+							<p class="titleName">平均完成进度</p>
+							<strong id="speedOfProgress">0</strong>
+						</li>
+						<li>
+							<p class="titleName">最高分</p>
+							<strong id="max">0</strong>
+						</li>
+						<li>
+							<p class="titleName">心得发表数量</p>
+							<strong id="allnoteNum">0</strong>
+						</li>
+						<li>
+							<p class="titleName">最低得分</p>
+							<strong id="min">0</strong>
+						</li>
+						<li>
+							<p class="titleName">心得发布人数</p>
+							<strong id="allnotePeopleNum">0</strong>
+						</li>
+						<li>
+							<p class="titleName">平均分</p>
+							<strong id="avgNum">0</strong>
+						</li>
+					</ul>
+					<button class="btn btn-primary seexd">查看课程心得</button>
+					<button class="btn btn-primary seeExam">查看课程考试</button>
+				</div>
+			</div>
+			<div class="col-xs-10" style="width: 75%;">
+				<div class="row content_header">
+					<div class="form-inline col-xs-9 curriculumName">
+						<div class="col-xs-12">
+							<label style="width: 70px;">学员姓名：</label>
+							<input type="text" class="form-control nameSearch" placeholder="" style="width: 150px;" />
+							<label style="width: 100px;">课程完成状态：</label>
+							<select id="selectState" name="" class="form-control" style="width: 150px;">
+								<option>全部</option>
+								<option>进行中</option>
+								<option>已通过</option>
+								<option>已完成</option>
+							</select>
+							<button id="chaxun" class="btn btn-primary" >查询</button>
+						</div>
+					</div>
+					<!--<div class="form-inline col-xs-3 timeInp text-right">
+						<button class="btn btn-primary">导出</button>
+					</div>-->
+				</div>
+				<div class="tableBox">
+					<table class="table table-bordered table-hover">
+						<tr>
+							<th>序号</th>
+							<th>学员姓名</th>
+							<th>所属支部</th>
+							<th>报名时间</th>
+							<th>课程完成状态</th>
+							<th>学习进度</th>
+							<th>心得发布数量</th>
+							<th>考试得分</th>
+							<th>考试通过情况</th>
+						</tr>
+						<tr class="trList">
+							<td>1</td>
+							<td>张三</td>
+							<td>某某某党支部</td>
+							<td>2018-05-02</td>
+							<td>进行中</td>
+							<td>60%</td>
+							<td>2</td>
+							<td>未考试</td>
+							<td>未通过</td>
+						</tr>
+					</table>
+				</div>
+				<div class="navfooter" style="text-align: center;">
+
+				</div>
+			</div>
+		</article>
+	</body>
+</html>
+<script src="../../../r/wx/common/pathimage"></script>
+<script src="../js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/bootstrap-paginator.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery.ztree.core.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery.ztree.excheck.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="../layui/lay/modules/layer.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+//	var _ctxPath = "http://192.168.3.24:8080/dangjian/";
+    $(function(){
+    	var trList = $(".trList"),
+    	state = "";
+    	trList.remove();
+    	//获取地址栏参数
+		function GetQueryString(name){
+		    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		    var r = window.location.search.substr(1).match(reg);
+		    if(r!=null)return  decodeURI(r[2]); return null;
+		};
+		var _ids = GetQueryString("id");
+		$(".seexd").off("click").on("click",function(){
+			location.href = "seexd.html?id="+_ids;
+		});
+        $("#chaxun").click(function () {
+			query(1);
+        })
+        $.ajax({
+            type:"get",
+            url:_ctxPath+"pc/curriculumrecordPc/queryByPersonalBaseId.action",
+            dataType:"json",
+			data:{
+                personalBaseId:_ids
+			},
+			xhrFields: {				
+	            withCredentials: true	
+	        },							
+	        crossDomain: true,
+            success:function(data){
+                if(data.success == false){
+                    alertFun(data.message);
+                }else {
+                    d=data.data;
+					$("#allstudyperople").text(d.allstudyperople);
+					$("#allexampeople").text(d.allexampeople);
+					$("#allstudyfinish").text(d.allstudyfinish);
+					$("#exampassrate").text(d.exampassrate+"%");
+					$("#speedOfProgress").text(d.speedOfProgress+"%");
+					$("#max").text(d.max);
+					$("#allnoteNum").text(d.allnoteNum);
+					$("#min").text(d.min);
+					$("#allnotePeopleNum").text(d.allnotePeopleNum);
+					$("#avgNum").text(d.avgNum);
+                }
+                query(1);
+            }
+        })
+        var page = 1;
+		function query(page) {
+			var stateText = $("#selectState").val();
+			if (stateText == "全部") {
+				state = "";
+			} else if (stateText == "进行中") {
+				state = 0;
+			} else if (stateText == "已通过") {
+				state = 2;
+			} else if (stateText == "已完成") {
+				state = 1;
+			}
+			$.ajax({
+				type:"get",
+				url:_ctxPath+"pc/curriculumrecordPc/parameterLearning.action",
+                dataType:"json",
+                xhrFields: {				
+		            withCredentials: true	
+		        },							
+		        crossDomain: true,
+				data:{
+					"personalBaseId": _ids,
+                    "regex:name":$(".nameSearch").val(),
+                    "state|integer":state,
+                    page:page,
+                    size:10
+				},
+                success:function(data){
+//                  var d = data.data;
+                    if(data.success == false){
+                        alertFun(data.message)
+                    }else {
+                       paging(data);
+                    }
+                }
+			})
+        }
+		function paging(data) {
+            var d = data.data;
+            var tableHtml = "";
+            $(".table tr:gt(0)").remove();
+            for (var i=0;i<d.length;i++) {
+            	var trListItem = trList.clone();
+                if(d[i].state==0) d[i].state="进行中";
+                if(d[i].state==1) d[i].state="已完成";
+                if(d[i].state==2) d[i].state="已通过";
+                trListItem.find("td:eq(0)").text(i);
+                trListItem.find("td:eq(1)").text(d[i].name);
+                trListItem.find("td:eq(2)").text(d[i].bumenName);
+                trListItem.find("td:eq(3)").text(d[i].createTime);
+                trListItem.find("td:eq(4)").text(d[i].state);
+                trListItem.find("td:eq(5)").text(d[i].speedOfProgress);
+                trListItem.find("td:eq(6)").text(d[i].noteNum==-1?"未考试":d[i].noteNum);
+                trListItem.find("td:eq(7)").text(d[i].isPass==0?"未通过":"通过");
+                $(".table").append(trListItem);
+            }
+            $(".navfooter").html('<nav class="navi" aria-label="Page navigation"><ul class="pagination paginationLists" id="paginationLists"></ul></nav>');
+            $('#paginationLists').bootstrapPaginator({
+                currentPage: data.page,//当前的请求页面。
+                totalPages:  data.pages,//一共多少页。
+                size:"normal",//应该是页眉的大小。
+                bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                alignment:"right",
+                numberOfPages:10,//一页列出多少数据。
+                itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                    switch (type) {
+                        case "prev": return "上一页";
+                        case "next": return "下一页";
+                        case "page": return page;
+                    }
+                }
+            });
+            $("#paginationLists a").off("click").on("click",function(){
+                if ($(this).text() == "下一页") {
+                    if (page >= data.pages) {
+                        page = data.pages;
+                    } else{
+                        page++;
+                    }
+                    query(page);
+                } else if($(this).text() == "上一页") {
+                    if (page <= 1) {
+                        page = 1;
+                    } else{
+                        page--;
+                    }
+                    query(page);
+                } else{
+                    page = $(this).text();
+                    query(page);
+                }
+            })
+        }
+		function alertFun(content){
+			layer.open({
+			  	title: '提示',
+			  	content: content,
+			  	fixed: false,
+			  	resize: false,
+				scrollbar: false,
+				move: false
+			});
+		}
+    });
+
+</script>

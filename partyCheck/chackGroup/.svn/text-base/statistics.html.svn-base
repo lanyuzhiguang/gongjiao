@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../../layui/css/layui.css" media="all">
+    <style type="text/css">
+        .talkRecord {
+            height: 44px;
+            background: #f1f1f1;
+            line-height: 44px;
+            font-size: 16px;
+        }
+        
+        #backBtn {
+            cursor: pointer;
+        }
+        
+        .talkRecord img {
+            width: 15px;
+            margin-left: 42px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        
+        .back {
+            margin-right: 20px;
+        }
+        
+        .rule_tb {
+            margin-top: 20px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        
+        .rule_tb th {
+            text-align: center;
+            /** 设置水平方向居中 */
+            vertical-align: middle/** 设置垂直方向居中 */
+        }
+        
+        #pageContent {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="talkRecord">
+        <span id="backBtn">
+                 <img src="../../img/back.png"><span class="back">返回</span>
+        </span>
+        <span id="where"></span>
+    </div>
+
+    <table class="layui-table rule_tb">
+        <thead id="rhead">
+
+        </thead>
+        <tbody id="bdata">
+
+        </tbody>
+    </table>
+    <div id="pageContent"></div>
+
+</body>
+<script type="text/javascript" src="../../../r/wx/common/pathimage"></script>
+<script type="text/javascript" src="../../resources/js/jquery.min.js" charset="UTF-8"></script>
+<script src="../../layui/layui.all.js" charset="utf-8"></script>
+<script>
+    layui.use('table', function() {
+        var table = layui.table;
+    });
+
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return decodeURI(r[2]);
+        return null;
+    }
+    var id = getQueryString("id");
+    var me = getQueryString("me");
+    var title = getQueryString("title");
+    path = _ctxPath; //获取项目名称  即如 /dangjian/项目名  ---》 这个跟在服务器里面配置的有关
+
+    $("#backBtn").click(function() {
+        window.history.back(-1);
+    });
+    $("#where").text(title);
+    findTableHeader();
+    var trItem = $("<tr></tr>");
+    var thItem = $("<th colspan='1' rowspan='1'></th>");
+    var tbItem = $("<td></td>");
+    //获取头部信息并进行数据处理
+    //colspan="3" 横（行）  rowspan="2" 纵（列）
+    var surplus = {};
+
+    function issurp() {
+        var bl = false;
+        $.each(surplus, function(key, values) {
+            bl = true;
+        });
+        return bl;
+    }
+
+    function findTableHeader() {
+        $.ajax({
+            type: "GET",
+            url: path + "checkReule/checkRules.action",
+            data: {
+                "checkId": id
+            },
+            dataType: "json",
+            success: function(data) {
+                //处理头部信息即处理记分项
+                /****当前规则的类型1：类别  2：项目内容  3：记分项**/
+                var titem = trItem.clone();
+                //第一列添加
+                var fhitem = thItem.clone();
+                fhitem.html("名称");
+                fhitem.attr("id", "name");
+                fhitem.attr("colspan", 2);
+                fhitem.addClass("tname");
+                titem.append(fhitem);
+
+                ndata = [];
+                for (var i = 0; i < data.length; i++) {
+                    surplus[data[i]._id] = data[i];
+                    if (data[i].type == 1) {
+                        var hitem = thItem.clone();
+                        hitem.html(data[i].name);
+                        hitem.attr("id", data[i]._id);
+                        hitem.attr("parentId", data[i].parentId);
+                        hitem.attr("score", data[i].score);
+                        titem.append(hitem);
+                        ndata.push(data[i]);
+                        delete surplus[data[i]._id];
+                    }
+                }
+                $("#rhead").append(titem);
+                //添加接下来的行
+                addChaildHeader(data, ndata, 2);
+                //初始化表格行列
+                initTable();
+                //获取考核主信息
+                findCheck();
+            }
+        })
+    }
+    var check = {};
+
+    function findCheck() {
+        $.ajax({
+            type: "GET",
+            url: path + "partyCheck/findCheckById.action",
+            data: {
+                "checkId": id
+            },
+            dataType: "json",
+            success: function(data) {
+                if (data.success) {
+                    check = data.data;
+                    //处理数据信息
+                    partyOrganize();
+                } else {
+                    alert(data.message);
+                }
+            }
+        });
+    }
+    //初始化table行列数据
+    function initTable() {
+        var rheads = $("#rhead").children("tr");
+        for (var i = rheads.length - 1; i >= 0; i--) {
+            $(rheads[i]).find("th").each(function() {
+                var id = $(this).attr("parentId");
+                if (id) {
+                    var cols = $("#" + id).attr("colspan");
+                    var ncols = $(this).attr("colspan");
+                    if ($("#" + id).attr("chan") == i) {
+                        $("#" + id).attr("colspan", Number(cols) + Number(ncols));
+                    } else {
+                        $("#" + id).attr("chan", i);
+                        $("#" + id).attr("colspan", ncols);
+                    }
+                }
+                if (rheads.length - 1 != i &&
+                    (!$(this).attr("chan") ||
+                        Number($(this).attr("chan")) != (Number(i) + 1))) {
+                    var rows = $(this).attr("rowspan");
+                    $(this).attr("rowspan", Number(rows) + 1);
+                }
+                if ($(this).attr("id") == "name") {
+                    $(this).attr("rowspan", rheads.length);
+                }
+            });
+        }
+    }
+    //colspan="3" 横（行）  rowspan="2" 纵（列）
+    function addChaildHeader(data, pdata, type) {
+        var titem = trItem.clone();
+        var ndata = [];
+        var oldData = [];
+        for (var i = 0; i < pdata.length; i++) {
+            var tdata = [];
+            for (var j = 0; j < data.length; j++) {
+                if (type == data[j].type && data[j].parentId == pdata[i]._id) {
+                    var hitem = thItem.clone();
+                    hitem.html(data[j].name);
+                    hitem.attr("id", data[j]._id);
+                    hitem.attr("parentId", data[j].parentId);
+                    hitem.attr("score", data[j].score);
+                    titem.append(hitem);
+                    ndata.push(data[j]);
+                    tdata.push(data[j]);
+                    delete surplus[data[j]._id];
+                    oldData.push(data[j]);
+                }
+            }
+            if (tdata.length == 0) {
+                oldData.push(pdata[i]);
+            }
+        }
+        if (titem.find("th").length > 0) {
+            $("#rhead").append(titem);
+        }
+        if (ndata.length > 0 || issurp()) {
+            addChaildHeader(data, oldData, Number(type) + 1);
+        } else {
+            addYNZC(pdata);
+        }
+    }
+    var chTrItem = trItem.clone();
+
+    function addYNZC(pdata) {
+
+        var tb = tbItem.clone();
+        tb.attr("id", "name")
+        chTrItem.append(tb);
+        var gb = tbItem.clone();
+        gb.attr("id", "group")
+        gb.html("未知分组")
+        chTrItem.append(gb);
+
+        var ctitem = trItem.clone();
+        for (var i = 0; i < pdata.length; i++) {
+            //优
+            var yhitem = thItem.clone();
+            yhitem.html("优");
+            yhitem.attr("id", pdata[i]._id + "_Y");
+            yhitem.attr("parentId", pdata[i]._id);
+            ctitem.append(yhitem);
+            //tb
+            var tby = tbItem.clone();
+            tby.attr("id", pdata[i]._id + "_Y")
+            chTrItem.append(tby);
+            //良
+            var lhitem = thItem.clone();
+            lhitem.html("良");
+            lhitem.attr("id", pdata[i]._id + "_L");
+            lhitem.attr("parentId", pdata[i]._id);
+            ctitem.append(lhitem);
+            //tb
+            var tbl = tbItem.clone();
+            tbl.attr("id", pdata[i]._id + "_L")
+            chTrItem.append(tbl);
+            //中
+            var zhitem = thItem.clone();
+            zhitem.html("中");
+            zhitem.attr("id", pdata[i]._id + "_Z");
+            zhitem.attr("parentId", pdata[i]._id);
+            ctitem.append(zhitem);
+            //tb
+            var tbz = tbItem.clone();
+            tbz.attr("id", pdata[i]._id + "_Z")
+            chTrItem.append(tbz);
+            //差
+            var chitem = thItem.clone();
+            chitem.html("差");
+            chitem.attr("id", pdata[i]._id + "_C");
+            chitem.attr("parentId", pdata[i]._id);
+            ctitem.append(chitem);
+            //tb
+            var tbc = tbItem.clone();
+            tbc.attr("id", pdata[i]._id + "_C")
+            chTrItem.append(tbc);
+        }
+        $("#rhead").append(ctitem);
+    }
+
+    //查询
+    $("#sear").click(function() {
+        $('#talkR').empty();
+        partyOrganize();
+    });
+
+    function partyOrganize(type) {
+        //分页参数设置 这些全局变量关系到分页的功能
+        var pagea = 1; //开始页数
+        var sizea = 10; //每页最多显示条数
+        var nowpagea = 1; //当前页数
+        var pagesa = 0; //总页数
+        function page() {
+            //调用分页
+            layui.use(['laypage', 'layer'], function() {
+                var laypage = layui.laypage,
+                    layer = layui.layer;
+                laypage.render({
+                    elem: 'pageContent',
+                    count: pagesa,
+                    limit: sizea //每页显示的数据的条数,layui会根据count，limit进行分页的计算
+                        ,
+                    curr: nowpagea,
+                    jump: function(obj, first) {
+                        // var currPage=obj.curr;
+                        // var perPage_num=obj.limit;
+                        nowpagea = obj.curr;
+                        pagea = (obj.curr - 1) * sizea;
+                        if (!first) { //一定要加此判断，否则初始时会无限刷新
+                            pageAjax(); //一定要把翻页的ajax请求放到这里，不然会请求两次。
+                            location.href = '#top';
+                            //<a href="#top">返回顶部</a>
+                        }
+
+                    }
+
+                });
+            })
+        }
+        pageAjax();
+
+        function pageAjax() {
+            $.ajax({
+                type: "POST",
+                url: path + "checkRecord/queryScore.action",
+                data: {
+                    "partyCheck._id": id,
+                    "check|Integer": $("#orgaKind").val(),
+                    "regex:ckName": $("#publishOffice").val(),
+                    "page": nowpagea, //当前页数
+                    "size": sizea //每页显示条数
+                },
+                dataType: "json",
+                success: function(data) {
+                    pagea = data.page; //当前页数(后台返回)
+                    pagesa = data.total; //总页数(后台返回)
+                    var data = data.data;
+                    if (data.length == 0) {
+                        $(".noDate").removeClass("hid");
+                        $("#pageContent").addClass("hid");
+                    } else {
+                        handleData(data);
+                        $(".noDate").addClass("hid");
+                        $("#pageContent").removeClass("hid");
+                    }
+                    page();
+                }
+            });
+        }
+
+        function handleData(data) {
+            $('#bdata').empty();
+            var fill = "";
+            var sta = "";
+            if (data[0].partyCheck.type == 1) {
+                $(".tname").html("单位名称");
+            } else {
+                $(".tname").html("人员名称");
+            }
+            for (var i = 0; i < data.length; i++) {
+                if (check.checkRanges) {
+                    $.each(check.checkRanges, function(index, range) {
+                        var chtb = chTrItem.clone();
+                        if (index == 0) {
+                            chtb.find("#name").html(data[i].ckName);
+                            chtb.find("#name").attr("rowspan", check.checkRanges.length);
+                        } else {
+                            chtb.find("#name").remove();
+                        }
+                        chtb.find("#group").html(range.name);
+                        $.each(this.aduiUserIds, function() {
+                            if (data[i].audUEScore[this]) {
+                                $.each(data[i].audUEScore[this], function(key, item) {
+                                    //var score = $("#" + key).attr("score");
+                                    var k = bijiao(100, item.evalScore);
+                                    console.log(k);
+                                    var nt = chtb.find("#" + key + k).html();
+                                    if (nt) {
+                                        chtb.find("#" + key + k).html(Number(nt) + 1);
+                                    } else {
+                                        chtb.find("#" + key + k).html(1);
+                                    }
+                                });
+                            }
+                        })
+                        $("#bdata").append(chtb);
+                    })
+                } else {
+                    var chtb = chTrItem.clone();
+                    chtb.find("#name").html(data[i].ckName);
+                    $("#bdata").append(chtb);
+                }
+            }
+        }
+
+        function bijiao(s1, s2) {
+            var s = 0;
+            if (isnumber(s1) && isnumber(s2) && s1 != 0) {
+                s = s2 / s1;
+            }
+            //95分、80分、65分、50分
+            if (s * 100 >= 90) {
+                return "_Y";
+            } else if (s * 100 >= 80) {
+                return "_L";
+            } else if (s * 100 >= 60) {
+                return "_Z";
+            } else {
+                return "_C";
+            }
+        }
+    }
+
+    function isnumber(nubmer) {
+        var re = /^[0-9]+.?[0-9]*$/;
+        return re.test(nubmer);
+    }
+</script>
+
+</html>

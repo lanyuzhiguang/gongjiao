@@ -1,0 +1,266 @@
+/* 遮罩 */
+.swfMask {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 500000000;
+	background: #000;
+	opacity: 0.7;
+	filter: alpha(opacity = 70);
+	text-align: center;
+}
+
+.swfMask p {
+	position: absolute;
+	top: 300px;
+	display: inline-block;
+	height: 24px;
+	line-height: 24px;
+	font-size: 18px;
+	color: #fff;
+	margin: -12px 0 0 -80px;
+	padding-left: 22px;
+	/*background: url(../css/img/load.gif) center left no-repeat;*/
+	*display: inline;
+	*zoom: 1;
+}
+
+.swfMask p span {
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.my-titlebar {
+	font-size: 16px;
+	padding-bottom: 15px;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #eee;
+}
+
+label.error {
+	color: #f6675d;
+	display: block;
+	margin-left: 0px;
+	margin-top: 2px;
+}
+
+.hr-line-dashed {
+	border-top: 1px dashed #e7eaec;
+	color: #fff;
+	background-color: #fff;
+	height: 1px;
+	margin: 20px 0;
+}
+
+.ui-jqgrid .ui-jqgrid-htable .colmenu {
+	position: absolute;
+	right: 1px;
+	height: 100%;
+	color: black;
+}
+
+.ui-jqgrid .ui-jqgrid-htable .colmenu-rtl {
+	right: auto;
+	left: 1px;
+}
+
+.ui-jqgrid .ui-jqgrid-htable .colmenuspan {
+	display: inline-block;
+}
+
+.ui-jqgrid .ui-jqgrid-htable .ui-th-div {
+	height: 17px;
+	margin-top: 5px;
+}
+
+.column-menu, .ui-search-menu {
+	padding: 10px 15px;
+}
+
+.column-menu .divider {
+	background-color: #e5e5e5;
+	height: 1px;
+	padding: 0 0;
+	margin: 5px 0;
+	overflow: hidden;
+}
+
+.ui-menu-item .ui-common-table .menu_icon {
+	padding-right: 8px;
+	padding-left: 8px;
+}
+
+td.menu_text {
+	width: auto;
+	padding-left: 1px;
+	white-space: nowrap;
+}
+
+#search_menu .ui-menu-item div {
+	padding: 3px 0;
+	white-space: nowrap;
+}
+
+#search_menu  .search_buttons {
+	display: inline-block;
+	width: 50%;
+	padding: 3px 3px;
+}
+
+.search_buttons .btn-default:hover {
+	padding-bottom: 6px;
+	padding-top: 6px;
+}
+
+.search_buttons #bs_reset {
+	margin-right: 3px;
+}
+
+.search_buttons #bs_search {
+	margin-left: 3px;
+}
+
+ul.ui-search-menu, ul.ui-nav-menu {
+	list-style-type: none;
+}
+
+ul.ui-search-menu li a, ul.ui-nav-menu li a, .soptclass,
+	.clearsearchclass {
+	text-decoration: none;
+	color: #010101;
+}
+
+ul.ui-search-menu li a:hover, ul.ui-nav-menu li a:hover, a.soptclass:hover,
+	a.clearsearchclass:hover {
+	background-color: #ddd;
+	padding: 1px 1px;
+	text-decoration: none;
+}
+
+ul.ui-search-menu li, ul.ui-nav-menu li {
+	padding: 5px 5px;
+}
+
+.ui-menu-item hr {
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+.ui-search-menu.ui-menu .ui-menu-item a, .ui-nav-menu.ui-menu .ui-menu-item a
+	{
+	display: block;
+}
+
+.ui-search-menu.ui-menu .ui-menu-item a.g-menu-item:hover, .ui-nav-menu.ui-menu .ui-menu-item a.g-menu-item:hover
+	{
+	margin: -1px;
+	font-weight: normal;
+}
+
+.ui-jqgrid .ui-search-table {
+	padding: 0;
+	border: 0 none;
+	height: 20px;
+	width: 100%;
+}
+
+.ui-jqgrid .ui-search-table .ui-search-oper {
+	width: 20px;
+}
+
+a.g-menu-item, a.soptclass, a.clearsearchclass {
+	cursor: pointer;
+}
+
+ul.ui-search-menu li, ul.ui-nav-menu li {
+	padding: 5px 5px;
+}
+
+.ui-menu-item hr {
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
+
+.ui-search-menu.ui-menu .ui-menu-item, .ui-nav-menu.ui-menu .ui-menu-item
+	{
+	list-style-image: none;
+	padding-right: 0;
+	padding-left: 0;
+}
+
+.ui-search-menu.ui-menu .ui-menu-item a, .ui-nav-menu.ui-menu .ui-menu-item a
+	{
+	display: block;
+}
+
+.ui-search-menu.ui-menu .ui-menu-item a.g-menu-item:hover, .ui-nav-menu.ui-menu .ui-menu-item a.g-menu-item:hover
+	{
+	margin: -1px;
+	font-weight: normal;
+}
+
+.ui-search-menu, .ui-nav-menu {
+	position: absolute;
+	z-index: 99999;
+}
+
+.ui-search-menu.ui-menu .ui-menu-item, .ui-nav-menu.ui-menu .ui-menu-item
+	{
+	list-style-image: none;
+	padding-right: 0;
+	padding-left: 0;
+}
+
+.ui-search-menu.ui-menu .ui-menu-item a, .ui-nav-menu.ui-menu .ui-menu-item a
+	{
+	display: block;
+}
+
+.ui-search-menu.ui-menu .ui-menu-item a.g-menu-item:hover, .ui-nav-menu.ui-menu .ui-menu-item a.g-menu-item:hover
+	{
+	margin: -1px;
+	font-weight: normal;
+}
+
+.ui-jqgrid .ui-search-table {
+	padding: 0;
+	border: 0 none;
+	height: 20px;
+	width: 100%;
+}
+
+.ui-jqgrid .ui-search-table .ui-search-oper {
+	width: 20px;
+}
+
+a.g-menu-item, a.soptclass, a.clearsearchclass {
+	cursor: pointer;
+}
+
+.ui-jqgrid .ui-grid-ico-sort {
+	right: auto;
+}
+
+.datepicker table thead tr th {
+	color: #000;
+}
+
+.datepicker table td.day:before {
+	width: 0px;
+}
+
+.datepicker table tbody tr td:last-child {
+	padding-right: 0px;
+}
+
+.datepicker table tbody tr td:first-child {
+	padding-left: 0px;
+}
+
+.datepicker table thead tr:last-child th:first-child {
+	padding-left: 0px;
+}
+
+.datepicker table thead tr:last-child th:last-child {
+	padding-right: 0px;
+}

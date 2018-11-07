@@ -1,0 +1,255 @@
+﻿.no-skin .nav-list > li.open > a{
+    color:#616161!important;
+}
+.navbar{
+    /*background:red!important;*/
+    color:#ffffff!important;
+    background: -webkit-linear-gradient(#FF111E, #CF0000); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#FF111E, #CF0000); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#FF111E, #CF0000); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#FF111E, #CF0000); /* 标准的语法 */
+}
+.guanli{
+    font-size: 17px!important;
+    margin-left: 3px;
+    margin-right: -1px!important;
+}
+.shouye{
+    font-size: 27px!important;
+    margin-top: 6px;
+}
+.shouyeB{
+    padding: 6px 6px!important;
+}
+
+.no-skin .nav-list > li.active{
+    background: red!important;
+}
+.no-skin .nav-list > li.active:after{
+    border-color: #ffffff!important;
+}
+.no-skin .nav-list li.active > a:after{
+    border-right-color: #ffffff!important;
+-moz-border-right-colors: #ffffff!important;
+
+}
+.no-skin .nav-list > li.active > a, .no-skin .nav-list > li.active > a:hover, .no-skin .nav-list > li.active > a:focus{
+    background: -webkit-linear-gradient(#FF111E, #CF0000); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#FF111E, #CF0000); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#FF111E, #CF0000); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#FF111E, #CF0000); /* 标准的语法 */
+}
+.no-skin .nav-list > li.active > a{
+    color:#ffffff!important;
+    font-weight: normal!important;
+}
+.nav-list > li:before{
+    background-color: #ffffff!important;
+}
+.no-skin .nav-list > li:hover > a{
+    background: -webkit-linear-gradient(#FF111E, #CF0000); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#FF111E, #CF0000); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#FF111E, #CF0000); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#FF111E, #CF0000); /* 标准的语法 */
+    color:#ffffff!important;
+}
+
+.no-skin .nav-list > li .submenu > li > a:hover{
+   background: -webkit-linear-gradient(#FF111E, #CF0000); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#FF111E, #CF0000); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#FF111E, #CF0000); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#FF111E, #CF0000); /* 标准的语法 */
+    color: #ffffff!important;
+}
+.no-skin .nav-list > li.open > a{
+    background: #fafafa!important;
+    color: #616161!important;
+}
+.no-skin .nav-list > li .submenu > li.active > a > .menu-icon{
+	background-color: transparent;
+}
+.imgBox img{
+    width: 51px;
+    border-radius: 29px;
+    margin-bottom: 14px;
+    margin-top: 13px;
+    height: 51px;
+}
+.sidebar .sidebar-shortcuts{
+    padding: 11px 0 0px 0;
+    font-size: 12px!important;
+    text-align: left;
+    padding-left: 11px;
+}
+.nav-list > li > a{
+    font-size: 14px;
+    line-height: 12px;
+}
+small, .small{
+    font-size: 22px;
+}
+.fa{
+    font-size:18px;
+}
+.nav-list > li > a > .menu-icon{
+    font-size: 22px;
+    margin-top:0;
+}
+.nav > li > a{
+    padding: 11px 6px;
+}
+.xinwen{
+    font-size: 20px!important;
+}
+.no-skin .navbar .navbar-toggle{
+    background: red;
+}
+.no-skin .navbar .navbar-toggle:hover{
+    background: #de1818;
+}
+.no-skin .navbar .navbar-toggle.display, .no-skin .navbar .navbar-toggle[data-toggle=collapse]:not(.collapsed){
+    background-color:#de1818;
+}
+.no-skin .navbar .navbar-toggle:visited{
+    background: #de1818;
+}
+.no-skin .navbar .navbar-toggle:focus{
+    background:#de1818;
+}
+.breadcrumb{
+    font-size: 18px;
+}
+.shouye1{
+    font-size: 24px;
+    vertical-align: middle;
+}
+.navbar-brand{
+    padding: 15px 1px;
+}
+.breadcrumb > li, .breadcrumb > li{
+    color:#555555!important;
+}
+.breadcrumb > li > a{
+    color: #555555;
+    text-decoration: none;
+}
+.zhiB{
+    width: 91%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.no-skin .nav-list > li .submenu{
+    font-size: 14px;
+}
+.no-skin .nav-list > li .submenu > li.active:not(.open) > a{
+   background: -webkit-linear-gradient(#FF111E, #CF0000); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#FF111E, #CF0000); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#FF111E, #CF0000); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#FF111E, #CF0000); /* 标准的语法 */
+}
+.no-skin .nav-list > li .submenu > li.active > a{
+    color:#ffffff!important;
+}
+.nav-list > li li.active > a:after{
+    top: 4px;
+}
+.nav-list > li .submenu > li a > .menu-icon{
+    top: 13px;
+}
+.nav-list > li > .submenu > li:before{
+    top:19px;
+}
+iframe{
+    width: 100%;
+}
+body{
+    font-family: "微软雅黑"!important;
+    background: #ffffff!important;
+}
+.navbar .navbar-toggle .icon-bar{
+    margin: 5px 7px;
+}
+
+.row{
+    margin-left: 3px;
+    margin-right: 5px;
+}
+.Dy{
+    color:red;
+    margin-right: 10px;
+}
+.nav-list > li a{
+    -webkit-tap-highlight-color: transparent;
+}
+.ace-nav>li>a{
+    padding: 1px 6px;
+}
+.ace-nav > li.purple > a{
+    background-color: transparent;
+}
+.ace-nav > li.purple > a:hover,.ace-nav > li.grey > a:hover{
+    background-color: #E37E63;
+}
+.ace-nav > li.grey > a{
+    background-color: transparent;
+    margin-right: 10px;
+}
+.ace-nav > li{
+    border-left: 1px solid transparent;
+}
+.ace-nav > li.purple > a:hover, .ace-nav > li.purple > a:focus, .ace-nav > li.open.purple > a{
+    background-color: #E37E63;
+}
+.ace-nav > li.grey > a:hover, .ace-nav > li.grey > a:focus, .ace-nav > li.open.grey > a{
+    background-color: #E37E63;
+}
+.no-skin .nav-list > li .submenu > li > a{
+    padding: 7px 0 9px 42px!important;
+    cursor: pointer;
+}
+
+/**
+按钮样式
+**/
+.shadow{
+    background: -webkit-linear-gradient(#FF111E, #CF0000)!important; /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#FF111E, #CF0000)!important; /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#FF111E, #CF0000)!important; /* Firefox 3.6 - 15 */
+    background: linear-gradient(#FF111E, #CF0000)!important; /* 标准的语法 */
+}
+
+.mybody{
+    min-width: 1779px;
+}
+iframe{
+    min-width: 900px!important;
+}
+.icon-shoucang1 {
+    font-size: 12px;
+    color:#FF111E!important;
+}
+.icon-dianzan1{
+    color:#FF111E!important;
+    font-size: 16px;
+}
+.icon-dianzan1 span{
+    vertical-align: baseline;
+}
+
+.mybody:after{
+    clear:both;
+    content:'';
+    display:block;
+    width: 0;
+    height: 0;
+    visibility:hidden;
+}
+.main-container:after{
+    clear:both;
+    content:'';
+    display:block;
+    width: 0;
+    height: 0;
+    visibility:hidden;
+}

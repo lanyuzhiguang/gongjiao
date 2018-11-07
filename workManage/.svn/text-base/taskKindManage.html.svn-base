@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/taskKindManage.css">
+    <link rel="stylesheet" href="../css/poperConfirm.css">
+    <link rel="stylesheet" type="text/css" href="../css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+    <style>
+        .hid{
+            display: none;
+        }
+
+        #pageContent {
+            margin: auto;
+            text-align: center;
+            margin-top: 47px;
+        }
+        .noDate {
+            text-align: center;
+            font-size: 14px;
+
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <div class="headList"><span class="kName">分类名称</span><input type="text" value="" id="kindName"><span class="search">查询</span><span
+            class="newAdd">新增</span></div>
+    <div class="">
+        <div class="tableList">
+            <table cellpadding="0" cellspacing="0">
+                <thead>
+                <th>分类名称</th>
+                <th>排序</th>
+                <th width="20%">操作</th>
+                </thead>
+                <tbody id="talkR">
+                <!--<tr>-->
+                <!--<td>理论</td>-->
+                <!--<td>3</td>-->
+                <!--<td><span>详情</span><span>删除</span></td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                <!--<td>理论</td>-->
+                <!--<td>3</td>-->
+                <!--<td><span>详情</span><span>删除</span></td>-->
+                <!--</tr>-->
+                </tbody>
+            </table>
+            <div class="noDate hid">暂无数据</div>
+
+        </div>
+    </div>
+    <div id="pageContent"></div>
+</div>
+<div class="mask hid" id="mask"></div>
+<!--新增-->
+<div class="popBox hid" id="poper1">
+    <div class="popB_Top">
+        <span class="addW" id="title">新增</span><span class="close" id="close"><img src="../img/close.png"></span>
+    </div>
+    <div class="popB_bottom">
+        <div id="inputBox">
+            <div>
+                <div>分类名称</div>
+                <div class="developWrap">
+                    <input type="text" class="lianB" id="one" value="">
+                </div>
+            </div>
+            <div>
+                <div>排序</div>
+                <div class="developWrap">
+                    <input type="text" class="lianB" id="two" value="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btnList" id="twoB"><input type="button" id="sure1" value="确定"><input type="button" id="cancel"
+                                                                                     value="取消"></div>
+</div>
+<!--编辑-->
+<div class="popBox hid" id="poper">
+    <div class="popB_Top">
+        <span class="addW" id="title1">编辑</span><span class="close" id="close1"><img src="../img/close.png"></span>
+    </div>
+    <div class="popB_bottom">
+        <div id="inputBox1">
+            <div>
+                <div>分类名称</div>
+                <div class="developWrap">
+                    <input type="text" class="lianB" id="one1" value="">
+                </div>
+            </div>
+            <div>
+                <div>排序</div>
+                <div class="developWrap">
+                    <input type="text" class="lianB" id="two1" value="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btnList" id="twoB1"><input type="button" id="sure2" value="确定"><input type="button" id="cancel2"
+                                                                                      value="取消"></div>
+</div>
+</body>
+<script src="../assets/js/jquery.js"></script>
+<script src="../js/layer.js"></script>
+<script src="../js/layui.js"></script>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script>
+    $(function () {
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+
+        var recId = getQueryString("recId");
+        var path = "";
+        var iframe = document.getElementById("common");
+        ///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+        iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+        if (iframe.attachEvent) {//判断iframe是否加载完成
+            iframe.attachEvent("onload", function () {
+                getCommon();
+            });
+        } else {
+            iframe.onload = function () {
+                getCommon();
+            };
+        }
+
+        //获取公共参数  一般为存储在session里面的数据
+        function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+            var frames = window.frames["common"];
+            path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+            var _qiniuImageHost = frames._qiniuImageHost;//七牛云公共地址头
+            $(".search").click(function () {
+                // if ($("#kindName").val().trim() == "") {
+                //     parent.layer.alert('请填写分类名称');
+                //     return;
+                // }
+                $('#talkR').empty();
+                searchL();
+            });
+
+
+            function isNum(num) {
+                var re = /^[0-9]+.?[0-9]*$/;
+                if (!re.test(num)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            $(".newAdd").click(function () {
+                $("#mask").removeClass("hid");
+                $("#poper1").removeClass("hid");
+            });
+            $("#mask").click(function () {
+                $(this).addClass("hid");
+                $("#poper1").addClass("hid");
+            });
+            $("#cancel").click(function () {
+                $("#mask").addClass("hid");
+                $("#poper1").addClass("hid");
+            });
+            $("#close").click(function () {
+                $("#mask").addClass("hid");
+                $("#poper1").addClass("hid");
+            });
+            $("#sure1").click(function () {
+                if ($("#one").val().trim() == "") {
+                    parent.layer.alert('请填写分类名称');
+                    return;
+                }
+                if ($("#two").val().trim() == "") {
+                    parent.layer.alert('请填写排序');
+                    return;
+                }
+                if (!isNum($("#two").val())) {
+                    parent.layer.alert('请填写数字');
+                    return;
+                }
+                if (!/^\d+$/.test($("#two").val())) {
+                    parent.layer.alert('请输入整数！');
+                    return;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: path + "/taskType/upsert.action",
+                    data: {
+                        "name": $("#one").val(),
+                        "order": $("#two").val()
+                    },
+                    dataType: "json",
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    success: function (data) {
+                        window.location.reload();
+                    }
+                })
+            });
+
+            function edit(id) {
+                $("#mask").removeClass("hid");
+                $("#poper").removeClass("hid");
+                $.ajax({
+                    type: "POST",
+                    url: path + "/taskType/findByTpId.action",
+                    data: {
+                        "tpId":id
+                    },
+                    dataType: "json",
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    success: function (data) {
+                        $("#one1").val(data.data.name);
+                        $("#two1").val(data.data.order);
+                    }
+                });
+                $("#mask").click(function () {
+                    $(this).addClass("hid");
+                    $("#poper").addClass("hid");
+                });
+                $("#cancel2").click(function () {
+                    $("#mask").addClass("hid");
+                    $("#poper").addClass("hid");
+                });
+                $("#close1").click(function () {
+                    $("#mask").addClass("hid");
+                    $("#poper").addClass("hid");
+                });
+                $("#sure2").click(function () {
+                    if ($("#one1").val().trim() == "") {
+                        parent.layer.alert('请填写分类名称');
+                        return;
+                    }
+                    if ($("#two1").val().trim() == "") {
+                        parent.layer.alert('请填写排序');
+                        return;
+                    }
+                    if (!isNum($("#two1").val())) {
+                        parent.layer.alert('请填写数字');
+                        return;
+                    }
+                    if (!/^\d+$/.test($("#two1").val())) {
+                        parent.layer.alert('请输入整数！');
+                        return;
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: path + "/taskType/upsert.action",
+                        data: {
+                            "_id":id,
+                            "name": $("#one1").val(),
+                            "order": $("#two1").val()
+                        },
+                        dataType: "json",
+                        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                        success: function (data) {
+                            window.location.reload();
+                        }
+                    })
+                });
+            }
+
+            searchL();
+
+            function searchL() {
+                //分页参数设置 这些全局变量关系到分页的功能
+                var pagea = 1; //开始页数
+                var sizea = 10;  //每页最多显示条数
+                var nowpagea = 1;  //当前页数
+                var pagesa = 0;  //总页数
+
+                pageAjax();
+
+                function pageAjax() {
+                    $.ajax({
+                        type: "POST",
+                        url: path + "/taskType/query.action",
+                        data: {
+                            "regex:name": $("#kindName").val(),
+                            "page": nowpagea, //当前页数
+                            "size": sizea//每页显示条数
+                        },
+                        dataType: "json",
+                        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                        success: function (data) {
+                            pagea = data.page;//当前页数(后台返回)
+                            pagesa = data.total;//总页数(后台返回)
+                            var dataOne = data.data;
+                            if (dataOne.length == 0) {
+                                $(".noDate").removeClass("hid");
+                                $("#pageContent").addClass("hid");
+                            } else {
+                                handleData(dataOne);
+
+                            }
+                            page();
+                        }
+                    });
+                }
+
+                function handleData(data) {
+                    $('#talkR').empty();
+                    for (var i = 0; i < data.length; i++) {
+                        var oTr = '<tr>\n' +
+                            '                    <td>' + data[i].name + '</td>\n' +
+                            '                    <td>' + data[i].order + '</td>\n' +
+                            '                    <td><input type="hidden" value=' + data[i]._id + '><span class="detail">详情</span><span class="del">删除</span></td>\n' +
+                            '                </tr>';
+
+                        $('#talkR').append(oTr);
+
+                    }
+                    $('#talkR').on("click", function (e) {
+                        var target = e.target;
+                        if ($(target).text() == "详情") {
+                            var currId = $(target).parent().find("input").val();
+                            edit(currId);
+                        }
+                        if ($(target).text() == "删除") {
+                            var currId = $(target).parent().find("input").val();
+                            $.ajax({
+                                type: "POST",
+                                url: path + "/taskType/del.action",
+                                data: {
+                                    "taskTypeId": currId
+                                },
+                                dataType: "json",
+                                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                                success: function (data) {
+                                    window.location.reload();
+                                }
+                            })
+                        }
+                    })
+                }
+
+                function page() {
+                    //调用分页
+                    layui.use(['laypage', 'layer'], function () {
+                        var laypage = layui.laypage
+                            , layer = layui.layer;
+                        laypage.render({
+                            elem: 'pageContent'
+                            , count: pagesa
+                            , limit: sizea  //每页显示的数据的条数,layui会根据count，limit进行分页的计算
+                            , curr: nowpagea
+                            , jump: function (obj, first) {
+                                // var currPage=obj.curr;
+                                // var perPage_num=obj.limit;
+                                nowpagea = obj.curr;
+                                pagea = (obj.curr - 1) * sizea;
+                                if (!first) {//一定要加此判断，否则初始时会无限刷新
+                                    pageAjax();//一定要把翻页的ajax请求放到这里，不然会请求两次。
+                                    location.href = '#top';
+                                    //<a href="#top">返回顶部</a>
+                                }
+
+                            }
+
+                        });
+                    })
+                }
+            }
+
+        }
+    })
+</script>
+
+</html>

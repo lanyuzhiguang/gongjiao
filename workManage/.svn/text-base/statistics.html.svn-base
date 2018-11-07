@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../css/demo.css">
+    <link rel="stylesheet" href="../css/statistics.css">
+    <link rel="stylesheet" type="text/css" href="../css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+    <link rel="stylesheet" type="text/css" href="../css/zTreeStyle.css">
+    <style>
+        .noActive {
+            background: #cdd4d6 !important;
+            color: #616161 !important;
+        }
+
+        .hid {
+            display: none;
+        }
+
+        .hibinenState {
+            color: #bcbcbc !important;
+            cursor: not-allowed !important;
+        }
+
+        #pageContent, #pageContent1 {
+            margin: auto;
+            text-align: center;
+            margin-top: 47px;
+        }
+
+        .noDate, .noDate1 {
+            text-align: center;
+            font-size: 14px;
+
+        }
+
+        #otherT {
+            /* margin-left: 30px; */
+            width: 97%;
+            /* overflow: auto; */
+            display: inline-block;
+            margin: auto;
+            margin-left: 17px;
+            margin-top: 17px;
+        }
+
+        #otherT table {
+            width: 100%;
+            color: #797e80;
+            font-size: 14px;
+            border: 1px solid #e6e5e4;
+            border-top: 1px solid transparent;
+            border-bottom: 1px solid transparent;
+            background-color: white;
+        }
+
+        #firstTable table tr td:nth-child(3) {
+            text-align: left;
+        }
+        #firstTable table tr td:nth-child(3)>span{
+            display: block;
+            text-align: center;
+            color: #2196f3;
+            cursor: pointer;
+        }
+        #firstTable table tr td:nth-child(5){
+            text-align: center;
+        }
+        #firstTable table tr td:nth-child(6){
+            text-align: left!important;
+        }
+        #otherT table tr td:nth-child(3)>span {
+            color: #2196f3;
+            /* margin: auto; */
+            display: block;
+            text-align: center;
+            cursor: pointer;
+        }
+        #otherT table tr td:nth-child(3){
+            text-align: left;
+        }
+        #menuContent ul.ztree {
+            /* margin-top: 10px; */
+             border: 1px solid transparent;
+             background: #ffffff;
+            width: auto;
+             height: auto;
+             overflow-y: visible;
+            overflow-x: visible;
+        }
+        .treeList ul.ztree {
+            /* margin-top: 10px; */
+            border: 1px solid transparent;
+            background: #ffffff;
+            width: auto;
+            height: auto;
+            overflow-y: visible;
+            overflow-x: visible;
+        }
+        .ztree li span.button.chk.checkbox_true_disable {
+            background-position: -14px 0px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="rulesHead">
+        <ul id="biaoQ">
+            <li id="organizationLi">按组织统计</li>
+            <li id="partyMemberLi" class="noActive">按计划统计</li>
+        </ul>
+        <div style="clear:both;"></div>
+        <div class="partyOrganization">
+            <div class="tree">
+                <div id="menuContent" class="menuContent1">
+                    <ul id="treeDemo" class="ztree" style="margin-top:0; width:206px;"></ul>
+                </div>
+            </div>
+            <div class="tableList" id="firstTable">
+                <table cellpadding="0" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th style="width: 3%">序号</th>
+                        <th style="width: 18%">计划标题</th>
+                        <th style="width: 18%">计划接收单位</th>
+                        <th style="width: 10%">组织类别</th>
+                        <th style="">工作计划周期</th>
+                        <th style="width: 12%">计划下发单位</th>
+                        <th style="width: 12%">计划下发日期</th>
+                        <th style="width: 7%">逾期任务数</th>
+                        <th style="width:5%">操作</th>
+                    </tr>
+
+                    </thead>
+                    <tbody id="talkR">
+                    <!--<tr>-->
+                    <!--<td>1</td>-->
+                    <!--<td>计划标题计划标题</td>-->
+                    <!--<td>党委中心组</td>-->
+                    <!--<td>党委中心组</td>-->
+                    <!--<td>2018-01-01到2019-02-12</td>-->
+                    <!--<td>xx党委</td>-->
+                    <!--<td>2018-03-12</td>-->
+                    <!--<td>2</td>-->
+                    <!--<td><span>查看</span></td>-->
+                    <!--</tr>-->
+                    </tbody>
+                </table>
+                <div class="noDate hid">暂无数据</div>
+                <div id="pageContent"></div>
+            </div>
+        </div>
+        <div class="partyMember hid">
+            <div class="topInput">
+                <div>计划下发单位</div>
+                <div style="position: relative">
+                    <input type="hidden" id="branchId" value="">
+                    <input type="text" id="branch" readonly="readonly"/>
+                    <div id="menuContent2" class="menuContent" style="display:none; position: absolute;left:0;top: 31px;">
+                        <ul id="treeDemo2" class="ztree" style="margin-top:0; width:206px;"></ul>
+                    </div>
+                </div>
+                <div class="createRule" style="display: none;" id="createOrga">结果导出</div>
+                <div class="searchB" id="organizationSear">查询</div>
+
+            </div>
+            <div class="tableList" id="otherT">
+                <table cellpadding="0" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th style="width: 8%">序号</th>
+                        <th style="width: 20%">计划标题</th>
+                        <th style="">计划接收单位</th>
+                        <th style="">组织类别</th>
+                        <th style="">工作计划周期</th>
+                        <th style="">计划下发单位</th>
+                        <th style="">计划类别</th>
+                        <th style="width: 12%">计划下发日期</th>
+                        <th style="width:10%">操作</th>
+                    </tr>
+
+                    </thead>
+                    <tbody id="talkR1">
+                    <!--<tr>-->
+                        <!--<td>1</td>-->
+                        <!--<td>计划标题计划标题</td>-->
+                        <!--<td>党委中心组</td>-->
+                        <!--<td>党委中心组</td>-->
+                        <!--<td>2018-01-01到2019-02-12</td>-->
+                        <!--<td>xx党委</td>-->
+                        <!--<td>创建</td>-->
+                        <!--<td>2018-03-12</td>-->
+                        <!--<td><span>查看</span><span>删除</span></td>-->
+                    <!--</tr>-->
+                    </tbody>
+                </table>
+                <div class="noDate1 hid">暂无数据</div>
+            </div>
+            <div id="pageContent1"></div>
+        </div>
+    </div>
+
+</div>
+<div class="mask hid" id="mask"></div>
+<div class="popBox hid" id="poper1">
+    <div class="popB_Top">
+        <span class="addW" id="titleC">计划接收单位</span><span class="close" id="close"><img src="../img/close.png"></span>
+    </div>
+    <div class="popB_bottom">
+        <div>快速选择</div>
+        <div class="checkList">
+
+        </div>
+    </div>
+    <div class="treeList">
+        <div id="menuContent1" class="menuContent3">
+            <ul id="treeDemo1" class="ztree" style="margin-top:0; width:206px;"></ul>
+        </div>
+        <div class="noData hid">你所选择得</div>
+    </div>
+    <div class="btnList"><input type="button" class="s" id="sure" value="确定"><input type="button" class="c" id="cancel" value="取消"></div>
+</div>
+</body>
+<script src="../assets/js/jquery.js"></script>
+<script src="../js/layer.js"></script>
+<script src="../js/laydate.js"></script>
+<script src="../js/layui.js"></script>
+<script src="../js/jquery.ztree.core.min.js"></script>
+<script src="../js/jquery.ztree.excheck.min.js"></script>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script>
+    $(function () {
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+
+        var recId = getQueryString("recId");
+        var path = "";
+        var iframe = document.getElementById("common");
+        ///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+        iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+        if (iframe.attachEvent) {//判断iframe是否加载完成
+            iframe.attachEvent("onload", function () {
+                getCommon();
+            });
+        } else {
+            iframe.onload = function () {
+                getCommon();
+            };
+        }
+
+        //获取公共参数  一般为存储在session里面的数据
+        function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+            var frames = window.frames["common"];
+            path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+            var _qiniuImageHost = frames._qiniuImageHost;//七牛云公共地址头
+            slidTree();
+            function slidTree() {
+                $("#branch").click(function () {
+                    showMenu();
+                });
+                var setting = {
+                    view: {
+                        dblClickExpand: false
+                    },
+                    data: {
+                        simpleData: {
+                            enable: true,
+                            idKey: "id",
+                            pIdKey: "pId"
+                        },
+                        key: {
+                            name: "name"
+                        }
+                    },
+                    callback: {
+                        beforeClick: beforeClick,
+                        onClick: onClick
+                    }
+                };
+                $.ajax({
+                    type: "POST",
+                    url: path + "/zTreeData/queryTreeByCode.action",
+                    data: {"actCode":"PlanWorkStatis"},
+                    dataType: "json",
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    success: function (data) {
+                        if (data) {
+                            zNodes = data;
+                            var zTree = $.fn.zTree.init($("#treeDemo2"), setting, zNodes);
+                            var node = zTree.getNodeByParam("id", 0);
+                            //alert(JSON.stringify(node));
+                            zTree.selectNode(node);
+                            zTree.expandNode(node, true, false, false);
+                        }
+                    }
+                });
+                var zNodes = [];
+
+                function beforeClick(treeId, treeNode) {
+                    /* var check = (treeNode && !treeNode.isParent);
+                    if (!check) {
+                        parent.layer.alert('请选择党支部！');
+                    }
+                    return check; */
+                }
+
+                function onClick(e, treeId, treeNode) {
+                    var zTree = $.fn.zTree.getZTreeObj("treeDemo2"),
+                        nodes = zTree.getSelectedNodes(),
+                        v = "";
+                    nodes.sort(function compare(a, b) {
+                        return a.id - b.id;
+                    });
+                    for (var i = 0, l = nodes.length; i < l; i++) {
+                        v += nodes[i].name + ",";
+                    }
+                    if (v.length > 0) v = v.substring(0, v.length - 1);
+                    var cityObj = $("#branch");
+                    cityObj.attr("value", v);
+                    $("#branchId").val(treeNode.id);
+                }
+
+                function showMenu() {
+                    var cityObj = $("#branch");
+                    var cityOffset = $("#branch").offset();
+                    $("#menuContent2").slideDown("fast");
+
+                    $("body").bind("mousedown", onBodyDown);
+                }
+
+                function hideMenu() {
+                    $("#menuContent2").fadeOut("fast");
+                    $("body").unbind("mousedown", onBodyDown);
+                }
+
+                function onBodyDown(event) {
+                    if (!(event.target.id == "menuBtn" || event.target.id == "menuContent2" || $(event.target).parents("#menuContent2").length > 0)) {
+                        hideMenu();
+                    }
+                }
+            }
+
+            $("#organizationSear").click(function () {
+                $('#talkR1').empty();
+                all();
+            });
+            //时间插件方法
+            laydate.render({
+                elem: "#date",
+                type: "year"
+            });
+            $("#organizationLi").click(function () {
+                $(this).removeClass("noActive");
+                $("#partyMemberLi").addClass("noActive");
+                $(".partyMember").addClass("hid");
+                $(".partyOrganization").removeClass("hid");
+                OrganizeS();
+            });
+            $("#partyMemberLi").click(function () {
+                $(this).removeClass("noActive");
+                $("#organizationLi").addClass("noActive");
+                $(".partyMember").removeClass("hid");
+                $(".partyOrganization").addClass("hid");
+                all();
+            });
+
+            function isNum(num) {
+                var re = /^[0-9]+.?[0-9]*$/;
+                if (!re.test(num)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            tree();
+            function tree() {
+                // 树
+                var setting = {
+                    view: {
+                        dblClickExpand: true
+                    },
+                    data: {
+                        simpleData: {
+                            enable: true,
+                            idKey: "id",
+                            pIdKey: "pId"
+                        },
+                        key: {
+                            name: "name"
+                        }
+                    },
+                    callback: {
+                        // beforeClick: beforeClick,
+                        onClick: onClick
+                    }
+                };
+                $.ajax({
+                    type: "POST",
+                    url: path + "/zTreeData/queryTreeByCode.action",
+                    data: {"actCode": "PlanWorkStatis"},
+                    dataType: "json",
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    success: function (data) {
+                        if (data) {
+                            zNodes = data;
+                            var zTree = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                            var node = zTree.getNodeByParam("_id", 0);
+                            //alert(JSON.stringify(node));
+                            zTree.selectNode(node);
+                            zTree.expandNode(node, true, false, false);
+                        }
+                    }
+                });
+                var zNodes = [];
+
+                function onClick(e, treeId, treeNode) {
+                    $('#talkR').empty();
+                    OrganizeS(1, treeNode.id);
+                }
+            }
+
+            $("#back").click(function () {
+                window.history.back(-1);
+            });
+
+            OrganizeS();
+
+            function OrganizeS(flag, node) {
+                //分页参数设置 这些全局变量关系到分页的功能
+                var pagea = 1; //开始页数
+                var sizea = 10;  //每页最多显示条数
+                var nowpagea = 1;  //当前页数
+                var pagesa = 0;  //总页数
+
+                function page() {
+                    //调用分页
+                    layui.use(['laypage', 'layer'], function () {
+                        var laypage = layui.laypage
+                            , layer = layui.layer;
+                        laypage.render({
+                            elem: 'pageContent'
+                            , count: pagesa
+                            , limit: sizea  //每页显示的数据的条数,layui会根据count，limit进行分页的计算
+                            , curr: nowpagea
+                            , jump: function (obj, first) {
+                                // var currPage=obj.curr;
+                                // var perPage_num=obj.limit;
+                                nowpagea = obj.curr;
+                                pagea = (obj.curr - 1) * sizea;
+                                if (!first) {//一定要加此判断，否则初始时会无限刷新
+                                    pageAjax();//一定要把翻页的ajax请求放到这里，不然会请求两次。
+                                    location.href = '#top';
+                                    //<a href="#top">返回顶部</a>
+                                }
+
+                            }
+
+                        });
+                    })
+                }
+
+                pageAjax();
+
+                function pageAjax() {
+                    if (typeof flag !== "undefined" && flag !== null) {
+                        $.ajax({
+                            type: "POST",
+                            url: path + "/planBasic/queryStateisbm.action",
+                            data: {
+                                "in:bumenIdsSet|array": node,
+                                "page": nowpagea, //当前页数
+                                "size": sizea//每页显示条数
+                            },
+                            dataType: "json",
+                            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                            success: function (data) {
+                                pagea = data.page;//当前页数(后台返回)
+                                pagesa = data.total;//总页数(后台返回)
+                                var data = data.data;
+                                if (data.length == 0) {
+                                    $(".noDate").removeClass("hid");
+                                    $("#pageContent").addClass("hid");
+                                } else {
+                                    handleData(data);
+                                    $(".noDate").addClass("hid");
+                                    $("#pageContent").removeClass("hid");
+                                }
+                                page();
+                            }
+                        });
+                    } else {
+                        $.ajax({
+                            type: "POST",
+                            url: path + "/planBasic/queryStateisbm.action",
+                            data: {
+                                "page": nowpagea, //当前页数
+                                "size": sizea//每页显示条数
+                            },
+                            dataType: "json",
+                            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                            success: function (data) {
+                                pagea = data.page;//当前页数(后台返回)
+                                pagesa = data.total;//总页数(后台返回)
+                                var data = data.data;
+                                if (data.length == 0) {
+                                    $(".noDate").removeClass("hid");
+                                    $("#pageContent").addClass("hid");
+                                } else {
+                                    handleData(data);
+                                }
+                                page();
+                            }
+                        });
+                    }
+                }
+
+                function handleData(data) {
+                    $('#talkR').empty();
+                    var type = "";
+                    var planType = "";
+                    var arrLength="";
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].type == 1) {
+                            type = "党委中心组"
+                        }
+                        if (data[i].type == 2) {
+                            type = "党委"
+                        }
+                        if (data[i].type == 3) {
+                            type = "党总支"
+                        }
+                        if (data[i].type == 4) {
+                            type = "党支部"
+                        }
+                        if (data[i].type == 5) {
+                            type = "党员"
+                        }
+                        if (data[i].planType == 1) {
+                            planType = "创建"
+                        }
+                        if (data[i].planType == 2) {
+                            planType = "分解"
+                        }
+                        if(data[i].bumenIdsSet.length>1){
+                            arrLength=2;
+                        }else{
+                            arrLength=1;
+                        }
+                        if(data[i].bumenIdsSet.length>1){
+                            var oTr = ' <tr>\n' +
+                                '                        <td>'+(i+1)+'</td>\n' +
+                                '                        <td>'+data[i].title+'</td>\n' +
+                                '                        <td><input type="hidden" value='+data[i]._id+'><span class="nameLook">查看</span></td>\n' +
+                                '                        <td>'+type+'</td>\n' +
+                                '                        <td>'+data[i].formStarPlanDate+'到'+data[i].formEndPlanDate+'</td>\n' +
+                                '                        <td>'+data[i].bumenName+'</td>\n' +
+                                '                        <td>'+data[i].formIssuedDate +'</td>\n' +
+                                '                        <td>'+data[i].passed+'</td>\n' +
+                                '                        <td><input class="ids" type="hidden" value=' + data[i].bumenIdsSet.toString() + ' ><input class="itemId" type="hidden" value=' + data[i]._id + ' ><input class="jumpP" type="hidden" value='+ arrLength + '><input class="type" type="hidden" value=' + data[i].type + '><span class="look">查看</span></td>\n' +
+                                '                    </tr>';
+                        }else {
+                            var oTr = " <tr>\n" +
+                                "                        <td>" +(i + 1) + "</td>\n" +
+                                "                        <td>" + data[i].title + "</td>\n" +
+                                "                        <td>" + data[i].bumenNames + "</td>\n" +
+                                "                        <td>" + type + "</td>\n" +
+                                "                        <td>" + data[i].formStarPlanDate + "到" + data[i].formEndPlanDate + "</td>\n" +
+                                "                        <td>" + data[i].bumenName + "</td>\n" +
+                                "                        <td>" + data[i].formIssuedDate + "</td>\n" +
+                                "                        <td>" + data[i].passed + "</td>\n" +
+                                "                        <td><input class='ids' type='hidden' value=" + data[i].bumenIdsSet.toString() + " ><input class='itemId' type='hidden' value=" + data[i]._id + "  ><input class='jumpP' type='hidden' value=" + arrLength + "><input class='type' type='hidden' value=" + data[i].type + "><span class='look'>查看</span></td>\n" +
+                                "                    </tr>";
+                        }
+                        $('#talkR').append(oTr);
+                    }
+                    $('#talkR').on("click", function (e) {
+                        var target = e.target;
+                        if ($(target).attr("class")=='look'&& $(target).text() == "查看") {
+                            var currId = $(target).parent().find(".itemId").val();
+                            var arrL = $(target).parent().find(".jumpP").val();
+                            var typeK = $(target).parent().find(".type").val();
+                            var ids = $(target).parent().find(".ids").val();
+                            if(arrL==1){//计划查看页面
+                                if(typeK==1||typeK==5){//用户
+                                    window.location.href = "allPeopleLook.html?basicId=" + currId+"&ids="+ids;
+                                }else{//部门
+                                    window.location.href = "planLookPage.html?basicId=" + currId+"&ids="+ids;
+                                }
+                            }else{//计划统计列表页
+                                if(typeK==1||typeK==5){//用户统计
+                                    window.location.href = "allPeopleLook.html?basicId=" + currId+"&ids="+ids;
+                                }else{//部门统计
+                                    window.location.href = "bumenSList.html?basicId=" + currId+"&ids="+ids;
+                                }
+
+                            }
+
+                        }
+                        if($(target).attr("class")=='nameLook'&& $(target).text() == "查看"){
+                            var currId = $(target).parent().find("input").val();
+                            $("#poper1").removeClass("hid");
+                            $("#mask").removeClass("hid");
+                            $(".btnList").remove();
+                            $(".popB_bottom").remove();
+                            var zNodes = [];
+                            //tree
+                            var setting = {
+                                view: {
+                                    dblClickExpand: false
+                                },
+                                data: {
+                                    simpleData: {
+                                        enable: true,
+                                        idKey: "id",
+                                        pIdKey: "pId"
+                                    },
+                                    key: {
+                                        name: "name"
+                                    }
+                                },
+                                check: {
+                                    enable: true,
+                                    chkDisabledInherit: true,
+                                    chkStyle: "checkbox",
+                                    chkboxType: {"Y": "", "N": ""}
+                                },
+                                callback: {
+
+                                }
+                            };
+                            buildTree();
+
+                            function buildTree() {
+                                $.ajax({
+                                    type: "POST",
+                                    url: path + "/zTreeData/findBUPLook.action",
+                                    data: {
+                                        "planId":currId
+                                    },
+                                    dataType: "json",
+                                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                                    success: function (data) {
+                                        var data = data.data;
+                                        if (data) {
+                                            zNodes = data;
+                                            var zTree = $.fn.zTree.init($("#treeDemo1"), setting, zNodes);
+                                            var node = zTree.getNodeByParam("id", 0);
+                                            //alert(JSON.stringify(node));
+                                            zTree.selectNode(node);
+                                            zTree.expandNode(node, true, false, false);
+                                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                                            treeObj.expandAll(true);
+
+                                        }
+                                        hibb_Nodes();
+
+                                    }
+                                });
+                            }
+
+                            $("#cancel").click(function () {
+                                $("#poper1").addClass("hid");
+                                $("#mask").addClass("hid");
+                            });
+                            $("#close").click(function () {
+                                $("#poper1").addClass("hid");
+                                $("#mask").addClass("hid");
+                            });
+                            $("#mask").click(function () {
+                                $("#poper1").addClass("hid");
+                                $("#mask").addClass("hid");
+                            });
+                            $("#sure").click(function () {
+                                $("#poper1").addClass("hid");
+                                $("#mask").addClass("hid");
+
+                            });
+
+                            function hibb_Nodes() {
+                                var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                                var nodes = treeObj.transformToArray(treeObj.getNodes());
+                                for(var node in nodes){
+                                    treeObj.setChkDisabled(nodes[node],true);
+                                }
+                            }
+                        }
+
+                    })
+
+
+                }
+            }
+
+            function all() {
+                //分页参数设置 这些全局变量关系到分页的功能
+                var pagea = 1; //开始页数
+                var sizea = 10;  //每页最多显示条数
+                var nowpagea = 1;  //当前页数
+                var pagesa = 0;  //总页数
+
+                function page() {
+                    //调用分页
+                    layui.use(['laypage', 'layer'], function () {
+                        var laypage = layui.laypage
+                            , layer = layui.layer;
+                        laypage.render({
+                            elem: 'pageContent1'
+                            , count: pagesa
+                            , limit: sizea  //每页显示的数据的条数,layui会根据count，limit进行分页的计算
+                            , curr: nowpagea
+                            , jump: function (obj, first) {
+                                // var currPage=obj.curr;
+                                // var perPage_num=obj.limit;
+                                nowpagea = obj.curr;
+                                pagea = (obj.curr - 1) * sizea;
+                                if (!first) {//一定要加此判断，否则初始时会无限刷新
+                                    pageAjax();//一定要把翻页的ajax请求放到这里，不然会请求两次。
+                                    location.href = '#top';
+                                    //<a href="#top">返回顶部</a>
+                                }
+
+                            }
+
+                        });
+                    })
+                }
+
+                pageAjax();
+
+                function pageAjax() {
+                    $.ajax({
+                        type: "POST",
+                        url: path + "/planBasic/queryStateis.action",
+                        data: {
+                            "bumenId":$("#branchId").val(),
+                            "page": nowpagea, //当前页数
+                            "size": sizea//每页显示条数
+                        },
+                        dataType: "json",
+                        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                        success: function (data) {
+                            pagea = data.page;//当前页数(后台返回)
+                            pagesa = data.total;//总页数(后台返回)
+                            var data = data.data;
+                            if (data.length == 0) {
+                                $(".noDate1").removeClass("hid");
+                                $("#pageContent1").addClass("hid");
+                            } else {
+                                handleData(data);
+                                $(".noDate1").addClass("hid");
+                                $("#pageContent1").removeClass("hid");
+                            }
+                            page();
+                        }
+                    });
+
+                }
+
+                function handleData(data) {
+                    $('#talkR1').empty();
+                    var type = "";
+                    var planType = "";
+                    var arrLength="";
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i].type == 1) {
+                            type = "党委中心组"
+                        }
+                        if (data[i].type == 2) {
+                            type = "党委"
+                        }
+                        if (data[i].type == 3) {
+                            type = "党总支"
+                        }
+                        if (data[i].type == 4) {
+                            type = "党支部"
+                        }
+                        if (data[i].type == 5) {
+                            type = "党员"
+                        }
+                        if (data[i].planType == 1) {
+                            planType = "创建"
+                        }
+                        if (data[i].planType == 2) {
+                            planType = "分解"
+                        }
+                        if(data[i].bumenIdsSet.length>1){
+                            arrLength=2;
+                        }else{
+                            arrLength=1;
+                        }
+                        if(data[i].bumenIdsSet.length>1){
+                            var oTr = " <tr>\n" +
+                                "                        <td>"+(i+1)+"</td>\n" +
+                                "                        <td>"+data[i].title+"</td>\n" +
+                                "                        <td><input type='hidden' value="+data[i]._id+"><span class='nameLook'>查看</span></td>\n" +
+                                "                        <td>"+type+"</td>\n" +
+                                "                        <td>"+data[i].formStarPlanDate+"到"+data[i].formEndPlanDate+"</td>\n" +
+                                "                        <td>"+data[i].bumenName+"</td>\n" +
+                                "                        <td>"+planType+"</td>\n" +
+                                "                        <td>"+data[i].formIssuedDate+"</td>\n" +
+                                "                        <td><input class='ids' type='hidden' value=" + data[i].bumenIdsSet.toString() + " ><input class='itemId' type='hidden' value=" + data[i]._id + "  ><input class='jumpP' type='hidden' value="+arrLength+"><input class='type' type='hidden' value="+data[i].type+"><span class='Look'>查看</span></td>\n" +
+                                "                    </tr>";
+                        }else{
+                            var oTr = " <tr>\n" +
+                                "                        <td>"+(i+1)+"</td>\n" +
+                                "                        <td>"+data[i].title+"</td>\n" +
+                                "                        <td>"+data[i].bumenNames+"</td>\n" +
+                                "                        <td>"+type+"</td>\n" +
+                                "                        <td>"+data[i].formStarPlanDate+"到"+data[i].formEndPlanDate+"</td>\n" +
+                                "                        <td>"+data[i].bumenName+"</td>\n" +
+                                "                        <td>"+planType+"</td>\n" +
+                                "                        <td>"+data[i].formIssuedDate+"</td>\n" +
+                                "                        <td><input class='ids' type='hidden' value=" + data[i].bumenIdsSet.toString() + " ><input class='itemId' type='hidden' value=" + data[i]._id + "  ><input class='jumpP' type='hidden' value="+arrLength+"><input class='type' type='hidden' value="+data[i].type+"><span class='Look'>查看</span></td>\n" +
+                                "                    </tr>";
+                        }
+
+                        $('#talkR1').append(oTr);
+                    }
+                    $('#talkR1').on("click", function (e) {
+                        var target = e.target;
+                        if ($(target).attr("class") == 'nameLook' && $(target).text() == "查看") {
+                            var currId = $(target).parent().find("input").val();
+                            $("#poper1").removeClass("hid");
+                            $("#mask").removeClass("hid");
+                            $(".btnList").remove();
+                            $(".popB_bottom").remove();
+                            var zNodes = [];
+                            //tree
+                            var setting = {
+                                view: {
+                                    dblClickExpand: false
+                                },
+                                data: {
+                                    simpleData: {
+                                        enable: true,
+                                        idKey: "id",
+                                        pIdKey: "pId"
+                                    },
+                                    key: {
+                                        name: "name"
+                                    }
+                                },
+                                check: {
+                                    enable: true,
+                                    chkDisabledInherit: true,
+                                    chkStyle: "checkbox",
+                                    chkboxType: {"Y": "", "N": ""}
+                                },
+                                callback: {}
+                            };
+                            buildTree();
+
+                            function buildTree() {
+                                $.ajax({
+                                    type: "POST",
+                                    url: path + "/zTreeData/findBUPLook.action",
+                                    data: {
+                                        "planId": currId
+                                    },
+                                    dataType: "json",
+                                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                                    success: function (data) {
+                                        var data = data.data;
+                                        if (data) {
+                                            zNodes = data;
+                                            var zTree = $.fn.zTree.init($("#treeDemo1"), setting, zNodes);
+                                            var node = zTree.getNodeByParam("id", 0);
+                                            //alert(JSON.stringify(node));
+                                            zTree.selectNode(node);
+                                            zTree.expandNode(node, true, false, false);
+                                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                                            treeObj.expandAll(true);
+                                        }
+                                        hibb_Nodes();
+
+                                    }
+                                });
+                            }
+
+                            $("#cancel").click(function () {
+                                $("#poper1").addClass("hid");
+                                $("#mask").addClass("hid");
+                            });
+                            $("#close").click(function () {
+                                $("#poper1").addClass("hid");
+                                $("#mask").addClass("hid");
+                            });
+                            $("#mask").click(function () {
+                                $("#poper1").addClass("hid");
+                                $("#mask").addClass("hid");
+                            });
+                            $("#sure").click(function () {
+                                $("#poper1").addClass("hid");
+                                $("#mask").addClass("hid");
+
+                            });
+
+                            function hibb_Nodes() {
+                                var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                                var nodes = treeObj.transformToArray(treeObj.getNodes());
+                                for (var node in nodes) {
+                                    treeObj.setChkDisabled(nodes[node], true);
+                                }
+                            }
+                        }
+                        if ($(target).attr("class") == 'Look' && $(target).text() == "查看") {
+                            var currId = $(target).parent().find(".itemId").val();
+                            var arrL = $(target).parent().find(".jumpP").val();
+                            var typeK = $(target).parent().find(".type").val();
+                            var ids = $(target).parent().find(".ids").val();
+                            if(arrL==1){//计划查看页面
+                                if(typeK==1||typeK==5){//用户
+                                    window.location.href = "allPeopleLook.html?basicId=" + currId+"&ids="+ids;
+                                }else{//部门
+                                    window.location.href = "planLookPage.html?basicId=" + currId+"&ids="+ids;
+                                }
+                            }else{//计划统计列表页
+                                if(typeK==1||typeK==5){//用户统计
+                                    window.location.href = "allPeopleLook.html?basicId=" + currId+"&ids="+ids;
+                                }else{//部门统计
+                                    window.location.href = "bumenSList.html?basicId=" + currId+"&ids="+ids;
+                                }
+
+                            }
+
+                        }
+
+                    })
+                }
+            }
+
+        }
+    })
+
+</script>
+
+</html>

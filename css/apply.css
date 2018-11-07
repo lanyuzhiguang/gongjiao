@@ -1,0 +1,245 @@
+*{
+	margin: 0;
+	padding: 0;
+	list-style: none!important;
+}
+html,body{
+	font-size: 14px;
+}
+header{
+	width: 100%;
+	height: 34px;
+	border-bottom: 1px solid #e0e0e0;
+	margin-top: 20px;
+}
+.li8{
+	position: absolute;
+	left: 64px;
+	top: 70px;
+}
+#date{
+	padding-left: 5px;
+}
+.choose {
+    position: relative;
+}
+.choose .radio {
+    position: relative;
+    display: inline-block;
+    font-weight: 400;
+    color: #0c4757;
+    padding-left: 25px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+.choose .radio input {
+    position: absolute;
+    left: -9999px;
+}
+.choose .radio i {
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    outline: 0;
+    border: 1px solid #e4e4e4;
+    background: #ffffff;
+    border-radius: 50%;
+    transition: border-color .3s;
+    -webkit-transition: border-color .3s;
+}
+select{
+	width: 56px;
+	height: 30px;
+	outline: none;
+}
+.choose .radio input + i:after {
+    position: absolute;
+    content: '';
+    top: 3px;
+    left: 3px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background-color: #ff5d5b;
+    opacity: 0;
+    transition: opacity .1s;
+    -webkit-transition: opacity .1s;
+}
+.choose .radio input:checked + i:after {
+    opacity: 1;
+}
+textarea{
+	resize:none;
+	outline: none;
+}
+.apply{
+	width: 94px;
+	height: 34px;
+	line-height: 34px;
+	text-align: center;
+	font-family: "PingFangSC-Medium, sans-serif";
+	border: 1px solid #e0e0e0;
+	border-bottom: none;
+	border-radius: 2px;
+	margin-left: 110px;
+}
+.body{
+	width: 989px;
+	height: 288px;
+	border: 1px solid #e0e0e0;
+	margin: 42px 0 0 90px;
+	position: absolute;
+	left: 50%;
+	margin-left: -500px;
+}
+.info{
+	width: 196px;
+	height: 26px;
+	color: #fff;
+	font-family: " PingFangSC-Medium, sans-serif";
+	line-height: 26px;
+	text-align: center;
+	border-radius: 4px;
+	background: #ed0d13;
+	margin: -13px 0 0 34px;
+}
+ul li{
+	font-size: 14px;
+	margin:24px 0 0 0;
+	float: left;
+}
+ul li input{
+	border: 1px solid #d5d5d5;
+	border-radius: 2px;
+	outline: none;
+}
+.li1 select{
+	width: 218px;
+	height: 32px;
+	margin-left: 16px;
+}
+.newL select{
+	width: 218px;
+	height: 32px;
+	margin-left: 16px;
+}
+.li1{
+	margin-left: 69px;
+}
+.li2{
+	margin-left: 12px;
+}
+.li3{
+	margin-left: 54px;
+}
+.li4{
+	position: absolute;
+	left: 381px;
+	top: 62px;
+}
+.li5{
+	/*margin-left: 39px;*/
+	margin-left: 41px;
+}
+.li7{
+	margin-left: 26px;
+}
+.sp1{
+	color: #f10202;
+}
+.sp2{
+	color: #3a3a3a;
+}
+.li2 input{
+	width: 209px;
+	margin-left: 18px;
+	height: 30px;
+}
+.li1 input,.li5 input,.li7 input{
+	width: 214px;
+	margin-left: 18px;
+	height: 30px;
+}
+.li4 select{
+	width: 218px;
+	margin-left: 18px;
+	height: 34px;
+}
+.li2 input{
+	background: url(../img/date.png) no-repeat 190px center;
+	background-size: 14px 16px;
+}
+#province,#city,#district{
+	width: 71px;
+	height: 30px;
+}
+.span{
+	margin-left: 20px;
+}
+.li6{
+	margin:28px 0 0 23px;
+	position: relative;
+	margin-left: 23px;
+}
+.li6 textarea{
+	width: 210px;
+	height: 88px;
+	line-height: 20px;
+	position: absolute;
+	top: 0;
+	left: 90px;
+	padding: 6px 0 0 10px;
+}
+textarea::-webkit-input-placeholder {
+	color: #bebebe!important;
+	font-size: 12px;
+}
+textarea:-moz-placeholder {
+	color: #bebebe!important;
+	font-size: 12px;
+}
+textarea::-moz-placeholder {
+	color: #bebebe!important;
+	font-size: 12px;
+}
+textarea:-ms-input-placeholder {
+	color: #bebebe!important;
+	font-size: 12px;
+}
+.body1{
+	width: 1000px;
+	height: 100px;
+	border: 1px solid #e0e0e0;
+	position: absolute;
+	left: 50%;
+	margin:386px 0 0 -500px;
+}
+.body1 .info{
+	width: 140px;
+}
+#submit{
+	width: 268px;
+	height: 46px;
+	font-size: 18px;
+	font-family: " PingFangSC-Regular, sans-serif";
+	border-radius: 4px;
+	border: 1px solid #007aff;
+	background-color: #007aff;
+	color: #fff;
+	margin: 66px 0 122px -134px;
+	position: absolute;
+	left: 50%;
+	outline: none;
+	cursor: pointer;
+}
+.bran{
+	position: relative;
+}
+#menuContent{
+	position: absolute;
+	left: 85px;
+	top: 34px;
+}

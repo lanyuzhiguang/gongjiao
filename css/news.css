@@ -1,0 +1,356 @@
+﻿.nav-search .nav-search-input:focus, .nav-search .nav-search-input:hover{
+    border-color: transparent;
+    background: #ffffff;
+}
+.nav.nav-tabs.padding-18{
+    padding-left: 0!important;
+    background: #f4f4f4;
+    margin-bottom: 0px!important;
+    padding-right: 25px;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
+    border-top: 2px solid red;
+    background: #fafafa;
+    color: #333333;
+}
+.nav-tabs > li > a, .nav-tabs > li > a:focus{
+    color:#666666;
+}
+.nav-tabs > li{
+    font-size: 16px;
+    margin-bottom: -7px;
+}
+.hotTopice {
+    background: #ffffff;
+    padding-right: 4px;
+    padding-left: 0;
+}
+.hotT {
+    background: #fafafa;
+    width: 93%;
+    height: 500px;
+    margin: auto;
+}
+
+.wrapperL{
+    padding-right: 0;
+    padding-left: 0;
+}
+.leftW{
+    padding-left: 0;
+}
+.page-content{
+    padding: 10px 0px 0 17px;
+}
+ul li{
+    list-style: none;
+}
+.tab-content.no-border.padding-24{
+    padding:0;
+    background: #fafafa;
+}
+ul{
+   margin-left: 0;
+}
+.imgB{
+    width: 24%;
+}
+.icon-xinzeng{
+    font-size: 27px;
+    vertical-align: middle;
+}
+.imgB img{
+    width: 92.5%;
+    height: 100px;
+}
+.contentW{
+    width: 76%;
+}
+.imgB,.contentW{
+    float: left;
+}
+.newslist ul li{
+    width: 100%;
+    overflow: hidden;
+    padding: 10px 15px;
+    border-bottom:1px solid #f4f4f4;
+}
+.bottomW{
+  
+}
+.clearfix{
+    font-size: 12px;
+}
+.leftW{
+    padding-right: 10px;
+}
+.topW{
+    width: 100%;
+    overflow: hidden;
+    margin-top: -4px;
+}
+.tit{
+    width: 81%;
+    float: left;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    height: 47px;
+    color:#333333;
+}
+.cT{
+    font-size: 14px;
+}
+.LM{
+    float: right;
+    background: red;
+    color: #ffffff;
+    /* padding: 3px 11px; */
+    border-radius: 5px;
+    /* margin-right: 10px; */
+    /* width: 9%; */
+    /* height: 23px; */
+    text-align: center;
+    line-height: 23px;
+    margin-top: 2px;
+    padding: 1px 7px;
+}
+.readMore{
+    color:#58bffa;
+}
+.searchB {
+    float: right!important;
+    margin-top:5px;
+}
+.searchBTN{
+    margin-top: -2px;
+}
+::-webkit-input-placeholder { /* WebKit browsers */
+    font-size:12px;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    font-size:12px;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    font-size:12px;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    font-size:12px;
+}
+.input-icon > .ace-icon {
+    right: 3px!important;
+    left: auto!important;
+    color: #9E9E9E!important;
+    font-size: 11px !important;
+    line-height: 23px !important;
+    margin-top: 8px;
+}
+.addN{
+    float: right!important;
+    margin-top: 3px;
+    color: red;
+    margin-left: 11px;
+    margin-bottom: -2px!important;;
+}
+.addN a{
+    border: none!important;
+    background-color: #F4F4F4!important;
+padding-right:0px!important;
+}
+.addN span{
+    margin-left: -3px!important;
+}
+.input-icon > input{
+    padding-left: 4px;
+  
+    border: 1px solid transparent;
+    border-radius: 5px!important;
+    margin-top: 8px;
+    outline: none;
+}
+.input-icon > input:hover,.input-icon > input:focus{
+    outline: none;
+    border-color:transparent ;
+}
+.hotN{
+    height: 43px;
+    background: #f4f4f4;
+    line-height: 43px;
+    border-radius: 10px 10px 0 0;
+    padding-left: 15px;
+    border-bottom: 1px solid #f4f4f4;
+    font-size: 16px;
+}
+.hotNList{
+    background: #fafafa;
+    width: 100%;
+    overflow: hidden;
+}
+.hotT{
+    border-radius:10px 10px 0 0 ;
+}
+.hotNList ul{
+    overflow: hidden;
+}
+.hotNList ul li{
+    padding: 18px 14px;
+    width: 100%;
+    float: left;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    height: 53px;
+    overflow-y: hidden;
+}
+.hid{
+    visibility: hidden;
+}
+
+
+
+
+.clearfix {
+    clear: both;
+    padding-top: 10px;
+}
+.grid2:first-child, .grid3:first-child, .grid4:first-child {
+    border-left: 1px solid #E3E3E3;
+}
+.grid3 {
+    width: auto;
+    float: right;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+.grid3 i {
+    color: #2196f3;
+    cursor: pointer;
+}
+.grid3 i:hover {
+    color:#EE111E;
+}
+.grid3 i span {
+    margin-left: 3px;
+    font-size: 12px!important;
+}
+.icon-dianzan {
+    font-size: 13px;
+}
+.icon-jubao1{
+    font-size: 13px;
+}
+.icon-shoucang {
+    font-size: 14px!important;
+}
+.icon-shoucang span {
+    font-size: 14px!important;
+}
+.icon-bianji {
+    font-size: 14px;
+}
+
+.widget-box.transparent{
+    margin-bottom: 20px;
+}
+.icon-hudong{
+    color:#83AF70;
+}
+.icon-pinglun{
+    font-size: 12px;
+}
+.icon-chakan span{
+    font-size: 13px;
+    margin-left: 5px;
+}
+.icon-chakan{
+    font-size: 14px;
+ }
+
+.see{
+    color:#999999;
+    padding-left: 10px;
+ }
+.rig{
+    float: left;
+    font-size: 12px;
+    color: #999999;
+}
+.smallT{
+    overflow: hidden;
+    width: 100%;
+    margin-top: 20px;
+}
+.ho{
+    margin-left: 5px;
+}
+.time_{
+    border-left: 1px solid #E3E3E3;
+    padding-left: 10px;
+}
+.name_{
+    padding-right: 10px;
+}
+.stuJ{
+    border-left: 1px solid transparent;
+}
+
+/*分页*/
+.dataTables_paginate{
+    text-align: center;
+}
+.pagination > li > a{
+    border-radius: 28px!important;
+    margin-left: 14px;
+}
+.previous a,.next a{
+    border-color:transparent!important;
+    background: #ffffff!important;
+}
+.pagination > li.active > a, .pagination > li.active > a:hover{
+    background-color: red!important;
+    border-color: red!important;
+    color:#ffffff!important;
+}
+.pageCode a{
+    color: #000000!important;
+}
+.pagination > li > a, .pagination > li > span{
+    padding: 2px 8px;
+}
+.divpage {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.nav.nav-tabs.padding-16{
+    background-color: #f4f4f4;
+}
+.inbox-tabs.nav-tabs.tab-size-bigger > li > a{
+    padding: 21px 15px 7px;
+}
+.message-navbar{
+    background-color: transparent;
+}
+.page-content {
+    margin-top: 10px;
+}
+.topW a p{
+    color: #333333;
+    font-weight: bold;
+    font-size: 16px!important;
+}
+.hotNList li a p{
+    width: 100%;
+    float: left;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    height: 26px!important;
+    overflow: hidden;
+}

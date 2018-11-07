@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/allPeopleLook.css">
+    <link rel="stylesheet" href="../css/poperConfirm.css">
+    <link rel="stylesheet" type="text/css" href="../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+    <style>
+        .taskState {
+            position: relative;
+        }
+
+        .officeBtn ul li {
+            list-style: none;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 5px;
+            padding: 2px 0;
+        }
+
+        .officeBtn {
+            z-index: 100000;
+            width: 99%;
+            position: absolute;
+            top: 24px;
+            background: #e0e0e0;
+            border: 1px solid #d5d5d5;
+            height: 151px;
+            overflow: auto;
+        }
+        .activeSelcet {
+            background: #2198f2;
+            color: #ffffff;
+        }
+
+        .hid {
+            display: none;
+        }
+        .noDate{
+            text-align: center;
+            font-size: 14px;
+
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <div class="talkRecord">
+                <span id="back">
+                      <img src="../img/back.png"><span class="back">返回</span>
+                </span>
+        <span id="tanTile">计划查看</span>
+    </div>
+    <div class="">
+        <div class="tableList">
+            <table cellpadding="0" cellspacing="0">
+                <thead>
+                <tr>
+                    <th style="width: 5%">序号</th>
+                    <th style="width: 10%">姓名</th>
+                    <th style="width: 10%">已完成/全部</th>
+                    <th style="width:10%">任务越期</th>
+                    <th style="width:5%">操作</th>
+                </tr>
+
+                </thead>
+                <tbody id="talkR">
+                <!--<tr>-->
+                    <!--<td>1</td>-->
+                    <!--<td>张三</td>-->
+                    <!--<td>90</td>-->
+                    <!--<td>23</td>-->
+                    <!--<td><span>填报</span></td>-->
+                <!--</tr>-->
+            </table>
+            <div class="noDate hid">暂无数据</div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="../assets/js/jquery.js"></script>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script src="../assets/js/jquery.js"></script>
+<script src="../js/laydate.js"></script>
+<script src="../js/layer.js"></script>
+<script>
+    $(function () {
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+
+        var id = getQueryString("basicId");
+        var path = "";
+        var iframe = document.getElementById("common");
+        ///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+        iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+        if (iframe.attachEvent) {//判断iframe是否加载完成
+            iframe.attachEvent("onload", function () {
+                getCommon();
+            });
+        } else {
+            iframe.onload = function () {
+                getCommon();
+            };
+        }
+
+        //获取公共参数  一般为存储在session里面的数据
+        function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+            var frames = window.frames["common"];
+            path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+            var _qiniuImageHost = frames._qiniuImageHost;//七牛云公共地址头
+            $("#back").click(function () {
+                window.history.back(-1);
+            });
+            list();
+
+            function list() {
+                $.ajax({
+                    type: "POST",
+                    url: path + "/planBasic/findPlanBum.action",
+                    data: {
+                        "planId": id
+                    },
+                    dataType: "json",
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    success: function (data) {
+                        var data=data.data;
+                        if(data.length==0){
+                            $(".noDate").removeClass("hid");
+                        }
+                        for (var i = 0; i < data.length; i++) {
+                            var oTr=' <tr>\n' +
+                                '                    <td>'+(i+1)+'</td>\n' +
+                                '                    <td>'+data[i].name+'</td>\n' +
+                                '                    <td>'+data[i].finish+'/'+data[i].total+'</td>\n' +
+                                '                    <td>'+data[i].passed+'</td>\n' +
+                                '                    <td><input type="hidden" value='+data[i].thisId+'><span>查看</span></td>\n' +
+                                '                </tr>';
+
+                            $("#talkR").append(oTr);
+                        }
+                        $('#talkR').on("click", function (e) {
+                            var target = e.target;
+                            var currId = $(target).parent().find("input").val();
+                            if ($(target).text()=="查看") {
+                                window.location.href="peopleList.html?ids="+currId+"&basicId="+id;
+                            }
+                        })
+                    }
+                });
+            }
+
+
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>其他设置</title>
+		<link rel="stylesheet" type="text/css" href="../css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../iconFont/iconfont.css"/>
+		<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css"/>
+		<link rel="stylesheet" href="../layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="../layui/css/modules/layer/default/layer.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/resoueceLibrary.css"/>
+		<style type="text/css">
+			/*进度*/
+			.clear>p,.clear>div{
+				float: left;
+			}
+			.clear>p{
+				width: 25px;
+				height: 25px;
+				border: 1px solid #333;
+				border-radius: 50%;
+				text-align: center;
+				line-height: 25px;
+				margin-bottom: 8px;
+			}
+			.clear>p.active{
+				background: #2198F1;
+				border: none;
+				color: #fff;
+			}
+			.clear>div{
+				width: 315px;
+				height: 1px;
+				margin-top: 12px;
+				background: #333;
+				line-height: 20px;
+			}
+			.clear{
+				width: 710px;
+				margin: 0 auto;
+			}
+			.clear>span{
+				position: relative;
+			}
+			.clear>span:first-of-type{
+				right: 13px;
+			}
+			.clear>span:nth-of-type(2){
+				margin-left: 264px;
+			}
+			.clear>span:nth-of-type(3){
+				left: 282px;
+			}
+			
+			.form-inline{
+				margin-top: 12px;
+			}
+			div.radio{
+				padding-bottom: 8px;
+			}
+			.gray{
+				color: #999;
+			}
+			.text-right{
+				margin-right: 12px;
+			}
+			.form-inline .radio:first-of-type{
+				margin-right: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<header class="container-fluid">
+				<div class="row">
+					<div class="col-xs-6 text-left">
+						<a href="javascript:history.go(-1);" style="color: #333;"><i class="fa fa-angle-double-left"></i>返回</a>
+						<h4>课程</h4>
+					</div>
+				</div>
+			</header>
+		</div>
+		<article class="container-fluid">
+			<div class="row content_header">
+				<div class="clear">
+					<p>1</p>
+					<div class="solid"></div>
+					<p>2</p>
+					<div class="solid"></div>
+					<p class="active">3</p>
+					<span>基本信息</span>
+					<span>章节管理</span>
+					<span>其他设置</span>
+				</div>
+			</div>
+			<div class="content row">
+				<div class="form-inline col-xs-12">
+					<label class="form-group col-xs-2 col-xs-offset-2 text-right"><span style="color: red;">*</span>课程学时设置&nbsp;</label>
+					<div class="col-xs-5">
+						<div class="radio zidTime">
+						  	<label>
+						    	<input type="radio" name="optionsRadios1" id="optionsRadios1" value="option1" checked>
+						    	按课程章节时间统计学时	共<span class="timeNums">10</span>学时
+						  	</label>
+						  	<br />
+						</div>
+						<div class="radio">
+  							<label>
+						    	<input type="radio" name="optionsRadios1" id="optionsRadios2" value="option2">
+						    	设置课程学时
+						  	</label>
+						  	<input type="text" class="form-control timeNum" style="width: 100px;"/>学时
+						</div>
+						<p class="gray">系统学时转换规则：章节内容累计满60分钟，为1学时；30分钟为0.5学时。小于0.5学时按0.5学时计算，大于0.5学时小于1学时，按1学时计算</p>
+					</div>
+				</div>
+				<div class="form-inline col-xs-12">
+					<label class="form-group col-xs-2 col-xs-offset-2 text-right"><span style="color: red;">*</span>是否公开课程&nbsp;</label>
+					<div class="col-xs-5">
+						<div class="radio">
+						  	<label>
+						    	<input type="radio" name="optionsRadios2">
+						    	是
+						  	</label>
+						</div>
+						<div class="radio">
+  							<label>
+						    	<input type="radio" name="optionsRadios2" checked>
+						    	否
+						  	</label>
+						</div>
+						<p class="gray">若设置为公开，则课程发布时全部党员均可参与该课程学习；若需要将此课程对部分党员开放，可设置为不公开，可从学习任务中按照范围下发</p>
+					</div>
+				</div>
+				<div class="form-inline col-xs-12">
+					<label class="form-group col-xs-2 col-xs-offset-2 text-right"><span style="color: red;">*</span>学习笔记是否必填&nbsp;</label>
+					<div class="col-xs-5">
+						<div class="radio">
+						  	<label>
+						    	<input type="radio" name="optionsRadios3">
+						    	否
+						  	</label>
+						</div>
+						<div class="radio">
+  							<label>
+						    	<input type="radio" name="optionsRadios3" checked>
+						    	是
+						  	</label>
+						</div>
+						<p class="gray">设置学习笔记提交是否是课程完成的判定标准之一</p>
+					</div>
+				</div>
+				<div class="form-inline col-xs-12">
+					<label class="form-group col-xs-2 col-xs-offset-2 text-right"><span style="color: red;">*</span>是否关联考试&nbsp;</label>
+					<div class="col-xs-5">
+						<div class="radio">
+						  	<label>
+						    	<input type="radio" name="optionsRadios4">
+						    	否
+						  	</label>
+						</div>
+						<div class="radio">
+  							<label>
+						    	<input type="radio" name="optionsRadios4" checked>
+						    	是
+						  	</label>
+						</div><br />
+						<a href="javascript:;" class="creatExam">创建考试</a>
+					</div>
+				</div>
+				<div class="form-inline col-xs-12">
+					<label class="form-group col-xs-2 col-xs-offset-2 text-right"><span style="color: red;">*</span>课程通过积分奖励&nbsp;</label>
+					<div class="col-xs-5">
+						<input type="text" class="form-control score" style="width: 120px;">&nbsp;分
+						<p class="gray">根据设置，用户通过课程学习后获取的积分。积分计入课程积分项中。请输入非负整数积分值，0分为不积分。如果设置了心得和考试，需要完成全部课程内容学习，并满足心得提交数量及考试通过的要求才判定为课程通过</p>
+					</div>
+				</div>
+				<div class="form-inline col-xs-12">
+					<label class="form-group col-xs-2 col-xs-offset-2 text-right"><span style="color: red;">*</span>是否推荐置顶&nbsp;</label>
+					<div class="col-xs-5">
+						<div class="radio">
+						  	<label>
+						    	<input type="radio" name="optionsRadios5">
+						    	否
+						  	</label>
+						</div>
+						<div class="radio">
+  							<label>
+						    	<input type="radio" name="optionsRadios5" checked>
+						    	是
+						  	</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-inline col-xs-12">
+					<label class="form-group col-xs-2 col-xs-offset-2 text-right"><span style="color: red;">*</span>是否推送消息提醒&nbsp;</label>
+					<div class="col-xs-5">
+						<div class="radio">
+						  	<label>
+						    	<input type="radio" name="optionsRadios6">
+						    	否
+						  	</label>
+						</div>
+						<div class="radio">
+  							<label>
+						    	<input type="radio" name="optionsRadios6" checked>
+						    	是
+						  	</label>
+						</div>
+						<p class="gray">课程发布时向用户推荐该课程的提醒信息</p>
+					</div>
+				</div>
+			</div>
+		</article>
+		<footer>
+			<button class="btn btn-primary submitBtn">保存并发布</button>
+			<button class="btn btn-default submitBtn">保存,暂不发布</button>
+			<button class="btn btn-default" onclick="history.go(-1)">上一步</button>
+		</footer>
+	</body>
+	<script type="text/javascript" src="../../../r/wx/common/pathimage"></script>
+	<script src="../js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../layui/lay/modules/layer.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+//		var _ctxPath = "http://192.168.3.24:8080/dangjian/";
+//		@param _id 租户课程的唯一ID
+//		* @param personalType  0待发布  1发布
+//		* @param timeType   0代表系统学时转换规则   1代表自定义
+//		* @param timeNum  当为timeType=0的时候不用传，为1的时候需要传
+//		* @param ispublic  0代表公开。1代表不公开 
+//		* @param isWriteStudy   学习心得是否必填  0非必填  1必填 
+//		* @param isExamPaper   是否关联考试  0不关联  1关联
+//		* @param score   课程通过积分奖励
+//		* @param setTop   0不置顶  1置顶
+//		* @param isPush   0不推送  1推送
+		
+		
+		function GetQueryString(name){
+		    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		    var r = window.location.search.substr(1).match(reg);
+		    if(r!=null)return  decodeURI(r[2]); return null;
+		};
+		var type = GetQueryString("type");
+		if (type == "2") {
+			$(".zidTime").hide();
+		}
+		//回显
+		var editData = JSON.parse(localStorage.getItem("editData")) || "";
+		if (editData.score) {
+			$(".form-inline:eq(0) input[type=radio]").eq(editData.timeType).prop("checked",true);
+			if (editData.timeType == 1) {
+				$(".timeNum").val(editData.timeNum);
+			} else {
+				$(".timeNums").text(editData.timeNum);
+			}
+			$(".form-inline:eq(1) input[type=radio]").eq(editData.ispublic).prop("checked",true);
+			$(".form-inline:eq(2) input[type=radio]").eq(editData.isWriteStudy).prop("checked",true);
+			$(".form-inline:eq(3) input[type=radio]").eq(editData.isExamPaper).prop("checked",true);
+			if (editData.isExamPaper == 1) {
+				$(".creatExam").text(editData.examPaperTitle);
+			} else{
+				$(".creatExam").hide();
+			}
+			$(".score").val(editData.score);
+			$(".form-inline:eq(5) input[type=radio]").eq(editData.setTop).prop("checked",true);
+			$(".form-inline:eq(6) input[type=radio]").eq(editData.isPush).prop("checked",true);
+		} else if (localStorage.getItem("examSetting") == "true") {
+			var pageData = JSON.parse(localStorage.getItem("course3"));
+			$(".form-inline:eq(0) input[type=radio]").eq(pageData.timeType).prop("checked",true);
+			if (pageData.timeType == 1) {
+				$(".timeNum").val(pageData.timeNum);
+			}
+			$(".form-inline:eq(1) input[type=radio]").eq(pageData.ispublic).prop("checked",true);
+			$(".form-inline:eq(2) input[type=radio]").eq(pageData.isWriteStudy).prop("checked",true);
+			$(".form-inline:eq(3) input[type=radio]").eq(pageData.isExamPaper).prop("checked",true);
+			if (pageData.isExamPaper == 1) {
+				$(".creatExam").text(pageData.examName);
+			} else{
+				$(".creatExam").hide();
+			}
+			$(".score").val(pageData.score);
+			$(".form-inline:eq(5) input[type=radio]").eq(pageData.setTop).prop("checked",true);
+			$(".form-inline:eq(6) input[type=radio]").eq(pageData.isPush).prop("checked",true);
+		}
+		function isCheckedFun(elem){
+			var ind = false;
+			$.each(elem, function() {
+				if ($(this).is(":checked")) {
+					ind = $(this).parents(".radio").index();
+				}
+			});
+			return ind;
+		}
+		function dataEndFun(dataObj){
+			var bool = true;
+			$.each(dataObj,function(key,value){
+				if (value === false || value === "") {
+					bool = false;
+				}
+			});
+			return bool;
+		}
+		$(".form-inline:eq(3) .radio").off("click").on("click",function(){
+			$(".creatExam").css("display",$(this).index() == 1 ? "block" : "none");
+		});
+		$(".creatExam").off("click").on("click",function(){
+			var pageData = {};
+			pageData._id = localStorage.getItem("id");
+			pageData.timeType = isCheckedFun($(".form-inline:eq(0) input[type=radio]"));
+			if (pageData.timeType == 1) {
+				pageData.timeNum = $(".timeNum").val();
+			}
+			pageData.ispublic = isCheckedFun($(".form-inline:eq(1) input[type=radio]"));
+			pageData.isWriteStudy = isCheckedFun($(".form-inline:eq(2) input[type=radio]"));
+			pageData.isExamPaper = isCheckedFun($(".form-inline:eq(3) input[type=radio]"));
+			if (pageData.isExamPaper == 1) {
+				pageData.examName = $(".creatExam").text();
+			}
+			pageData.score = $(".score").val();
+			pageData.setTop = isCheckedFun($(".form-inline:eq(5) input[type=radio]"));
+			pageData.isPush = isCheckedFun($(".form-inline:eq(6) input[type=radio]"));
+			localStorage.setItem("course3",JSON.stringify(pageData));
+			if ($(this).text() == "创建试卷") {
+				location.href = "new_text_pager.html";
+			} else{
+				location.href = "new_text_pager.html?edit=1";
+			}
+		});
+		$("footer .submitBtn").off("click").on("click",function(){
+			var dataObj = {};
+			dataObj._id = localStorage.getItem("id");
+			dataObj.timeType = isCheckedFun($(".form-inline:eq(0) input[type=radio]"));
+			if (dataObj.timeType == 1) {
+				dataObj.timeNum = $(".timeNum").val();
+			}
+			dataObj.ispublic = isCheckedFun($(".form-inline:eq(1) input[type=radio]"));
+			dataObj.isWriteStudy = isCheckedFun($(".form-inline:eq(2) input[type=radio]"));
+			dataObj.isExamPaper = isCheckedFun($(".form-inline:eq(3) input[type=radio]"));
+			dataObj.score = $(".score").val();
+			dataObj.setTop = isCheckedFun($(".form-inline:eq(5) input[type=radio]"));
+			dataObj.isPush = isCheckedFun($(".form-inline:eq(6) input[type=radio]"));
+			if (!dataEndFun(dataObj)) {
+				alertFun("请将信息勾选并填写完整！");
+			} else if (dataObj.isExamPaper == 1 && localStorage.getItem("examSetting") != "true") {
+				alertFun("请配置考试信息！");
+			} else {
+				if ($(this).index() == 0) {
+					dataObj.personalType = 1;
+				} else if ($(this).index() == 1) {
+					dataObj.personalType = 0;
+				}
+				submitFun(dataObj);
+			}
+		});
+		function submitFun(dataObj) {
+			$.ajax({
+				type:"get",
+				url:_ctxPath + "pc/personalBasePc/releaseCurriculum.action",
+				xhrFields: {				
+		            withCredentials: true	
+		        },							
+		        crossDomain: true,
+		        dataType: "json",
+		        data: dataObj,
+		        success: function(data){
+		        	if (data.success) {
+		        		localStorage.setItem("examSetting",false);
+		        		location.href = "curriculumManage.html";
+		        	} else {
+		        		alertFun(data.message);
+		        	}
+		        }
+			});
+		}
+		
+		function alertFun(content){
+			layer.open({
+			  	title: '提示',
+			  	content: content,
+			  	fixed: false,
+			  	resize: false,
+				scrollbar: false,
+				move: false
+			});
+		}
+		
+	</script>
+</html>

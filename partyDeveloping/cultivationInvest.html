@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/cultivationInvest.css">
+    <link rel="stylesheet" type="text/css" href="../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+    <style>
+        .noData{
+            text-align: center;
+            font-size: 14px;
+        }
+        .hid{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div>
+        <div class="talkRecord">
+            <span id="back">
+                 <img src="../img/back.png"><span class="back">返回</span>
+            </span>
+           <span id="title"></span><span class="addBtn">添加</span>
+        </div>
+        <div id="content">
+            <div class="noData hid">暂无数据</div>
+        </div>
+        <!--<div class="partySuggest">-->
+            <!--<div class="innerSuggest">-->
+                <!--<div class="suggestTop">-->
+                    <!--培养考察情况（一）-->
+                <!--</div>-->
+                <!--<div class="content">-->
+                    <!--党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见党小组意见-->
+                <!--</div>-->
+                <!--<div class="biaoZ">-->
+                    <!--<div class="inner">-->
+                        <!--<div>-->
+                            <!--<div>培养联系人:</div><div>张三</div>-->
+                        <!--</div>-->
+                        <!--<div>-->
+                            <!--<div>日期:</div><div>2017-01-21</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    </div>
+</div>
+</body>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script src="../assets/js/jquery.js"></script>
+<script src="../js/laydate.js"></script>
+<script src="../js/layer.js"></script>
+<script>
+    $(function () {
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+
+        var recId = getQueryString("recrutId");
+        var stKey = getQueryString("stKey");
+        var where = getQueryString("flag");
+        var type=getQueryString("type");
+        var flag1=getQueryString("flag1");
+        var path = "";
+        var iframe = document.getElementById("common");
+        ///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+        iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+        if (iframe.attachEvent) {//判断iframe是否加载完成
+            iframe.attachEvent("onload", function () {
+                getCommon();
+            });
+        } else {
+            iframe.onload = function () {
+                getCommon();
+            };
+        }
+
+        //获取公共参数  一般为存储在session里面的数据
+        function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+            var frames = window.frames["common"];
+            path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+            var _qiniuImageHost = frames._qiniuImageHost;//七牛云公共地址头
+            $("#back").click(function () {
+                window.history.back(-1);
+            });
+            if(flag1){
+                $(".addBtn").addClass("hid");
+            }
+            if(where==1){
+                $("#title").text("培养考察情况");
+                $.ajax({
+                    type: "POST",
+                    url: path + "/deveRecord/queryByRecSkey.action",
+                    data: {
+                        "recrutId": recId,
+                        "stKey":stKey
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.length==0){
+                            $(".noData").removeClass("hid");
+                        }else {
+                            for(var i=0;i<data.length;i++){
+                                var item='<div class="partySuggest">\n' +
+                                    '            <div class="innerSuggest">\n' +
+                                    '                <div class="suggestTop">\n' +
+                                    '                    培养考察情况（'+(i+1)+'）\n' +
+                                    '                </div>\n' +
+                                    '                <div class="content">\n' +
+                                    '                    '+data[i].content+'\n' +
+                                    '                </div>\n' +
+                                    '                <div class="biaoZ">\n' +
+                                    '                    <div class="inner">\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>培养联系人:</div><div>'+data[i].userName+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>日期:</div><div>'+data[i].frmtCrtTime+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                    </div>\n' +
+                                    '\n' +
+                                    '                </div>\n' +
+                                    '            </div>\n' +
+                                    '        </div>';
+                                $("#content").append(item);
+                            }
+                        }
+
+                    }
+                });
+                $(".addBtn").click(function () {
+                    window.location.href = "addCultivationInvest.html?recId=" + recId + "&&type=1&&stKey=f1d&&flag=2";
+                })
+            }
+            if(where==2){
+                $("#title").text("党支部考察情况");
+                $.ajax({
+                    type: "POST",
+                    url: path + "/deveRecord/queryByRecSkey.action",
+                    data: {
+                        "recrutId": recId,
+                        "stKey":stKey
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.length==0){
+                            $(".noData").removeClass("hid");
+                        }else {
+                            for(var i=0;i<data.length;i++){
+                                var item='<div class="partySuggest">\n' +
+                                    '            <div class="innerSuggest">\n' +
+                                    '                <div class="suggestTop">\n' +
+                                    '                    党支部考察情况（'+(i+1)+'）\n' +
+                                    '                </div>\n' +
+                                    '                <div class="content">\n' +
+                                    '                    '+data[i].content+'\n' +
+                                    '                </div>\n' +
+                                    '                <div class="biaoZ">\n' +
+                                    '                    <div class="inner">\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>党支部书记:</div><div>'+data[i].userName+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>日期:</div><div>'+data[i].frmtCrtTime+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                    </div>\n' +
+                                    '\n' +
+                                    '                </div>\n' +
+                                    '            </div>\n' +
+                                    '        </div>';
+                                $("#content").append(item);
+                            }
+                        }
+
+                    }
+                });
+                $(".addBtn").click(function () {
+                    window.location.href = "addCultivationInvest.html?recId=" + recId + "&&type=1&&stKey=f1e&&flag=3";
+                })
+            }
+            if(where==3){
+                $("#title").text("党小组意见");
+                $.ajax({
+                    type: "POST",
+                    url: path + "/deveRecord/queryByRecSkey.action",
+                    data: {
+                        "recrutId": recId,
+                        "stKey":stKey
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.length==0){
+                            $(".noData").removeClass("hid");
+                        }else {
+                            for(var i=0;i<data.length;i++){
+                                var item='<div class="partySuggest">\n' +
+                                    '            <div class="innerSuggest">\n' +
+                                    '                <div class="suggestTop">\n' +
+                                    '                    党小组意见\n' +
+                                    '                </div>\n' +
+                                    '                <div class="content">\n' +
+                                    '                    '+data[i].content+'\n' +
+                                    '                </div>\n' +
+                                    '                <div class="biaoZ">\n' +
+                                    '                    <div class="inner">\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>党小组负责人:</div><div>'+data[i].userName+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>日期:</div><div>'+data[i].frmtCrtTime+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                    </div>\n' +
+                                    '\n' +
+                                    '                </div>\n' +
+                                    '            </div>\n' +
+                                    '        </div>';
+                                $("#content").append(item);
+                            }
+                        }
+
+                    }
+                });
+                $(".addBtn").addClass("hid");
+                // $(".addBtn").click(function () {
+                //     window.location.href = "addCultivationInvest.html?recId=" + recId + "&&type=1&&stKey=f1f&&flag=4";
+                // })
+            }
+            if(where==4){
+                $("#title").text("培养联系人意见");
+                $.ajax({
+                    type: "POST",
+                    url: path + "/deveRecord/queryByRecSkey.action",
+                    data: {
+                        "recrutId": recId,
+                        "stKey":stKey
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.length==0){
+                            $(".noData").removeClass("hid");
+                        }else {
+                            for(var i=0;i<data.length;i++){
+                                var item='<div class="partySuggest">\n' +
+                                    '            <div class="innerSuggest">\n' +
+                                    '                <div class="suggestTop">\n' +
+                                    '                    培养联系人意见\n' +
+                                    '                </div>\n' +
+                                    '                <div class="content">\n' +
+                                    '                    '+data[i].content+'\n' +
+                                    '                </div>\n' +
+                                    '                <div class="biaoZ">\n' +
+                                    '                    <div class="inner">\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>培养联系人:</div><div>'+data[i].userName+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>日期:</div><div>'+data[i].frmtCrtTime+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                    </div>\n' +
+                                    '\n' +
+                                    '                </div>\n' +
+                                    '            </div>\n' +
+                                    '        </div>';
+                                $("#content").append(item);
+                            }
+                        }
+
+                    }
+                });
+                $(".addBtn").addClass("hid");
+                // $(".addBtn").click(function () {
+                //     window.location.href = "addCultivationInvest.html?recId=" + recId + "&&type=1&&stKey=f1g&&flag=5";
+                // })
+            }
+            if(where==5){
+                $("#title").text("党员意见汇总");
+                $.ajax({
+                    type: "POST",
+                    url: path + "/deveRecord/queryByRecSkey.action",
+                    data: {
+                        "recrutId": recId,
+                        "stKey":stKey
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.length==0){
+                            $(".noData").removeClass("hid");
+                        }else {
+                            for(var i=0;i<data.length;i++){
+                                var item='<div class="partySuggest">\n' +
+                                    '            <div class="innerSuggest">\n' +
+                                    '                <div class="suggestTop">\n' +
+                                    '                    党员意见\n' +
+                                    '                </div>\n' +
+                                    '                <div class="content">\n' +
+                                    '                    '+data[i].content+'\n' +
+                                    '                </div>\n' +
+                                    '                <div class="biaoZ">\n' +
+                                    '                    <div class="inner">\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>签名:</div><div>'+data[i].userName+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>日期:</div><div>'+data[i].frmtCrtTime+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                    </div>\n' +
+                                    '\n' +
+                                    '                </div>\n' +
+                                    '            </div>\n' +
+                                    '        </div>';
+                                $("#content").append(item);
+                            }
+                        }
+
+                    }
+                });
+                $(".addBtn").addClass("hid");
+                // $(".addBtn").click(function () {
+                //     window.location.href = "addCultivationInvest.html?recId=" + recId + "&&type=1&&stKey=f1h&&flag=6";
+                // })
+            }
+            if(where==6){
+                $("#title").text("群众意见汇总");
+                $.ajax({
+                    type: "POST",
+                    url: path + "/deveRecord/queryByRecSkey.action",
+                    data: {
+                        "recrutId": recId,
+                        "stKey":stKey
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.length==0){
+                            $(".noData").removeClass("hid");
+                        }else {
+                            for(var i=0;i<data.length;i++){
+                                var item='<div class="partySuggest">\n' +
+                                    '            <div class="innerSuggest">\n' +
+                                    '                <div class="suggestTop">\n' +
+                                    '                    群众意见\n' +
+                                    '                </div>\n' +
+                                    '                <div class="content">\n' +
+                                    '                    '+data[i].content+'\n' +
+                                    '                </div>\n' +
+                                    '                <div class="biaoZ">\n' +
+                                    '                    <div class="inner">\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>签名:</div><div>'+data[i].userName+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>日期:</div><div>'+data[i].frmtCrtTime+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                    </div>\n' +
+                                    '\n' +
+                                    '                </div>\n' +
+                                    '            </div>\n' +
+                                    '        </div>';
+                                $("#content").append(item);
+                            }
+                        }
+
+                    }
+                });
+                $(".addBtn").addClass("hid");
+                // $(".addBtn").click(function () {
+                //     window.location.href = "addCultivationInvest.html?recId=" + recId + "&&type=1&&stKey=f1i&&flag=7";
+                // })
+            }
+            if(where==7){
+                $("#title").text("支部委员会意见");
+                $.ajax({
+                    type: "POST",
+                    url: path + "/deveRecord/queryByRecSkey.action",
+                    data: {
+                        "recrutId": recId,
+                        "stKey":stKey
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.length==0){
+                            $(".noData").removeClass("hid");
+                        }else {
+                            for(var i=0;i<data.length;i++){
+                                var item='<div class="partySuggest">\n' +
+                                    '            <div class="innerSuggest">\n' +
+                                    '                <div class="suggestTop">\n' +
+                                    '                    支部委员会意见\n' +
+                                    '                </div>\n' +
+                                    '                <div class="content">\n' +
+                                    '                    '+data[i].content+'\n' +
+                                    '                </div>\n' +
+                                    '                <div class="biaoZ">\n' +
+                                    '                    <div class="inner">\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>党支部书记:</div><div>'+data[i].userName+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>日期:</div><div>'+data[i].frmtCrtTime+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                    </div>\n' +
+                                    '\n' +
+                                    '                </div>\n' +
+                                    '            </div>\n' +
+                                    '        </div>';
+                                $("#content").append(item);
+                            }
+                        }
+
+                    }
+                });
+                $(".addBtn").addClass("hid");
+                // $(".addBtn").click(function () {
+                //     window.location.href = "addCultivationInvest.html?recId=" + recId + "&&type=1&&stKey=f1j&&flag=8";
+                // })
+            }
+            if(where==8){
+                $("#title").text("入党优缺点及努力方向");
+                $.ajax({
+                    type: "POST",
+                    url: path + "/deveRecord/queryByRecSkey.action",
+                    data: {
+                        "recrutId": recId,
+                        "stKey":stKey
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.length==0){
+                            $(".noData").removeClass("hid");
+                        }else {
+                            for(var i=0;i<data.length;i++){
+                                var item='<div class="partySuggest">\n' +
+                                    '            <div class="innerSuggest">\n' +
+                                    '                <div class="suggestTop">\n' +
+                                    '                    入党优缺点及努力方向\n' +
+                                    '                </div>\n' +
+                                    '                <div class="content">\n' +
+                                    '                    '+data[i].content+'\n' +
+                                    '                </div>\n' +
+                                    '                <div class="biaoZ">\n' +
+                                    '                    <div class="inner">\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>签名:</div><div>'+data[i].userName+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>日期:</div><div>'+data[i].frmtCrtTime+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                    </div>\n' +
+                                    '\n' +
+                                    '                </div>\n' +
+                                    '            </div>\n' +
+                                    '        </div>';
+                                $("#content").append(item);
+                            }
+                        }
+
+                    }
+                });
+                $(".addBtn").addClass("hid");
+                // $(".addBtn").click(function () {
+                //     window.location.href = "addCultivationInvest.html?recId=" + recId + "&&type=1&&stKey=f1j&&flag=8";
+                // })
+            }
+            if(where==9){
+                $("#title").text("介绍人考察意见");
+                $.ajax({
+                    type: "POST",
+                    url: path + "/deveRecord/queryByRecSkey.action",
+                    data: {
+                        "recrutId": recId,
+                        "stKey":stKey
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.length==0){
+                            $(".noData").removeClass("hid");
+                        }else {
+                            for(var i=0;i<data.length;i++){
+                                var item='<div class="partySuggest">\n' +
+                                    '            <div class="innerSuggest">\n' +
+                                    '                <div class="suggestTop">\n' +
+                                    '                    介绍人考察意见（'+(i+1)+'）\n' +
+                                    '                </div>\n' +
+                                    '                <div class="content">\n' +
+                                    '                    '+data[i].content+'\n' +
+                                    '                </div>\n' +
+                                    '                <div class="biaoZ">\n' +
+                                    '                    <div class="inner">\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>签名:</div><div>'+data[i].userName+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>日期:</div><div>'+data[i].frmtCrtTime+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                    </div>\n' +
+                                    '\n' +
+                                    '                </div>\n' +
+                                    '            </div>\n' +
+                                    '        </div>';
+                                $("#content").append(item);
+                            }
+                        }
+
+                    }
+                });
+                // $(".addBtn").addClass("hid");
+                $(".addBtn").click(function () {
+                    window.location.href = "addCultivationInvest.html?recId=" + recId + "&&type=3&&stKey=f3b&&flag=10";
+                })
+            }
+            if(where==10){
+                $("#title").text("党支部考察意见");
+                $.ajax({
+                    type: "POST",
+                    url: path + "/deveRecord/queryByRecSkey.action",
+                    data: {
+                        "recrutId": recId,
+                        "stKey":stKey
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.length==0){
+                            $(".noData").removeClass("hid");
+                        }else {
+                            for(var i=0;i<data.length;i++){
+                                var item='<div class="partySuggest">\n' +
+                                    '            <div class="innerSuggest">\n' +
+                                    '                <div class="suggestTop">\n' +
+                                    '                    党支部考察意见（'+(i+1)+'）\n' +
+                                    '                </div>\n' +
+                                    '                <div class="content">\n' +
+                                    '                    '+data[i].content+'\n' +
+                                    '                </div>\n' +
+                                    '                <div class="biaoZ">\n' +
+                                    '                    <div class="inner">\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>签名:</div><div>'+data[i].userName+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>日期:</div><div>'+data[i].frmtCrtTime+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                    </div>\n' +
+                                    '\n' +
+                                    '                </div>\n' +
+                                    '            </div>\n' +
+                                    '        </div>';
+                                $("#content").append(item);
+                            }
+                        }
+
+                    }
+                });
+                // $(".addBtn").addClass("hid");
+                $(".addBtn").click(function () {
+                    window.location.href = "addCultivationInvest.html?recId=" + recId + "&&type=3&&stKey=f3c&&flag=11";
+                })
+            }
+            if(where==11){
+                $("#title").text("党支部考察意见");
+                $.ajax({
+                    type: "POST",
+                    url: path + "/deveRecord/queryByRecSkey.action",
+                    data: {
+                        "recrutId": recId,
+                        "stKey":stKey
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.length==0){
+                            $(".noData").removeClass("hid");
+                        }else {
+                            for(var i=0;i<data.length;i++){
+                                var item='<div class="partySuggest">\n' +
+                                    '            <div class="innerSuggest">\n' +
+                                    '                <div class="suggestTop">\n' +
+                                    '                    党支部考察意见\n' +
+                                    '                </div>\n' +
+                                    '                <div class="content">\n' +
+                                    '                    '+data[i].content+'\n' +
+                                    '                </div>\n' +
+                                    '                <div class="biaoZ">\n' +
+                                    '                    <div class="inner">\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>签名:</div><div>'+data[i].userName+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>日期:</div><div>'+data[i].frmtCrtTime+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                    </div>\n' +
+                                    '\n' +
+                                    '                </div>\n' +
+                                    '            </div>\n' +
+                                    '        </div>';
+                                $("#content").append(item);
+                            }
+                        }
+
+                    }
+                });
+                $(".addBtn").addClass("hid");
+                // $(".addBtn").click(function () {
+                //     window.location.href = "addCultivationInvest.html?recId=" + recId + "&&type=3&&stKey=f3c&&flag=11";
+                // })
+            }
+            if(where==12){
+                $("#title").text("党员意见");
+                $.ajax({
+                    type: "POST",
+                    url: path + "/deveRecord/queryByRecSkey.action",
+                    data: {
+                        "recrutId": recId,
+                        "stKey":stKey
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.length==0){
+                            $(".noData").removeClass("hid");
+                        }else {
+                            for(var i=0;i<data.length;i++){
+                                var item='<div class="partySuggest">\n' +
+                                    '            <div class="innerSuggest">\n' +
+                                    '                <div class="suggestTop">\n' +
+                                    '                    党员意见\n' +
+                                    '                </div>\n' +
+                                    '                <div class="content">\n' +
+                                    '                    '+data[i].content+'\n' +
+                                    '                </div>\n' +
+                                    '                <div class="biaoZ">\n' +
+                                    '                    <div class="inner">\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>签名:</div><div>'+data[i].userName+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>日期:</div><div>'+data[i].frmtCrtTime+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                    </div>\n' +
+                                    '\n' +
+                                    '                </div>\n' +
+                                    '            </div>\n' +
+                                    '        </div>';
+                                $("#content").append(item);
+                            }
+                        }
+
+                    }
+                });
+                $(".addBtn").addClass("hid");
+                // $(".addBtn").click(function () {
+                //     window.location.href = "addCultivationInvest.html?recId=" + recId + "&&type=3&&stKey=f3c&&flag=11";
+                // })
+            }
+            if(where==13){
+                $("#title").text("群众意见");
+                $.ajax({
+                    type: "POST",
+                    url: path + "/deveRecord/queryByRecSkey.action",
+                    data: {
+                        "recrutId": recId,
+                        "stKey":stKey
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.length==0){
+                            $(".noData").removeClass("hid");
+                        }else {
+                            for(var i=0;i<data.length;i++){
+                                var item='<div class="partySuggest">\n' +
+                                    '            <div class="innerSuggest">\n' +
+                                    '                <div class="suggestTop">\n' +
+                                    '                    群众意见\n' +
+                                    '                </div>\n' +
+                                    '                <div class="content">\n' +
+                                    '                    '+data[i].content+'\n' +
+                                    '                </div>\n' +
+                                    '                <div class="biaoZ">\n' +
+                                    '                    <div class="inner">\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>签名:</div><div>'+data[i].userName+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>日期:</div><div>'+data[i].frmtCrtTime+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                    </div>\n' +
+                                    '\n' +
+                                    '                </div>\n' +
+                                    '            </div>\n' +
+                                    '        </div>';
+                                $("#content").append(item);
+                            }
+                        }
+
+                    }
+                });
+                $(".addBtn").addClass("hid");
+                // $(".addBtn").click(function () {
+                //     window.location.href = "addCultivationInvest.html?recId=" + recId + "&&type=3&&stKey=f3c&&flag=11";
+                // })
+            }
+            if(where==14){
+                $("#title").text("支部大会转正意见");
+                $.ajax({
+                    type: "POST",
+                    url: path + "/deveRecord/queryByRecSkey.action",
+                    data: {
+                        "recrutId": recId,
+                        "stKey":stKey
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.length==0){
+                            $(".noData").removeClass("hid");
+                        }else {
+                            for(var i=0;i<data.length;i++){
+                                var item='<div class="partySuggest">\n' +
+                                    '            <div class="innerSuggest">\n' +
+                                    '                <div class="suggestTop">\n' +
+                                    '                    支部大会转正意见\n' +
+                                    '                </div>\n' +
+                                    '                <div class="content">\n' +
+                                    '                    '+data[i].content+'\n' +
+                                    '                </div>\n' +
+                                    '                <div class="biaoZ">\n' +
+                                    '                    <div class="inner">\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>签名:</div><div>'+data[i].userName+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>日期:</div><div>'+data[i].frmtCrtTime+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                    </div>\n' +
+                                    '\n' +
+                                    '                </div>\n' +
+                                    '            </div>\n' +
+                                    '        </div>';
+                                $("#content").append(item);
+                            }
+                        }
+
+                    }
+                });
+                $(".addBtn").addClass("hid");
+                // $(".addBtn").click(function () {
+                //     window.location.href = "addCultivationInvest.html?recId=" + recId + "&&type=3&&stKey=f3c&&flag=11";
+                // })
+            }
+            if(where==15){
+                $("#title").text("党小组意见");
+                $.ajax({
+                    type: "POST",
+                    url: path + "/deveRecord/queryByRecSkey.action",
+                    data: {
+                        "recrutId": recId,
+                        "stKey":stKey
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.length==0){
+                            $(".noData").removeClass("hid");
+                        }else {
+                            for(var i=0;i<data.length;i++){
+                                var item='<div class="partySuggest">\n' +
+                                    '            <div class="innerSuggest">\n' +
+                                    '                <div class="suggestTop">\n' +
+                                    '                    党小组意见\n' +
+                                    '                </div>\n' +
+                                    '                <div class="content">\n' +
+                                    '                    '+data[i].content+'\n' +
+                                    '                </div>\n' +
+                                    '                <div class="biaoZ">\n' +
+                                    '                    <div class="inner">\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>签名:</div><div>'+data[i].userName+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                        <div>\n' +
+                                    '                            <div>日期:</div><div>'+data[i].frmtCrtTime+'</div>\n' +
+                                    '                        </div>\n' +
+                                    '                    </div>\n' +
+                                    '\n' +
+                                    '                </div>\n' +
+                                    '            </div>\n' +
+                                    '        </div>';
+                                $("#content").append(item);
+                            }
+                        }
+
+                    }
+                });
+                $(".addBtn").addClass("hid");
+                // $(".addBtn").click(function () {
+                //     window.location.href = "addCultivationInvest.html?recId=" + recId + "&&type=3&&stKey=f3c&&flag=11";
+                // })
+            }
+
+        }
+    })
+</script>
+</html>

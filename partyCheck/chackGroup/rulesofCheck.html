@@ -1,0 +1,3687 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../css/rulesofCheck.css">
+    <link rel="stylesheet" type="text/css" href="../../css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../../css/layer.css">
+    <link rel="stylesheet" type="text/css" href="../../css/zTreeStyle.css">
+    <style>
+        .noActive {
+            background: #cdd4d6 !important;
+            color: #616161 !important;
+        }
+        
+        .hid {
+            display: none;
+        }
+        
+        .hibinenState {
+            color: #bcbcbc !important;
+            cursor: not-allowed !important;
+        }
+        
+        #pageContent,
+        #pageContent1 {
+            margin: auto;
+            text-align: center;
+            margin-top: 47px;
+        }
+        
+        .noDate,
+        .noDate1 {
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .noDate,
+        #wu,
+        #zanWu {
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        #zanWu {
+            display: none;
+        }
+        /*考核设置*/
+        
+        .finishS {
+            background: #d22e24;
+            color: #ffffff !important;
+        }
+        
+        .overSelected {
+            color: #2196f1 !important;
+        }
+        
+        .ztree li span.button.chk.checkbox_true_disable {
+            background-position: -14px 0px;
+        }
+        
+        .btnList input:last-of-type {
+            background: #fff;
+        }
+
+        .fillDiv>div {
+            width: 32.55%;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="rulesHead">
+            <ul id="biaoQ">
+                <li id="organizationLi">党组织考核规则</li>
+                <li id="partyMemberLi" class="noActive">党员考核规则</li>
+            </ul>
+            <div style="clear:both;"></div>
+            <div class="partyMember hid">
+                <div class="topInput">
+                    <div>考核规则发布单位</div>
+                    <div><input id="partyBumen" type="text"></div>
+                    <div>考核类别</div>
+                    <div class="kaoPKind">
+                        <input type="hidden" id="partyKId">
+                        <input type="text" readonly="readonly" id="membeiKind"><img src="../../img/select.png">
+                        <div id="PartyMKind" class="selectPartyBtn" style="display: none">
+                            <ul>
+                                <li data-id="">全部</li>
+                                <li data-id="1">党员</li>
+                                <li data-id="2">干部</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="color: #797e80;">规则状态</div>
+                    <div class="rulesPartyKind">
+                        <input type="hidden" value="" id="ruleP">
+                        <input type="text" id="partyState" readonly="readonly"><img src="../../img/select.png">
+                        <div id="partyMState" class="PartyMrulerBtn" style="display: none">
+                            <ul>
+                                <li data-id="">全部</li>
+                                <li data-id="0">未生效</li>
+                                <li data-id="1">生效</li>
+                                <li data-id="2">已结束</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="createRule" id="orgaCheck">创建规则</div>
+                    <div class="searchB" id="partySerch">查询</div>
+
+                </div>
+                <div class="tableList">
+                    <table cellpadding="0" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th style="">序号</th>
+                                <th style="width: 10%;">标题</th>
+                                <th style="width: 20%;">考核发布单位</th>
+                                <th style="width:10%">考核人员总数</th>
+                                <th style="">考核类别</th>
+                                <th style="width: 20%;">考核周期</th>
+                                <th style="">考核填报时间</th>
+                                <th style="width: 5%;">状态</th>
+                                <th style="width: 15%">操作</th>
+                            </tr>
+
+                        </thead>
+                        <tbody id="talkR1">
+
+                        </tbody>
+                    </table>
+                    <div class="noDate1 hid">暂无数据</div>
+                </div>
+                <div id="pageContent1"></div>
+            </div>
+            <div class="partyOrganization">
+                <div class="topInput">
+                    <div>考核规则发布单位</div>
+                    <div><input id="publishOffice" type="text"></div>
+                    <div>考核类别</div>
+                    <div class="kaoKind">
+                        <input type="hidden" value="" id="orgaKind">
+                        <input type="text" id="organizationL" readonly="readonly"><img src="../../img/select.png">
+                        <div id="checkKind" class="selectBtn" style="display: none">
+                            <ul>
+                                <li data-id="">全部</li>
+                                <li data-id="1">党委</li>
+                                <li data-id="2">党工委</li>
+                                <li data-id="3">党总支</li>
+                                <li data-id="4">党支部</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="color: #797e80;">规则状态</div>
+                    <div class="rulesKind">
+                        <input type="hidden" value="" id="rule">
+                        <input type="text" id="ruleB" readonly="readonly"><img src="../../img/select.png">
+                        <div id="rulerState" class="rulerBtn" style="display: none">
+                            <ul>
+                                <li data-id="">全部</li>
+                                <li data-id="0">未生效</li>
+                                <li data-id="1">生效</li>
+                                <li data-id="2">已结束</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="createRule" id="createOrga">创建规则</div>
+                    <div class="searchB" id="organizationSear">查询</div>
+
+                </div>
+                <div class="tableList">
+                    <table cellpadding="0" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th style="">序号</th>
+                                <th style="width:10%;">标题</th>
+                                <th style="">考核发布单位</th>
+                                <th style="width:10%">考核单位总数</th>
+                                <th style="">考核类别</th>
+                                <th style="">考核周期</th>
+                                <th style="">考核填报时间</th>
+                                <th style="">状态</th>
+                                <th style="">操作</th>
+                            </tr>
+
+                        </thead>
+                        <tbody id="talkR">
+
+                        </tbody>
+                    </table>
+                    <div class="noDate hid">暂无数据</div>
+                </div>
+                <div id="pageContent"></div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="mask hid"></div>
+    <div class="mask1 hid"></div>
+    <div class="mask2 hid"></div>
+    <div class="mask3 hid"></div>
+    <!--复制-->
+    <div class="popBox hid" id="copyPoper" style="width: 358px">
+        <div class="popB_Top">
+            <span class="addW" id="copyTitle">复制</span><span class="close" id="copyClosed"><img
+            src="../../img/close.png"></span>
+        </div>
+        <div class="bottomList">
+            <div>请输入考核标题</div>
+            <div><textarea id="copyName"></textarea></div>
+        </div>
+        <div class="btnList" id="copyBox"><input type="button" class="s" id="copySure" value="确定"><input type="button" class="c" id="copyCancel" value="取消"></div>
+    </div>
+
+
+    <!--考核设置-->
+    <div class="popBox hid" id="checkSetting" style="width:498px">
+        <div class="popB_Top">
+            <span class="addW" id="settingTitle">考核设置</span><span class="close" id="settingClosed"><img
+            src="../../img/close.png"></span>
+        </div>
+        <div class="fillDiv">
+            <div id="tianD" class="finishS">填报日期<img src="../../img/baiIcon.png"></div>
+            <div id="pingD">评分日期<img src="../../img/no.png"></div>
+            <div id="pingM">评分人员<img src="../../img/no.png"></div>
+        </div>
+        <div class="bottomContent">
+            <div class="tabQian_0">
+                <div class="pingF">
+                    <div>
+                        <div><span class="imp">*</span>考核填报起始日期</div>
+                        <div><input type="text" value="" id="dateCheckb" readonly><img src="../../img/date.png"></div>
+                    </div>
+                    <div>
+                        <div><span class="imp">*</span>考核填报结束日期</div>
+                        <div><input type="text" value="" id="dateChecko" readonly><img src="../../img/date.png"></div>
+                    </div>
+                </div>
+                <div class="btnList"><input type="button" class="s" id="dateBtn" value="确定"><input type="button" class="c" id="dateCBtn" value="取消">
+                </div>
+            </div>
+            <div class="tabQian_1 hid">
+                <div class="tianF">
+                    <div>
+                        <div><span class="imp">*</span>考核评分起始日期</div>
+                        <div><input type="text" value="" id="pingb" readonly><img src="../../img/date.png"></div>
+                    </div>
+                    <div>
+                        <div><span class="imp">*</span>考核评分结束日期</div>
+                        <div><input type="text" value="" id="pingo" readonly><img src="../../img/date.png"></div>
+                    </div>
+                </div>
+                <div class="btnList" id="settingBox"><input type="button" class="s" id="pingFBtn" value="确定"><input type="button" id="pingFCBtn" class="c" value="取消"></div>
+            </div>
+            <div class="tabQian_2 hid">
+                <div class="settingScore"><span class="imp">*</span>考核评分人员设置<span class="addPage">添加</span></div>
+                <div class="listScore tableList" style="margin-left: 0;margin-top: 0">
+                    <table cellpadding="0" cellspacing="0" style="margin: auto">
+                        <thead>
+                            <tr>
+                                <th width="10%">序号</th>
+                                <th width="20%">名称</th>
+                                <th width="15%">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listC">
+                            <!--<tr>-->
+                            <!--<td>1</td>-->
+                            <!--<td>第一考核小组</td>-->
+                            <!--<td><input type="hidden" value=""><span>编辑</span><span>删除</span></td>-->
+                            <!--</tr>-->
+                        </tbody>
+                    </table>
+                    <div class="hid" id="wu">暂无数据</div>
+                </div>
+                <div class="btnList"><input type="button" class="s" id="kaoBtn" value="确定"><input type="button" class="c" id="kaoCBtn" value="取消">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--新增-->
+    <div class="popBox hid" id="poper1">
+        <div class="popB_Top">
+            <span class="addW" id="title">新增</span><span class="close" id="close"><img src="../../img/close.png"></span>
+        </div>
+        <div class="popB_bottom">
+            <div id="inputBox">
+                <div>
+                    <div>分类名称</div>
+                    <div class="developWrap">
+                        <input type="text" class="lianB" id="one" value="">
+                    </div>
+                </div>
+                <div>
+                    <div>排序</div>
+                    <div class="developWrap">
+                        <input type="text" class="lianB" id="two" value="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btnList" id="twoB"><input type="button" id="sure1" value="确定"><input type="button" id="cancel" value="取消"></div>
+    </div>
+
+    <!--添加人员-->
+    <div class="popBox hid" style="width: 363px" id="poper2">
+        <div class="popB_Top">
+            <span class="addW" id="addTitle">考核评分人员添加</span><span class="close" id="addClose"><img
+            src="../../img/close.png"></span>
+        </div>
+        <div class="popB_bottom" style="border-bottom: 1px solid transparent">
+            <div id="addBox" class="">
+                <div>
+                    <div>考核小组名称</div>
+                    <div class="developWrap">
+                        <input type="text" class="lianB" id="checkzName" value="">
+                    </div>
+                </div>
+                <div>
+                    <div>评分人员</div>
+                    <div class="developWrap">
+                        <span id="add">+</span>
+                    </div>
+                </div>
+                <div style="display:none;">
+                    <div>范围</div>
+                    <div class="developWrap">
+                        <span id="addfan">+</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btnList"><input type="button" id="addSure" value="确定"><input type="button" id="addCancel" value="取消"></div>
+    </div>
+    <!--范围-->
+    <div class="popBox hid " style="width: 363px" id="poper5">
+        <div class="popB_Top">
+            <span class="addW" id="fanWTitle">考核评分人员添加</span><span class="close" id="fanWClose"><img src="../../img/close.png"></span>
+        </div>
+        <div class="popB_bottom" style="border-bottom: 1px solid transparent">
+            <div id="fanWBox" class="">
+
+            </div>
+        </div>
+        <div class="btnList"><input type="button" id="fanWSure" value="保存"><input type="button" id="fanWCancel" value="取消"></div>
+    </div>
+    <!--人员类别树-->
+    <div class="popBox hid" id="poper3">
+        <div class="popB_Top">
+            <span class="addW" id="titleC">选择人员</span><span class="close" id="selecClose"><img
+            src="../../img/close.png"></span>
+        </div>
+        <div class="treeList">
+            <div id="menuContent1" class="menuContent">
+                <ul id="treeDemo1" class="ztree" style="margin-top:0; width:206px;"></ul>
+            </div>
+            <div class="noData hid">你所选择得</div>
+        </div>
+        <div class="btnList"><input type="button" class="s" id="selectSure" value="确定"><input type="button" class="c" id="selectCancel" value="取消">
+        </div>
+    </div>
+    <!--范围树-->
+    <div class="popBox hid" id="poper7">
+        <div class="popB_Top">
+            <span class="addW" id="fanTreeC">选择范围</span><span class="close" id="fanTreeClose"><img
+            src="../../img/close.png"></span>
+        </div>
+        <div class="treeList">
+            <div id="menuContent2" class="menuContent">
+                <ul id="treeDemo2" class="ztree" style="margin-top:0; width:206px;"></ul>
+            </div>
+            <div class="noData hid">你所选择得</div>
+        </div>
+        <div class="btnList"><input type="button" class="s" id="fanTreeSure" value="确定"><input type="button" class="c" id="fanTreeCancel" value="取消"></div>
+    </div>
+    <!--查看设置-->
+    <div class="popBox hid" style="width: 363px" id="poper4">
+        <div class="popB_Top">
+            <span class="addW" id="lookTitle">查看设置</span><span class="close" id="lookClose"><img
+            src="../../img/close.png"></span>
+        </div>
+        <div class="popB_bottom" style="border-bottom: 1px solid transparent">
+            <div id="" class="lookS">
+                <div>
+                    <div>考核填报日期</div>
+                    <div class="developWrap riQList">
+                        <span id="checkDatebg"></span>至<span id="checkDateov"></span>
+                    </div>
+                </div>
+                <div>
+                    <div>考核评分日期</div>
+                    <div class="developWrap riQList">
+                        <span id="pingDateBg"></span>至<span id="pingDateov"></span>
+                    </div>
+                </div>
+                <div>
+                    <div>考核评分人员</div>
+                </div>
+            </div>
+        </div>
+        <div class="listScore tableList newS" style="margin-top: 0px;">
+            <table cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th width="10%">序号</th>
+                        <th width="20%">名称</th>
+                        <th width="15%">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="memeberList">
+
+                </tbody>
+            </table>
+            <div class="hid" id="zanWu">暂无数据</div>
+        </div>
+        <div class="btnList" style="text-align: center"><input type="button" id="lookSure" value="确定"></div>
+    </div>
+</body>
+
+<script type="text/javascript" src="../../../r/wx/common/pathimage"></script>
+<script src="../../assets/js/jquery.js"></script>
+<script src="../../js/layer.js"></script>
+<script src="../../js/laydate.js"></script>
+<script src="../../js/layui.js"></script>
+<script src="../../js/jquery.ztree.core.min.js"></script>
+<script src="../../js/jquery.ztree.excheck.min.js"></script>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script>
+    // 民主测评功能，张良修改，begin,20181031
+    // var path = "",
+    var recId, _qiniuImageHost, a, weiShanding, overS, noS;
+    var path = _ctxPath; //获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+    // 民主测评功能，张良修改，end,20181031
+    $(function() {
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+
+        recId = getQueryString("recId");
+        a = 1;
+        weiShanding = '../../img/baiIcon.png';
+        overS = '../../img/succ.png';
+        noS = '../../img/no.png';
+        partyOrganize(1);
+        $("#organizationLi").click(function() {
+            $(this).removeClass("noActive");
+            $("#partyMemberLi").addClass("noActive");
+            $(".partyMember").addClass("hid");
+            $(".partyOrganization").removeClass("hid");
+            $(".topInput input").val("");
+            partyOrganize();
+        });
+        $("#partyMemberLi").click(function() {
+            $(this).removeClass("noActive");
+            $("#organizationLi").addClass("noActive");
+            $(".partyMember").removeClass("hid");
+            $(".partyOrganization").addClass("hid");
+            $(".topInput input").val("");
+            partyMember();
+        });
+        layui.use(['laydate'], function() {
+            var $ = layui.$;
+            var laydate = layui.laydate;
+            var nowTime = new Date().valueOf();
+            var max = null;
+
+            var start = laydate.render({
+                elem: '#dateCheckb',
+                btns: ['clear', 'confirm'],
+                done: function(value, date) {
+                    // endMax = end.config.max;
+                    end.config.min = date;
+                    end.config.min.month = date.month - 1;
+                }
+            });
+            var end = laydate.render({
+                elem: '#dateChecko',
+                done: function(value, date) {
+                    if ($.trim(value) == '') {
+                        var curDate = new Date();
+                        date = {
+                            'date': curDate.getDate(),
+                            'month': curDate.getMonth() + 1,
+                            'year': curDate.getFullYear()
+                        };
+                    }
+                }
+            });
+        })
+        $("#createOrga").click(function() {
+            window.location.href = "createRulesOfOrganization.html?type=3";
+        });
+        $("#orgaCheck").click(function() {
+            window.location.href = "createRulesOfpartyMember.html?type=4";
+        });
+
+        function isNum(num) {
+            var re = /^[0-9]+.?[0-9]*$/;
+            if (!re.test(num)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        $("#back").click(function() {
+            window.history.back(-1);
+        });
+        //党员考核类别
+        $(".kaoPKind>input,.kaoPKind>img").click(function(e) {
+            $("#PartyMKind").slideDown();
+            $("#partyMState").slideUp();
+            e.stopPropagation();
+        });
+        $(".selectPartyBtn ul li").mouseover(function() {
+            $(".selectPartyBtn ul li").removeClass("activeSelcet");
+            $(this).addClass("activeSelcet");
+        });
+        $("body").click(function() {
+            $(".selectPartyBtn").slideUp();
+        });
+        $(".selectPartyBtn ul li").click(function() {
+            $(this).parents(".selectPartyBtn").prevAll("#membeiKind").val($(this).text());
+            $(this).parents(".selectPartyBtn").prevAll("#membeiKind").prev().val($(this).attr("data-id"));
+            $("#PartyMKind").slideUp();
+        });
+        //党员规则状态
+        $(".rulesPartyKind>input,.rulesPartyKind>img").click(function(e) {
+            $("#partyMState").slideDown();
+            $("#PartyMKind").slideUp();
+            e.stopPropagation();
+        });
+        $(".PartyMrulerBtn ul li").mouseover(function() {
+            $(".PartyMrulerBtn ul li").removeClass("activeSelcet");
+            $(this).addClass("activeSelcet");
+        });
+        $("body").click(function() {
+            $(".PartyMrulerBtn").slideUp();
+        });
+        $(".PartyMrulerBtn ul li").click(function() {
+            $(this).parents(".PartyMrulerBtn").prevAll("#partyState").val($(this).text());
+            $(this).parents(".PartyMrulerBtn").prevAll("#partyState").prev().val($(this).attr("data-id"));
+            $("#partyMState").slideUp();
+        });
+        //党组织考核类别
+        $(".kaoKind>input,.kaoKind>img").click(function(e) {
+            $("#checkKind").slideDown();
+            $("#rulerState").slideUp();
+            e.stopPropagation();
+        });
+        $(".selectBtn ul li").mouseover(function() {
+            $(".selectBtn ul li").removeClass("activeSelcet");
+            $(this).addClass("activeSelcet");
+        });
+        $("body").click(function() {
+            $(".selectBtn").slideUp();
+        });
+        $(".selectBtn ul li").click(function() {
+            $(this).parents(".selectBtn").prevAll("#organizationL").val($(this).text());
+            $(this).parents(".selectBtn").prevAll("#organizationL").prev().val($(this).attr("data-id"));
+            $("#checkKind").slideUp();
+        });
+
+        //党组织规则状态
+        $(".rulesKind>input,.rulesKind>img").click(function(e) {
+            $("#rulerState").slideDown();
+            $("#checkKind").slideUp();
+            e.stopPropagation();
+        });
+        $(".rulerBtn ul li").mouseover(function() {
+            $(".rulerBtn ul li").removeClass("activeSelcet");
+            $(this).addClass("activeSelcet");
+        });
+        $("body").click(function() {
+            $(".rulerBtn").slideUp();
+        });
+        $(".rulerBtn ul li").click(function() {
+            $(this).parents(".rulerBtn").prevAll("#ruleB").val($(this).text());
+            $(this).parents(".rulerBtn").prevAll("#ruleB").prev().val($(this).attr("data-id"));
+            $("#rulerState").slideUp();
+        });
+        $("#organizationSear").click(function() {
+            $('#talkR').empty();
+            partyOrganize();
+        });
+        $("#partySerch").click(function() {
+            $('#talkR1').empty();
+            partyMember();
+        });
+    })
+
+    var minDate = 0;
+    var minDateMap = {};
+
+    function partyOrganize(type) {
+
+        //分页参数设置 这些全局变量关系到分页的功能
+        var pagea = 1; //开始页数
+        var sizea = 10; //每页最多显示条数
+        var nowpagea = 1; //当前页数
+        var pagesa = 0; //总页数
+
+        function page() {
+            //调用分页
+            layui.use(['laypage', 'layer'], function() {
+                var laypage = layui.laypage,
+                    layer = layui.layer;
+                laypage.render({
+                    elem: 'pageContent',
+                    count: pagesa,
+                    limit: sizea //每页显示的数据的条数,layui会根据count，limit进行分页的计算
+                        ,
+                    curr: nowpagea,
+                    jump: function(obj, first) {
+                        // var currPage=obj.curr;
+                        // var perPage_num=obj.limit;
+                        nowpagea = obj.curr;
+                        pagea = (obj.curr - 1) * sizea;
+                        if (!first) { //一定要加此判断，否则初始时会无限刷新
+                            pageAjax(); //一定要把翻页的ajax请求放到这里，不然会请求两次。
+                            location.href = '#top';
+                            //<a href="#top">返回顶部</a>
+                        }
+                    }
+                });
+            })
+        }
+        pageAjax();
+
+        function pageAjax() {
+            $.ajax({
+                type: "POST",
+                url: path + "partyCheck/queryAdmin.action",
+                data: {
+                    "type|integer": 3,
+                    "checkType|integer": $("#orgaKind").val(),
+                    "regex:bumenName": $("#publishOffice").val(),
+                    "stats|integer": $("#rule").val(),
+                    "page": nowpagea, //当前页数
+                    "size": sizea //每页显示条数
+                },
+                dataType: "json",
+                success: function(data) {
+                    pagea = data.page; //当前页数(后台返回)
+                    pagesa = data.total; //总页数(后台返回)
+                    var data = data.data;
+                    for (var i = 0; i < data.length; i++) {
+                        minDateMap[data[i]._id] = data[i].formtStarfillDate;
+                    }
+                    if (data.length == 0) {
+                        $(".noDate").removeClass("hid");
+                        $("#pageContent").addClass("hid");
+                    } else {
+                        handleData(data);
+                        $(".noDate").addClass("hid");
+                        $("#pageContent").removeClass("hid");
+                    }
+                    page();
+                }
+            });
+        }
+
+        function handleData(data) {
+            $('#talkR').empty();
+            var checkType = "";
+            var stats = "";
+            var time = "";
+            var oC = "";
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].formtStarfillDate == "") {
+                    time = "";
+                } else if (data[i].starfillDate > new Date().getTime()) {
+                    time = "未开始";
+                } else if (data[i].endfillDate < new Date().getTime()) {
+                    time = "已结束";
+                } else {
+                    time = data[i].formtStarfillDate + "到" + data[i].formtEndfillDate
+                }
+                if (data[i].checkType == 1) {
+                    checkType = "党委"
+                }
+                if (data[i].checkType == 2) {
+                    checkType = "党工委"
+                }
+                if (data[i].checkType == 3) {
+                    checkType = "党总支"
+                }
+                if (data[i].checkType == 4) {
+                    checkType = "党支部"
+                }
+
+                if (data[i].stats == 0) {
+                    stats = "未生效"
+                }
+                if (data[i].stats == 1) {
+                    stats = "生效"
+                }
+                if (data[i].stats == 2) {
+                    stats = "已结束"
+                }
+
+                if (data[i].stats == 0) {
+                    oC = "启用";
+                } else {
+                    oC = "禁用";
+                }
+
+                if (data[i].stage == 1 || data[i].stage == 2) {
+                    var oTr = '<tr>\n' +
+                        '                        <td>' + (i + 1) + '</td>\n' +
+                        '                        <td><input class="titleID"  type="hidden" value=' + data[i]._id + '><span class="meTitleBtn">' + data[i].title + '</span></td>\n' +
+                        '                        <td>' + data[i].bumenName + '</td>\n' +
+                        '                        <td>' + data[i].idsum + '</td>\n' +
+                        '                        <td>' + checkType + '</td>\n';
+                    if (data[i].formtStarCycle != "") {
+                        oTr = oTr + '<td>' + data[i].formtStarCycle + '到' + data[i].formtEndCycle + '</td>\n';
+                    } else {
+                        oTr = oTr + '<td></td>';
+                    }
+                    oTr = oTr + '                        <td>' + time + '</td>\n' +
+                        '                        <td>' + stats + '</td>\n' +
+                        '                        <td><input type="hidden" class="bumenId" value=' + data[i].bumenId + '><input type="hidden" class="ckStats" value=' + data[i].ckStats + '><input type="hidden" class="id" value=' + data[i]._id + '><span class="hibiden">' + oC + '</span><span class="">编辑</span><span\n' +
+                        '                                class="">删除</span><span>复制</span></td>\n' +
+                        '                    </tr>';
+                }
+                if (data[i].stage == 3) {
+                    var oTr = '<tr>\n' +
+                        '                        <td>' + (i + 1) + '</td>\n' +
+                        '                        <td><input  class="titleID"  type="hidden" value=' + data[i]._id + '><span class="meTitleBtn">' + data[i].title + '</span></td>\n' +
+                        '                        <td>' + data[i].bumenName + '</td>\n' +
+                        '                        <td>' + data[i].idsum + '</td>\n' +
+                        '                        <td>' + checkType + '</td>\n';
+                    if (data[i].formtStarCycle != "") {
+                        oTr = oTr + '<td>' + data[i].formtStarCycle + '到' + data[i].formtEndCycle + '</td>\n';
+                    } else {
+                        oTr = oTr + '<td></td>';
+                    }
+                    oTr = oTr +
+                        '                        <td>' + time + '</td>\n' +
+                        '                        <td>' + stats + '</td>\n' +
+                        '                        <td><input type="hidden" class="bumenId" value=' + data[i].bumenId + '><input type="hidden" class="ckStats" value=' + data[i].ckStats + '><input class="id" type="hidden" value=' + data[i]._id + '><span class="hibiden">' + oC + '</span><span class="lookSetting">考核设置</span><span\n' +
+                        '                                class="">复制</span></td>\n' +
+                        '                    </tr>';
+                }
+                if (data[i].stage == 4) {
+                    var oTr = '<tr>\n' +
+                        '                        <td>' + (i + 1) + '</td>\n' +
+                        '                        <td><input  class="titleID"  type="hidden" value=' + data[i]._id + '><span class="meTitleBtn">' + data[i].title + '</span></td>\n' +
+                        '                        <td>' + data[i].bumenName + '</td>\n' +
+                        '                        <td>' + data[i].idsum + '</td>\n' +
+                        '                        <td>' + checkType + '</td>\n';
+                    if (data[i].formtStarCycle != "") {
+                        oTr = oTr + '<td>' + data[i].formtStarCycle + '到' + data[i].formtEndCycle + '</td>\n';
+                    } else {
+                        oTr = oTr + '<td></td>';
+                    }
+                    oTr = oTr +
+                        '                        <td>' + time + '</td>\n' +
+                        '                        <td>' + stats + '</td>\n' +
+                        '                        <td><input type="hidden" class="bumenId" value=' + data[i].bumenId + '><input type="hidden" class="ckStats" value=' + data[i].ckStats + '><input type="hidden" class="id" value=' + data[i]._id + '><span class="hibiden">' + oC + '</span><span class="">查看设置</span><span\n' +
+                        '                                class="">复制</span></td>\n' +
+                        '                    </tr>';
+                }
+
+                $('#talkR').append(oTr);
+            }
+        }
+        $('#talkR').on("click", function(e) {
+            var target = e.target;
+            var titleId = $(target).parent().find(".titleID").val();
+            var currId = $(target).parent().find(".id").val();
+            var ckStats = $(target).parent().find(".ckStats").val();
+            var bumenId = $(target).parent().find(".bumenId").val();
+
+            if ($(target).attr("class") == "meTitleBtn") {
+                window.location.href = "lookRegular.html?id=" + titleId + "&&me=党组织";
+            }
+            if ($(target).text() == "禁用") {
+                $.ajax({
+                    type: "POST",
+                    url: path + "partyCheck/disable/" + currId + ".action",
+                    data: {},
+                    dataType: "json",
+                    success: function(data) {
+                        if (data.success) {
+                            window.location.reload();
+                        } else {
+                            parent.layer.alert(data.message);
+                        }
+                    }
+                })
+            }
+            if ($(target).text() == "考核设置") {
+                $("#addfan").text("已选择").addClass("overSelected");
+                if (ckStats == 0) {
+                    $(".tabQian_0").removeClass("hid");
+                    $(".tabQian_2").addClass("hid");
+                    $(".tabQian_1").addClass("hid");
+                    $("#tianD").addClass("finishS");
+                    $("#tianD").find("img").attr("src", weiShanding);
+                    $("#pingD").removeClass("finishS");
+                    $("#pingD").find("img").attr("src", noS);
+                    $("#pingM").removeClass("finishS");
+                    $("#pingM").find("img").attr("src", noS);
+                } else if (ckStats == 1) {
+                    $(".tabQian_0").addClass("hid");
+                    $(".tabQian_2").addClass("hid");
+                    $(".tabQian_1").removeClass("hid");
+                    $("#tianD").removeClass("finishS");
+                    $("#tianD").find("img").attr("src", overS);
+                    $("#pingD").addClass("finishS");
+                    $("#pingD").find("img").attr("src", weiShanding);
+                    $("#pingM").removeClass("finishS");
+                    $("#pingM").find("img").attr("src", noS);
+                    $(".tabQian_1").html('<div class="tianF"><div><div><span class="imp">*</span>考核评分起始日期</div><div><input type="text" value="" id="pingb" readonly><img src="../../img/date.png"></div></div><div><div><span class="imp">*</span>考核评分结束日期</div><div><input type="text" value="" id="pingo" readonly><img src="../../img/date.png"></div></div></div><div class="btnList" id="settingBox"><input type="button" class="s" id="pingFBtn" value="确定"><input type="button" id="pingFCBtn" class="c" value="取消"></div>');
+                    //时间插件方法
+                    layui.use(['laydate'], function() {
+                        var $ = layui.$;
+                        var laydate = layui.laydate;
+                        var nowTime = new Date().valueOf();
+                        var max = null;
+
+                        var start = laydate.render({
+                            elem: '#pingb',
+                            min: minDateMap[currId],
+                            btns: ['clear', 'confirm'],
+                            done: function(value, date) {
+                                end.config.min = date;
+                                end.config.min.month = date.month - 1;
+                            }
+                        });
+                        var end = laydate.render({
+                            elem: '#pingo',
+                            done: function(value, date) {
+                                if ($.trim(value) == '') {
+                                    var curDate = new Date();
+                                    date = {
+                                        'date': curDate.getDate(),
+                                        'month': curDate.getMonth() + 1,
+                                        'year': curDate.getFullYear()
+                                    };
+                                }
+                            }
+                        });
+                    })
+                }
+                if (ckStats == 2 || ckStats == 3) {
+                    //                          if (ckStats == 2) {
+                    $(".tabQian_0").addClass("hid");
+                    $(".tabQian_1").addClass("hid");
+                    $(".tabQian_2").removeClass("hid");
+                    $("#tianD").removeClass("finishS");
+                    $("#tianD").find("img").attr("src", overS);
+                    $("#pingD").removeClass("finishS");
+                    $("#pingD").find("img").attr("src", overS);
+                    $("#pingM").addClass("finishS");
+                    $("#pingM").find("img").attr("src", weiShanding);
+                    $("#listC").empty();
+                    $.ajax({
+                        type: "POST",
+                        url: path + "checkRange/findByCkId.action",
+                        data: {
+                            "checkId": currId
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            if (data.length == 0) {
+                                $("#wu").removeClass("hid");
+                            } else {
+                                for (var j = 0; j < data.length; j++) {
+                                    var oTr = ' <tr>\n' +
+                                        '                        <td>' + (j + 1) + '</td>\n' +
+                                        '                        <td>' + data[j].name + '</td>\n' +
+                                        '                        <td><input class="id" type="hidden" value=' + data[j]._id + '><span>编辑</span><span>删除</span></td>\n' +
+                                        '                    </tr>';
+                                    $("#listC").append(oTr);
+                                }
+
+                            }
+
+                        }
+                    })
+                }
+
+                $("#dateCheckb").val("");
+                $("#dateChecko").val("");
+                $("#pingb").val("");
+                $("#pingo").val("");
+
+                $("#checkSetting").removeClass("hid");
+                $(".mask").removeClass("hid");
+                $("#settingClosed").off();
+                $("#settingClosed").click(function() {
+                    $("#checkSetting").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                $("#kaoCBtn").off();
+                $("#kaoCBtn").click(function() {
+                    $("#checkSetting").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                $(".mask").click(function() {
+                    $("#checkSetting").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                $("#dateCBtn").off();
+                $("#dateCBtn").click(function() {
+                    $("#checkSetting").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                $("#pingFCBtn").off();
+                $("#pingFCBtn").click(function() {
+                    $("#checkSetting").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                pingFBtnFun();
+
+                function pingFBtnFun() {
+                    $("#pingFCBtn").off();
+                    $("#pingFCBtn").click(function() {
+                        $("#checkSetting").addClass("hid");
+                        $(".mask").addClass("hid");
+                    });
+                    $("#pingFBtn").off();
+                    $("#pingFBtn").click(function() {
+                        if ($("#pingb").val() == "") {
+                            parent.layer.alert("请选择开始日期");
+                            return;
+                        }
+                        if ($("#pingo").val() == "") {
+                            parent.layer.alert("请选择截止日期");
+                            return;
+                        }
+                        parent.layer.confirm('请确认设置信息无误。提交后将无法修改。是否提交？', {
+                            icon: 3,
+                            title: '\n' + '提示'
+                        }, function(index) {
+                            $.ajax({
+                                type: "POST",
+                                url: path + "partyCheck/upMarkDate.action",
+                                data: {
+                                    "starMarkDate": $("#pingb").val(),
+                                    "endMarkDate": $("#pingo").val(),
+                                    "_id": currId
+                                },
+                                dataType: "json",
+                                success: function(data) {
+                                    if (data.success) {
+                                        pageAjax();
+                                        $(".tabQian_0").addClass("hid");
+                                        $(".tabQian_1").addClass("hid");
+                                        $("#tianD").removeClass("finishS");
+                                        $("#tianD").find("img").attr("src", overS);
+                                        $("#pingD").removeClass("finishS");
+                                        $("#pingD").find("img").attr("src", overS);
+                                        $("#pingM").addClass("finishS");
+                                        $("#pingM").find("img").attr("src", weiShanding);
+                                        $(".tabQian_2").removeClass("hid");
+                                        $.ajax({
+                                            type: "POST",
+                                            url: path + "checkRange/findByCkId.action",
+                                            data: {
+                                                "checkId": currId
+                                            },
+                                            dataType: "json",
+                                            success: function(data) {
+                                                if (data.length == 0) {
+                                                    $("#wu").removeClass("hid");
+                                                } else {
+                                                    for (var j = 0; j < data.length; j++) {
+                                                        var oTr = ' <tr>\n' +
+                                                            '                        <td>' + (j + 1) + '</td>\n' +
+                                                            '                        <td>' + data[j].name + '</td>\n' +
+                                                            '                        <td><input class="id" type="hidden" value=' + data[j]._id + '><span>编辑</span><span>删除</span></td>\n' +
+                                                            '                    </tr>';
+                                                        $("#listC").append(oTr);
+                                                    }
+
+                                                }
+
+                                            }
+                                        })
+                                    } else {
+                                        parent.layer.alert(data.message);
+                                    }
+                                }
+                            });
+                            parent.layer.close(index);
+                        })
+                    });
+                }
+
+                $("#dateBtn").off();
+                $("#dateBtn").click(function() {
+                    if ($("#dateCheckb").val() == "") {
+                        parent.layer.alert("请选择开始日期");
+                        return;
+                    }
+                    if ($("#dateChecko").val() == "") {
+                        parent.layer.alert("请选择截止日期");
+                        return;
+                    }
+                    parent.layer.confirm('请确认设置信息无误。提交后将无法修改。是否提交？', {
+                        icon: 3,
+                        title: '\n' + '提示'
+                    }, function(index) {
+                        minDate = $("#dateCheckb").val();
+
+                        $.ajax({
+                            type: "POST",
+                            url: path + "partyCheck/upfillDate.action",
+                            data: {
+                                "starfillDate": $("#dateCheckb").val(),
+                                "endfillDate": $("#dateChecko").val(),
+                                "_id": currId
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                if (data.success) {
+                                    pageAjax();
+                                    $(".tabQian_0").addClass("hid");
+                                    $("#tianD").removeClass("finishS");
+                                    $("#tianD").find("img").attr("src", overS);
+                                    $("#pingD").addClass("finishS");
+                                    $("#pingD").find("img").attr("src", weiShanding);
+                                    $(".tabQian_1").removeClass("hid");
+                                    $(".tabQian_1").html('<div class="tianF"><div><div><span class="imp">*</span>考核评分起始日期</div><div><input type="text" value="" id="pingb" readonly><img src="../../img/date.png"></div></div><div><div><span class="imp">*</span>考核评分结束日期</div><div><input type="text" value="" id="pingo" readonly><img src="../../img/date.png"></div></div></div><div class="btnList" id="settingBox"><input type="button" class="s" id="pingFBtn" value="确定"><input type="button" id="pingFCBtn" class="c" value="取消"></div>');
+                                    setTimeout(function() {
+                                        pingFBtnFun();
+                                        //时间插件方法
+                                        layui.use(['laydate'], function() {
+                                            var $ = layui.$;
+                                            var laydate = layui.laydate;
+                                            var nowTime = new Date().valueOf();
+                                            var max = null;
+
+                                            var start = laydate.render({
+                                                elem: '#pingb',
+                                                min: minDateMap[currId],
+                                                btns: ['clear', 'confirm'],
+                                                done: function(value, date) {
+                                                    // endMax = end.config.max;
+                                                    end.config.min = date;
+                                                    end.config.min.month = date.month - 1;
+                                                }
+                                            });
+                                            var end = laydate.render({
+                                                elem: '#pingo',
+                                                done: function(value, date) {
+                                                    if ($.trim(value) == '') {
+                                                        var curDate = new Date();
+                                                        date = {
+                                                            'date': curDate.getDate(),
+                                                            'month': curDate.getMonth() + 1,
+                                                            'year': curDate.getFullYear()
+                                                        };
+                                                    }
+                                                }
+                                            });
+                                        })
+                                    }, 300)
+                                } else {
+                                    parent.layer.alert(data.message);
+                                }
+                            }
+                        });
+                        parent.layer.close(index);
+                    })
+                });
+
+                var lookId = "";
+                var curr_Id = "";
+                var selectednodeName = "";
+                var selectednodeId = "";
+                var selectedfannodeName = "";
+                var selectedfannodeId = "";
+                //评分人员添加
+                $(".addPage").off();
+                $(".addPage").click(function() { //点击添加按钮
+                    a = 1;
+                    $("#addfan").text(" ");
+                    $("#poper2").removeClass("hid");
+                    $(".mask1").removeClass("hid");
+                    $(".mask1").click(function() {
+                        $("#poper2").addClass("hid");
+                        $(".mask1").addClass("hid");
+                    });
+                    $("#addClose").click(function() {
+                        $("#poper2").addClass("hid");
+                        $(".mask1").addClass("hid");
+                    });
+                    $("#addCancel").click(function() {
+                        $("#poper2").addClass("hid");
+                        $(".mask1").addClass("hid");
+                    });
+
+                    $("#add").text("+");
+                    $("#addfan").text("+");
+                    $("#addfan").removeClass("overSelected");
+                    $("#add").removeClass("overSelected");
+                    $("#checkzName").val("");
+                    $("#fanWSure").removeClass("hid");
+                    $("#fanWCancel").removeClass("hid");
+                    $("#addTitle").text("考核评分人员添加");
+                    $("#fanTreeC").text("选择范围");
+                    $("#fanWTitle").text("考核评分人员添加");
+                    $("#titleC").text("选择人员");
+                    $("#checkzName").removeAttr("readonly");
+                });
+                // 点击下一步按钮
+                $("#addSure").off();
+                $("#addSure").click(function() {
+                    if (a == 1) {
+                        if ($("#checkzName").val().trim() == "") {
+                            parent.layer.alert("考核小组名称不能为空");
+                            return;
+                        } else if ($("#add").text() != "已选择") {
+                            parent.layer.alert("请选择评分人员");
+                            return;
+                        } else {
+                            $.ajax({
+                                type: "POST",
+                                url: path + "checkRange/upsert.action",
+                                data: {
+                                    "name": $("#checkzName").val(),
+                                    "aduiUserIdStrs": selectednodeId,
+                                    "aduiUserNames": selectednodeName,
+                                    "edUserIdStrs": selectedfannodeId,
+                                    "edUserNames": selectedfannodeName,
+                                    "checkId": currId
+                                },
+                                dataType: "json",
+                                success: function(data) {
+                                    if (data.success) {
+                                        $("#poper5").addClass("hid");
+                                        $("#poper2").addClass("hid");
+                                        $(".mask2").addClass("hid");
+                                        $(".mask1").addClass("hid");
+                                        $.ajax({
+                                            type: "POST",
+                                            url: path + "checkRange/findByCkId.action",
+                                            data: {
+                                                "checkId": currId
+                                            },
+                                            dataType: "json",
+                                            success: function(data) {
+                                                $("#listC").empty();
+                                                $("#wu").addClass("hid");
+                                                if (data.length == 0) {
+                                                    $("#wu").removeClass("hid");
+                                                } else {
+                                                    for (var j = 0; j < data.length; j++) {
+                                                        var oTr = ' <tr>\n' +
+                                                            '                        <td>' + (j + 1) + '</td>\n' +
+                                                            '                        <td>' + data[j].name + '</td>\n' +
+                                                            '                        <td><input class="id" type="hidden" value=' + data[j]._id + '><span>编辑</span><span>删除</span></td>\n' +
+                                                            '                    </tr>';
+                                                        $("#listC").append(oTr);
+                                                    }
+
+                                                }
+
+                                            }
+                                        })
+                                    } else {
+                                        parent.layer.alert(data.message);
+                                    }
+                                }
+                            })
+                        }
+                        $("#addfan").html(" ");
+                        if (a == 1) {
+                            $("#addfan").text("+");
+                            $("#addfan").removeClass("overSelected");
+                        }
+                    } else if (a == 2) { //编辑
+                        $.ajax({
+                            type: "POST",
+                            url: path + "checkRange/upsert.action",
+                            data: {
+                                "name": $("#checkzName").val(),
+                                "aduiUserIdStrs": selectednodeId,
+                                "aduiUserNames": selectednodeName,
+                                "edUserIdStrs": selectedfannodeId,
+                                "edUserNames": selectedfannodeName,
+                                "checkId": currId,
+                                "_id": curr_Id
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                if (data.success) {
+                                    $("#addfan").text("+");
+                                    $("#addfan").removeClass("overSelected");
+                                    $("#poper5").addClass("hid");
+                                    $("#poper2").addClass("hid");
+                                    $(".mask2").addClass("hid");
+                                    $(".mask1").addClass("hid");
+                                    $.ajax({
+                                        type: "POST",
+                                        url: path + "checkRange/findByCkId.action",
+                                        data: {
+                                            "checkId": currId
+                                        },
+                                        dataType: "json",
+                                        success: function(data) {
+                                            $("#listC").empty();
+                                            $("#wu").addClass("hid");
+                                            if (data.length == 0) {
+                                                $("#wu").removeClass("hid");
+                                            } else {
+                                                for (var j = 0; j < data.length; j++) {
+                                                    var oTr = ' <tr>\n' +
+                                                        '                        <td>' + (j + 1) + '</td>\n' +
+                                                        '                        <td>' + data[j].name + '</td>\n' +
+                                                        '                        <td><input class="id" type="hidden" value=' + data[j]._id + '><span>编辑</span><span>删除</span></td>\n' +
+                                                        '                    </tr>';
+                                                    $("#listC").append(oTr);
+                                                }
+
+                                            }
+
+                                        }
+                                    })
+                                } else {
+                                    parent.layer.alert(data.message);
+                                }
+                            }
+                        })
+                    }
+                });
+                //选择范围树按钮
+                $("#addfan").off();
+                $("#addfan").click(function() {
+
+                    if ($("#addfan").text() != '已选择' && $("#addfan").text() != '查看') {
+                        $("#fanTreeSure").removeClass("hid");
+                        $("#fanTreeCancel").removeClass("hid");
+                        $("#poper7").removeClass("hid");
+                        $(".mask3").removeClass("hid");
+                        var zNodes = [];
+                        //tree
+                        var setting = {
+                            view: {
+                                dblClickExpand: false
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true,
+                                    idKey: "id",
+                                    pIdKey: "pId"
+                                },
+                                key: {
+                                    name: "name"
+                                }
+                            },
+                            check: {
+                                enable: true,
+                                chkStyle: "checkbox",
+                                chkboxType: {
+                                    "Y": "",
+                                    "N": ""
+                                }
+                            },
+                            callback: {}
+                        };
+                        buildTree();
+
+                        function buildTree() {
+                            $.ajax({
+                                type: "POST",
+                                url: path + "partyCheck/findRange.action",
+                                data: {
+                                    "checkId": currId
+                                },
+                                dataType: "json",
+                                success: function(data) {
+                                    var data = data.data;
+                                    if (data) {
+                                        zNodes = data;
+                                        var zTree = $.fn.zTree.init($("#treeDemo2"), setting, zNodes);
+                                        var node = zTree.getNodeByParam("id", 0);
+                                        //alert(JSON.stringify(node));
+                                        zTree.selectNode(node);
+                                        zTree.expandNode(node, true, false, false);
+                                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo2");
+                                        treeObj.expandAll(true);
+                                    }
+                                    // setDisabledNode();
+
+                                }
+                            });
+                        }
+
+                        $("#fanTreeCancel").click(function() {
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                        });
+                        $("#fanTreeClose").click(function() {
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                        });
+                        $(".mask3").click(function() {
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                        });
+                        $("#fanTreeSure").click(function() {
+                            allSelectedNode();
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                            $("#addfan").text("已选择").addClass("overSelected");
+                        });
+
+                        //所有选中的节点
+                        function allSelectedNode() {
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo2");
+                            var nodes = treeObj.transformToArray(treeObj.getNodes());
+                            selectedfannodeName = "";
+                            selectedfannodeId = "";
+                            for (var node in nodes) {
+                                if (nodes[node].chkDisabled == true) {
+                                    continue;
+                                } else {
+                                    //判断节点是否选中
+                                    var checked = nodes[node].checked;
+                                    if (checked == true) {
+                                        selectedfannodeName += nodes[node].name + ",";
+                                        selectedfannodeId += nodes[node].id + ",";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if ($("#addfan").text() == '已选择') {
+                        $("#fanTreeSure").removeClass("hid");
+                        $("#fanTreeCancel").removeClass("hid");
+                        $("#poper7").removeClass("hid");
+                        $(".mask3").removeClass("hid");
+                        var zNodes = [];
+                        //tree
+                        var setting = {
+                            view: {
+                                dblClickExpand: false
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true,
+                                    idKey: "id",
+                                    pIdKey: "pId"
+                                },
+                                key: {
+                                    name: "name"
+                                }
+                            },
+                            check: {
+                                enable: true,
+                                chkStyle: "checkbox",
+                                chkboxType: {
+                                    "Y": "",
+                                    "N": ""
+                                }
+                            },
+                            callback: {}
+                        };
+                        buildTree();
+
+                        function buildTree() {
+                            $.ajax({
+                                type: "POST",
+                                url: path + "partyCheck/findRange.action",
+                                data: {
+                                    "rangeId": curr_Id,
+                                    "checkId": currId
+                                },
+                                dataType: "json",
+                                success: function(data) {
+                                    var data = data.data;
+                                    if (data) {
+                                        zNodes = data;
+                                        var zTree = $.fn.zTree.init($("#treeDemo2"), setting, zNodes);
+                                        var node = zTree.getNodeByParam("id", 0);
+                                        //alert(JSON.stringify(node));
+                                        zTree.selectNode(node);
+                                        zTree.expandNode(node, true, false, false);
+                                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo2");
+                                        treeObj.expandAll(true);
+                                    }
+                                    // setDisabledNode();
+
+                                }
+                            });
+                        }
+
+                        $("#fanTreeCancel").click(function() {
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                        });
+                        $("#fanTreeClose").click(function() {
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                        });
+                        $(".mask3").click(function() {
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                        });
+                        $("#fanTreeSure").click(function() {
+                            allSelectedNode();
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                            $("#addfan").text("已选择").addClass("overSelected");
+                        });
+
+                        //所有选中的节点
+                        function allSelectedNode() {
+                            selectedfannodeName = "";
+                            selectedfannodeId = "";
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo2");
+                            var nodes = treeObj.transformToArray(treeObj.getNodes());
+                            for (var node in nodes) {
+                                if (nodes[node].chkDisabled == true) {
+                                    continue;
+                                } else {
+                                    //判断节点是否选中
+
+                                    var checked = nodes[node].checked;
+                                    if (checked == true) {
+                                        selectedfannodeName += nodes[node].name + ",";
+                                        selectedfannodeId += nodes[node].id + ",";
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                });
+                //最终保存按钮
+                //                      $("#fanWSure").off();
+                $("#fanWSure").click(function() {
+
+
+                });
+                //选择人员树按钮
+                $("#add").off();
+                $("#add").click(function() {
+                    if ($("#add").text() != "已选择" && $("#add").text() != "查看") {
+                        $("#selectSure").removeClass("hid");
+                        $("#selectCancel").removeClass("hid");
+                        $("#poper3").removeClass("hid");
+                        $(".mask2").removeClass("hid");
+                        var zNodes = [];
+                        //tree
+                        var setting = {
+                            view: {
+                                dblClickExpand: false
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true,
+                                    idKey: "id",
+                                    pIdKey: "pId"
+                                },
+                                key: {
+                                    name: "name"
+                                }
+                            },
+                            check: {
+                                enable: true,
+                                chkStyle: "checkbox",
+                                chkboxType: {
+                                    "Y": "",
+                                    "N": ""
+                                }
+                            },
+                            callback: {}
+                        };
+                        buildTree();
+
+                        function buildTree() {
+                            $.ajax({
+                                type: "POST",
+                                url: path + "partyCheck/findRaters.action",
+                                data: {
+                                    "bumenId": bumenId
+                                },
+                                dataType: "json",
+                                success: function(data) {
+                                    var data = data.data;
+                                    if (data) {
+                                        zNodes = data;
+                                        var zTree = $.fn.zTree.init($("#treeDemo1"), setting, zNodes);
+                                        var node = zTree.getNodeByParam("id", 0);
+                                        //alert(JSON.stringify(node));
+                                        zTree.selectNode(node);
+                                        zTree.expandNode(node, true, false, false);
+                                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                                        treeObj.expandAll(true);
+                                    }
+                                    setDisabledNode();
+
+                                }
+                            });
+                        }
+
+                        //设置禁用的复选框节点
+                        function setDisabledNode() {
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                            var disabledNode1 = treeObj.getNodeByParam("isParent", true);
+                            treeObj.setChkDisabled(disabledNode1, true);
+                        }
+
+                        $("#selectCancel").click(function() {
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                        });
+                        $("#selecClose").click(function() {
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                        });
+                        $("#mask").click(function() {
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                        });
+                        $("#selectSure").click(function() {
+                            allSelectedNode();
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                            $("#add").text("已选择").addClass("overSelected");
+                        });
+
+                        //所有选中的节点
+                        function allSelectedNode() {
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                            var nodes = treeObj.transformToArray(treeObj.getNodes());
+                            selectednodeName = "";
+                            selectednodeId = "";
+
+                            for (var node in nodes) {
+                                if (nodes[node].chkDisabled == true) {
+                                    continue;
+                                } else {
+                                    //判断节点是否选中
+                                    var checked = nodes[node].checked;
+                                    if (checked == true) {
+                                        selectednodeName += nodes[node].name + ",";
+                                        selectednodeId += nodes[node].id + ",";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if ($("#add").text() == "已选择") {
+                        $("#selectSure").removeClass("hid");
+                        $("#selectCancel").removeClass("hid");
+                        $("#poper3").removeClass("hid");
+                        $(".mask2").removeClass("hid");
+                        var zNodes = [];
+                        //tree
+                        var setting = {
+                            view: {
+                                dblClickExpand: false
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true,
+                                    idKey: "id",
+                                    pIdKey: "pId"
+                                },
+                                key: {
+                                    name: "name"
+                                }
+                            },
+                            check: {
+                                enable: true,
+                                chkStyle: "checkbox",
+                                chkboxType: {
+                                    "Y": "",
+                                    "N": ""
+                                }
+                            },
+                            callback: {}
+                        };
+                        buildTree();
+
+                        function buildTree() {
+                            $.ajax({
+                                type: "POST",
+                                url: path + "partyCheck/findRaters.action",
+                                data: {
+                                    "bumenId": bumenId,
+                                    "rangeId": curr_Id
+                                },
+                                dataType: "json",
+                                success: function(data) {
+                                    var data = data.data;
+                                    if (data) {
+                                        zNodes = data;
+                                        var zTree = $.fn.zTree.init($("#treeDemo1"), setting, zNodes);
+                                        var node = zTree.getNodeByParam("id", 0);
+                                        //alert(JSON.stringify(node));
+                                        zTree.selectNode(node);
+                                        zTree.expandNode(node, true, false, false);
+                                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                                        treeObj.expandAll(true);
+                                    }
+                                    setDisabledNode();
+
+                                }
+                            });
+                        }
+
+                        //设置禁用的复选框节点
+                        function setDisabledNode() {
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                            var disabledNode1 = treeObj.getNodeByParam("isParent", true);
+                            treeObj.setChkDisabled(disabledNode1, true);
+                        }
+
+                        $("#selectCancel").click(function() {
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                        });
+                        $("#selecClose").click(function() {
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                        });
+                        $("#mask").click(function() {
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                        });
+                        $("#selectSure").click(function() {
+                            allSelectedNode();
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                            $("#add").text("已选择").addClass("overSelected");
+                        });
+
+                        //所有选中的节点
+                        function allSelectedNode() {
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                            var nodes = treeObj.transformToArray(treeObj.getNodes());
+                            selectednodeName = "";
+                            selectednodeId = "";
+                            for (var node in nodes) {
+                                if (nodes[node].chkDisabled == true) {
+                                    continue;
+                                } else {
+                                    //判断节点是否选中
+                                    var checked = nodes[node].checked;
+                                    if (checked == true) {
+
+                                        selectednodeName += nodes[node].name + ",";
+                                        selectednodeId += nodes[node].id + ",";
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+
+                });
+
+                $('#listC').off().on("click", function(e) {
+                    var target = e.target;
+                    curr_Id = $(target).parent().find(".id").val();
+                    if ($(target).text() == "编辑") { //编辑
+                        a = 2;
+                        $("#addfan").text("已选择").addClass("overSelected");
+                        $("#poper2").removeClass("hid");
+                        $(".mask1").removeClass("hid");
+                        $(".mask1").click(function() {
+                            $("#poper2").addClass("hid");
+                            $(".mask1").addClass("hid");
+                        });
+                        $("#addClose").click(function() {
+                            $("#poper2").addClass("hid");
+                            $(".mask1").addClass("hid");
+                        });
+                        $("#addCancel").click(function() {
+                            $("#poper2").addClass("hid");
+                            $(".mask1").addClass("hid");
+                        });
+                        $("#add").text("已选择");
+                        $("#add").addClass("overSelected");
+
+                        $.ajax({
+                            type: "POST",
+                            url: path + "checkRange/findById.action",
+                            data: {
+                                "rangeId": curr_Id
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                $("#checkzName").val(data.name);
+                                selectedfannodeName = data.edUserNames;
+                                selectedfannodeId = data.edUserIdStrs;
+                                selectednodeId = data.aduiUserIdStrs;
+                                selectednodeName = data.aduiUserNames;
+                            }
+                        });
+
+
+
+                        $("#checkzName").removeAttr("readonly");
+                        $("#addTitle").text("编辑考核评分人员");
+                        $("#fanTreeC").text("编辑范围");
+                        $("#fanWTitle").text("编辑考核评分人员");
+                        $("#titleC").text("编辑人员");
+                    }
+                    if ($(target).text() == "删除") { //删除
+                        parent.layer.confirm('确定删除吗？', {
+                            icon: 3,
+                            title: '\n' + '提示'
+                        }, function(index) {
+                            $.ajax({
+                                type: "POST",
+                                url: path + "checkRange/remove/" + curr_Id + ".action",
+                                data: {},
+                                dataType: "json",
+                                success: function(data) {
+                                    if (data.success) {
+                                        $(target).parent().parent().remove();
+                                        parent.layer.alert("删除成功");
+                                    } else {
+                                        parent.layer.alert(data.message);
+                                    }
+                                }
+                            });
+                            parent.layer.close(index);
+                        })
+                    }
+                });
+                //最后评分人员提交
+                $("#kaoBtn").off();
+                $("#kaoBtn").click(function() {
+                    if ($("#listC").text().trim() == "") {
+                        parent.layer.alert("请添加评分人员");
+                        return;
+                    }
+                    parent.layer.confirm('请确认设置信息无误。提交后将无法修改。是否提交？', {
+                        icon: 3,
+                        title: '\n' + '提示'
+                    }, function(index) {
+                        $.ajax({
+                            type: "POST",
+                            url: path + "partyCheck/subSet.action",
+                            data: {
+                                "checkId": currId
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                if (data.success) {
+                                    parent.layer.alert("提交成功");
+                                    window.location.reload();
+                                } else {
+                                    parent.layer.alert(data.message);
+                                }
+                            }
+                        });
+                        parent.layer.close(index);
+                    })
+                });
+            }
+            if ($(target).text() == "启用") {
+                parent.layer.confirm('确认该考核规则无误，并启用？', {
+                    icon: 3,
+                    title: '\n' + '启用'
+                }, function(index) {
+                    $.ajax({
+                        type: "POST",
+                        url: path + "partyCheck/enable/" + currId + ".action",
+                        data: {},
+                        dataType: "json",
+                        success: function(data) {
+                            if (data.success) {
+                                window.location.reload();
+                            } else {
+                                parent.layer.alert(data.message);
+                            }
+                        }
+                    })
+                    parent.layer.close(index);
+                })
+            }
+            if ($(target).text() == "复制") {
+                $("#copyPoper").removeClass("hid");
+                $(".mask").removeClass("hid");
+
+                $("#copyCancel").click(function() {
+                    $("#copyPoper").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                $("#copyClosed").click(function() {
+                    $("#copyPoper").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                $(".mask").click(function() {
+                    $("#copyPoper").addClass("hid");
+                    $(this).addClass("hid");
+                });
+                $("#copySure").click(function() {
+                    if ($("#copyName").val().trim() == "") {
+                        parent.layer.alert("请输入复制标题");
+                        return;
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: path + "partyCheck/copyChack.action",
+                        data: {
+                            "checkId": currId,
+                            "title": $("#copyName").val()
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            if (data.success) {
+                                window.location.reload();
+                            } else {
+                                parent.layer.alert(data.message);
+                            }
+                        }
+                    })
+                });
+            }
+
+            if ($(target).text() == "删除") {
+                parent.layer.confirm('删除后将不能恢复。确认删除？', {
+                    icon: 3,
+                    title: '\n' + '提示'
+                }, function(index) {
+                    $.ajax({
+                        type: "POST",
+                        url: path + "partyCheck/remove/" + currId + ".action",
+                        data: {},
+                        dataType: "json",
+                        success: function(data) {
+                            if (data.success) {
+                                window.location.reload();
+                            } else {
+                                parent.layer.alert(data.message);
+                            }
+                        }
+                    });
+                    parent.layer.close(index);
+                })
+            }
+            if ($(target).text() == "编辑") {
+                window.location.href = "createRulesOfOrganization.html?id=" + currId;
+            }
+
+            if ($(target).text() == "查看设置") {
+                $("#add").off();
+                $("#addfan").off();
+                $("#poper4").removeClass("hid");
+                $(".mask").removeClass("hid");
+                $("#lookClose").click(function() {
+                    $("#poper4").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                $("#lookSure").click(function() {
+                    $("#poper4").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                $(".mask").click(function() {
+                    $("#poper4").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                $.ajax({
+                    type: "POST",
+                    url: path + "partyCheck/findCheckById.action",
+                    data: {
+                        "checkId": currId
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        var data = data.data;
+                        $("#checkDatebg").text(data.formtStarfillDate);
+                        $("#checkDateov").text(data.formtEndfillDate);
+                        $("#pingDateBg").text(data.formtStarMarkDate);
+                        $("#pingDateov").text(data.formtEndMarkDate);
+                        $.ajax({
+                            type: "POST",
+                            url: path + "checkRange/findByCkId.action",
+                            data: {
+                                "checkId": currId
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                if (data.length == 0) {
+                                    $("#zanWud").removeClass("hid");
+                                } else {
+                                    $("#zanWud").addClass("hid");
+                                }
+                                $("#memeberList").html("");
+                                for (var i = 0; i < data.length; i++) {
+
+                                    var oTr = ' <tr>\n' +
+                                        '                            <td>' + (i + 1) + '</td>\n' +
+                                        '                            <td>' + data[i].name + '</td>\n' +
+                                        '                            <td><input type="hidden" value=' + data[i]._id + '><span>查看</span></td>\n' +
+                                        '                            </tr>';
+                                    $("#memeberList").append(oTr);
+                                }
+                                $("#memeberList").off("click");
+                                $("#memeberList").on("click", function(e) {
+                                    var target = e.target;
+                                    lookId = $(target).parent().find('input').val();
+                                    if ($(target).text() == "查看") {
+                                        $("#addfan").text("查看").addClass("overSelected");
+                                        $("#poper2").removeClass("hid");
+                                        $(".mask1").removeClass("hid");
+                                        $(".mask1").click(function() {
+                                            $("#poper2").addClass("hid");
+                                            $(".mask1").addClass("hid");
+                                            $("#add").click = null;
+                                        });
+                                        $("#addClose").click(function() {
+                                            $("#poper2").addClass("hid");
+                                            $(".mask1").addClass("hid");
+                                            $("#add").click = null;
+                                        });
+                                        $("#addCancel").click(function() {
+
+                                            $("#poper2").addClass("hid");
+                                            $(".mask1").addClass("hid");
+                                            $("#add").click = null;
+                                        });
+
+                                        $.ajax({
+                                            type: "POST",
+                                            url: path + "checkRange/findById.action",
+                                            data: {
+                                                "rangeId": lookId
+                                            },
+                                            dataType: "json",
+                                            success: function(data) {
+                                                $("#checkzName").val(data.name);
+                                            }
+                                        });
+                                        $("#checkzName").attr("readonly", "readonly");
+
+                                        $("#add").text("查看");
+                                        $("#add").addClass("overSelected");
+                                        $("#fanWSure").addClass("hid");
+                                        $("#fanWCancel").addClass("hid");
+                                        $("#addTitle").text("查看考核评分人员");
+                                        $("#fanTreeC").text("查看范围");
+                                        $("#fanWTitle").text("查看考核评分人员");
+                                        $("#titleC").text("查看人员");
+                                    }
+                                })
+                            }
+                        })
+                    }
+                });
+                $("#addSure").off();
+                $("#addSure").click(function() {//1
+
+                    $("#fanWClose").click(function() {
+                        $("#addfan").click = null;
+                    });
+                    $(".mask2").click(function() {
+                        $("#addfan").click = null;
+                    });
+                    $("#addfan").text("查看");
+                    $("#addfan").addClass("overSelected");
+                    $("#fanWSure").addClass("hid");
+                    $("#fanWCancel").addClass("hid");
+
+                    //zhangliang 查看設置時候確定點不動，已解決
+                    $("#poper2").addClass("hid");
+                    $(".mask1").addClass("hid");
+                    $("#add").click = null;
+
+                });
+                $("#add").off();
+                $("#add").click(function() {
+                    if ($("#add").text() == "查看") {
+                        $("#poper3").removeClass("hid");
+                        $(".mask2").removeClass("hid");
+                        var zNodes = [];
+                        //tree
+                        var setting = {
+                            view: {
+                                dblClickExpand: false
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true,
+                                    idKey: "id",
+                                    pIdKey: "pId"
+                                },
+                                key: {
+                                    name: "name"
+                                }
+                            },
+                            check: {
+                                enable: true,
+                                chkDisabledInherit: true,
+                                chkStyle: "checkbox",
+                                chkboxType: {
+                                    "Y": "",
+                                    "N": ""
+                                }
+                            },
+                            callback: {}
+                        };
+                        buildTree();
+
+                        function buildTree() {
+                            $.ajax({
+                                type: "POST",
+                                url: path + "partyCheck/findRaters.action",
+                                data: {
+                                    "bumenId": bumenId,
+                                    "rangeId": lookId
+                                },
+                                dataType: "json",
+                                success: function(data) {
+                                    var data = data.data;
+                                    if (data) {
+                                        zNodes = data;
+                                        var zTree = $.fn.zTree.init($("#treeDemo1"), setting, zNodes);
+                                        var node = zTree.getNodeByParam("id", 0);
+                                        zTree.selectNode(node);
+                                        zTree.expandNode(node, true, false, false);
+                                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                                        treeObj.expandAll(true);
+                                    }
+                                    hibb_Nodes();
+
+                                }
+                            });
+                        }
+
+                        function hibb_Nodes() {
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                            var nodes = treeObj.transformToArray(treeObj.getNodes());
+                            for (var node in nodes) {
+                                treeObj.setChkDisabled(nodes[node], true);
+                            }
+                        }
+
+                        $("#selectCancel").click(function() {
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                        });
+                        $("#selecClose").click(function() {
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                        });
+                        $(".mask2").click(function() {
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                        });
+                        $("#selectSure").addClass("hid");
+                        $("#selectCancel").addClass("hid");
+                    }
+                });
+                $("#addfan").off();
+                $("#addfan").click(function() {
+                    if ($("#addfan").text() == '查看') {
+                        $("#poper7").removeClass("hid");
+                        $(".mask3").removeClass("hid");
+                        var zNodes = [];
+                        //tree
+                        var setting = {
+                            view: {
+                                dblClickExpand: false
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true,
+                                    idKey: "id",
+                                    pIdKey: "pId"
+                                },
+                                key: {
+                                    name: "name"
+                                }
+                            },
+                            check: {
+                                enable: true,
+                                chkDisabledInherit: true,
+                                chkStyle: "checkbox",
+                                chkboxType: {
+                                    "Y": "",
+                                    "N": ""
+                                }
+                            },
+                            callback: {}
+                        };
+                        buildTree();
+
+                        function buildTree() {
+                            $.ajax({
+                                type: "POST",
+                                url: path + "partyCheck/findRange.action",
+                                data: {
+                                    "rangeId": lookId,
+                                    "checkId": currId
+                                },
+                                dataType: "json",
+                                success: function(data) {
+                                    var data = data.data;
+                                    if (data) {
+                                        zNodes = data;
+                                        var zTree = $.fn.zTree.init($("#treeDemo2"), setting, zNodes);
+                                        var node = zTree.getNodeByParam("id", 0);
+                                        //alert(JSON.stringify(node));
+                                        zTree.selectNode(node);
+                                        zTree.expandNode(node, true, false, false);
+                                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo2");
+                                        treeObj.expandAll(true);
+                                    }
+                                    hibb_Nodes();
+
+                                }
+                            });
+                        }
+
+                        function hibb_Nodes() {
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo2");
+                            var nodes = treeObj.transformToArray(treeObj.getNodes());
+                            for (var node in nodes) {
+                                treeObj.setChkDisabled(nodes[node], true);
+                            }
+                        }
+
+                        $("#fanTreeCancel").click(function() {
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                        });
+                        $("#fanTreeClose").click(function() {
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                        });
+                        $(".mask3").click(function() {
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                        });
+                        $("#fanTreeSure").addClass("hid");
+                        $("#fanTreeCancel").addClass("hid");
+                    }
+                });
+            }
+        })
+    }
+
+    function partyMember() {
+        //分页参数设置 这些全局变量关系到分页的功能
+        var pagea = 1; //开始页数
+        var sizea = 10; //每页最多显示条数
+        var nowpagea = 1; //当前页数
+        var pagesa = 0; //总页数
+
+        function page() {
+            //调用分页
+            layui.use(['laypage', 'layer'], function() {
+                var laypage = layui.laypage,
+                    layer = layui.layer;
+                laypage.render({
+                    elem: 'pageContent1',
+                    count: pagesa,
+                    limit: sizea //每页显示的数据的条数,layui会根据count，limit进行分页的计算
+                        ,
+                    curr: nowpagea,
+                    jump: function(obj, first) {
+                        nowpagea = obj.curr;
+                        pagea = (obj.curr - 1) * sizea;
+                        if (!first) { //一定要加此判断，否则初始时会无限刷新
+                            pageAjax(); //一定要把翻页的ajax请求放到这里，不然会请求两次。
+                            location.href = '#top';
+                            //<a href="#top">返回顶部</a>
+                        }
+
+                    }
+
+                });
+            })
+        }
+
+        var minDateMaps = {};
+        pageAjax();
+
+        function pageAjax() {
+            $.ajax({
+                type: "POST",
+                url: path + "partyCheck/queryAdmin.action",
+                data: {
+                    "type|integer": 4,
+                    "checkType|integer": $("#partyKId").val(),
+                    "regex:bumenName": $("#partyBumen").val(),
+                    "stats|integer": $("#ruleP").val(),
+                    "page": nowpagea, //当前页数
+                    "size": sizea //每页显示条数
+                },
+                dataType: "json",
+                success: function(data) {
+                    pagea = data.page; //当前页数(后台返回)
+                    pagesa = data.total; //总页数(后台返回)
+                    var data = data.data;
+                    if (data.length == 0) {
+                        $(".noDate1").removeClass("hid");
+                        $("#pageContent1").addClass("hid");
+                    } else {
+                        handleData(data);
+                        for (var i = 0; i < data.length; i++) {
+                            minDateMaps[data[i]._id] = data[i].formtStarfillDate;
+                        }
+                        $(".noDate1").addClass("hid");
+                        $("#pageContent1").removeClass("hid");
+                    }
+                    page();
+                }
+            });
+        }
+
+        function handleData(data) {
+            $('#talkR1').empty();
+            var checkType = "";
+            var stats = "";
+            var time = "";
+            var oC = "";
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].formtStarfillDate == "") {
+                    time = "";
+                } else if (data[i].starfillDate > new Date().getTime()) {
+                    time = "未开始";
+                } else if (data[i].endfillDate < new Date().getTime()) {
+                    time = "已结束";
+                } else {
+                    time = data[i].formtStarfillDate + "到" + data[i].formtEndfillDate
+                }
+                if (data[i].checkType == 1) {
+                    checkType = "党员"
+                }
+                if (data[i].checkType == 2) {
+                    checkType = "干部"
+                }
+                if (data[i].stats == 0) {
+                    stats = "未生效"
+                }
+                if (data[i].stats == 1) {
+                    stats = "生效"
+                }
+                if (data[i].stats == 2) {
+                    stats = "已结束"
+                }
+                if (data[i].stats == 0) {
+                    oC = "启用";
+                } else {
+                    oC = "禁用";
+                }
+                if (data[i].stage == 1 || data[i].stage == 2) {
+                    var oTr = '<tr>\n' +
+                        '                        <td>' + (i + 1) + '</td>\n' +
+                        '                        <td><input  class="titleID" type="hidden" value=' + data[i]._id + '><span class="meTitleBtn">' + data[i].title + '</span></td>\n' +
+                        '                        <td>' + data[i].bumenName + '</td>\n' +
+                        '                        <td>' + data[i].idsum + '</td>\n' +
+                        '                        <td>' + checkType + '</td>\n';
+                    if (data[i].formtStarCycle != "") {
+                        oTr = oTr + '<td>' + data[i].formtStarCycle + '到' + data[i].formtEndCycle + '</td>\n';
+                    } else {
+                        oTr = oTr + '<td></td>';
+                    }
+                    oTr = oTr +
+                        '                        <td>' + time + '</td>\n' +
+                        '                        <td>' + stats + '</td>\n' +
+                        '                        <td><input type="hidden" class="bumenId" value=' + data[i].bumenId + '><input type="hidden" class="ckStats" value=' + data[i].ckStats + '><input type="hidden" class="id" value=' + data[i]._id + '><span class="hibiden">' + oC + '</span><span class="">编辑</span><span\n' +
+                        '                                class="">删除</span><span>复制</span></td>\n' +
+                        '                    </tr>';
+                }
+                if (data[i].stage == 3) {
+                    var oTr = '<tr>\n' +
+                        '                        <td>' + (i + 1) + '</td>\n' +
+                        '                        <td><input  class="titleID" type="hidden" value=' + data[i]._id + '><span class="meTitleBtn">' + data[i].title + '</span></td>\n' +
+                        '                        <td>' + data[i].bumenName + '</td>\n' +
+                        '                        <td>' + data[i].idsum + '</td>\n' +
+                        '                        <td>' + checkType + '</td>\n';
+                    if (data[i].formtStarCycle != "") {
+                        oTr = oTr + '<td>' + data[i].formtStarCycle + '到' + data[i].formtEndCycle + '</td>\n';
+                    } else {
+                        oTr = oTr + '<td></td>';
+                    }
+                    oTr = oTr +
+                        '                        <td>' + time + '</td>\n' +
+                        '                        <td>' + stats + '</td>\n' +
+                        '                        <td><input type="hidden" class="bumenId" value=' + data[i].bumenId + '><input type="hidden" class="ckStats" value=' + data[i].ckStats + '><input class="id" type="hidden" value=' + data[i]._id + '><span class="hibiden">' + oC + '</span><span class="lookSetting">考核设置</span><span\n' +
+                        '                                class="">复制</span></td>\n' +
+                        '                    </tr>';
+                }
+                if (data[i].stage == 4) {
+                    var oTr = '<tr>\n' +
+                        '                        <td>' + (i + 1) + '</td>\n' +
+                        '                        <td><input class="titleID" type="hidden" value=' + data[i]._id + '><span class="meTitleBtn">' + data[i].title + '</span></td>\n' +
+                        '                        <td>' + data[i].bumenName + '</td>\n' +
+                        '                        <td>' + data[i].idsum + '</td>\n' +
+                        '                        <td>' + checkType + '</td>\n';
+                    if (data[i].formtStarCycle != "") {
+                        oTr = oTr + '<td>' + data[i].formtStarCycle + '到' + data[i].formtEndCycle + '</td>\n';
+                    } else {
+                        oTr = oTr + '<td></td>';
+                    }
+                    oTr = oTr +
+                        '                        <td>' + time + '</td>\n' +
+                        '                        <td>' + stats + '</td>\n' +
+                        '                        <td><input type="hidden" class="bumenId" value=' + data[i].bumenId + '><input type="hidden" class="ckStats" value=' + data[i].ckStats + '><input class="id" type="hidden" value=' + data[i]._id + '><span class="hibiden">' + oC + '</span><span class="">查看设置</span><span\n' +
+                        '                                class="">复制</span></td>\n' +
+                        '                    </tr>';
+                }
+
+                $('#talkR1').append(oTr);
+            }
+
+        }
+        $('#talkR1').on("click", function(e) {
+            var target = e.target;
+            var titleId = $(target).parent().find(".titleID").val();
+            var currId = $(target).parent().find(".id").val();
+            var ckStats = $(target).parent().find(".ckStats").val();
+            var bumenId = $(target).parent().find(".bumenId").val();
+
+            if ($(target).attr("class") == "meTitleBtn") {
+                window.location.href = "lookRegular.html?id=" + titleId + "&&me=党员";
+            }
+            if ($(target).text() == "禁用") {
+                $.ajax({
+                    type: "POST",
+                    url: path + "partyCheck/disable/" + currId + ".action",
+                    data: {},
+                    dataType: "json",
+                    success: function(data) {
+                        if (data.success) {
+                            window.location.reload();
+                        } else {
+                            parent.layer.alert(data.message);
+                        }
+                    }
+                })
+            }
+            if ($(target).text() == "考核设置") {
+                $("#addfan").text("已选择").addClass("overSelected");
+                if (ckStats == 1) {
+                    $(".tabQian_0").addClass("hid");
+                    $(".tabQian_2").addClass("hid");
+                    $(".tabQian_1").removeClass("hid");
+                    $("#tianD").removeClass("finishS");
+                    $("#tianD").find("img").attr("src", overS);
+                    $("#pingD").addClass("finishS");
+                    $("#pingD").find("img").attr("src", weiShanding);
+                    $(".tabQian_1").html('<div class="tianF"><div><div><span class="imp">*</span>考核评分起始日期</div><div><input type="text" value="" id="pingb" readonly><img src="../../img/date.png"></div></div><div><div><span class="imp">*</span>考核评分结束日期</div><div><input type="text" value="" id="pingo" readonly><img src="../../img/date.png"></div></div></div><div class="btnList" id="settingBox"><input type="button" class="s" id="pingFBtn" value="确定"><input type="button" id="pingFCBtn" class="c" value="取消"></div>');
+                    //时间插件方法
+                    layui.use(['laydate'], function() {
+                        var $ = layui.$;
+                        var laydate = layui.laydate;
+                        var nowTime = new Date().valueOf();
+                        var max = null;
+
+                        var start = laydate.render({
+                            elem: '#pingb',
+                            min: minDateMaps[currId],
+                            btns: ['clear', 'confirm'],
+                            done: function(value, date) {
+                                // endMax = end.config.max;
+                                end.config.min = date;
+                                end.config.min.month = date.month - 1;
+                            }
+                        });
+                        var end = laydate.render({
+                            elem: '#pingo',
+                            done: function(value, date) {
+                                if ($.trim(value) == '') {
+                                    var curDate = new Date();
+                                    date = {
+                                        'date': curDate.getDate(),
+                                        'month': curDate.getMonth() + 1,
+                                        'year': curDate.getFullYear()
+                                    };
+                                }
+                            }
+                        });
+                    })
+                }
+                if (ckStats == 2 || ckStats == 3) {
+                    $(".tabQian_0").addClass("hid");
+                    $(".tabQian_1").addClass("hid");
+                    $("#tianD").removeClass("finishS");
+                    $("#tianD").find("img").attr("src", overS);
+                    $("#pingD").removeClass("finishS");
+                    $("#pingD").find("img").attr("src", overS);
+                    $("#pingM").addClass("finishS");
+                    $("#pingM").find("img").attr("src", weiShanding);
+                    $(".tabQian_2").removeClass("hid");
+                    $("#listC").empty();
+                    $.ajax({
+                        type: "POST",
+                        url: path + "checkRange/findByCkId.action",
+                        data: {
+                            "checkId": currId
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            if (data.length == 0) {
+                                $("#wu").removeClass("hid");
+                            } else {
+                                for (var j = 0; j < data.length; j++) {
+                                    var oTr = ' <tr>\n' +
+                                        '                        <td>' + (j + 1) + '</td>\n' +
+                                        '                        <td>' + data[j].name + '</td>\n' +
+                                        '                        <td><input class="id" type="hidden" value=' + data[j]._id + '><span>编辑</span><span>删除</span></td>\n' +
+                                        '                    </tr>';
+                                    $("#listC").append(oTr);
+                                }
+
+                            }
+
+                        }
+                    })
+                }
+
+                $("#dateCheckb").val("");
+                $("#dateChecko").val("");
+                $("#pingb").val("");
+                $("#pingo").val("");
+
+                $("#checkSetting").removeClass("hid");
+                $(".mask").removeClass("hid");
+                $("#settingClosed").off();
+                $("#settingClosed").click(function() {
+                    $("#checkSetting").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                $("#kaoCBtn").off();
+                $("#kaoCBtn").click(function() {
+                    $("#checkSetting").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                $(".mask").click(function() {
+                    $("#checkSetting").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                $("#dateCBtn").off();
+                $("#dateCBtn").click(function() {
+                    $("#checkSetting").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                $("#pingFCBtn").off();
+                $("#pingFCBtn").click(function() {
+                    $("#checkSetting").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                $("#dateBtn").off();
+                $("#dateBtn").click(function() {
+                    if ($("#dateCheckb").val() == "") {
+                        parent.layer.alert("请选择开始日期");
+                        return;
+                    }
+                    if ($("#dateChecko").val() == "") {
+                        parent.layer.alert("请选择截止日期");
+                        return;
+                    }
+                    parent.layer.confirm('请确认设置信息无误。提交后将无法修改。是否提交？', {
+                        icon: 3,
+                        title: '\n' + '提示'
+                    }, function(index) {
+                        minDate = $("#dateCheckb").val();
+                        $.ajax({
+                            type: "POST",
+                            url: path + "partyCheck/upfillDate.action",
+                            data: {
+                                "starfillDate": $("#dateCheckb").val(),
+                                "endfillDate": $("#dateChecko").val(),
+                                "_id": currId
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                if (data.success) {
+                                    pageAjax();
+                                    $(".tabQian_0").addClass("hid");
+                                    $("#tianD").removeClass("finishS");
+                                    $("#tianD").find("img").attr("src", overS);
+                                    $("#pingD").addClass("finishS");
+                                    $("#pingD").find("img").attr("src", weiShanding);
+                                    $(".tabQian_1").removeClass("hid");
+                                    setTimeout(function() {
+                                        $(".tabQian_1").html('<div class="tianF"><div><div><span class="imp">*</span>考核评分起始日期</div><div><input type="text" value="" id="pingb" readonly><img src="../../img/date.png"></div></div><div><div><span class="imp">*</span>考核评分结束日期</div><div><input type="text" value="" id="pingo" readonly><img src="../../img/date.png"></div></div></div><div class="btnList" id="settingBox"><input type="button" class="s" id="pingFBtn" value="确定"><input type="button" id="pingFCBtn" class="c" value="取消"></div>');
+                                        pingFBtnFun();
+                                        //时间插件方法
+                                        layui.use(['laydate'], function() {
+                                            var $ = layui.$;
+                                            var laydate = layui.laydate;
+                                            var nowTime = new Date().valueOf();
+                                            var max = null;
+
+                                            var start = laydate.render({
+                                                elem: '#pingb',
+                                                min: minDateMaps[currId],
+                                                btns: ['clear', 'confirm'],
+                                                done: function(value, date) {
+                                                    // endMax = end.config.max;
+                                                    end.config.min = date;
+                                                    end.config.min.month = date.month - 1;
+                                                }
+                                            });
+                                            var end = laydate.render({
+                                                elem: '#pingo',
+                                                done: function(value, date) {
+                                                    if ($.trim(value) == '') {
+                                                        var curDate = new Date();
+                                                        date = {
+                                                            'date': curDate.getDate(),
+                                                            'month': curDate.getMonth() + 1,
+                                                            'year': curDate.getFullYear()
+                                                        };
+                                                    }
+                                                }
+                                            });
+                                        })
+                                    }, 300);
+                                } else {
+                                    parent.layer.alert(data.message);
+                                }
+                            }
+                        });
+                        parent.layer.close(index);
+                    })
+                });
+                pingFBtnFun();
+
+                function pingFBtnFun() {
+                    $("#pingFCBtn").off();
+                    $("#pingFCBtn").click(function() {
+                        $("#checkSetting").addClass("hid");
+                        $(".mask").addClass("hid");
+                    });
+                    $("#pingFBtn").off();
+                    $("#pingFBtn").click(function() {
+                        if ($("#pingb").val() == "") {
+                            parent.layer.alert("请选择开始日期");
+                            return;
+                        }
+                        if ($("#pingo").val() == "") {
+                            parent.layer.alert("请选择截止日期");
+                            return;
+                        }
+                        parent.layer.confirm('请确认设置信息无误。提交后将无法修改。是否提交？', {
+                            icon: 3,
+                            title: '\n' + '提示'
+                        }, function(index) {
+                            $.ajax({
+                                type: "POST",
+                                url: path + "partyCheck/upMarkDate.action",
+                                data: {
+                                    "starMarkDate": $("#pingb").val(),
+                                    "endMarkDate": $("#pingo").val(),
+                                    "_id": currId
+                                },
+                                dataType: "json",
+                                success: function(data) {
+                                    if (data.success) {
+                                        pageAjax();
+                                        $(".tabQian_0").addClass("hid");
+                                        $(".tabQian_1").addClass("hid");
+                                        $("#tianD").removeClass("finishS");
+                                        $("#tianD").find("img").attr("src", overS);
+                                        $("#pingD").removeClass("finishS");
+                                        $("#pingD").find("img").attr("src", overS);
+                                        $("#pingM").addClass("finishS");
+                                        $("#pingM").find("img").attr("src", weiShanding);
+                                        $(".tabQian_2").removeClass("hid");
+                                        $.ajax({
+                                            type: "POST",
+                                            url: path + "checkRange/findByCkId.action",
+                                            data: {
+                                                "checkId": currId
+                                            },
+                                            dataType: "json",
+                                            success: function(data) {
+                                                if (data.length == 0) {
+                                                    $("#wu").removeClass("hid");
+                                                } else {
+                                                    for (var j = 0; j < data.length; j++) {
+                                                        var oTr = ' <tr>\n' +
+                                                            '                        <td>' + (j + 1) + '</td>\n' +
+                                                            '                        <td>' + data[j].name + '</td>\n' +
+                                                            '                        <td><input class="id" type="hidden" value=' + data[j]._id + '><span>编辑</span><span>删除</span></td>\n' +
+                                                            '                    </tr>';
+                                                        $("#listC").append(oTr);
+                                                    }
+
+                                                }
+
+                                            }
+                                        })
+                                    } else {
+                                        parent.layer.alert(data.message);
+                                    }
+                                }
+                            });
+                            parent.layer.close(index);
+                        })
+                    });
+                }
+                var lookId = "";
+                var curr_Id = "";
+                var selectednodeName = "";
+                var selectednodeId = "";
+                var selectedfannodeName = "";
+                var selectedfannodeId = "";
+                //评分人员添加
+                $(".addPage").off();
+                $(".addPage").click(function() {
+                    a = 1;
+                    $("#addfan").text("+");
+                    $("#addfan").removeClass("overSelected");
+                    $("#poper2").removeClass("hid");
+                    $(".mask1").removeClass("hid");
+                    $(".mask1").click(function() {
+                        $("#poper2").addClass("hid");
+                        $(".mask1").addClass("hid");
+                    });
+                    $("#addClose").click(function() {
+                        $("#poper2").addClass("hid");
+                        $(".mask1").addClass("hid");
+                    });
+                    $("#addCancel").click(function() {
+
+                        $("#poper2").addClass("hid");
+                        $(".mask1").addClass("hid");
+                    });
+
+                    $("#add").text("+");
+                    $("#add").removeClass("overSelected");
+                    $("#checkzName").val("");
+                    $("#fanWSure").removeClass("hid");
+                    $("#fanWCancel").removeClass("hid");
+                    $("#addTitle").text("考核评分人员添加");
+                    $("#fanTreeC").text("选择范围");
+                    $("#fanWTitle").text("考核评分人员添加");
+                    $("#titleC").text("选择人员");
+                    $("#checkzName").removeAttr("readonly");
+                });
+                // 点击确定
+                $("#addSure").off();
+                $("#addSure").click(function() {//2
+
+                    if (a == 1) {
+                        if ($("#checkzName").val().trim() == "") {
+                            parent.layer.alert("考核小组名称不能为空");
+                            return;
+                        }
+                        else if ($("#add").text() != "已选择") {
+                            parent.layer.alert("请选择评分人员");
+                            return;
+                        }
+                        else {
+                            $.ajax({
+                                type: "POST",
+                                url: path + "checkRange/upsert.action",
+                                data: {
+                                    "name": $("#checkzName").val(),
+                                    "aduiUserIdStrs": selectednodeId,
+                                    "aduiUserNames": selectednodeName,
+                                    "edUserIdStrs": selectedfannodeId,
+                                    "edUserNames": selectedfannodeName,
+                                    "checkId": currId
+                                },
+                                dataType: "json",
+                                success: function(data) {
+                                    if (data.success) {
+                                        $("#poper5").addClass("hid");
+                                        $("#poper2").addClass("hid");
+                                        $(".mask2").addClass("hid");
+                                        $(".mask1").addClass("hid");
+                                        $.ajax({
+                                            type: "POST",
+                                            url: path + "checkRange/findByCkId.action",
+                                            data: {
+                                                "checkId": currId
+                                            },
+                                            dataType: "json",
+                                            success: function(data) {
+                                                $("#listC").empty();
+                                                $("#wu").addClass("hid");
+                                                if (data.length == 0) {
+                                                    $("#wu").removeClass("hid");
+                                                } else {
+                                                    for (var j = 0; j < data.length; j++) {
+                                                        var oTr = ' <tr>\n' +
+                                                            '                        <td>' + (j + 1) + '</td>\n' +
+                                                            '                        <td>' + data[j].name + '</td>\n' +
+                                                            '                        <td><input class="id" type="hidden" value=' + data[j]._id + '><span>编辑</span><span>删除</span></td>\n' +
+                                                            '                    </tr>';
+                                                        $("#listC").append(oTr);
+                                                    }
+
+                                                }
+
+                                            }
+                                        })
+                                    } else {
+                                        parent.layer.alert(data.message);
+                                    }
+                                }
+                            })
+                        }
+                        $("#addfan").html(" ");
+                        if (a == 1) {
+                            $("#addfan").text("+");
+                            $("#addfan").removeClass("overSelected");
+                        }
+                    }
+                    else if (a == 2) { //编辑
+                        $.ajax({
+                            type: "POST",
+                            url: path + "checkRange/upsert.action",
+                            data: {
+                                "name": $("#checkzName").val(),
+                                "aduiUserIdStrs": selectednodeId,
+                                "aduiUserNames": selectednodeName,
+                                "edUserIdStrs": selectedfannodeId,
+                                "edUserNames": selectedfannodeName,
+                                "checkId": currId,
+                                "_id": curr_Id
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                if (data.success) {
+                                    $("#addfan").text("+");
+                                    $("#addfan").removeClass("overSelected");
+                                    $("#poper5").addClass("hid");
+                                    $("#poper2").addClass("hid");
+                                    $(".mask2").addClass("hid");
+                                    $(".mask1").addClass("hid");
+                                    $.ajax({
+                                        type: "POST",
+                                        url: path + "checkRange/findByCkId.action",
+                                        data: {
+                                            "checkId": currId
+                                        },
+                                        dataType: "json",
+                                        success: function(data) {
+                                            $("#listC").empty();
+                                            $("#wu").addClass("hid");
+                                            if (data.length == 0) {
+                                                $("#wu").removeClass("hid");
+                                            } else {
+                                                for (var j = 0; j < data.length; j++) {
+                                                    var oTr = ' <tr>\n' +
+                                                        '                        <td>' + (j + 1) + '</td>\n' +
+                                                        '                        <td>' + data[j].name + '</td>\n' +
+                                                        '                        <td><input class="id" type="hidden" value=' + data[j]._id + '><span>编辑</span><span>删除</span></td>\n' +
+                                                        '                    </tr>';
+                                                    $("#listC").append(oTr);
+                                                }
+
+                                            }
+
+                                        }
+                                    })
+                                } else {
+                                    parent.layer.alert(data.message);
+                                }
+                            }
+                        })
+                    }
+
+                });
+
+                $("#addfan").off();
+                $("#addfan").click(function() {
+                    if ($("#addfan").text() != '已选择' && $("#addfan").text() != '查看') {
+                        $("#fanTreeSure").removeClass("hid");
+                        $("#fanTreeCancel").removeClass("hid");
+                        $("#poper7").removeClass("hid");
+                        $(".mask3").removeClass("hid");
+                        var zNodes = [];
+                        //tree
+                        var setting = {
+                            view: {
+                                dblClickExpand: false
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true,
+                                    idKey: "id",
+                                    pIdKey: "pId"
+                                },
+                                key: {
+                                    name: "name"
+                                }
+                            },
+                            check: {
+                                enable: true,
+                                chkStyle: "checkbox",
+                                chkboxType: {
+                                    "Y": "",
+                                    "N": ""
+                                }
+                            },
+                            callback: {}
+                        };
+                        buildTree();
+
+                        function buildTree() {
+                            $.ajax({
+                                type: "POST",
+                                url: path + "partyCheck/findRange.action",
+                                data: {
+                                    "checkId": currId
+                                },
+                                dataType: "json",
+                                success: function(data) {
+                                    var data = data.data;
+                                    if (data) {
+                                        zNodes = data;
+                                        var zTree = $.fn.zTree.init($("#treeDemo2"), setting, zNodes);
+                                        var node = zTree.getNodeByParam("id", 0);
+                                        //alert(JSON.stringify(node));
+                                        zTree.selectNode(node);
+                                        zTree.expandNode(node, true, false, false);
+                                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo2");
+                                        treeObj.expandAll(true);
+                                    }
+                                    // setDisabledNode();
+
+                                }
+                            });
+                        }
+                        $("#fanTreeCancel").click(function() {
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                        });
+                        $("#fanTreeClose").click(function() {
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                        });
+                        $(".mask3").click(function() {
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                        });
+                        $("#fanTreeSure").click(function() {
+                            allSelectedNode();
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                            $("#addfan").text("已选择").addClass("overSelected");
+                        });
+
+                        //所有选中的节点
+                        function allSelectedNode() {
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo2");
+                            var nodes = treeObj.transformToArray(treeObj.getNodes());
+                            selectedfannodeName = "";
+                            selectedfannodeId = "";
+                            for (var node in nodes) {
+                                if (nodes[node].chkDisabled == true) {
+                                    continue;
+                                } else {
+                                    //判断节点是否选中
+                                    var checked = nodes[node].checked;
+                                    if (checked == true) {
+                                        selectedfannodeName += nodes[node].name + ",";
+                                        selectedfannodeId += nodes[node].id + ",";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if ($("#addfan").text() == '已选择') {
+                        $("#fanTreeSure").removeClass("hid");
+                        $("#fanTreeCancel").removeClass("hid");
+                        $("#poper7").removeClass("hid");
+                        $(".mask3").removeClass("hid");
+                        var zNodes = [];
+                        //tree
+                        var setting = {
+                            view: {
+                                dblClickExpand: false
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true,
+                                    idKey: "id",
+                                    pIdKey: "pId"
+                                },
+                                key: {
+                                    name: "name"
+                                }
+                            },
+                            check: {
+                                enable: true,
+                                chkStyle: "checkbox",
+                                chkboxType: {
+                                    "Y": "",
+                                    "N": ""
+                                }
+                            },
+                            callback: {}
+                        };
+                        buildTree();
+
+                        function buildTree() {
+                            $.ajax({
+                                type: "POST",
+                                url: path + "partyCheck/findRange.action",
+                                data: {
+                                    "rangeId": curr_Id,
+                                    "checkId": currId
+                                },
+                                dataType: "json",
+                                success: function(data) {
+                                    var data = data.data;
+                                    if (data) {
+                                        zNodes = data;
+                                        var zTree = $.fn.zTree.init($("#treeDemo2"), setting, zNodes);
+                                        var node = zTree.getNodeByParam("id", 0);
+                                        //alert(JSON.stringify(node));
+                                        zTree.selectNode(node);
+                                        zTree.expandNode(node, true, false, false);
+                                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo2");
+                                        treeObj.expandAll(true);
+                                    }
+                                    // setDisabledNode();
+
+                                }
+                            });
+                        }
+                        $("#fanTreeCancel").click(function() {
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                        });
+                        $("#fanTreeClose").click(function() {
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                        });
+                        $(".mask3").click(function() {
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                        });
+                        $("#fanTreeSure").click(function() {
+                            allSelectedNode();
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                            $("#addfan").text("已选择").addClass("overSelected");
+                        });
+
+                        //所有选中的节点
+                        function allSelectedNode() {
+                            selectedfannodeName = "";
+                            selectedfannodeId = "";
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo2");
+                            var nodes = treeObj.transformToArray(treeObj.getNodes());
+                            for (var node in nodes) {
+                                if (nodes[node].chkDisabled == true) {
+                                    continue;
+                                } else {
+                                    //判断节点是否选中
+
+                                    var checked = nodes[node].checked;
+                                    if (checked == true) {
+                                        selectedfannodeName += nodes[node].name + ",";
+                                        selectedfannodeId += nodes[node].id + ",";
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                });
+                //              $("#fanWSure").off();
+                $("#fanWSure").click(function() {
+
+                });
+                //树
+                $("#add").off();
+                $("#add").click(function() {
+                    if ($("#add").text() != "已选择" && $("#add").text() != "查看") {
+                        $("#selectSure").removeClass("hid");
+                        $("#selectCancel").removeClass("hid");
+                        $("#poper3").removeClass("hid");
+                        $(".mask2").removeClass("hid");
+                        var zNodes = [];
+                        //tree
+                        var setting = {
+                            view: {
+                                dblClickExpand: false
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true,
+                                    idKey: "id",
+                                    pIdKey: "pId"
+                                },
+                                key: {
+                                    name: "name"
+                                }
+                            },
+                            check: {
+                                enable: true,
+                                chkStyle: "checkbox",
+                                chkboxType: {
+                                    "Y": "",
+                                    "N": ""
+                                }
+                            },
+                            callback: {}
+                        };
+                        buildTree();
+
+                        function buildTree() {
+                            $.ajax({
+                                type: "POST",
+                                url: path + "partyCheck/findRaters.action",
+                                data: {
+                                    "bumenId": bumenId
+                                },
+                                dataType: "json",
+                                success: function(data) {
+                                    var data = data.data;
+                                    if (data) {
+                                        zNodes = data;
+                                        var zTree = $.fn.zTree.init($("#treeDemo1"), setting, zNodes);
+                                        var node = zTree.getNodeByParam("id", 0);
+                                        //alert(JSON.stringify(node));
+                                        zTree.selectNode(node);
+                                        zTree.expandNode(node, true, false, false);
+                                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                                        treeObj.expandAll(true);
+                                    }
+                                    setDisabledNode();
+
+                                }
+                            });
+                        }
+
+                        //设置禁用的复选框节点
+                        function setDisabledNode() {
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                            var disabledNode1 = treeObj.getNodeByParam("isParent", true);
+                            treeObj.setChkDisabled(disabledNode1, true);
+                        }
+
+                        $("#selectCancel").click(function() {
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                        });
+                        $("#selecClose").click(function() {
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                        });
+                        $("#mask").click(function() {
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                        });
+                        $("#selectSure").click(function() {
+                            allSelectedNode();
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                            $("#add").text("已选择").addClass("overSelected");
+                        });
+
+                        //所有选中的节点
+                        function allSelectedNode() {
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                            var nodes = treeObj.transformToArray(treeObj.getNodes());
+                            selectednodeName = "";
+                            selectednodeId = "";
+
+                            for (var node in nodes) {
+                                if (nodes[node].chkDisabled == true) {
+                                    continue;
+                                } else {
+                                    //判断节点是否选中
+                                    var checked = nodes[node].checked;
+                                    if (checked == true) {
+                                        selectednodeName += nodes[node].name + ",";
+                                        selectednodeId += nodes[node].id + ",";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if ($("#add").text() == "已选择") {
+                        $("#selectSure").removeClass("hid");
+                        $("#selectCancel").removeClass("hid");
+                        $("#poper3").removeClass("hid");
+                        $(".mask2").removeClass("hid");
+                        var zNodes = [];
+                        //tree
+                        var setting = {
+                            view: {
+                                dblClickExpand: false
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true,
+                                    idKey: "id",
+                                    pIdKey: "pId"
+                                },
+                                key: {
+                                    name: "name"
+                                }
+                            },
+                            check: {
+                                enable: true,
+                                chkStyle: "checkbox",
+                                chkboxType: {
+                                    "Y": "",
+                                    "N": ""
+                                }
+                            },
+                            callback: {}
+                        };
+                        buildTree();
+
+                        function buildTree() {
+                            $.ajax({
+                                type: "POST",
+                                url: path + "partyCheck/findRaters.action",
+                                data: {
+                                    "bumenId": bumenId,
+                                    "rangeId": curr_Id
+                                },
+                                dataType: "json",
+                                success: function(data) {
+                                    var data = data.data;
+                                    if (data) {
+                                        zNodes = data;
+                                        var zTree = $.fn.zTree.init($("#treeDemo1"), setting, zNodes);
+                                        var node = zTree.getNodeByParam("id", 0);
+                                        //alert(JSON.stringify(node));
+                                        zTree.selectNode(node);
+                                        zTree.expandNode(node, true, false, false);
+                                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                                        treeObj.expandAll(true);
+                                    }
+                                    setDisabledNode();
+
+                                }
+                            });
+                        }
+
+                        //设置禁用的复选框节点
+                        function setDisabledNode() {
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                            var disabledNode1 = treeObj.getNodeByParam("isParent", true);
+                            treeObj.setChkDisabled(disabledNode1, true);
+                        }
+
+                        $("#selectCancel").click(function() {
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                        });
+                        $("#selecClose").click(function() {
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                        });
+                        $("#mask").click(function() {
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                        });
+                        $("#selectSure").click(function() {
+                            allSelectedNode();
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                            $("#add").text("已选择").addClass("overSelected");
+                        });
+
+                        //所有选中的节点
+                        function allSelectedNode() {
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                            var nodes = treeObj.transformToArray(treeObj.getNodes());
+                            selectednodeName = "";
+                            selectednodeId = "";
+                            for (var node in nodes) {
+                                if (nodes[node].chkDisabled == true) {
+                                    continue;
+                                } else {
+                                    //判断节点是否选中
+                                    var checked = nodes[node].checked;
+                                    if (checked == true) {
+
+                                        selectednodeName += nodes[node].name + ",";
+                                        selectednodeId += nodes[node].id + ",";
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+
+                });
+                $('#listC').off().on("click", function(e) {
+                    var target = e.target;
+                    curr_Id = $(target).parent().find(".id").val();
+                    if ($(target).text() == "编辑") {
+                        a = 2;
+                        $("#addfan").text("已选择").addClass("overSelected");
+                        $("#poper2").removeClass("hid");
+                        $(".mask1").removeClass("hid");
+                        $(".mask1").click(function() {
+                            $("#poper2").addClass("hid");
+                            $(".mask1").addClass("hid");
+                        });
+                        $("#addClose").click(function() {
+                            $("#poper2").addClass("hid");
+                            $(".mask1").addClass("hid");
+                        });
+                        $("#addCancel").click(function() {
+
+                            $("#poper2").addClass("hid");
+                            $(".mask1").addClass("hid");
+                        });
+                        $("#add").text("已选择");
+                        $("#add").addClass("overSelected");
+
+                        $.ajax({
+                            type: "POST",
+                            url: path + "checkRange/findById.action",
+                            data: {
+                                "rangeId": curr_Id
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                $("#checkzName").val(data.name);
+                                selectedfannodeName = data.edUserNames;
+                                selectedfannodeId = data.edUserIdStrs;
+                                selectednodeId = data.aduiUserIdStrs;
+                                selectednodeName = data.aduiUserNames;
+                            }
+                        });
+
+
+
+                        $("#checkzName").removeAttr("readonly");
+                        $("#addTitle").text("编辑考核评分人员");
+                        $("#fanTreeC").text("编辑范围");
+                        $("#fanWTitle").text("编辑考核评分人员");
+                        $("#titleC").text("编辑人员");
+                    }
+                    if ($(target).text() == "删除") {
+                        parent.layer.confirm('确定删除吗？', {
+                            icon: 3,
+                            title: '\n' + '提示'
+                        }, function(index) {
+                            $.ajax({
+                                type: "POST",
+                                url: path + "checkRange/remove/" + curr_Id + ".action",
+                                data: {},
+                                dataType: "json",
+                                success: function(data) {
+                                    if (data.success) {
+                                        $(target).parent().parent().remove();
+                                        parent.layer.alert("删除成功");
+                                    } else {
+                                        parent.layer.alert(data.message);
+                                    }
+                                }
+                            });
+                            parent.layer.close(index);
+                        })
+                    }
+
+                });
+                //最后评分人员提交
+                $("#kaoBtn").off();
+                $("#kaoBtn").click(function() {
+                    if ($("#listC").text().trim() == "") {
+                        parent.layer.alert("请添加评分人员");
+                        return;
+                    }
+                    parent.layer.confirm('请确认设置信息无误。提交后将无法修改。是否提交？', {
+                        icon: 3,
+                        title: '\n' + '提示'
+                    }, function(index) {
+                        $.ajax({
+                            type: "POST",
+                            url: path + "partyCheck/subSet.action",
+                            data: {
+                                "checkId": currId
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                if (data.success) {
+                                    parent.layer.alert("提交成功");
+                                    window.location.reload();
+                                } else {
+                                    parent.layer.alert(data.message);
+                                }
+                            }
+                        });
+                        parent.layer.close(index);
+                    })
+                });
+
+            }
+            if ($(target).text() == "启用") {
+                parent.layer.confirm('确认该考核规则无误，并启用？', {
+                    icon: 3,
+                    title: '\n' + '启用'
+                }, function(index) {
+                    $.ajax({
+                        type: "POST",
+                        url: path + "partyCheck/enable/" + currId + ".action",
+                        data: {},
+                        dataType: "json",
+                        success: function(data) {
+                            if (data.success) {
+                                window.location.reload();
+                            } else {
+                                parent.layer.alert(data.message);
+                            }
+                        }
+                    });
+                    parent.layer.close(index);
+                })
+            }
+            if ($(target).text() == "复制") {
+                $("#copyPoper").removeClass("hid");
+                $(".mask").removeClass("hid");
+
+                $("#copyCancel").click(function() {
+                    $("#copyPoper").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                $("#copyClosed").click(function() {
+                    $("#copyPoper").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                $(".mask").click(function() {
+                    $("#copyPoper").addClass("hid");
+                    $(this).addClass("hid");
+                });
+                $("#copySure").click(function() {
+                    if ($("#copyName").val().trim() == "") {
+                        parent.layer.alert("请输入复制标题");
+                        return;
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: path + "partyCheck/copyChack.action",
+                        data: {
+                            "checkId": currId,
+                            "title": $("#copyName").val()
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            if (data.success) {
+                                window.location.reload();
+                            } else {
+                                parent.layer.alert(data.message);
+                            }
+                        }
+                    })
+                });
+            }
+
+            if ($(target).text() == "删除") {
+                parent.layer.confirm('删除后将不能恢复。确认删除？', {
+                    icon: 3,
+                    title: '\n' + '提示'
+                }, function(index) {
+                    $.ajax({
+                        type: "POST",
+                        url: path + "partyCheck/remove/" + currId + ".action",
+                        data: {},
+                        dataType: "json",
+                        success: function(data) {
+                            if (data.success) {
+                                window.location.reload();
+                            } else {
+                                parent.layer.alert(data.message);
+                            }
+                        }
+                    });
+                    parent.layer.close(index);
+                })
+            }
+            if ($(target).text() == "编辑") {
+                window.location.href = "createRulesOfpartyMember.html?id=" + currId;
+            }
+            if ($(target).text() == "查看设置") {
+                $("#add").off();
+                $("#addfan").off();
+                $("#poper4").removeClass("hid");
+                $(".mask").removeClass("hid");
+                $("#lookClose").click(function() {
+                    $("#poper4").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                $("#lookSure").click(function() {
+                    $("#poper4").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                $(".mask").click(function() {
+                    $("#poper4").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                $.ajax({
+                    type: "POST",
+                    url: path + "partyCheck/findCheckById.action",
+                    data: {
+                        "checkId": currId
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        var data = data.data;
+                        $("#checkDatebg").text(data.formtStarfillDate);
+                        $("#checkDateov").text(data.formtEndfillDate);
+                        $("#pingDateBg").text(data.formtStarMarkDate);
+                        $("#pingDateov").text(data.formtEndMarkDate);
+                        $.ajax({
+                            type: "POST",
+                            url: path + "checkRange/findByCkId.action",
+                            data: {
+                                "checkId": currId
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                if (data.length == 0) {
+                                    $("#zanWud").removeClass("hid");
+                                } else {
+                                    $("#zanWud").addClass("hid");
+                                }
+                                $("#memeberList").html("");
+                                for (var i = 0; i < data.length; i++) {
+
+                                    var oTr = ' <tr>\n' +
+                                        '                            <td>' + (i + 1) + '</td>\n' +
+                                        '                            <td>' + data[i].name + '</td>\n' +
+                                        '                            <td><input type="hidden" value=' + data[i]._id + '><span>查看</span></td>\n' +
+                                        '                            </tr>';
+                                    $("#memeberList").append(oTr);
+                                }
+                                $("#memeberList").off();
+                                $("#memeberList").on("click", function(e) {
+                                    var target = e.target;
+                                    lookId = $(target).parent().find('input').val();
+                                    if ($(target).text() == "查看") {
+                                        $("#poper2").removeClass("hid");
+                                        $(".mask1").removeClass("hid");
+                                        $(".mask1").click(function() {
+                                            $("#poper2").addClass("hid");
+                                            $(".mask1").addClass("hid");
+                                            $("#add").click = null;
+                                        });
+                                        $("#addClose").click(function() {
+                                            $("#poper2").addClass("hid");
+                                            $(".mask1").addClass("hid");
+                                            $("#add").click = null;
+                                        });
+                                        $("#addCancel").click(function() {
+
+                                            $("#poper2").addClass("hid");
+                                            $(".mask1").addClass("hid");
+                                            $("#add").click = null;
+                                        });
+
+                                        $.ajax({
+                                            type: "POST",
+                                            url: path + "checkRange/findById.action",
+                                            data: {
+                                                "rangeId": lookId
+                                            },
+                                            dataType: "json",
+                                            success: function(data) {
+                                                $("#checkzName").val(data.name);
+                                            }
+                                        });
+                                        $("#checkzName").attr("readonly", "readonly");
+
+                                        $("#add").text("查看");
+                                        $("#add").addClass("overSelected");
+                                        // 添加，张良，begin，20181031
+                                        $("#addfan").text("查看");
+                                        $("#addfan").addClass("overSelected");
+                                        // 添加，张良，end，20181031
+                                        $("#fanWSure").addClass("hid");
+                                        $("#fanWCancel").addClass("hid");
+                                        $("#addTitle").text("查看考核评分人员");
+                                        $("#fanTreeC").text("查看范围");
+                                        $("#fanWTitle").text("查看考核评分人员");
+                                        $("#titleC").text("查看人员");
+                                    }
+                                })
+                            }
+                        })
+                    }
+                });
+                $("#addSure").off();
+                $("#addSure").click(function() {
+                    $("#fanWClose").click(function() {
+                        $("#addfan").click = null;
+                    });
+                    $(".mask2").click(function() {
+                        $("#addfan").click = null;
+                    });
+                    $("#addfan").text("查看");
+                    $("#addfan").addClass("overSelected");
+                    $("#fanWSure").addClass("hid");
+                    $("#fanWCancel").addClass("hid");
+
+                });
+                $("#add").off();
+                $("#add").click(function() {
+                    if ($("#add").text() == "查看") {
+                        $("#poper3").removeClass("hid");
+                        $(".mask2").removeClass("hid");
+                        var zNodes = [];
+                        //tree
+                        var setting = {
+                            view: {
+                                dblClickExpand: false
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true,
+                                    idKey: "id",
+                                    pIdKey: "pId"
+                                },
+                                key: {
+                                    name: "name"
+                                }
+                            },
+                            check: {
+                                enable: true,
+                                chkDisabledInherit: true,
+                                chkStyle: "checkbox",
+                                chkboxType: {
+                                    "Y": "",
+                                    "N": ""
+                                }
+                            },
+                            callback: {}
+                        };
+                        buildTree();
+
+                        function buildTree() {
+                            $.ajax({
+                                type: "POST",
+                                url: path + "partyCheck/findRaters.action",
+                                data: {
+                                    "bumenId": bumenId,
+                                    "rangeId": lookId
+                                },
+                                dataType: "json",
+                                success: function(data) {
+                                    var data = data.data;
+                                    if (data) {
+                                        zNodes = data;
+                                        var zTree = $.fn.zTree.init($("#treeDemo1"), setting, zNodes);
+                                        var node = zTree.getNodeByParam("id", 0);
+                                        //alert(JSON.stringify(node));
+                                        zTree.selectNode(node);
+                                        zTree.expandNode(node, true, false, false);
+                                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                                        treeObj.expandAll(true);
+                                    }
+                                    hibb_Nodes();
+
+                                }
+                            });
+                        }
+
+                        function hibb_Nodes() {
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                            var nodes = treeObj.transformToArray(treeObj.getNodes());
+                            for (var node in nodes) {
+                                treeObj.setChkDisabled(nodes[node], true);
+                            }
+                        }
+
+                        $("#selectCancel").click(function() {
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                        });
+                        $("#selecClose").click(function() {
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                        });
+                        $(".mask2").click(function() {
+                            $("#poper3").addClass("hid");
+                            $(".mask2").addClass("hid");
+                        });
+                        $("#selectSure").addClass("hid");
+                        $("#selectCancel").addClass("hid");
+                    }
+                });
+                $("#addfan").off();
+                $("#addfan").click(function() {
+                    if ($("#addfan").text() == '查看') {
+                        $("#poper7").removeClass("hid");
+                        $(".mask3").removeClass("hid");
+                        var zNodes = [];
+                        //tree
+                        var setting = {
+                            view: {
+                                dblClickExpand: false
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true,
+                                    idKey: "id",
+                                    pIdKey: "pId"
+                                },
+                                key: {
+                                    name: "name"
+                                }
+                            },
+                            check: {
+                                enable: true,
+                                chkDisabledInherit: true,
+                                chkStyle: "checkbox",
+                                chkboxType: {
+                                    "Y": "",
+                                    "N": ""
+                                }
+                            },
+                            callback: {}
+                        };
+                        buildTree();
+
+                        function buildTree() {
+                            $.ajax({
+                                type: "POST",
+                                url: path + "partyCheck/findRange.action",
+                                data: {
+                                    "rangeId": lookId,
+                                    "checkId": currId
+                                },
+                                dataType: "json",
+                                success: function(data) {
+                                    var data = data.data;
+                                    if (data) {
+                                        zNodes = data;
+                                        var zTree = $.fn.zTree.init($("#treeDemo2"), setting, zNodes);
+                                        var node = zTree.getNodeByParam("id", 0);
+                                        //alert(JSON.stringify(node));
+                                        zTree.selectNode(node);
+                                        zTree.expandNode(node, true, false, false);
+                                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo2");
+                                        treeObj.expandAll(true);
+                                    }
+                                    hibb_Nodes();
+
+                                }
+                            });
+                        }
+
+                        function hibb_Nodes() {
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo2");
+                            var nodes = treeObj.transformToArray(treeObj.getNodes());
+                            for (var node in nodes) {
+                                treeObj.setChkDisabled(nodes[node], true);
+                            }
+                        }
+
+                        $("#fanTreeCancel").click(function() {
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                        });
+                        $("#fanTreeClose").click(function() {
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                        });
+                        $(".mask3").click(function() {
+                            $("#poper7").addClass("hid");
+                            $(".mask3").addClass("hid");
+                        });
+                        $("#fanTreeSure").addClass("hid");
+                        $("#fanTreeCancel").addClass("hid");
+                    }
+                });
+            }
+        })
+    }
+</script>
+
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>首页</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		<style type="text/css">
+			html,body {
+				width: 100%;
+				height: 100%;
+				min-width: 920px;
+				overflow-y: auto;
+			}
+			body {
+				background: url(img/indexbg.jpg) left top no-repeat;
+				background-size: 100% 100%;
+			}
+			.logoBox img{
+				width: 18rem;
+				height: 3.6rem;
+				margin-left: 14.4rem;
+				position: absolute;
+				top: 3.2rem;
+			}
+			article {
+				width: 67.05rem;
+				margin: auto;
+				position: absolute;
+				top: 10.5rem;
+				right: 14.4rem;
+				bottom: 10.5rem;
+				left: 14.4rem;
+				min-height: 32.8rem;
+			}
+			section {
+				display: flex;
+				justify-content: space-between;
+				margin-bottom: 2rem;
+			}
+			section>div {
+				background: rgba(0,62,150,0.45);
+				text-align: center;
+				height: 9.6rem;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				border-radius: 0.35rem;
+			}
+			section>div p {
+				font-size: 1.1rem;
+				font-weight: bold;
+				color: #fff;
+			}
+			section>div img {
+				width: 4.5rem;
+				height: 4.5rem;
+				margin-bottom: 0.9rem;
+			}
+			.widthLarge {
+				width: 20.9rem;
+			}
+			.widthSmall {
+				width: 9.6rem;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="clear">
+			<div class="right">
+				<img src="./img/signOut.png"/>
+				<span>退出</span>
+			</div>
+			<div class="right">
+				<img src="../resources/img/1.jpg"/ class="userimg">
+				<span>张三</span>
+			</div>
+			<div class="right">
+				<img src="./img/search.png"/>
+			</div>
+			<div class="right rela">
+				<img src="./img/notice.png"/>
+				<span class="badge">5</span>
+			</div>
+		</header>
+		<div class="logoBox">
+			<img src="img/logo.png"/>
+		</div>
+		<article>
+			<section>
+				<div class="widthLarge">
+					<img src="img/manage.png"/>
+					<p>党员管理</p>
+				</div>
+				<div class="widthSmall">
+					<img src="img/funds.png"/>
+					<p>经费管理</p>
+				</div>
+				<div class="widthLarge">
+					<img src="img/study.png"/>
+					<p>学习管理</p>
+				</div>
+				<div class="widthSmall active">
+					<img src="img/active.png"/>
+					<p>活动管理</p>
+				</div>
+			</section>
+			<section>
+				<div class="widthSmall">
+					<img src="img/ideology.png"/>
+					<p>意识形态</p>
+				</div>
+				<div class="widthLarge">
+					<img src="img/civilization.png"/>
+					<p>精神文明</p>
+				</div>
+				<div class="widthSmall">
+					<img src="img/culture.png"/>
+					<p>企业文化</p>
+				</div>
+				<div class="widthLarge">
+					<img src="img/team.png"/>
+					<p>群团工作</p>
+				</div>
+			</section>
+			<section>
+				<div class="widthLarge">
+					<img src="img/target.png"/>
+					<p>党建目标</p>
+				</div>
+				<div class="widthSmall">
+					<img src="img/construction.png"/>
+					<p>作风建设</p>
+				</div>
+				<div class="widthLarge">
+					<img src="img/life.png"/>
+					<p>支部生活</p>
+				</div>
+				<div class="widthSmall">
+					<img src="img/government.png"/>
+					<p>廉政防控</p>
+				</div>
+			</section>
+		</article>
+	</body>
+</html>
+<script src="../../moduleweb/resources/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/clientWidth.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function(){
+		
+	});
+</script>

@@ -1,0 +1,93 @@
+body{
+    font-family: "苹方";
+}
+.thoughtTop{
+    height:44px ;
+    background: #f1f4f3;
+    line-height: 44px;
+    font-size: 14px;
+    width: 92%;
+    margin: auto;
+    position: relative;
+}
+.arrow img{
+    width: 15px;
+    margin-left: 42px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.thoughtRW{
+    margin-left: 18px;
+}
+#back{
+    cursor: pointer;
+}
+.add{
+    position: absolute;
+    width: 70px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background: #2198f2;
+    color: #ffffff;
+    border-radius: 2px;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+    margin-right: 68px;
+    cursor: pointer;
+}
+.thoughtRList{
+    margin-top: 20px;
+}
+.thoughtRList table{
+    width: 92%;
+    margin: auto;
+    font-size: 14px;
+}
+.thoughtRList table tr{
+    height:48px;
+
+}
+.thoughtRList table th{
+    text-align: center;
+    background: #f1f4f3;
+    border-right: 1px solid #d8d8d8;
+    color: #949796;
+}
+.thoughtRList table tr:nth-child(even){
+    background: #f1f4f3;
+}
+.thoughtRList table tr td{
+    border-right: 1px solid #d8d8d8;
+    border-bottom: 1px solid #d8d8d8;
+}
+.thoughtRList table tr td:last-child{
+    text-align: center;
+}
+.thoughtRList table tr td:first-child{
+    text-align: center;
+}
+.thoughtRList table tr td:nth-child(2){
+    text-align: center;
+}
+.report{
+    margin-left: 18px;
+    color:#333333!important;
+}
+.timeJ{
+    text-align: center;
+    display: block;
+}
+.edit{
+
+    display: inline-block;
+    color:#2198f2 ;
+    font-size: 14px;
+    text-align: center;
+    margin: auto;
+    margin-right: 15px;
+    cursor: pointer;
+}

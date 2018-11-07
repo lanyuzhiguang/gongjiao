@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/lookRegular2.css">
+    <link rel="stylesheet" type="text/css" href="../css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+    <link rel="stylesheet" type="text/css" href="../css/zTreeStyle.css">
+    <style>
+        .hid {
+            display: none;
+        }
+        .ztree li span.button.chk.checkbox_true_disable {
+            background-position: -14px 0px;
+        }
+        #tianBox > div:nth-child(3) {
+		    width: 100%;
+		    margin-top: 10px;
+		}
+		#tianBox > div:nth-child(3) > div:first-child {
+		    width: 13%;
+		    text-align: right;
+		    vertical-align: top;
+		    margin-right: 13px;
+		}
+		#tianBox > div:nth-child(3) > div:nth-child(2) > div {
+		    display: block;
+		}
+		#tianBox > div:nth-child(3) > div:nth-child(2) > div:first-child {
+		    text-align: left;
+		    color: #2297f3;
+		    cursor: pointer;
+		}
+		#tianBox > div:nth-child(3) > div:nth-child(2) > div:first-child > img {
+		    width: 13px;
+		    margin-right: 10px;
+		    margin-bottom: 3px;
+		}
+    .deleteImg{
+      width: 16px;
+      height: 16px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      vertical-align: top;
+      margin-top: -7px;
+      margin-left: -7px;
+      color: white;
+      text-align: center;
+      line-height: 16px;
+      font-size: 15px;
+      cursor: hand;
+      cursor: pointer;
+    }
+    .innerTitle>span:nth-of-type(2),.contentTitle>span:nth-of-type(2){
+      display: inline-block;
+      max-width: 400px;
+      overflow: hidden;
+      vertical-align: bottom;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    #contentL{
+      width: 75%;
+      resize: none;
+      overflow: hidden;
+      border: none;
+      vertical-align: top;
+      height: 22px;
+      background: white;
+    }
+    .fuJList>div img{
+    	margin-right: -5px;
+    }
+    .btnList input:last-of-type{
+    	background: #fff;
+    }
+    </style>
+</head>
+<body>
+<div>
+    <div class="talkRecord">
+            <span id="backBtn">
+                 <img src="../img/back.png"><span class="back">返回</span>
+            </span>
+        <span id="where"></span>
+    </div>
+    <div class="checkList">
+        <div class="checkLeft">
+            <div>
+                <div>考核发布单位</div>
+                <div id="danw"></div>
+            </div>
+            <div>
+                <div>考核周期位</div>
+                <div><span id="bg"></span>至<span id="og"></span></div>
+            </div>
+            <div>
+                <div>打分方式</div>
+                <div id="fenWay"></div>
+            </div>
+        </div>
+        <div class="checkRight">
+            <div>
+                <div>考核类型</div>
+                <div id="checkind"></div>
+            </div>
+            <div>
+                <div>总分</div>
+                <div id="totalScore"></div>
+            </div>
+            <div>
+                <div>考核适用范围</div>
+                <div id="look">查看</div>
+            </div>
+        </div>
+        <div class="btnList1">
+            <input type="button" id="saveB" value="保存">
+            <input type="button" id="submit" value="提交">
+        </div>
+        <div class="checkList check">
+
+        </div>
+    </div>
+
+    <div class="mask hid"></div>
+    <!--填报-->
+    <div class="popBox hid" style="width: 505px;" id="poper2">
+        <div class="popB_Top">
+            <span class="addW" id="tianTitle">填报</span><span class="close" id="tianClose"><img
+                src="../img/close.png"></span>
+        </div>
+        <div class="popB_bottom" style="border-bottom: 1px solid transparent">
+            <div id="tianBox" class="">
+                <div>
+                    <div><span class="redX">*</span>填报内容</div>
+                    <div class="developWrap">
+                        <textarea id="content"></textarea>
+                    </div>
+                </div>
+                <div>
+                    <div>图片</div>
+                    <div class="developWrap" style="width: 80%">
+                        <div class="imgJBox" id="imgUpload"><img src="../img/fuJ.png"><span>上传图片</span></div>
+                        <div class="imgList">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div>附件</div>
+                    <div class="developWrap" style="width: 80%">
+                        <div class="fuJBox" id="fileUpload"><img src="../img/fuJ.png"><span>上传附件</span></div>
+                        <div class="fuJList">
+                            <!--<a>附件一<img src="../img/cc.png"></a>-->
+                        </div>
+                    </div>
+                </div>
+                <div style="display:block;">
+                    <div><span class="redX">*</span>自查评分</div>
+                    <div class="developWrap">
+                        <input type="text" value="" class="zic">
+                    </div>
+                </div>
+                <div style="margin-top:10px;">
+                    <div><span class="redX">*</span>基础分值</div>
+                    <div class="developWrap" id="baseScore">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btnList"><input type="button" class="s" id="tianSure" value="保存"><input type="button" class="c"
+                                                                                            id="tianCancel"
+                                                                                            value="取消"></div>
+    </div>
+    <!--查看填报-->
+    <div class="popBox hid" style="width: 505px;height:600px;overflow: auto;" id="poper3">
+        <div class="popB_Top">
+            <span class="addW" id="lookTitle">查看</span><span class="close" id="lookClose"><img
+                src="../img/close.png"></span>
+        </div>
+        <div class="popB_bottom" style="border-bottom: 1px solid transparent">
+            <div id="tianBox1" class="">
+                <div>
+                    <div>填报内容</div>
+                    <textarea class="developWrap" id="contentL" disabled>
+
+                    </textarea>
+                </div>
+                <div style="display: none;">
+                    <div>图片</div>
+                    <div class="developWrap">
+                        <div class="" id="img"></div>
+                    </div>
+                </div>
+                <div style="display: none;">
+                    <div>附件</div>
+                    <div class="developWrap">
+                        <div class="fuJList" id="fuj"></div>
+                    </div>
+                </div>
+                <div>
+                    <div>自查评分</div>
+                    <div class="developWrap" id="fen">
+
+                    </div>
+                </div>
+                <div>
+                    <div>基础分值</div>
+                    <div class="developWrap" id="jcfen">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="popBox hid " id="poper1">
+    <div class="popB_Top">
+        <span class="addW" id="titleC">考核适用范围</span><span class="close" id="close"><img src="../img/close.png"></span>
+    </div>
+    <div class="treeList">
+        <div id="menuContent1" class="menuContent">
+            <ul id="treeDemo1" class="ztree" style="margin-top:0; width:206px;margin: auto;"></ul>
+        </div>
+    </div>
+</div>
+</body>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script src="../assets/js/jquery.js"></script>
+<script src="../js/layer.js"></script>
+<script src="../js/laydate.js"></script>
+<script src="../js/layui.js"></script>
+<script src="../js/jquery.ztree.core.min.js"></script>
+<script src="../js/jquery.ztree.excheck.min.js"></script>
+<script>
+	var path = "",id,checkId,me,go,check,record,_qiniuImageHost;
+	var filesArr = new Array();
+	var imgsArr = new Array();
+	var currId = "";
+  var jcscore = "";
+    $(function () {
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+        id = getQueryString("id");
+        checkId = getQueryString("checkId");
+        me = getQueryString("me");
+        go = getQueryString("go");
+
+        var iframe = document.getElementById("common");
+        ///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+        iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+        if (iframe.attachEvent) {//判断iframe是否加载完成
+            iframe.attachEvent("onload", function () {
+                getCommon();
+            });
+        } else {
+            iframe.onload = function () {
+                getCommon();
+            };
+        }
+
+        //获取公共参数  一般为存储在session里面的数据
+        function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+            var frames = window.frames["common"];
+            path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+            _qiniuImageHost = frames._qiniuImageHost;//七牛云公共地址头
+
+
+            $("#backBtn").click(function () {
+                window.history.back(-1);
+            })
+
+            //上传文件 imgsArr
+            layui.use('upload', function () {
+                var upload = layui.upload;
+                var fileUpload = upload.render({
+                    elem: '#fileUpload'
+                    , field: "_fileupload_onlyFile"
+                    , accept: "file"
+                    , size: 501200
+                    , data: {isPrivate: false}
+                    , url: path + '/back/super/file/upload.do'
+                    , before: function (obj) { //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                        parent.layer.load(); //上传loading
+                    }
+                    , done: function (res, index, upload) {
+                        parent.layer.closeAll('loading'); //关闭loading
+                        for (var i = 0; i < res.params.fileDate.length; i++) {
+                          //  href=" + _qiniuImageHost + res.params.fileDate[i].fileId + "  target='_blank'
+                            $(".fuJList").append("<div attrh="+res.params.fileDate[i].fileId+"><a href=" + _qiniuImageHost + res.params.fileDate[i].fileId + " target='_blank'>" + res.params.fileDate[i].fileName + "</a><img src='../img/cc.png' class='deleteImage'></div>")
+                            filesArr.push(res.params.fileDate[i].fileId);
+                        }
+                        $(".fuJList .deleteImage").off("click").on("click",function(){
+                          $(this).parent().remove();
+                          for (var i = 0; i < filesArr.length; i++) {
+                            if ($(this).parent().attr("attrh") == filesArr[i]) {
+                              filesArr.splice(i,1);
+                            }
+                          }
+                        });
+                    }
+                    , error: function (index, upload) {
+                        parent.layer.closeAll('loading'); //关闭loading
+                    }
+                });
+                var imgsUpload = upload.render({
+                    elem: '#imgUpload'
+                    , field: "_fileupload_onlyFile"
+                    , accept: "images"
+                    , data: {isPrivate: false}
+                    , url: path + '/back/super/file/upload.do'
+                    , before: function (obj) { //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                        parent.layer.load(); //上传loading
+                    }
+                    , done: function (res, index, upload) {
+                        parent.layer.closeAll('loading'); //关闭loading
+                        for (var i = 0; i < res.params.fileDate.length; i++) {
+                            $(".imgList").append("<div attrh="+res.params.fileDate[i].fileId+"><a href='"+_qiniuImageHost + res.params.fileDate[i].fileId+"' target='_bank'><img style='width: 75px;height: 75px;' src="
+                                    + _qiniuImageHost + res.params.fileDate[i].fileId + "></a><div class='deleteImg'>×</div></div>")
+                            imgsArr.push(res.params.fileDate[i].fileId);
+                        }
+                        $(".imgList .deleteImg").off("click").on("click",function(){
+                          $(this).parent().remove();
+                          for (var i = 0; i < imgsArr.length; i++) {
+                            if ($(this).parent().attr("attrh") == imgsArr[i]) {
+                              imgsArr.splice(i,1);
+                            }
+                          }
+                        });
+                    }
+                    , error: function (index, upload) {
+                        parent.layer.closeAll('loading'); //关闭loading
+                    }
+                });
+            });
+            $.ajax({
+                type: "GET",
+                url: path + "/partyCheck/findCheckById.action",
+                data: {"checkId": checkId},
+                dataType: "json",
+                success: function (data) {
+                    check = data.data;
+                    $("#danw").text(check.bumenName);
+                    $("#bg").text(check.formtStarCycle);
+                    $("#og").text(check.formtEndCycle);
+                    if (check.markType == 1) {
+                        $("#fenWay").text("自查+评分");
+                    }
+                    if (check.markType == 2) {
+                        $("#fenWay").text("评分");
+                    }
+                    if (check.type == 1) {
+                        if (check.checkType == 1) {
+                            $("#checkind").text("党委");
+                        }
+                        if (check.checkType == 2) {
+                            $("#checkind").text("党工委");
+                        }
+                        if (check.checkType == 3) {
+                            $("#checkind").text("党总支");
+                        }
+                        if (check.checkType == 4) {
+                            $("#checkind").text("党支部");
+                        }
+                        if (check.checkType == 5) {
+                            $("#checkind").text("联合党支部");
+                        }
+                    }
+                    if (check.type == 2) {
+                        if (check.checkType == 1) {
+                            $("#checkind").text("党员");
+                        }
+                        if (check.checkType == 2) {
+                            $("#checkind").text("干部");
+                        }
+
+                    }
+                    $("#totalScore").text(check.totalScore);
+                    $("#where").text(check.title);
+                    $(".check").empty();
+                    record(id);
+                }
+            })
+
+
+        }
+    })
+    function record(Id){
+    	 $.ajax({
+             type: "GET",
+             url: path + "/checkRecord/findRecordId.action",
+             data: {"recordId": Id},
+             dataType: "json",
+             success: function (data) {
+              if(data){
+                 record = data.data;
+                 if (record.fill == 0) {
+                     $(".btnList1").removeClass("hid");
+                 } else if (record.fill == 1) {
+                     $(".btnList1").addClass("hid");
+                 }
+                 ruleas(record.partyCheck._id);
+                 if($("#fenWay").text() == "评分"){
+					$("#tianBox>div").eq(3).hide();
+				}
+              }
+            }
+         });
+     }
+    function ruleas(Id){
+    	$.ajax({//父
+            type: "GET",
+            url: path + "/checkReule/checkRules.action",
+            data: {"checkId": Id},
+            dataType: "json",
+            success: function (data) {
+            	var project = data;
+                if (project.length != 0) {
+                    $(".noDate").addClass("hid");
+                    $("#subBtn").removeClass("hid");
+                }
+                for (var i = 0; i < project.length; i++) {
+                	if(project[i].type===1){
+	                    var contentBox = "<div class=\"checkContent\" id=\""+project[i]._id+"\"></div>";
+	                    $(".check").append(contentBox);
+	                    var projectK = '<div class="contentTitle"><span class="kindN"></span><span title="'+ project[i].name +'">' + project[i].name + '</span><span\n' +
+	                        '                            class="allF">总分' + project[i].score + '分</span>\n' +
+	                        '                            <img class="img" src="../img/down.png">\n' +
+	                        '                    </div>';
+	                        $("#" + project[i]._id).append(projectK);
+	                    ruleaChaild(project,project[i]);
+                	}
+                }
+                initClik();
+            }
+       });
+	}
+	function ruleaChaild(data,pRule){
+		var childItem = data;
+		var pId=pRule._id;
+        if (pRule.chaildType == 3) {
+        	if (record.partyCheck.markType == 1) {
+                var tableWrap = '<table cellpadding="0" cellspacing="0">\n' +
+                    '                        <thead>\n' +
+                    '                        <tr>\n' +
+                    '                            <th style="width:6%">序号</th>\n' +
+                    '                            <th style="width:18%">考核内容</th>\n' +
+                    '                            <th style="width:5%">基础分值</th>\n' +
+                    '                            <th style="width:15%">评分标准</th>\n' +
+                    '                            <th style="width:17%">考核方式</th>\n' +
+                    '                            <th style="width:12%">自查分</th>\n' +
+                    '                            <th style="width:17%">填报状态</th>\n' +
+                    '                            <th style="width:17%">操作</th>\n' +
+                    '                        </tr>\n' +
+                    '                        </thead>\n' +
+                    '                        <tbody class="innerItem"></tbody>\n' +
+                    '                    </table>';
+            } else if (record.partyCheck.markType == 2) {
+                var tableWrap = '<table cellpadding="0" cellspacing="0">\n' +
+                    '                        <thead>\n' +
+                    '                        <tr>\n' +
+                    '                            <th style="width:6%">序号</th>\n' +
+                    '                            <th style="width:18%">考核内容</th>\n' +
+                    '                            <th style="width:5%">基础分值</th>\n' +
+                    '                            <th style="width:15%">评分标准</th>\n' +
+                    '                            <th style="width:17%">考核方式</th>\n' +
+                    '                            <th style="width:17%">填报状态</th>\n' +
+                    '                            <th style="width:17%">操作</th>\n' +
+                    '                        </tr>\n' +
+                    '                        </thead>\n' +
+                    '                        <tbody class="innerItem"></tbody>\n' +
+                    '                    </table>';
+            }
+            $("#" + pId).append(tableWrap);
+        }
+        for (var j = 0; j < childItem.length; j++) {
+            if(childItem[j].parentId!="undefined"&&childItem[j].parentId===pId){
+            	if (childItem[j].type == 2) {
+                    if (childItem[j].score > childItem[j].nowScore) {
+                        childContent = "添加计分项";
+                    } else {
+                        childContent = "";
+                    }
+                }
+                if(pRule.chaildType == 3){
+                	var mm = record.checkTermMap[childItem[j]._id];
+                    if (mm == "" || mm === null || typeof mm === "undefined" || mm.fillSubm == 0) {
+                        var recordOne = "未填报";
+                        var option = "填报"
+                    } else if (mm.fillSubm == 1) {
+                        var recordOne = "已填报";
+                        var option = "查看"
+                    }
+                    console.log(typeof mm !== "undefined");
+                    if (mm != "" && mm !== null && typeof mm !== "undefined") {
+                        var selfFen = mm.selfScore;
+                    } else {
+                        var selfFen = " ";
+                    }
+                    if (record.partyCheck.markType == 1) {
+                        var jiFItem = ' <tr>\n' +
+                            '                            <td>' + childItem[j].oder + '</td>\n' +
+                            '                            <td>' + childItem[j].name + '</td>\n' +
+                            '                            <td>' + childItem[j].score + '</td>\n' +
+                            '                            <td>' + childItem[j].standard + '</td>\n' +
+                            '                            <td>' + childItem[j].mode + '</td>\n' +
+                            '                            <td>' + selfFen + '</td>\n' +
+                            '                            <td>' + recordOne + '</td>\n' +
+                            '                            <td><input type="hidden" value=' + childItem[j]._id + ' score=' + childItem[j].score + '><span>' + option + '</span></td>\n' +
+                            '                        </tr>';
+                    } else if (record.partyCheck.markType == 2) {
+                        var jiFItem = ' <tr>\n' +
+                            '                            <td>' + childItem[j].oder + '</td>\n' +
+                            '                            <td>' + childItem[j].name + '</td>\n' +
+                            '                            <td>' + childItem[j].score + '</td>\n' +
+                            '                            <td>' + childItem[j].standard + '</td>\n' +
+                            '                            <td>' + childItem[j].mode + '</td>\n' +
+                            '                            <td>' + recordOne + '</td>\n' +
+                            '                            <td><input type="hidden" value=' + childItem[j]._id + ' score=' + childItem[j].score + '><span>' + option + '</span></td>\n' +
+                            '                        </tr>';
+                    }
+                    $("#" + pId).find(".innerItem").append(jiFItem);
+                }else{
+                    var twoC = "<div class=\"innerWrap\" id=\""+childItem[j]._id+"\"></div>";
+                    $("#" + pId).append(twoC);
+                    var child = ' <div class="innerTitle"><span class="projectN"></span><span title="'+ childItem[j].name +'">' + childItem[j].name + '</span><span class="allF">总分' + childItem[j].score + '分</span>\n' +
+                    '                           <img class="img" src="../img/down.png">\n' +
+                    '                    </div>';
+                    $("#" + childItem[j]._id).append(child);
+                }
+                if (childItem[j].type != 3) {
+                	ruleaChaild(childItem,childItem[j]);
+                }
+            }
+        }
+    }
+ 	/******初始化监听*******/
+ 	function initClik(){
+    	$(".check").on("click", function (e) {
+            var tar = e.target;
+            currId = $(tar).parent().find("input").val();
+            jcscore = $(tar).parent().find("input").attr("score");
+            var closeList = '../img/right.png';
+            var openList = '../img/down.png';
+            if ($(tar).attr("class") == 'img') {
+                if ($(tar).parent().attr("class") == "contentTitle") {
+                    console.log($(tar));
+                    if ($(tar).attr("src") == closeList) {//合上
+                        $(tar).parent().nextAll().css("display", "table");
+                        $(tar).attr("src", openList);
+                    } else {
+                        $(tar).parent().nextAll().css("display", "none");
+                        $(tar).attr("src", closeList);
+
+                    }
+                }
+                if ($(tar).parent().attr("class") == "innerTitle") {
+                    console.log($(tar));
+                    if ($(tar).attr("src") == closeList) {//合上
+                        $(tar).parent().nextAll().css("display", "table");
+                        $(tar).attr("src", openList);
+                    } else {
+                        $(tar).parent().nextAll().css("display", "none");
+                        $(tar).attr("src", closeList);
+                    }
+                }
+            }
+            if ($(tar).text() == "填报") {
+                $("#content").val("");
+                $(".zic").val("");
+                $("#baseScore").text(jcscore);
+                $(".fuJList").empty();
+                $(".imgList").empty();
+                $("#poper2").removeClass("hid");
+                $(".mask").removeClass("hid");
+                $(".mask").click(function () {
+                    $("#poper2").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                $("#tianClose").click(function () {
+                    $("#poper2").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                $("#tianCancel").click(function () {
+                    $("#poper2").addClass("hid");
+                    $(".mask").addClass("hid");
+                });
+                filesArr = new Array();
+                imgsArr = new Array();
+            }
+            if ($(tar).text() == "查看") {
+                var mm = record.checkTermMap[currId];
+                $("#jcfen").text(jcscore);
+                if (record.fill == 1) {//查看
+                	  $("#fuj").empty();
+                    $("#img").empty();
+                    $("#poper3").removeClass("hid");
+                    $(".mask").removeClass("hid");
+                    $(".mask").click(function () {
+                        $("#poper3").addClass("hid");
+                        $(".mask").addClass("hid");
+                    });
+                    $("#lookClose").click(function () {
+                        $("#poper3").addClass("hid");
+                        $(".mask").addClass("hid");
+                    });
+                    filesArr = new Array();
+                    imgsArr = new Array();
+                    $("#fuj").parent().parent().css("display","none");
+                    $("#img").parent().parent().css("display","none");
+                    if (mm != "" && mm !== null && typeof mm !== "undefined") {
+                        $("#fuj").html("");
+                        $("#contentL").text(mm.cont);
+                        var elem = $("#contentL")[0];
+                        if (elem.scrollHeight > 22) {
+                          elem.style.height = elem.scrollHeight + "px";
+                        } else {
+                          elem.style.height = "22px";
+                        }
+                        for (var i = 0; i < mm.files.length; i++) {
+                            $("#fuj").parent().parent().css("display","");
+                            $("#fuj").append("<a href=" + _qiniuImageHost + mm.files[i].fileId
+                                    + "   target='_blank'>" + mm.files[i].fileName + "</a>");
+                        }
+                        for (var i = 0; i < mm.images.length; i++) {
+                        	$("#img").parent().parent().css("display","");
+                            $("#img").append("<a style='width: 75px;height: 75px;' href=" + _qiniuImageHost + mm.images[i].fileId
+                                    + " target='_blank'><img style='width: 75px;height: 75px;' "
+                                    +"onclick='openImg(\"" + _qiniuImageHost + mm.images[i].fileId
+                                    + "\",\"" + mm.images[i].fileName + "\")' src="
+                                    + _qiniuImageHost + mm.images[i].fileId + "></a>")
+                        }
+                        $("#fen").text(mm.selfScore);
+                    }
+
+                } else if (record.fill == 0) {//编辑
+                    $("#content").val("");
+                    $(".zic").val("");
+                    $(".fuJList").empty();
+                    $(".imgList").empty();
+                    $("#poper2").removeClass("hid");
+                    $(".mask").removeClass("hid");
+                    $(".mask").click(function () {
+                        $("#poper2").addClass("hid");
+                        $(".mask").addClass("hid");
+                    });
+                    $("#tianClose").click(function () {
+                        $("#poper2").addClass("hid");
+                        $(".mask").addClass("hid");
+                    });
+                    $("#tianCancel").click(function () {
+                        $("#poper2").addClass("hid");
+                        $(".mask").addClass("hid");
+                    });
+
+                    filesArr = new Array();
+                    imgsArr = new Array();
+                    if (mm != "" && mm !== null && typeof mm !== "undefined") {
+                        $("#content").val(mm.cont);
+                        $(".zic").val(mm.selfScore);
+                            for (var i = 0; i < mm.files.length; i++) {
+                                $(".fuJList").append("<div attrh="+mm.files[i].fileId+"><a href=" + _qiniuImageHost + mm.files[i].fileId
+                                        + " download='" + mm.files[i].fileName + "' target='_bank'>" + mm.files[i].fileName + "</a><img src='../img/cc.png' class='deleteImage'></div>")
+                                filesArr.push(mm.files[i].fileId);
+                            }
+                            $(".fuJList .deleteImage").off("click").on("click",function(){
+	                          $(this).parent().remove();
+	                          for (var i = 0; i < filesArr.length; i++) {
+	                            if ($(this).parent().attr("attrh") == filesArr[i]) {
+	                              filesArr.splice(i,1);
+	                            }
+	                          }
+	                        });
+//                          for (var i = 0; i < mm.images.length; i++) {
+//                              $(".imgList").append("<a href=" + _qiniuImageHost + mm.images[i].fileId
+//                                      + "  target='_blank'><img style='width: 75px;height: 75px;' src="
+//                                      + _qiniuImageHost + mm.images[i].fileId + "><img src='../img/cc.png'></a>")
+//                              imgsArr.push(mm.images[i].fileId);
+//                          }
+                            for (var i = 0; i < mm.images.length; i++) {
+	                            $(".imgList").append("<div attrh="+mm.images[i].fileId+"><a href='"+_qiniuImageHost + mm.images[i].fileId+"' target='_bank'><img style='width: 75px;height: 75px;' src="
+	                                    + _qiniuImageHost + mm.images[i].fileId + "></a><div class='deleteImg'>×</div></div>")
+	                            imgsArr.push(mm.images[i].fileId);
+	                        }
+	                        $(".imgList .deleteImg").off("click").on("click",function(){
+	                          $(this).parent().remove();
+	                          for (var i = 0; i < imgsArr.length; i++) {
+	                            if ($(this).parent().attr("attrh") == imgsArr[i]) {
+	                              imgsArr.splice(i,1);
+	                            }
+	                          }
+	                        });
+                    }
+
+                }
+            }
+        })
+	$("#tianSure").click(function () {
+		if ($("#content").val().trim() == "") {
+	        parent.layer.alert("请填写填报内容");
+	        return;
+	    }
+	    console.log($("#fenWay").text())
+	    if ($("#fenWay").text() == "评分") {
+	    	console.log(123)
+	    } else{
+	    	if ($(".zic").val().trim() == "") {
+		        parent.layer.alert("请填写自评分");
+		        return;
+		    }
+	    	if (!isNum($(".zic").val().trim())) {
+		        parent.layer.alert("请填写自评分为数字");
+		        return;
+		    }
+	    }
+	    
+	    $.ajax({
+	        type: "POST",
+	        url: path + "/checkRecord/fillForm.action",
+	        data: {
+	            "filas": filesArr.toString(),
+	            "imgs":imgsArr.toString(),
+	            "cont": $("#content").val(),
+	            "selfScore": $(".zic").val(),
+	            "checkRecordId": id,
+	            "checkRuleId": currId
+	        },
+	        dataType: "json",
+	        success: function (data) {
+	            if (data.success) {
+	                window.location.reload()
+	            } else {
+	                parent.layer.alert(data.message);
+	            }
+	        }
+	    });
+	})
+	$("#look").click(function () {
+        $("#poper1").removeClass("hid");
+        $(".mask").removeClass("hid");
+        var zNodes = [];
+        //tree
+        var setting = {
+            view: {
+                dblClickExpand: false
+            },
+            data: {
+                simpleData: {
+                    enable: true,
+                    idKey: "id",
+                    pIdKey: "pId"
+                },
+                key: {
+                    name: "name"
+                }
+            },
+            check: {
+                enable: true,
+                chkDisabledInherit: true,
+                chkStyle: "checkbox",
+                chkboxType: {"Y": "", "N": ""}
+            },
+            callback: {}
+        };
+        buildTree();
+
+        function buildTree() {
+            if (me == "党组织") {
+                $.ajax({
+                    type: "POST",
+                    url: path + "/partyCheck/findCheckBums.action",
+                    data: {
+                        "checkId": checkId,
+                        "bumenId": check.bumenId,
+                        "checkType": check.checkType
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        var data = data.data;
+                        if (data) {
+                            zNodes = data;
+                            var zTree = $.fn.zTree.init($("#treeDemo1"), setting, zNodes);
+                            var node = zTree.getNodeByParam("id", 0);
+                            //alert(JSON.stringify(node));
+                            zTree.selectNode(node);
+                            zTree.expandNode(node, true, false, false);
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                            treeObj.expandAll(true);
+                        }
+                        hibb_Nodes();
+
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: path + "/partyCheck/findCheckBUsers.action",
+                    data: {
+                        "checkId": checkId,
+                        "bumenId": check.bumenId,
+                        "checkType": check.checkType
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        var data = data.data;
+                        if (data) {
+                            zNodes = data;
+                            var zTree = $.fn.zTree.init($("#treeDemo1"), setting, zNodes);
+                            var node = zTree.getNodeByParam("id", 0);
+                            //alert(JSON.stringify(node));
+                            zTree.selectNode(node);
+                            zTree.expandNode(node, true, false, false);
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                            treeObj.expandAll(true);
+                        }
+                        hibb_Nodes();
+
+                    }
+                });
+            }
+
+        }
+
+        $("#cancel").click(function () {
+            $("#poper1").addClass("hid");
+            $(".mask").addClass("hid");
+        });
+        $("#close").click(function () {
+            $("#poper1").addClass("hid");
+            $(".mask").addClass("hid");
+        });
+        $(".mask").click(function () {
+            $("#poper1").addClass("hid");
+            $(".mask").addClass("hid");
+        });
+        $("#sure").click(function () {
+            $("#poper1").addClass("hid");
+            $(".mask").addClass("hid");
+
+        });
+
+        function hibb_Nodes() {
+            var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+            var nodes = treeObj.transformToArray(treeObj.getNodes());
+            for (var node in nodes) {
+                treeObj.setChkDisabled(nodes[node], true);
+            }
+        }
+    });
+    	$("#saveB").click(function () {
+            parent.layer.alert("保存成功！");
+            window.history.back(-1);
+        });
+        $("#submit").click(function () {
+            $.ajax({
+                type: "POST",
+                url: path + "/checkRecord/saveFill.action",
+                data: {
+                    "checkRecordId": record._id,
+                    "partCheckId": checkId
+                },
+                dataType: "json",
+                success: function (data) {
+                if (data.success) {
+                    parent.layer.alert("提交成功！");
+                    window.history.back(-1);
+                } else {
+                    parent.layer.alert(data.message);
+                }
+          }
+      });
+   })
+}
+ 	/**
+ 	* 校验只要是数字（包含正负整数，0以及正负浮点数）就返回true
+ 	**/
+ 	function isNum(val){
+ 	    var regPos = /^\d+(\.\d+)?$/; //非负浮点数
+ 	    var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
+ 	    if(regPos.test(val) || regNeg.test(val)){
+ 	        return true;
+ 	    }else{
+ 	        return false;
+ 	    }
+ 	}
+
+	function openImg(url,name){
+        var json={
+        	      "title": "图片", //相册标题
+        	      "id": name, //相册id
+        	      "start": 0, //初始显示的图片序号，默认0
+        	      "data": [   //相册包含的图片，数组格式
+        	        {
+        	          "alt": name,//图片名
+        	          "pid": name, //图片id
+        	          "src": url, //原图地址
+        	          "thumb": url //缩略图地址
+        	        }
+        	      ]
+        	    };
+        top.layer.photos({
+    		    photos: json
+    		    ,anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+    	  });
+	}
+</script>
+</html>

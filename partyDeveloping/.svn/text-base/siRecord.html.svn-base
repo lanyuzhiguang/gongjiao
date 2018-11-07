@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/siRecord.css">
+    <!--<link rel="stylesheet" type="text/css" href="../css/laydate.css">-->
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+    <link rel="stylesheet" type="text/css" href="../css/layui.css">
+    <style>
+        .noDate {
+            text-align: center;
+            font-size: 14px;
+
+        }
+
+        .hid {
+            display: none;
+        }
+
+        #pageContent {
+            margin: auto;
+            text-align: center;
+            margin-top: 47px;
+        }
+    </style>
+</head>
+<body>
+<div class="thoughtReport">
+    <div class="thoughtInner">
+        <div class="thoughtTop">
+            <span id="back"><span class="arrow"><img src="../img/back.png"></span><span class="back">返回</span></span>
+            <span class="thoughtRW" id="titleN">思想汇报</span><span class="add">添加</span>
+        </div>
+        <div class="thoughtRList">
+            <table cellspacing="0" id="tableDiv">
+                <thead>
+                <th>日期</th>
+                <th>思想汇报标题</th>
+                <!--<th>附件</th>-->
+                <th>操作</th>
+                </thead>
+                <tbody id="talkR">
+                <!--<tr>-->
+                    <!--<td>2015/10/21</td>-->
+                    <!--<td><span class="report">北京北京北京北京北京北京</span></td>-->
+                    <!--<td>-->
+                        <!--<div class="fuJ"><span>附件</span><span>附件</span></div>-->
+                    <!--</td>-->
+                    <!--<td><span class="look">查看</span></td>-->
+                <!--</tr>-->
+
+                </tbody>
+            </table>
+            <div class="noDate hid">暂无数据</div>
+        </div>
+    </div>
+    <div id="pageContent"></div>
+</div>
+
+</body>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script src="../assets/js/jquery.js"></script>
+<!--<script src="../js/laydate.js"></script>-->
+<script src="../js/layer.js"></script>
+<script src="../js/layui.js"></script>
+<script>
+    $(function () {
+
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+
+        var devId = getQueryString("devId");
+        var six = getQueryString("six");
+        var flag = getQueryString("flag");
+        var path = "";
+        var iframe = document.getElementById("common");
+        ///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+        iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+        if (iframe.attachEvent) {//判断iframe是否加载完成
+            iframe.attachEvent("onload", function () {
+                getCommon();
+            });
+        } else {
+            iframe.onload = function () {
+                getCommon();
+            };
+        }
+
+        //获取公共参数  一般为存储在session里面的数据
+        function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+            var frames = window.frames["common"];
+            path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+            var _qiniuImageHost = frames._qiniuImageHost;//七牛云公共地址头
+
+            $("#tableDiv").find("tr").eq("even");
+
+            $("#back").click(function () {
+                window.history.back(-1);
+            });
+
+            $(".add").click(function () {
+                window.location.href = "thought.html?devId="+devId+"&&six="+six;
+            });
+            if(flag){
+                $(".add").addClass("hid");
+            }
+            $.ajax({
+                type: "POST",
+                url: path + "/deveRecord/queryByRecSkey.action",
+                data: {"recrutId":devId,"stKey":six},
+                dataType: "json",
+                success: function (data) {
+                    if(data.length==0) {
+                        $(".noDate").removeClass("hid");
+                    }
+                    for(var i=0;i<data.length;i++){
+                        var oTr="<tr>\n" +
+                            "                    <td>"+data[i].frmtCrtTime+"</td>\n" +
+                            "                    <td><span class=\"report\">"+data[i].title+"</span></td>\n" +
+                            "<td><input type='hidden' value="+data[i]._id+"><span class=\"look\">查看</span>\n"+
+                            "                </tr>";
+                        $("#talkR").append(oTr);
+                    }
+
+
+                    $('#talkR').on("click", function (e) {
+                        var target = e.target;
+                        if ($(target).text() == "查看") {
+                            var currId = $(target).parent().find("input").val();
+                            window.location.href = "sixiangRecord.html?devId=" + currId;
+                        }
+                    })
+                }
+            });
+           }
+     });
+
+</script>
+</html>

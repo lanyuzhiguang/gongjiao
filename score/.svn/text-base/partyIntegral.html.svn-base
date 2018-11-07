@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>积分管理</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css" media="screen" title="no title">
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker3.min.css"/>
+    <style media="screen">
+        .form-group {
+            padding: 10px 0;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        a {
+        }
+
+        a:hover, a:focus {
+            text-decoration: underline;
+            outline: none;
+        }
+
+        a:link {
+            color: deepskyblue;
+            text-decoration: none;
+            outline: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: deepskyblue;
+            margin: 0 5px;
+            outline: none;
+        }
+
+        .header {
+            margin-bottom: 15px;
+        }
+
+        .navi {
+            text-align: center;
+        }
+
+        .pagination {
+            margin: 0 auto;
+        }
+
+        .paging {
+            display: none;
+        }
+
+        .jumbotron {
+            padding: 5px;
+            margin: 5px 0;
+        }
+
+        .container .jumbotron, .container-fluid .jumbotron {
+            padding: 9px 5px;
+        }
+
+        .timeContent {
+            padding: 0 15px;
+        }
+
+        .timeContent input {
+            margin: 0 8px;
+        }
+
+        .form-control {
+            display: inline-block;
+        }
+
+        .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+            padding: 0;
+        }
+
+        button.btn-primary {
+            border: none;
+        }
+
+        .labels {
+            padding: 6px 0;
+            color: #333;
+            text-align: center;
+        }
+
+        .buttonGroup {
+            text-align: center;
+        }
+
+        .modal-body {
+            margin: 15px 0;
+        }
+
+        .modal-body p {
+            text-align: center;
+        }
+
+        .partIntegrlManagement {
+            display: block;
+        }
+
+        .newType {
+            padding: 6px;
+            display: none;
+        }
+
+        .integralTypeBox, .integralRule {
+            display: none;
+        }
+
+        .integralRule .form-control {
+            width: auto;
+        }
+
+        .warningBox {
+            background-color: rgba(242, 242, 242, 1);
+            padding: 5px;
+        }
+
+        .waringlogo {
+            text-align: center;
+            height: 38px;
+            line-height: 38px;
+        }
+
+        .fa-warning {
+            font-size: 20px;
+        }
+
+        .editIntegral {
+            margin-top: 15px;
+        }
+
+        .editIntegral input {
+            width: 14%;
+        }
+
+        .editIntegral p {
+            text-align: left;
+        }
+
+        .mask {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            z-index: 2000;
+            display: none;
+        }
+
+        .errorAlert {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            z-index: 2000;
+            display: none;
+        }
+
+        .popup {
+            width: 600px;
+            margin: 30px auto;
+            border-radius: 6px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+            background: white;
+            z-index: 1051;
+        }
+
+        .mask .modal-header, .errorAlert .modal-header {
+            border: none;
+        }
+
+        .mask .modal-content, .errorAlert .modal-content {
+            -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0)
+        }
+
+        .mask .modal-body, .errorAlert .modal-body {
+            text-align: center;
+        }
+
+        .popup .content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .popup .footer {
+            padding: 10px 0;
+        }
+
+        .integralRule p {
+            background: #F2F2F2;
+            border-radius: 4px;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            padding: 5px;
+        }
+
+        .query {
+            line-height: 24px;
+        }
+
+        .query button {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid header">
+    <div class="row col-xs-12">
+        <!--<div class="btn-group col-xs-12" role="group">-->
+        <ul class="nav nav-pills col-xs-10">
+            <li role="presentation" class="active"><a href="javascript:;">党员积分管理</a></li>
+            <li role="presentation"><a href="javascript:;">积分类型</a></li>
+            <li role="presentation"><a href="javascript:;">积分规则</a></li>
+
+        </ul>
+        <!--</div>-->
+        <button class="btn btn-primary col-xs-1 newType" data-toggle="modal" data-target="#myModal">新建类型</button>
+    </div>
+</div>
+<div class="partIntegrlManagement container-fluid">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="form-group col-xs-12 query">
+                <div class="col-xs-3">
+                    <label>组织名称</label>
+                    <input type="text" name="" class="bumename" value=""/>
+                </div>
+                <div class="col-xs-3">
+                    <label>党员姓名</label>
+                    <input type="text" name="name" class="username" value="">
+                </div>
+                <div class="col-xs-4" id="sandbox-container">
+                    <label class="col-xs-3" style="line-height: 28px;">按时间统计</label>
+                    <div id="sandbox-container">
+                        <div class="col-xs-9 input-group" id="datepicker">
+                            <input type="text" class="input-sm form-control starttime" name="start"/>
+                            <span class="input-group-addon">到</span>
+                            <input type="text" class="input-sm form-control endtime" name="end"/>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary">查询</button>
+                <!--<button type="button" class="btn btn-primary">导出</button>-->
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="partyMembersIntegralBox">
+
+        </div>
+        <div class="row">
+            <nav class="navi" aria-label="Page navigation">
+                <ul class="pagination paginationList">
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="integralTypeBox container-fluid">
+    <p>提示：积分类型最多可启用5个</p>
+    <table class="table table-bordered integralTypeTable">
+
+    </table>
+</div>
+<div class="integralRule container-fluid">
+    <div class="container-fluid">
+        <div class="row">
+            <p>提示：只有启用的积分项才能够用于党员积分。积分项禁用后，将不再产生对应的积分记录</p>
+            <div class="form-group col-xs-12 query">
+                <div class="col-xs-3 queryType">
+
+                </div>
+                <div class="col-xs-4">
+                    <label>积分项</label>
+                    <input type="text" class="integralTerm">
+                </div>
+                <button type="button" class="btn btn-primary searchRule">查询</button>
+            </div>
+        </div>
+        <div class="integralRuleTableBox">
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+            </div>
+            <div class="modal-body col-xs-12">
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div><!-- /.modal-content -->
+
+    </div><!-- /.modal -->
+</div>
+<div class="mask">
+    <div class="modal-dialog">
+        <div class="popup">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!--<button type="button" class="close closeBtn">&times;</button>-->
+                    <h5 class="modal-title" id="myModalLabel">提示</h5>
+                </div>
+                <div class="modal-body col-xs-12">
+                    确定删除吗？
+                </div>
+            </div>
+            <div class="footer">
+                <div class="buttonGroup sureIntegralType">
+                    <button class="btn btn-primary fadeinBtn">确定</button>
+                    <button class="btn btn-default fadeoutBtn">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="errorAlert">
+    <div class="modal-dialog">
+        <div class="popup">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!--<button type="button" class="close closeBtn">&times;</button>-->
+                    <h5 class="modal-title" id="myModalLabel">提示</h5>
+                </div>
+                <div class="modal-body col-xs-12">
+                    确定删除吗？
+                </div>
+            </div>
+            <div class="footer">
+                <div class="buttonGroup sureIntegralType">
+                    <button class="btn btn-primary fadeinBtn">确定</button>
+                    <button class="btn btn-default fadeoutBtn">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script src="./js/jquery-3.1.1.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="js/bootstrap-paginator.js"></script>
+<script src="js/bootstrap-datepicker.min.js"></script>
+<script src="js/bootstrap-datepicker.zh-CN.min.js"></script>
+<script type="text/javascript">
+    var path = "";
+    $(function () {
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null)
+                return decodeURI(r[2]);
+            return null;
+        }
+
+        var iframe = document.getElementById("common");///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+        iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+        if (iframe.attachEvent) {//判断iframe是否加载完成
+            iframe.attachEvent("onload", function () {
+                getCommon();
+            });
+        } else {
+            iframe.onload = function () {
+                getCommon();
+            };
+        }
+    });
+
+    //获取公共参数  一般为存储在session里面的数据
+    function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+        var frames = window.frames["common"];
+        path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+
+        //调用日历插件
+        $("#sandbox-container input[name=start],#sandbox-container input[name=end]").datepicker({
+            minViewMode: 1,
+            maxViewMode: 2,
+            minView: "month",
+            language: "zh-CN",
+            autoclose: true,
+            format: "yyyy-mm",
+            startView: 2
+        });
+        //切换页面
+        $("body>div").hide();
+        $("body>div:eq(0),body>div:eq(1)").show();
+        $(".header li").on("click", function () {
+            var btnIndex = $(this).index() + 1;
+            $(this).addClass("active").siblings().removeClass("active");
+            $("body>div").eq(btnIndex).show().siblings().hide();
+            $("body>div").eq(0).show();
+            if (btnIndex == 2) {
+                $(".newType").show();
+            } else {
+                $(".newType").hide();
+            }
+        });
+
+        function fun(data) {
+            var data = data.data;
+            var tdList = '<tr class="tdLists"><td>序号</td>';
+            var trList = '';
+            for (var a = 0; a < data.title.length; a++) {
+                tdList += '<td>' + data.title[a] + '</td>';
+            }
+            tdList += '<td>操作</td></tr>';
+            for (var b = 0; b < data.message.length; b++) {
+                trList += '<tr class="paging" id="' + data.message[b].userId + '"><td>' + (b + 1) + '</td><td>' + data.message[b].username + '</td><td>' + data.message[b].bumename + '</td>';
+                var lengthNum = Object.keys(data.message[b].titleMap).length - 1;
+                var titleMapNum = b;
+                for (var j = 2; j < data.title.length - 1; j++) {
+                    var mapobj = data.message[b].titleMap;
+                    var txt = data.title[j];
+//							console.log(txt);
+//							console.log(data.message[b]);
+//							console.log(data.message[b].titleMap.txt);
+                    trList += '<td>' + mapobj[txt] + '</td>';
+                }
+//							$.each(data.message[b].titleMap, function(key,value) {
+//								trList += '<td>'+data.message[b].titleMap.value+'</td>';
+//							});
+                trList += '<td>' + data.message[b].totalScore + '</td><td><a href="javascript:;" data-toggle="modal" data-target="#myModal">查看记录</a><a href="javascript:;" data-toggle="modal" data-target="#myModal" id="' + data.message[b].bumenId + '">调整积分</a></td></tr>';
+            }
+            ;
+            $(".partyMembersIntegralBox").html('<table class="partyMembersIntegral table table-bordered">' + tdList + trList + '</table>');
+            //分页
+            var index = 0;
+            var liList = '';
+            var liListNum = Math.ceil($(".paging").length / 15);
+            for (var i = 0; i < liListNum; i++) {
+                liList += '<li><a href="javascript:;" name="page">' + (i + 1) + '</a></li>'
+            }
+            $(".pagination").html('<li class="preve"><a href="javascript:;" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>' + liList + '<li class="next"><a href="javascript:;" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>')
+
+            function pagingMethod() {
+                $(".paging").hide();
+                $(".pagination>li").removeClass("active");
+                $("li").removeClass("disabled");
+                $(".pagination>li").eq(index + 1).attr("class", "active");
+                if (index == 0) {
+                    $(".paging:lt(15)").show();
+                    $(".preve").addClass("disabled");
+                    $(".pagination>li").eq(index + 1).attr("class", "active");
+
+                } else {
+                    $(".paging:gt(" + (index * 15 - 1) + "):lt(15)").show();
+                }
+                if (index == Math.floor(($(".paging").length - 1) / 15)) {
+                    $(".next").addClass("disabled");
+                }
+            };
+            pagingMethod();
+            $(".next").on("click", function () {
+                if (index == Math.floor(($(".paging").length - 1) / 15)) {
+                    index == Math.floor(($(".paging").length - 1) / 15);
+                } else {
+                    index++;
+                }
+                pagingMethod();
+            });
+            $(".preve").on("click", function () {
+                if (index == 0) {
+
+                } else {
+                    index--;
+                }
+                pagingMethod();
+            });
+            $(".pagination a[name]").on("click", function () {
+                index = $(this).parent().index() - 1;
+                pagingMethod();
+            })
+            //查看记录
+            $(".paging a:contains('查看记录')").on("click", function () {
+                var userId = $(this).parent().parent().attr("id");
+                var userpartyName = $(this).parent().parent().children("td").eq(1).text();
+                var userTotalScore = $(this).parent().parent().children("td:last").prev().text();
+                var pageNum = 1;
+                $.ajax({
+                    type: "get",
+                    url: path + "/pc/ScorePartyMemberPc/getScoreDetail.action",
+                    dataType: "json",
+                    data: {
+                        "gte:createTime|date": "",
+                        "lte:createTime|date": "",
+                        "userId": userId,
+                        "page": 1,
+                        "size": 10
+                    },
+                    success: function (data) {
+                        var data = data;
+                        startTimval = "", endTimval = "";
+                        if (data.data.length == 0) {
+                            $(".modal-header").html('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">查看记录</h5>');
+                            $(".modal-body").html('<div class="container-fluid"><div class="row timeContent"><label>选择时间</label><input type="text" name="" value=""><label>到</label><input type="text" name="" value=""><button type="button" class="btn btn-primary recordSearch">查询</button></div><div class="jumbotron"><div class="container">党员姓名：<span>' + userpartyName + '</span>，当前总积分：<span>' + userTotalScore + '</span></div></div><div class="record">此项暂无数据</div></div>');
+                            $(".modal-footer").html('<nav class="navi" aria-label="Page navigation"></nav>');
+                            //调用日历插件
+                            $(".timeContent input").datepicker({
+                                minViewMode: 1,
+                                maxViewMode: 2,
+                                minView: "month",
+                                language: "zh-CN",
+                                autoclose: true,
+                                format: "yyyy-mm",
+                                startView: 2
+                            });
+                        } else {
+                            contentfun(data)
+                            $("#paginationLists a:contains('下一页')").on("click", function () {
+                                nextPage("", "", 0);
+                            });
+                            $("#paginationLists a:contains('上一页')").on("click", function () {
+                                prevPage("", "", 0);
+                            });
+                            $("#paginationLists a:not(#paginationLists a:contains('下一页'),#paginationLists a:contains('上一页'))").on("click", function () {
+                                var pagetext = $(this).text();
+                                thisPage("", "", 0, pagetext);
+                            });
+                        }
+
+
+                    }
+                });
+
+                function pageFun(pageStart, pageEnd, judge) {
+                    $.ajax({
+                        type: "get",
+                        url: path + "/pc/ScorePartyMemberPc/getScoreDetail.action",
+                        dataType: "json",
+                        data: {
+                            "gte:createTime|date": pageStart,
+                            "lte:createTime|date": pageEnd,
+                            "userId": userId,
+                            "page": pageNum,
+                            "size": 10
+                        },
+                        success: function (dataj) {
+                            contentfun(dataj);
+                            $("#paginationLists a:contains('下一页')").on("click", function () {
+                                if (judge == 0) {
+                                    nextPage(pageStart, pageEnd, 0);
+                                } else if (judge == 1) {
+                                    nextPage(pageStart, pageEnd, 1);
+                                }
+                            });
+                            $("#paginationLists a:contains('上一页')").on("click", function () {
+                                if (judge == 0) {
+                                    prevPage(pageStart, pageEnd, 0);
+                                } else if (judge == 1) {
+                                    prevPage(pageStart, pageEnd, 1);
+                                }
+                            });
+                            $("#paginationLists a:not(#paginationLists a:contains('下一页'),#paginationLists a:contains('上一页'))").on("click", function () {
+                                var pagetext = $(this).text();
+                                if (judge == 0) {
+                                    thisPage(pageStart, pageEnd, 0, pagetext);
+                                } else if (judge == 1) {
+                                    thisPage(pageStart, pageEnd, 1, pagetext);
+                                }
+                            });
+                        }
+                    });
+                };
+
+                function nextPage(nextStart, nextEnd, judgeNum) {
+                    pageNum++;
+                    if (judgeNum == 0) {
+                        pageFun(nextStart, nextEnd, 0);
+                    } else if (judgeNum == 1) {
+                        pageFun(nextStart, nextEnd, 1);
+                    }
+                }
+
+                function prevPage(prevStart, prevEnd, judgeNum) {
+                    pageNum--;
+                    if (judgeNum == 0) {
+                        pageFun(prevStart, prevEnd, 0);
+                    } else if (judgeNum == 1) {
+                        pageFun(prevStart, prevEnd, 1);
+                    }
+                }
+
+                function thisPage(thisStart, thisEnd, judgeNum, pagetext) {
+                    if ($('#paginationLists>li.active').index() == 0) {
+                        pageNum = 1;
+                    } else {
+                        pageNum = pagetext;
+                    }
+                    if (judgeNum == 0) {
+                        pageFun(thisStart, thisEnd, 0);
+                    } else if (judgeNum == 1) {
+                        pageFun(thisStart, thisEnd, 1);
+                    }
+                }
+
+                var startTimval = "", endTimval = "";
+
+                function contentfun(obj) {
+                    var recordType = "";
+                    var serialNum = (pageNum - 1) * 10;
+                    var recordTableHtml = '';
+                    for (var m = 0; m < obj.data.length; m++) {
+                        serialNum++;
+                        recordTableHtml += '<tr id="' + obj.data[m]._id + '"><td>' + serialNum + '</td><td type="' + obj.data[m].type + '" remarks="' + obj.data[m].remarks + '"><td class="score">' + obj.data[m].score + '</td><td class="explain" time="' + obj.data[m].time + '"></td><td>' + obj.data[m].createTime + '</td><td class="operation"></td></tr>';
+                    }
+                    $(".modal-header").html('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">查看记录</h5>');
+//							$(".modal-body").html('<div class="container-fluid"><div class="row timeContent"><label>选择时间</label><input type="text" name="" value=""><label>到</label><input type="text" name="" value=""><button type="button" class="btn btn-primary recordSearch">查询</button></div><div class="jumbotron"><div class="container">党员姓名：<span>'+userpartyName+'</span>，当前总积分：<span>'+userTotalScore+'</span></div></div><div class="record"><table class="table table-bordered">'+recordTableHtml+'</table></div></div>');
+                    $(".modal-body").html('<div class="container-fluid"><div class="row timeContent"><label>选择时间</label><input type="text" class="startTim" value="' + startTimval + '"><label>到</label><input type="text" class="endTim" value="' + endTimval + '"><button type="button" class="btn btn-primary recordSearch">查询</button></div><div class="jumbotron"><div class="container">党员姓名：<span>' + userpartyName + '</span>，当前总积分：<span>' + userTotalScore + '</span></div></div><div class="record"><table class="table table-bordered recordTable" id="recordTable"><tr><td>序号</td><td>积分类型</td><td>积分记录</td><td>说明</td><td>时间</td><td>操作</td></tr>' + recordTableHtml + '</table></div></div>');
+                    $(".modal-footer").html('<nav class="navi" aria-label="Page navigation"><ul class="pagination paginationLists" id="paginationLists"></ul></nav>');
+                    $.each($("#recordTable .score"), function (index) {
+                        if ($(this).text().indexOf("-") != -1) {
+
+                        } else {
+                            $(this).text("+" + $(this).text())
+                        }
+                    });
+                    $("#recordTable td").each(function (index) {
+                        if ($(this).attr("type") == 1) {
+                            $(this).text("视频");
+                            $(this).parent().children('td').eq(3).text('学习视频');
+//									+parseInt($(this).parent().children('td').eq(3).attr('time')/60)+'分'+$(this).parent().children('td').eq(3).attr('time')%60+'秒'
+                            $(this).parent().children('td:last').text('系统');
+                        } else if ($(this).attr("type") == 2) {
+                            $(this).text("音频");
+                            $(this).parent().children('td').eq(3).text('学习音频');
+//									+parseInt($(this).parent().children('td').eq(3).attr('time')/60)+'分'+$(this).parent().children('td').eq(3).attr('time')%60+'秒'
+                            $(this).parent().children('td:last').text('系统');
+                        } else if ($(this).attr("type") == 3) {
+                            $(this).text("文档");
+                            $(this).parent().children('td').eq(3).text('阅读文档');
+//									+parseInt($(this).parent().children('td').eq(3).attr('time')/60)+'分'+$(this).parent().children('td').eq(3).attr('time')%60+'秒'
+                            $(this).parent().children('td:last').text('系统');
+                        } else if ($(this).attr("type") == 4) {
+                            $(this).text("考试");
+                            $(this).parent().children('td').eq(3).text('参加考试');
+                            $(this).parent().children('td:last').text('系统');
+                        } else if ($(this).attr("type") == 70) {
+                            $(this).text("活动");
+                            $(this).parent().children('td').eq(3).text('参加活动');
+                            $(this).parent().children('td:last').text('系统');
+                        } else if ($(this).attr("type") == 80) {
+                            $(this).text("课程签到");
+                            $(this).parent().children('td').eq(3).text('签到');
+                            $(this).parent().children('td:last').text('系统');
+                        } else if ($(this).attr("type") == 81) {
+                            $(this).text("三会一课");
+                            $(this).parent().children('td').eq(3).text('签到');
+                            $(this).parent().children('td:last').text('系统');
+                        } else if ($(this).attr("type") == 99) {
+                            $(this).text("新闻");
+                            $(this).parent().children('td').eq(3).text('阅读新闻');
+//									+parseInt($(this).parent().children('td').eq(3).attr('time')/60)+'分'+$(this).parent().children('td').eq(3).attr('time')%60+'秒'
+                            $(this).parent().children('td:last').text('系统');
+                        } else if ($(this).attr("type") == 201) {
+                            $(this).text("新增心得");
+                            $(this).parent().children('td').eq(3).text('发布心得');
+                            $(this).parent().children('td:last').text('系统');
+                        } else if ($(this).attr("type") == 202) {
+                            $(this).text("删除心得");
+                            $(this).parent().children('td').eq(3).text('删除心得');
+                            $(this).parent().children('td:last').text('系统');
+                        } else if ($(this).attr("type") == 401) {
+                            $(this).text("新增评论");
+                            $(this).parent().children('td').eq(3).text('发布评论');
+                            $(this).parent().children('td:last').text('系统');
+                        } else if ($(this).attr("type") == 402) {
+                            $(this).text("删除评论");
+                            $(this).parent().children('td').eq(3).text('删除评论');
+                            $(this).parent().children('td:last').text('系统');
+                        } else if ($(this).attr("type") == 403) {
+                            $(this).text("新增互动");
+                            $(this).parent().children('td').eq(3).text('发布互动');
+                            $(this).parent().children('td:last').text('系统');
+                        } else if ($(this).attr("type") == 404) {
+                            $(this).text("删除互动");
+                            $(this).parent().children('td').eq(3).text('删除互动');
+                            $(this).parent().children('td:last').text('系统');
+                        } else if ($(this).attr("type") == 88) {
+                            $(this).text("奖励");
+                            var rewardText = $(this).attr("remarks") == "" || $(this).attr("remarks") == "undefined" ? "优秀党员" : $(this).attr("remarks")
+
+                            $(this).parent().children('td').eq(3).text(rewardText);
+                            $(this).parent().children('td:last').text('管理员');
+                        } else if ($(this).attr("type") == 701) {
+                            $(this).text("活动积分");
+                            $(this).parent().children('td').eq(3).text("活动积分");
+                            $(this).parent().children('td:last').text('管理员');
+                        } else if ($(this).attr("type") == 801) {
+                            $(this).text("运动积分");
+                            $(this).parent().children('td').eq(3).text("运动积分");
+                            $(this).parent().children('td:last').text('管理员');
+                        } else if ($(this).attr("type") == 802) {
+                            $(this).text("运动达标奖励积分");
+                            $(this).parent().children('td').eq(3).text("运动达标奖励积分");
+                            $(this).parent().children('td:last').text('管理员');
+                        } else if ($(this).attr("type") == 803) {
+                            $(this).text("每日阅读");
+                            $(this).parent().children('td').eq(3).text("每日阅读");
+                            $(this).parent().children('td:last').text('管理员');
+                        } else if ($(this).attr("type") == 804) {
+                            $(this).text("每日考试");
+                            $(this).parent().children('td').eq(3).text("每日考试");
+                            $(this).parent().children('td:last').text('管理员');
+                        }
+                    });
+                    //调用日历插件
+                    $(".timeContent input").datepicker({
+                        minViewMode: 1,
+                        maxViewMode: 2,
+                        minView: "month",
+                        language: "zh-CN",
+                        autoclose: true,
+                        format: "yyyy-mm",
+                        startView: 2
+                    });
+                    //查询
+                    $(".timeContent .recordSearch").on("click", function () {
+                        pageNum = 1;
+                        startTimval = $(".startTim").val(), endTimval = $(".endTim").val();
+                        var startConTime = $(".timeContent input:first").val() + '-1'
+                        var endTimeConDate = new Date($(".timeContent input.endTim").val());
+                        var endTimeConMonth = endTimeConDate.getMonth() + 1;
+                        var endTimeConYear = endTimeConDate.getFullYear();
+
+                        function getLastDay(year, month) {
+                            var new_year = year;    //取当前的年份
+                            var new_month = month++;//取下一个月的第一天，方便计算（最后一天不固定）
+                            if (month > 12) {
+                                new_month -= 12;        //月份减
+                                new_year++;            //年份增
+                            }
+                            var new_date = new Date(new_year, new_month, 1);                //取当年当月中的第一天
+                            return (new Date(new_date.getTime() - 1000 * 60 * 60 * 24)).getDate();//获取当月最后一天日期
+                        }
+
+                        var endConTime = $(".timeContent input.endTim").val() + '-' + getLastDay(endTimeConYear, endTimeConMonth);
+
+                        if (($(".startTim").val() != "") && ($(".endTim").val() == "")) {
+                            $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                            $(".mask").fadeIn();
+                            $(".mask .modal-body").html("请选择完整的时间段");
+                            $(".mask .closeBtn").on("click", function () {
+                                $(".mask").fadeOut();
+                            })
+//									alert("请选择完整的时间段");
+                        } else if (($(".startTim").val() == "") && ($(".endTim").val() != "")) {
+                            $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                            $(".mask").fadeIn();
+                            $(".mask .modal-body").html("请选择完整的时间段");
+                            $(".mask .closeBtn").on("click", function () {
+                                $(".mask").fadeOut();
+                            })
+//									alert("请选择完整的时间段");
+                        } else {
+                            $.ajax({
+                                type: "get",
+                                url: path + "/pc/ScorePartyMemberPc/getScoreDetail.action",
+                                dataType: "json",
+                                data: {
+                                    "gte:createTime|date": startConTime,
+                                    "lte:createTime|date": endConTime,
+                                    "userId": userId,
+                                    "page": pageNum,
+                                    "size": 10
+                                },
+                                success: function (datajson) {
+                                    var startTim = $(".startTim").val(), endTim = $(".endTim").val();
+                                    contentfun(datajson);
+                                    $("#paginationLists a:contains('下一页')").on("click", function () {
+                                        nextPage(startConTime, endConTime, 1);
+                                    });
+                                    $("#paginationLists a:contains('上一页')").on("click", function () {
+                                        prevPage(startConTime, endConTime, 1);
+                                    });
+                                    $("#paginationLists a:not(#paginationLists a:contains('下一页'),#paginationLists a:contains('上一页'))").on("click", function () {
+                                        var pagetext = $(this).text();
+                                        thisPage(startConTime, endConTime, 1, pagetext);
+                                    });
+                                }, error: function () {
+                                    alert("错了")
+                                }
+                            });
+                        }
+                    });
+                    //查看记录分页
+                    $('#paginationLists').bootstrapPaginator({
+                        currentPage: obj.page,//当前的请求页面。
+                        totalPages: obj.pages,//一共多少页。
+                        size: "normal",//应该是页眉的大小。
+                        bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                        alignment: "right",
+                        numberOfPages: 5,//一页列出多少数据。
+                        itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                            switch (type) {
+                                case "prev":
+                                    return "上一页";
+                                case "next":
+                                    return "下一页";
+                                case "page":
+                                    return page;
+                            }
+                        }
+                    });
+                };
+            });
+            //调整积分
+            $(".paging a:contains('调整积分')").on("click", function () {
+                var userId = $(this).parent().parent().attr("id");
+                var bumenId = $(this).attr("id");
+                var userpartyName = $(this).parent().parent().children("td").eq(1).text();
+                var userTotalScore = $(this).parent().parent().children("td:last").prev().text();
+//						$.ajax({
+//							type : "post",
+//			        url : path + "/web/ScorePartyMember/getFirstScoreType.do",
+//			        dataType: "json",
+//							success:function(integralTypeData){
+//								var integral = '';
+//								for (var num = 0;num < integralTypeData.data.length-1;num++) {
+//									integral += "<option>"+integralTypeData.data[num]+"</option>";
+//								}
+                $(".modal-header").html('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">调整积分</h5>');
+                $(".modal-body").html('<div class="container-fluid"><div class="jumbotron recordjum"><div class="container">党员姓名：<span>' + userpartyName + '</span>，当前总积分：<span>' + userTotalScore + '</span></div></div><div class="container col-xs-12"><div class="row"><label class="col-xs-2 labels">积分类型</label><div class="col-xs-5"><select class="form-control"><option>奖励积分</option></select></div></div></div><div class="container col-xs-12"><div class="row"><label class="col-xs-2 labels">积分调整</label><div class="col-xs-2"><select class="form-control scoreDate"><option>增加</option><option>减少</option></select></div><div class="col-xs-3"><input type="text" class="form-control scoreDateNum" placeholder="请输入整数" /></div></div></div><div class="container col-xs-12"><div class="row"><label class="col-xs-2 labels">调整说明</label><div class="col-xs-7"><input type="text" class="form-control limit" placeholder="不超过20个字" /></div></div></div></div>');
+                $(".modal-footer").html('<div class="buttonGroup"><button class="btn btn-primary adjustment">确定</button><button class="btn btn-default" aria-hidden="true" data-dismiss="modal">取消</button></div>');
+                $(".adjustment").off("click").on("click", function () {
+                    var scoreDate = $(".scoreDate").val();
+                    if ($(".scoreDate").val() == "增加") {
+                        scorenum = "+" + $(".scoreDateNum").val();
+                    } else if ($(".scoreDate").val() == "减少") {
+                        scorenum = "-" + $(".scoreDateNum").val();
+                    }
+                    var explainText = $(".limit").val();
+                    var reg = /^[1-9]\d*$/;
+                    if ($(".limit").val().length > 20) {
+                        $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                        $(".mask").fadeIn();
+                        $(".mask .modal-body").html("调整积分说明最多可输入20字");
+                        $(".mask .closeBtn").on("click", function () {
+                            $(".mask").fadeOut();
+                        })
+//										alert("调整说明最多可输入20字");
+                    } else if ($(".limit").val() == "") {
+                        $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                        $(".mask").fadeIn();
+                        $(".mask .modal-body").html("调整积分说明不可为空");
+                        $(".mask .closeBtn").on("click", function () {
+                            $(".mask").fadeOut();
+                        })
+                    } else if ($(".scoreDateNum").val() == "") {
+                        $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                        $(".mask").fadeIn();
+                        $(".mask .modal-body").html("请输入积分调整数");
+                        $(".mask .closeBtn").on("click", function () {
+                            $(".mask").fadeOut();
+                        })
+//										alert("请输入积分调整数");
+                    } else if (reg.test($(".scoreDateNum").val()) == 0) {
+                        $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                        $(".mask").fadeIn();
+                        $(".mask .modal-body").html("请输入正整数");
+                        $(".mask .closeBtn").on("click", function () {
+                            $(".mask").fadeOut();
+                        })
+                    } else {
+                        $(".adjustment").attr({"aria-hidden": "true", "data-dismiss": "modal"});
+                        $.ajax({
+                            type: "post",
+                            url: path + "/pc/ScorePartyMemberPc/changeScordByUserId.action",
+                            dataType: "json",
+                            data: {
+                                "userId": userId,
+                                "bumenId": bumenId,
+                                "score": scorenum,
+                                "remarks": explainText
+                            },
+                            success: function (adjustmentData) {
+                                if (adjustmentData.success == false) {
+                                    $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                    $(".mask").fadeIn();
+                                    $(".mask .modal-body").html(adjustmentData.message);
+                                    $(".mask .closeBtn").on("click", function () {
+                                        $(".mask").fadeOut();
+                                    })
+                                } else {
+                                    $.ajax({
+                                        type: "post",
+                                        url: path + "/pc/ScorePartyMemberPc/partyMemberScore.action",
+                                        dataType: "json",
+                                        jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名
+                                        jsonpCallback: "message",
+                                        success: function (data) {
+                                            fun(data);
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                })
+//							}
+//						});
+            });
+        }
+
+        //党员积分管理数据请求
+        $.ajax({
+            type: "post",
+            url: path + "/pc/ScorePartyMemberPc/partyMemberScore.action",
+            dataType: "json",
+            success: function (data) {
+                fun(data);
+            }
+        });
+        $(".header a:contains('党员积分管理')").on("click", function () {
+            $.ajax({
+                type: "post",
+                url: path + "/pc/ScorePartyMemberPc/partyMemberScore.action",
+                dataType: "json",
+                success: function (data) {
+                    fun(data);
+                }
+            });
+        })
+
+
+        //党员积分管理查询
+        $(".partIntegrlManagement .query>button:contains('查询')").on("click", function () {
+            var startTimeDate = new Date($(".starttime").val());
+            var startTimeMonth = startTimeDate.getMonth() + 1;
+            var startTimeYear = startTimeDate.getFullYear();
+            var startTime = new Date(startTimeYear, startTimeMonth, 1).getTime();
+            var endTimeDate = new Date($(".endtime").val());
+            var endTimeMonth = endTimeDate.getMonth() + 1;
+            var endTimeYear = endTimeDate.getFullYear();
+
+            function getLastDay(year, month) {
+                var new_year = year;    //取当前的年份
+                var new_month = month++;//取下一个月的第一天，方便计算（最后一天不固定）
+                if (month > 12) {
+                    new_month -= 12;        //月份减
+                    new_year++;            //年份增
+                }
+                var new_date = new Date(new_year, new_month, 1);                //取当年当月中的第一天
+                return (new Date(new_date.getTime() - 1000 * 60 * 60 * 24)).getDate();//获取当月最后一天日期
+            }
+
+            var endTime = new Date(endTimeYear, endTimeMonth, getLastDay(endTimeYear, endTimeMonth)).getTime();
+            var organizationName = $(".bumename").val();
+            var partyMemberName = $(".username").val();
+            if ($(".starttime").val() != "" && $(".endtime").val() == "") {
+                $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                $(".mask").fadeIn();
+                $(".mask .modal-body").html("请输入完整的时间段");
+                $(".mask .closeBtn").on("click", function () {
+                    $(".mask").fadeOut();
+                })
+//					alert("请输入完整的时间段");
+            } else if ($(".starttime").val() == "" && $(".endtime").val() != "") {
+                $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                $(".mask").fadeIn();
+                $(".mask .modal-body").html("请输入完整的时间段");
+                $(".mask .closeBtn").on("click", function () {
+                    $(".mask").fadeOut();
+                })
+//					alert("请输入完整的时间段");
+            } else {
+                $.ajax({
+                    type: "post",
+                    url: path + "/pc/ScorePartyMemberPc/partyMemberScore.action",
+                    dataType: "json",
+                    data: {
+                        "startTime": startTime,
+                        "endTime": endTime,
+                        "organizationName": organizationName,
+                        "partyMemberName": partyMemberName
+                    },
+                    success: function (partIntegrlManagementdata) {
+                        fun(partIntegrlManagementdata);
+                    }
+                });
+            }
+        });
+
+        //积分类型
+        $(".header a:contains('积分类型')").on("click", function () {
+            typeFun();
+
+        });
+
+        function typeFun() {
+            $.ajax({
+                type: "post",
+                url: path + "/pc/ScorePartyMemberPc/PartyMemberScoreSort.action",
+                dataType: "json",
+                success: function (data) {
+                    var integralTypetrlist = '';
+                    var dataStateLength = 0;
+                    for (var typeNum = 0; typeNum < data.data.length; typeNum++) {
+                        typeSerialNum = typeNum + 1;
+                        integralTypetrlist += '<tr id="' + data.data[typeNum]._id + '"><td>' + typeSerialNum + '</td><td>' + data.data[typeNum].name + '</td><td>' + data.data[typeNum].list.join(";") + '</td><td>';
+                        if (data.data[typeNum].state == 1) {
+                            integralTypetrlist += "未启用";
+                        } else if (data.data[typeNum].state == 2) {
+                            integralTypetrlist += "已启用";
+                        }
+                        integralTypetrlist += '</td><td class="operation" state = "' + data.data[typeNum].state + '"><a href="javascript:;" data-toggle="modal" data-target="#myModal" class="integralTypeEdit">编辑</a><a href="javascript:;" class="disableBtn">';
+                        if (data.data[typeNum].state == 1) {
+                            integralTypetrlist += "启用";
+                        } else if (data.data[typeNum].state == 2) {
+                            integralTypetrlist += "禁用";
+                        }
+                        integralTypetrlist += '</a><a href="javascript:;" data-toggle="modal" data-target="#myModal" class="deletetr">删除</a></td></tr>';
+                    }
+                    ;
+                    $(".integralTypeBox").html('<p>提示：积分类型最多可启用5个，启用的积分类型将用于党员的积分排名，每个积分类型中的积分来源，请在积分规则中进行设置。</p><table class="table table-bordered integralTypeTable"><tr><td>序号</td><td>积分类型</td><td>积分来源</td><td>状态</td><td>操作</td></tr>' + integralTypetrlist + '</table>');
+                    $(".integralTypeTable tr td").each(function () {
+                        if ($(this).text() == "奖励积分") {
+                            $(".operation").eq($(this).parent().index() - 1).children().last().remove();
+                        }
+                    });
+//						//最多五条限制
+                    for (var d = 0; d < $(".operation").length; d++) {
+                        if ($(this).attr('state') == 2) {
+                            if (dataStateLength >= 5) {
+                                $(".newType").css({"background": "#ccc", "border": "none"});
+                                $(".newType").attr({"data-toggle": "", "data-target": ""});
+                                dataStateLength = 5;
+                            } else {
+                                $(".newType").css({"background": "#337ab7", "border": "1px solid #2e6da4"});
+                                $(".newType").attr({"data-toggle": "modal", "data-target": "#myModal"});
+                                dataStateLength++;
+                            }
+                        }
+                    }
+
+                    //新增类型
+                    $(".newType").on("click", function () {
+                        $(".modal-header").html('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">编辑</h5>');
+                        $(".modal-body").html('<div class="container-fluid"><div class="container col-xs-12"><div class="row"><label class="col-xs-3 labels">积分类型名称</label><div class="col-xs-5"><input type="text" class="form-control newlyBuildInput" placeholder="不超过5个字" /></div></div></div></div>');
+                        $(".modal-footer").html('<div class="buttonGroup"><button class="btn btn-primary newlyBuild">确定</button><button class="btn btn-default" aria-hidden="true" data-dismiss="modal">取消</button></div>');
+                        newBuild();
+                    })
+                    //删除
+                    $(".operation a.deletetr").on("click", function () {
+                        $(".modal-header").html('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">删除</h5>');
+                        $(".modal-body").html('<div class="container-fluid"><p>积分类型删除后，该积分类型中的计分项将不作为积分排名统计依据。确定要删除么？</p></div>');
+                        $(".modal-footer").html('<div class="buttonGroup"><button class="btn btn-primary deleteSure">确定</button><button class="btn btn-default" aria-hidden="true" data-dismiss="modal">取消</button></div>');
+                        var deleteId = $(this).parent().parent().attr("id");
+                        $(".deleteSure").attr({"aria-hidden": "true", "data-dismiss": "modal"});
+                        $(".deleteSure").on("click", function () {
+                            dataStateLength--;
+                            deleteFun(deleteId);
+//								if (data.data.length >= 5) {
+//									$(".newType").css({"background":"#ccc","border":"none"});
+//									$(".newType").attr({"data-toggle":"","data-target":""});
+//								} else{
+//									$(".newType").css({"background":"#337ab7","border":"1px solid #2e6da4"});
+//									$(".newType").attr({"data-toggle":"modal","data-target":"#myModal"});
+//								}
+                        })
+
+                    });
+                    //编辑
+                    $(".integralTypeEdit").on("click", function () {
+                        $(".modal-header").html('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">编辑</h5>');
+                        $(".modal-body").html('<div class="container-fluid"><div class="container col-xs-12"><div class="row"><label class="col-xs-3 labels">积分类型名称</label><div class="col-xs-5"><input type="text" class="form-control editInput" placeholder="不超过5个字" /></div></div></div></div>');
+                        $(".modal-footer").html('<div class="buttonGroup"><button class="btn btn-primary editbtn">确定</button><button class="btn btn-default" aria-hidden="true" data-dismiss="modal">取消</button></div>');
+                        var editId = $(this).parent().parent().attr("id");
+                        var editState = $(this).parent().attr("state");
+                        editFun(editId);
+                    });
+                    //禁用    启用
+                    $(".disableBtn").click(function () {
+                        var newCategoryName = $(this).parent().parent().children().eq(1).text();
+                        var categoryId = $(this).parent().parent().attr("id");
+                        var state = $(this).parent().attr("state");
+                        if ($(this).text() == "禁用") {
+                            $(".mask").fadeIn();
+                            $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                            $(".mask .modal-body").html("积分类型禁用后，该积分类型将不作为积分排名统计依据。确定要禁用么？");
+                            $(".mask .closeBtn").on("click", function () {
+                                $(".mask").fadeOut();
+                            })
+                            $(".mask .fadeinBtn").off("click").on("click", function () {
+                                $.ajax({
+                                    type: "post",
+                                    url: path + "/pc/ScorePartyMemberPc/updateScoreRule.action",
+                                    dataType: "json",
+                                    data: {
+                                        "newCategoryName": newCategoryName,
+                                        "categoryId": categoryId,
+                                        "state": state
+                                    },
+                                    success: function (newlyBuildData) {
+                                        typeFun();
+                                        $(".mask").fadeOut();
+                                    }
+                                });
+                                $(".mask").fadeOut();
+                            })
+                        } else {
+                            $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                            $(".mask").fadeIn();
+                            $(".mask .modal-body").html("确认启用吗？");
+                            $(".mask .closeBtn").on("click", function () {
+                                $(".mask").fadeOut();
+                            })
+                            $(".mask .fadeinBtn").off("click").on("click", function () {
+                                $.ajax({
+                                    type: "post",
+                                    url: path + "/pc/ScorePartyMemberPc/updateScoreRule.action",
+                                    dataType: "json",
+                                    data: {
+                                        "newCategoryName": newCategoryName,
+                                        "categoryId": categoryId,
+                                        "state": state
+                                    },
+                                    success: function (newlyBuildData) {
+                                        $(".mask").fadeOut();
+                                        if (newlyBuildData.success == 0) {
+                                            $(".errorAlert").fadeIn();
+                                            $(".errorAlert .modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                            $(".errorAlert .modal-body").html(newlyBuildData.message);
+                                            $(".closeBtn").on("click", function () {
+                                                $(".errorAlert").fadeOut();
+                                            })
+                                        } else {
+                                            typeFun();
+                                            $(".mask").fadeOut();
+                                        }
+                                    }
+                                });
+                            });
+
+
+                        }
+                    });
+                }
+            });
+
+        }
+
+        function newBuild() {
+            $(".newlyBuild").on("click", function () {
+                if ($(".newlyBuildInput").val().length == 0) {
+                    $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                    $(".mask").fadeIn();
+                    $(".mask .modal-body").html("请输入积分类型名称");
+                    $(".mask .closeBtn").on("click", function () {
+                        $(".mask").fadeOut();
+                    })
+//						alert("请输入积分类型名称");
+                } else if ($(".newlyBuildInput").val().length > 5) {
+                    $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                    $(".mask").fadeIn();
+                    $(".mask .modal-body").html("积分类型名称不得超过5个字");
+                    $(".mask .closeBtn").on("click", function () {
+                        $(".mask").fadeOut();
+                    })
+//						alert("积分类型名称不得超过5个字");
+                } else {
+                    var newlyBuildName = $(".newlyBuildInput").val();
+                    $(".newlyBuild").attr({"aria-hidden": "true", "data-dismiss": "modal"});
+                    $.ajax({
+                        type: "post",
+                        url: path + "/pc/ScorePartyMemberPc/insertScoreRule.action",
+                        dataType: "json",
+                        data: {
+                            "categoryName": newlyBuildName
+                        },
+                        success: function (newlyBuildData) {
+                            typeFun();
+                        }
+                    });
+                }
+            });
+        }
+
+        function editFun(editId) {
+            $(".editbtn").on("click", function () {
+                if ($(".editInput").val().length == 0) {
+                    $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                    $(".mask").fadeIn();
+                    $(".mask .modal-body").html('请输入积分类型名称');
+                    $(".mask .closeBtn").on("click", function () {
+                        $(".mask").fadeOut();
+                    })
+//						alert("请输入积分类型名称");
+                } else if ($(".editInput").val().length > 5) {
+                    $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                    $(".mask").fadeIn();
+                    $(".mask .modal-body").html('积分类型名称不得超过5个字');
+                    $(".mask .closeBtn").on("click", function () {
+                        $(".mask").fadeOut();
+                    })
+//						alert("积分类型名称不得超过5个字");
+                } else {
+                    $(".editbtn").attr({"aria-hidden": "true", "data-dismiss": "modal"});
+                    var editName = $(".editInput").val();
+                    $.ajax({
+                        type: "post",
+                        url: path + "/pc/ScorePartyMemberPc/updateScoreRule.action",
+                        dataType: "json",
+                        data: {
+                            "newCategoryName": editName,
+                            "categoryId": editId
+                        },
+                        success: function (newlyBuildData) {
+                            typeFun();
+                        }
+                    });
+                }
+            });
+        }
+
+        function deleteFun(id) {
+            $.ajax({
+                type: "post",
+                url: path + "/pc/ScorePartyMemberPc/deleteScoreRule.action",
+                dataType: "json",
+                data: {
+                    id: id
+                },
+                success: function (delectData) {
+                    typeFun();
+                }
+            });
+        }
+
+
+        //积分规则
+        $(".header a:contains('积分规则')").on("click", function () {
+            integralRule();
+        });
+
+        function integralRule() {
+            $.ajax({
+                type: "post",
+                url: path + "/pc/ScorePartyMemberPc/getFirstScoreType.action",
+                dataType: "json",
+                success: function (ruleTypeDate) {
+                    var queryTypeOption = '';
+                    for (var n = 0; n < ruleTypeDate.data.length; n++) {
+                        queryTypeOption += "<option>" + ruleTypeDate.data[n] + "</option>";
+                    }
+                    ;
+                    $(".queryType").html('<label>积分类型</label><select class="form-control" class="queryTypeOptionValue">' + queryTypeOption + '</select>');
+                    findSecondRule(ruleTypeDate);
+                }
+            });
+        }
+
+        function findSecondRule(ruleTypeDate) {
+            $.ajax({
+                type: "post",
+                url: path + "/pc/ScorePartyMemberPc/findSecondRule.action",
+                dataType: "json",
+                success: function (ruleDate) {
+                    $(".integralRuleTableBox").html("<table class='table table-bordered integralRuleTable'>" +
+                        "<tr class='title'><td>序号</td><td>积分项</td><td>所属积分类型</td><td>积分规则</td><td>状态</td><td>操作</td></tr>" +
+                        "<tr><td>1</td><td>" + ruleDate.newsName + "</td><td>" + ruleDate.newsParentName + "</td><td>每学习1分钟积<span id='span1'>" + ruleDate.newsTime + "</span>分；每日最高获得<span>" + ruleDate.newsMax + "</span>分</td><td></td><td><a href='javascript:;' data-toggle='modal' data-target='#myModal'>编辑</a><a href='javascript:;' class='ruleStateType' id='" + ruleDate.newsState + "'></a></td></tr>" +
+                        "<tr><td>2</td><td>" + ruleDate.audioName + "</td><td>" + ruleDate.audioParentName + "</td><td>每学习1分钟积<span id='span2'>" + ruleDate.audioTime + "</span>分(按照时长只积累一次)</td><td></td><td><a href='javascript:;' data-toggle='modal' data-target='#myModal'>编辑</a><a href='javascript:;' class='ruleStateType' id='" + ruleDate.audioState + "'></a></td></tr>" +
+                        "<tr><td>3</td><td>" + ruleDate.videoName + "</td><td>" + ruleDate.videoParentName + "</td><td>每学习1分钟积<span id='span3'>" + ruleDate.videoTime + "</span>分(按照时长只积累一次)</td><td></td><td><a href='javascript:;' data-toggle='modal' data-target='#myModal'>编辑</a><a href='javascript:;' class='ruleStateType' id='" + ruleDate.videoState + "'></a></td></tr>" +
+                        "<tr><td>4</td><td>" + ruleDate.gainedName + "</td><td>" + ruleDate.gainedParentName + "</td><td>每发布一篇积<span id='span4'>" + ruleDate.gainedNew + "</span>分；每删除一篇减<span>" + Math.abs(ruleDate.gainedDel) + "</span>分</td><td></td><td><a href='javascript:;' data-toggle='modal' data-target='#myModal'>编辑</a><a href='javascript:;' class='ruleStateType' id='" + ruleDate.gainedState + "'></a></td></tr>" +
+                        "<tr><td>5</td><td>" + ruleDate.groupName + "</td><td>" + ruleDate.groupParentName + "</td><td>每发布一篇积<span id='span5'>" + ruleDate.groupMessageNew + "</span>分；每删除一篇减<span>" + Math.abs(ruleDate.groupMessageDel) + "</span>分</td><td></td><td><a href='javascript:;' data-toggle='modal' data-target='#myModal'>编辑</a><a href='javascript:;' class='ruleStateType' id='" + ruleDate.groupMessageState + "'></a></td></tr>" +
+                        "<tr><td>6</td><td>" + ruleDate.commentName + "</td><td>" + ruleDate.commentParentName + "</td><td>每发布一篇积<span id='span6'>" + ruleDate.commentNew + "</span>分；每删除一篇减<span>" + Math.abs(ruleDate.commentDel) + "</span>分</td><td></td><td><a href='javascript:;' data-toggle='modal' data-target='#myModal'>编辑</a><a href='javascript:;' class='ruleStateType' id='" + ruleDate.commentState + "'></a></td></tr>" +
+                        "<tr><td>7</td><td>" + ruleDate.threeSessions + "</td><td>" + ruleDate.threeSessionsName + "</td><td>每签到一次积<span id='span7'>" + ruleDate.threeSessionsSign + "</span>分</td><td></td><td><a href='javascript:;' data-toggle='modal' data-target='#myModal'>编辑</a><a href='javascript:;' class='ruleStateType' id='" + ruleDate.threeSessionsState + "'></a></td></tr>" +
+                        "<tr><td>8</td><td>" + ruleDate.rewardName + "</td><td>" + ruleDate.rewardParentName + "</td><td>作为管理员调整积分使用，可用于党员奖惩等</td><td></td><td><a href='javascript:;' id='" + ruleDate.rewardState + "' class='ruleStateType'></a></td></tr>" +
+                        "<tr class='isHide'><td>9</td><td>" + ruleDate.dailyReadingName + "</td><td>" + ruleDate.dailyReadingParentName + "</td><td>每日阅读完成后奖励<span id='span11'>" + ruleDate.dailyReadingSign + "</span>积分，每日获取上限为<span>" + ruleDate.dailyReadingSign + "</span>积分</td><td></td><td><a href='javascript:;' data-toggle='modal' data-target='#myModal'>编辑</a><a href='javascript:;' id='" + ruleDate.dailyReadingState + "' class='ruleStateType'></a></td></tr>" +
+                        "<tr class='isHide'><td>10</td><td>" + ruleDate.dailyExaminationName + "</td><td>" + ruleDate.dailyExaminationParentName + "</td><td>每人每日<span>3</span>次答题机会，每次答题大于等于<span>70</span>分为达标，达标奖励<span id='span10'>" + ruleDate.dailyExaminationSign + "</span>积分，每日获取上限为<span>" + ruleDate.dailyExaminationSign + "</span>积分</td><td></td><td><a href='javascript:;' data-toggle='modal' data-target='#myModal'>编辑</a><a href='javascript:;' id='" + ruleDate.dailyExaminationState + "' class='ruleStateType'></a></td></tr>" +
+                        "<tr class='isHide'><td>11</td><td>" + ruleDate.sportName + "</td><td>" + ruleDate.sportParentName + "</td><td>每<span id='span8'>" + ruleDate.sportStepNumber + "</span>步奖励<span>" + ruleDate.sportScort + "</span>积分，每日上限为10分。</td><td></td><td><a href='javascript:;' data-toggle='modal' data-target='#myModal'>编辑</a><a href='javascript:;' id='" + ruleDate.sportState + "' class='ruleStateType'></a></td></tr>" +
+                        "<tr class='isHide'><td>12</td><td>" + ruleDate.sportRewardName + "</td><td>" + ruleDate.sportRewardParentName + "</td><td>每人每日运动达到<span id='span9'>10000</span>步，奖励<span>" + ruleDate.sportRewardSign + "</span>积分</td><td></td><td><a href='javascript:;' data-toggle='modal' data-target='#myModal'>编辑</a><a href='javascript:;' id='" + ruleDate.sportRewardState + "' class='ruleStateType'></a></td></tr></table>");
+                    console.log(ruleDate.tenantId)
+                    if (ruleDate.tenantId != "5031901393808015908") {
+                        $(".isHide").hide();
+                    }
+                    $.each($(".integralRuleTable a[id]"), function (index, element) {
+                        if ($(".integralRuleTable a[id]").eq(index).attr('id') == 2) {
+                            $(".integralRuleTable a[id]").eq(index).text("禁用");
+                            $(".integralRuleTable a[id]").eq(index).parent().prev().text("已启用");
+                        } else if ($(".integralRuleTable a[id]").eq(index).attr('id') == 1) {
+                            $(".integralRuleTable a[id]").eq(index).text("启用");
+                            $(".integralRuleTable a[id]").eq(index).parent().prev().text("未启用");
+                        }
+                    });
+                    //积分规则查询
+                    $(".integralRule .searchRule").on("click", function () {
+                        var queryTypeOptionValue = $(".queryType select").val();
+                        var integralTerm = $(".integralTerm").val();
+                        $(".integralRuleTableBox table tr").hide();
+                        $.each($(".integralRuleTableBox tr"), function (index) {
+                            if ($(this).children("td").eq(2).text() == queryTypeOptionValue && $(this).children("td").eq(1).text() == integralTerm) {
+
+                                $(this).show();
+                                $(".integralRuleTableBox tr:eq(0)").show();
+                            } else if ($(this).children("td").eq(2).text() == queryTypeOptionValue && integralTerm == "") {
+                                $(this).show();
+                                $(".integralRuleTableBox tr:eq(0)").show();
+                            } else if (queryTypeOptionValue == "全部" && integralTerm == "") {
+                                $(".integralRuleTableBox tr").show();
+                            } else if (queryTypeOptionValue == "全部" && $(this).children("td").eq(1).text() == integralTerm) {
+                                $(this).show();
+                                $(".integralRuleTableBox tr:eq(0)").show();
+                            } else {
+                                $(".integralRuleTableBox tr:eq(0)").show();
+                            }
+                        });
+                    });
+                    //禁用
+                    $(".integralRuleTable .ruleStateType").on("click", function (event) {
+                        var disName = $(this).parent().parent().index();
+                        var pName = $(this).parent().parent().children('td').eq(2).text();
+                        var disState = $(this).attr("id");
+                        var integralRuleTableaIndex = $(this).index();
+                        if ($(this).text() == '禁用') {
+                            $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                            $(".mask").fadeIn();
+                            $(".mask .modal-body").html("积分禁用后，积分会冻结，积分规则不再生效，积分值不会再增加或减少。确定要禁用么？");
+                            $(".mask .closeBtn").on("click", function () {
+                                $(".mask").fadeOut();
+                            })
+                            $(".fadeinBtn").off("click").on("click", function () {
+                                $.ajax({
+                                    type: "post",
+                                    url: path + "/pc/ScorePartyMemberPc/updateSecondState.action",
+                                    dataType: "json",
+                                    data: {
+                                        "name": disName,
+                                        "state": disState,
+                                        "pName": pName
+                                    },
+                                    success: function (disabledData) {
+                                        if (disabledData.success == true) {
+                                            integralRule();
+                                        } else {
+                                            $(".errorAlert").fadeIn();
+                                            $(".errorAlert .modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                            $(".errorAlert .modal-body").html(disabledData.message);
+                                            $(".closeBtn").on("click", function () {
+                                                $(".errorAlert").fadeOut();
+                                            })
+                                            $(".fadeinBtn").off("click").on("click", function () {
+                                                $(".errorAlert").fadeOut();
+                                                $(".mask").fadeOut();
+                                            })
+                                        }
+                                    }
+                                });
+                                $(".mask").fadeOut();
+                            });
+                        } else {
+                            $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                            $(".mask").fadeIn();
+                            $(".mask .modal-body").html("确认启用吗？");
+                            $(".mask .closeBtn").on("click", function () {
+                                $(".mask").fadeOut();
+                            })
+                            $(".mask .fadeinBtn").off("click").on("click", function () {
+                                $.ajax({
+                                    type: "post",
+                                    url: path + "/pc/ScorePartyMemberPc/updateSecondState.action",
+                                    dataType: "json",
+                                    data: {
+                                        "name": disName,
+                                        "state": disState,
+                                        "pName": pName
+                                    },
+                                    success: function (disabledData) {
+                                        integralRule();
+                                        $(".mask").fadeOut();
+                                    }
+                                });
+
+                            });
+                        }
+                        event.preventDefault();
+                    });
+
+                    //编辑
+                    $(".integralRuleTable td>a:contains('编辑')").on("click", function () {
+                        var integralNamefType = $(this).parent().parent().children().eq(2).text();
+                        var integralNamefText = $(this).parent().parent().children().eq(1).text();
+
+                        integralRuleTypeEite(integralNamefText, integralNamefType);
+                    });
+
+                    function integralRuleTypeEite(integralNamefText, integralNamefType) {
+                        $.ajax({
+                            type: "post",
+                            url: path + "/pc/ScorePartyMemberPc/getFirstScoreType.action",
+                            dataType: "json",
+                            success: function (integralRuleEditDate) {
+                                var integralRuleEditOption = '';
+                                for (var e = 0; e < ruleTypeDate.data.length - 1; e++) {
+                                    integralRuleEditOption += "<option>" + integralRuleEditDate.data[e] + "</option>";
+                                }
+                                ;
+                                var integralEditCon = '';
+                                $(".modal-header").html('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">编辑积分规则</h5>');
+                                $(".modal-body").html('<div class="container-fluid"><div class="warningBox col-xs-12"><div class="waringlogo col-xs-1"><i class="fa fa-warning"></div></i><div class="col-xs-11">变更积分值规则不会影响历史数据，变更所属积分将会把此积分项历史数据汇总至新的积分类型中。建议修改积分规则前向党员发布通知对修改内容进行公告。</div></div><div class="editIntegral col-xs-12"><div class="col-xs-12"><label class="col-xs-2">积分名称</label><span class="integralNamef"></span></div><div class="col-xs-12"><label class="col-xs-2">积分规则</label><div class="col-xs-10 integralRuleinp"></div></div><div><label class="col-xs-2">积分类型</label><div class="col-xs-6"><select class="form-control integralRuleTypeChange">' + integralRuleEditOption + '</select></div></div></div></div>');
+                                $(".modal-footer").html('<div class="buttonGroup"><button class="btn btn-primary sureIntegralTypebtn" aria-hidden="true" data-dismiss="modal">确定</button><button class="btn btn-default" aria-hidden="true" data-dismiss="modal">取消</button></div>');
+                                $(".integralRuleTypeChange").val(integralNamefType)
+                                $(".integralNamef").html(integralNamefText);
+                                if (integralNamefText == "新闻学习") {
+                                    $(".integralRuleinp").html('<p>每学习一分钟积<input type="text" class="form-control scorePlus" />分（请输入整数，0分为不积分）</p><p>每日新闻学习获得的最高积分为<input type="text" class="form-control scoreMax" />分（0分为不限制）</p>');
+                                    $(".integralRuleinp .scorePlus").val($('#span1').text());
+                                    $(".integralRuleinp .scoreMax").val($('#span1').next().text());
+                                    $(".sureIntegralTypebtn").off("click").on("click", function () {
+                                        var secondTypeName = $(".integralRuleTypeChange").val();
+                                        var firstTypeName = $(".integralRuleTypeChange").val();
+                                        var firstNum = $(".scorePlus").val();
+                                        var secondSum = $(".scoreMax").val();
+                                        if (firstNum == "" || secondSum == "") {
+                                            $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                            $(".mask").fadeIn();
+                                            $(".mask .modal-body").html("请将内容输入完整");
+                                            $(".mask .closeBtn").on("click", function () {
+                                                $(".mask").fadeOut();
+                                            })
+                                        } else {
+                                            editruleFun(secondTypeName, firstTypeName, firstNum, secondSum)
+                                        }
+
+                                    });
+                                } else if (integralNamefText == "音频学习") {
+                                    $(".integralRuleinp").html('<p>每学习一分钟积<input type="text" class="form-control scorePlus" />分（请输入整数，0分为不积分）</p><p>每个音频学习支持断点学习，但积分只会积累第一次完整学习的积分</p>')
+                                    $(".integralRuleinp .scorePlus").val($('#span2').text());
+                                    $(".sureIntegralTypebtn").off("click").on("click", function () {
+                                        var secondTypeName = $(".integralRuleTypeChange").val();
+                                        var firstTypeName = $(".integralRuleTypeChange").val();
+                                        var firstNum = $(".scorePlus").val();
+                                        var secondSum = "";
+                                        if (firstNum == "") {
+                                            $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                            $(".mask").fadeIn();
+                                            $(".mask .modal-body").html("请将内容输入完整");
+                                            $(".mask .closeBtn").on("click", function () {
+                                                $(".mask").fadeOut();
+                                            })
+                                        } else {
+                                            editruleFun(secondTypeName, firstTypeName, firstNum, secondSum)
+                                        }
+
+                                    });
+                                } else if (integralNamefText == "视频学习") {
+                                    $(".integralRuleinp").html('<p>每学习一分钟积<input type="text" class="form-control scorePlus" />分（请输入整数，0分为不积分）</p><p>每个视频学习支持断点学习，但积分只会积累第一次完整学习的积分</p>')
+                                    $(".integralRuleinp .scorePlus").val($('#span3').text());
+                                    $(".sureIntegralTypebtn").off("click").on("click", function () {
+                                        var secondTypeName = $(".integralRuleTypeChange").val();
+                                        var firstTypeName = $(".integralRuleTypeChange").val();
+                                        var firstNum = $(".scorePlus").val();
+                                        var secondSum = "";
+                                        if (firstNum == "") {
+                                            $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                            $(".mask").fadeIn();
+                                            $(".mask .modal-body").html("请将内容输入完整");
+                                            $(".mask .closeBtn").on("click", function () {
+                                                $(".mask").fadeOut();
+                                            })
+                                        } else {
+                                            editruleFun(secondTypeName, firstTypeName, firstNum, secondSum)
+                                        }
+
+                                    });
+                                } else if (integralNamefText == "学习心得") {
+                                    $(".integralRuleinp").html('<p>每发布一篇积<input type="text" class="form-control scorePlus" />分（请输入整数，0分为不积分）</p><p>每删除一篇减<input type="text" class="form-control scoreMax" />分（请输入整数，0分为不积分）</p>');
+                                    $(".integralRuleinp .scorePlus").val($('#span4').text());
+                                    $(".integralRuleinp .scoreMax").val(Math.abs($('#span4').next().text()));
+                                    $(".sureIntegralTypebtn").off("click").on("click", function () {
+                                        var secondTypeName = $(".integralRuleTypeChange").val();
+                                        var firstTypeName = $(".integralRuleTypeChange").val();
+                                        var firstNum = $(".scorePlus").val();
+                                        var secondSum = $(".scoreMax").val();
+                                        if (firstNum == "" || secondSum == "") {
+                                            $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                            $(".mask").fadeIn();
+                                            $(".mask .modal-body").html("请将内容输入完整");
+                                            $(".mask .closeBtn").on("click", function () {
+                                                $(".mask").fadeOut();
+                                            })
+                                        } else {
+                                            editruleFun(secondTypeName, firstTypeName, firstNum, secondSum)
+                                        }
+
+                                    });
+                                } else if (integralNamefText == "互动") {
+                                    $(".integralRuleinp").html('<p>每发布一篇积<input type="text" class="form-control scorePlus" />分（请输入整数，0分为不积分）</p><p>每删除一篇减<input type="text" class="form-control scoreMax" />分（请输入整数，0分为不积分）</p>');
+                                    $(".integralRuleinp .scorePlus").val($('#span5').text());
+                                    $(".integralRuleinp .scoreMax").val(Math.abs($('#span5').next().text()));
+                                    $(".sureIntegralTypebtn").off("click").on("click", function () {
+                                        var secondTypeName = $(".integralRuleTypeChange").val();
+                                        var firstTypeName = $(".integralRuleTypeChange").val();
+                                        var firstNum = $(".scorePlus").val();
+                                        var secondSum = $(".scoreMax").val();
+                                        if (firstNum == "" || secondSum == "") {
+                                            $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                            $(".mask").fadeIn();
+                                            $(".mask .modal-body").html("请将内容输入完整");
+                                            $(".mask .closeBtn").on("click", function () {
+                                                $(".mask").fadeOut();
+                                            })
+                                        } else {
+                                            editruleFun(secondTypeName, firstTypeName, firstNum, secondSum)
+                                        }
+
+                                    });
+                                } else if (integralNamefText == "评论") {
+                                    $(".integralRuleinp").html('<p>每发布一篇积<input type="text" class="form-control scorePlus" />分（请输入整数，0分为不积分）</p><p>每删除一篇减<input type="text" class="form-control scoreMax" />分（请输入整数，0分为不积分）</p>');
+                                    $(".integralRuleinp .scorePlus").val($('#span6').text());
+                                    $(".integralRuleinp .scoreMax").val(Math.abs($('#span6').next().text()));
+                                    $(".sureIntegralTypebtn").off("click").on("click", function () {
+                                        var secondTypeName = $(".integralRuleTypeChange").val();
+                                        var firstTypeName = $(".integralRuleTypeChange").val();
+                                        var firstNum = $(".scorePlus").val();
+                                        var secondSum = $(".scoreMax").val();
+                                        if (firstNum == "" || secondSum == "") {
+                                            $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                            $(".mask").fadeIn();
+                                            $(".mask .modal-body").html("请将内容输入完整");
+                                            $(".mask .closeBtn").on("click", function () {
+                                                $(".mask").fadeOut();
+                                            })
+                                        } else {
+                                            editruleFun(secondTypeName, firstTypeName, firstNum, secondSum)
+                                        }
+
+                                    });
+                                } else if (integralNamefText == "三会一课") {
+                                    $(".integralRuleinp").html('<p>每签到一次积<input type="text" class="form-control scorePlus" />分（请输入整数，0分为不积分）</p>');
+                                    $(".integralRuleinp .scorePlus").val($('#span7').text());
+                                    $(".sureIntegralTypebtn").off("click").on("click", function () {
+                                        var secondTypeName = $(".integralRuleTypeChange").val();
+                                        var firstTypeName = $(".integralRuleTypeChange").val();
+                                        var firstNum = $(".scorePlus").val();
+                                        var secondSum = "";
+                                        if (firstNum == "") {
+                                            $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                            $(".mask").fadeIn();
+                                            $(".mask .modal-body").html("请将内容输入完整");
+                                            $(".mask .closeBtn").on("click", function () {
+                                                $(".mask").fadeOut();
+                                            })
+                                        } else {
+                                            editruleFun(secondTypeName, firstTypeName, firstNum, secondSum)
+                                        }
+
+                                    });
+                                } else if (integralNamefText == "奖励") {
+                                    $(".integralRuleinp").html('')
+                                } else if (integralNamefText == "运动积分") {
+                                    $(".integralRuleinp").html('<p>每<input type="text" class="form-control scorePlus" />步奖励<input type="text" class="form-control scoreMax" />分（请输入整数，0分为不积分）</p>');
+                                    $(".integralRuleinp .scorePlus").val($('#span8').text());
+                                    $(".integralRuleinp .scoreMax").val(Math.abs($('#span8').next().text()));
+                                    $(".sureIntegralTypebtn").off("click").on("click", function () {
+                                        var secondTypeName = $(".integralRuleTypeChange").val();
+                                        var firstTypeName = $(".integralRuleTypeChange").val();
+                                        var firstNum = $(".scorePlus").val();
+                                        var secondSum = $(".scoreMax").val();
+                                        if (firstNum == "" || secondSum == "") {
+                                            $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                            $(".mask").fadeIn();
+                                            $(".mask .modal-body").html("请将内容输入完整");
+                                            $(".mask .closeBtn").on("click", function () {
+                                                $(".mask").fadeOut();
+                                            })
+                                        } else {
+                                            editruleFun(secondTypeName, firstTypeName, firstNum, secondSum)
+                                        }
+
+                                    });
+                                } else if (integralNamefText == "运动达标奖励积分") {
+                                    $(".integralRuleinp").html('<p>每人每日运动达到' + $('#span9').text() + '步，奖励<input type="text" class="form-control scorePlus" />分（每日达标可获得积分，只限第一次）</p>');
+                                    $(".integralRuleinp .scorePlus").val(Math.abs($('#span9').next().text()));
+                                    $(".sureIntegralTypebtn").off("click").on("click", function () {
+                                        var secondTypeName = $(".integralRuleTypeChange").val();
+                                        var firstTypeName = $(".integralRuleTypeChange").val();
+                                        var firstNum = $(".scorePlus").val();
+                                        var secondSum = "";
+                                        if (firstNum == "") {
+                                            $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                            $(".mask").fadeIn();
+                                            $(".mask .modal-body").html("请将内容输入完整");
+                                            $(".mask .closeBtn").on("click", function () {
+                                                $(".mask").fadeOut();
+                                            })
+                                        } else {
+                                            editruleFun(secondTypeName, firstTypeName, firstNum, secondSum)
+                                        }
+
+                                    });
+                                } else if (integralNamefText == "每日考试") {
+                                    $(".integralRuleinp").html('<p>每日考试达标奖励<input type="text" class="form-control scorePlus" />分（每日考试只会记录第一次分数达标的积分）</p>');
+                                    $(".integralRuleinp .scorePlus").val($('#span10').text());
+                                    $(".sureIntegralTypebtn").off("click").on("click", function () {
+                                        var secondTypeName = $(".integralRuleTypeChange").val();
+                                        var firstTypeName = $(".integralRuleTypeChange").val();
+                                        var firstNum = $(".scorePlus").val();
+                                        var secondSum = "";
+                                        if (firstNum == "") {
+                                            $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                            $(".mask").fadeIn();
+                                            $(".mask .modal-body").html("请将内容输入完整");
+                                            $(".mask .closeBtn").on("click", function () {
+                                                $(".mask").fadeOut();
+                                            })
+                                        } else {
+                                            editruleFun(secondTypeName, firstTypeName, firstNum, secondSum)
+                                        }
+
+                                    });
+                                } else if (integralNamefText == "每日阅读") {
+                                    $(".integralRuleinp").html('<p>每日阅读完成后奖励<input type="text" class="form-control scorePlus" />分（每日阅读支持重复阅读，但只有第一次会积累积分）</p>');
+                                    $(".integralRuleinp .scorePlus").val($('#span11').text());
+                                    $(".sureIntegralTypebtn").off("click").on("click", function () {
+                                        var secondTypeName = $(".integralRuleTypeChange").val();
+                                        var firstTypeName = $(".integralRuleTypeChange").val();
+                                        var firstNum = $(".scorePlus").val();
+                                        var secondSum = "";
+                                        if (firstNum == "") {
+                                            $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                            $(".mask").fadeIn();
+                                            $(".mask .modal-body").html("请将内容输入完整");
+                                            $(".mask .closeBtn").on("click", function () {
+                                                $(".mask").fadeOut();
+                                            })
+                                        } else {
+                                            editruleFun(secondTypeName, firstTypeName, firstNum, secondSum)
+                                        }
+
+                                    });
+                                }
+                                //确定
+//											$(".sureIntegralTypebtn").on("click",function(){
+//												var firstTypeName = $(".integralRuleTypeChange").val();
+//												var firstNum = $(".integralRuleinp input:first").val();
+//												var secondSum = $(".integralRuleinp input:last").val();
+//												if (firstNum == "" || secondSum == "") {
+//													alert("请将内容输入完整");
+//												} else{
+//													$(".sureIntegralTypebtn").attr({"aria-hidden":"true","data-dismiss":"modal"});
+//													sureIntegralTypeFun(firstTypeName,integralNamefText,firstNum,secondSum);
+//												}
+//												
+//											});
+
+                                function editruleFun(secondTypeName, firstTypeName, firstNum, secondSum) {
+                                    $.ajax({
+                                        type: "post",
+                                        url: path + "/pc/ScorePartyMemberPc/isTransfer.action",
+                                        dataType: "json",
+                                        data: {
+                                            "FirstName": integralNamefText,
+                                            "secondTypeName": secondTypeName
+                                        },
+                                        success: function (integralRuleTypeChangeDate) {
+                                            if (integralRuleTypeChangeDate.success == 0) {
+                                                $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                                $(".mask").fadeIn();
+                                                $(".mask .modal-body").html("已选择的积分类型与原积分类型不同，是否确认更改积分类型？");
+                                                $(".mask .closeBtn").on("click", function () {
+                                                    $(".mask").fadeOut();
+                                                })
+                                                $(".mask button:contains('确定')").off("click").on("click", function () {
+                                                    if ($(this).text() == "确定") {
+                                                        $.ajax({
+                                                            type: "post",
+                                                            url: path + "/pc/ScorePartyMemberPc/determinationTransfer.action",
+                                                            dataType: "json",
+                                                            data: {
+                                                                "FirstName": integralNamefText,
+                                                                "secondTypeName": secondTypeName
+                                                            },
+                                                            success: function (determinationTransferData) {
+                                                                sureIntegralTypeFun(firstTypeName, integralNamefText, firstNum, secondSum);
+                                                            }
+                                                        });
+                                                    } else {
+
+                                                    }
+                                                    $(".mask").fadeOut();
+
+                                                });
+                                            } else {
+                                                sureIntegralTypeFun(firstTypeName, integralNamefText, firstNum, secondSum);
+                                            }
+                                        }
+                                    });
+                                }
+
+                                function sureIntegralTypeFun(firstTypeName, integralNamefText, firstNum, secondSum) {
+                                    $.ajax({
+                                        type: "post",
+                                        url: path + "/pc/ScorePartyMemberPc/editSecondType.action",
+                                        dataType: "json",
+                                        data: {
+                                            "firstTypeName": firstTypeName,
+                                            "secondTypeName": integralNamefText,
+                                            "firstNum": firstNum,
+                                            "secondSum": secondSum
+                                        },
+                                        success: function (editSecondTypeData) {
+                                            if (editSecondTypeData.success == true) {
+                                                findSecondRule(ruleTypeDate);
+                                            } else {
+                                                $(".mask").fadeIn();
+                                                $(".mask .modal-body").text(editSecondTypeData.message);
+                                                $(".mask .closeBtn,.mask .fadeinBtn,.mask fadeoutBtn").off("click").on("click", function () {
+                                                    $(".mask").fadeOut();
+                                                })
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        });
+
+                    }
+                }
+            });
+        }
+
+        //隐藏弹窗
+        $(".fadeinBtn,.fadeoutBtn").on("click", function () {
+            $(".mask").fadeOut();
+            $(".errorAlert").fadeOut();
+        })
+
+
+    }
+
+
+</script>
+</html>

@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>查看题目</title>
+	<link rel="stylesheet" type="text/css" href="css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="css/question_bank.css"/>
+	<link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
+	<style type="text/css">
+		input[type=file]{
+			display: none;
+		}
+		.tableBox tr>td:first-of-type{width: 600px;}
+		.tableBox tr>td:first-of-type p{
+			text-align: left;
+			max-width: 600px;
+			overflow: hidden;
+	        white-space: nowrap;
+	        text-overflow: ellipsis;
+		}
+		.navfooter{
+			text-align: center;
+		}
+		.loadingBox{
+			position: fixed;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 999;
+			background: rgba(0,0,0,0.5);
+			display: none;
+		}
+		.loadingBox img{
+			margin: auto;
+			width: 40px;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+		}
+		.prompt{
+			z-index: 9999;
+		}
+		.deleteicon{
+			cursor: pointer;
+			cursor: hand;
+		}
+	</style>
+</head>
+<body>
+	<div class="header">
+		<header class="container-fluid">
+			<div class="row">
+				<div class="col-xs-3">
+					<a href="javascript:history.go(-1);" style="color: #333;"><i class="fa fa-angle-double-left"></i>返回</a>
+					<h4 style="display: inline-block;" class="queryNmae">十九大三中全会</h4>
+				</div>
+				<div class="col-xs-2 col-xs-offset-7 text-right">
+					<button type="0" class="btn btn-primary newBuildClassification" data-toggle="modal" data-target="#myModal">添加题目</button>
+				</div>
+			</div>
+		</header>
+	</div>
+	<article class="container-fluid">
+		<div class="row content_header">
+			<div class="form-inline">
+				<div class="form-group">
+					<a href="javascript:;"style="font-weight: bolder;" class="importSubject">批量导入题目</a>
+				</div>
+				<div class="form-group selectBox" style="min-width: 200px;">
+					<label class="col-xs-5" style="min-width: 80px;">题目类型：</label>
+					<div class="col-xs-7">
+						<select class="selectlist form-control">
+							<option>全部</option>
+							<option>单选题</option>
+							<option>多选题</option>
+							<option>填空题</option>
+							<option>判断题</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-4 text-right" style="min-width: 80px;">题目名称：</label>
+					<div class="col-xs-8">
+						<input type="text" class="form-control titleSearch" placeholder="请输入题目名称" />
+					</div>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-primary query" style="margin-top: -3px;">查询</button>
+				</div>
+			</div>
+		</div>
+		<div class="row tableBox">
+			
+		</div>
+		<div class="navfooter">
+				
+		</div>
+	</article>
+	<div class="modal promptdelete" aria-hidden="true" data-backdrop="static">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close"><span aria-hidden="true" data-backdrop="static">&times;</span></button>
+    				<h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+	            </div>
+	            <div class="modal-body">
+	            	<div class="row deleteText">
+	            		
+	            	</div>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-primary deleteSure">确定</button>
+	                <button class="btn btn-default cancelDelete">取消</button>
+	            </div>
+	        </div><!-- /.modal-content -->
+	    </div><!-- /.modal -->
+	</div>
+	<div class="modal importSubjectAlert" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+    				<h5 class="modal-title">批量导入</h5>
+	            </div>
+	            <div class="modal-body">
+	            	<div class="row alertContentBox" style="padding: 0 20px;">
+	            		<div class="alertContent">
+	            			<p>第一步：点击“<span>下载模板</span>”下载模板文件；</p>
+	            			<p>第二步：在下载的模板文件内<span>按照规范</span>填写好题目信息；</p>
+	            			<p>第三步：点击“<span>选择文件</span>”检维护好的文件导入；</p>
+	            			<p>第四步：点击“<span>校验</span>”进行数据校验（文件只支持xls和xlsx格式），成功后即可导入信息。</p>
+	            		</div>
+	            		<div class="col-xs-12 text-center">
+	            			<div class="importBtnBox">
+	            				<a href="" style="color: white;"><button class="btn btn-primary">下载模板文件</button></a>
+	            			</div>
+	            		</div>
+	            		<div class="col-xs-12 text-center xzjy">
+	            			<button class="btn btn-primary" id="selectFile">选择文件</button>
+	            			<button class="btn btn-primary verification">校验</button>
+	            		</div>
+	            	</div>
+	            </div>
+	            <div class="modal-footer">
+	                <button class="btn btn-primary importBtn" id="importBtn" style="background: #DEDEDE;color: white;">导入</button>
+	                <button class="btn btn-default cancelBtn">取消</button>
+	            </div>
+	        </div><!-- /.modal-content -->
+	    </div><!-- /.modal -->
+	</div>
+	<div class="modal prompt" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+    				<h4 class="modal-title">提示</h4>
+	            </div>
+	            <div class="modal-body">
+	            	<div class="row promptText">
+	            		
+	            	</div>
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-primary promptSure">确定</button>
+	            </div>
+	        </div><!-- /.modal-content -->
+	    </div><!-- /.modal -->
+	</div>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        				<h5 class="modal-title" id="gridSystemModalLabel">新建题目</h5>
+		            </div>
+		            <div class="modal-body">
+		            	<div class="row">
+		            		<div class="col-xs-10 col-xs-offset-1 questionTypeTab">
+		            			<label><span class="required">*</span>题目类型：</label>
+			            		<label class="radio-inline">
+								  	<input type="radio" checked="" name="inlineRadioOptions" id="inlineRadio1" checked value="option1"><span>单选题</span>
+								</label>
+								<label class="radio-inline">
+								  	<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"><span>多选题</span>
+								</label>
+								<label class="radio-inline">
+								  	<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"><span>填空题</span>
+								</label>
+								<label class="radio-inline">
+								  	<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"><span>判断题</span>
+								</label>
+		            		</div>
+		            	</div>
+		            	<div class="row">
+		            		<div class="col-xs-10 col-xs-offset-1">
+		            			<label class="col-xs-2"><span class="required">*</span>题目名称：</label>
+			            		<div class="col-xs-10">
+	            					<textarea class="form-control classificationBuild" rows="3" placeholder="请输入题目名称（最多可输入200字）"></textarea>
+	            				</div>
+		            		</div>
+		            	</div>
+		            	<div class="optionTab">
+		            		<div class="row">
+			            		<label class="col-xs-6 col-xs-offset-1"><span class="required">*</span>选项类型：<small style="color: #999;">（选择类型内最少填写两个选择项）</small></label>
+			            		<div class="form-horizontal col-xs-12">
+			            			<div class="form-group col-xs-12">
+									    <label for="inputPassword" class="col-xs-2 col-xs-offset-1 text-right"><span class="required">*</span>A</label>
+									    <div class="col-xs-8">
+									      <input type="text" class="form-control">
+									    </div>
+									</div>
+									<div class="form-group col-xs-12">
+									    <label for="inputPassword" class="col-xs-2 col-xs-offset-1 text-right"><span class="required">*</span>B</label>
+									    <div class="col-xs-8">
+									      <input type="text" class="form-control">
+									    </div>
+									</div>
+			            		</div>
+			            		<div class="col-xs-12">
+								    <a href="javascript:;" class="col-xs-3 col-xs-offset-3 addoption">添加选项+</a>
+								</div>
+			            	</div>
+			            	<div class="row">
+			            		<div class="col-xs-10 col-xs-offset-1">
+			            			<label class="col-xs-2"><span class="required">*</span>题目答案：</label>
+				            		<div class="col-xs-10 radiocon">
+				            			<label class="radio-inline">
+										  	<input type="radio" id="inlinecheckbox1" class="boxselection" name="rsdioinp"> A
+										</label>
+										<label class="radio-inline">
+										  	<input type="radio" id="inlinecheckbox2" class="boxselection" name="rsdioinp"> B
+										</label>
+				            		</div>
+			            		</div>
+			            	</div>
+		            	</div>
+		            	<div class="optionTab">
+			            	<div class="row">
+			            		<label class="col-xs-6 col-xs-offset-1"><span class="required">*</span>选项类型：<small style="color: #999;">（选择类型内最少填写两个选择项）</small></label>
+			            		<div class="form-horizontal col-xs-12">
+			            			<div class="form-group col-xs-12">
+									    <label for="inputPassword" class="col-xs-2 col-xs-offset-1 text-right"><span class="required">*</span>A</label>
+									    <div class="col-xs-8">
+									      <input type="text" class="form-control">
+									    </div>
+									</div>
+									<div class="form-group col-xs-12">
+									    <label for="inputPassword" class="col-xs-2 col-xs-offset-1 text-right"><span class="required">*</span>B</label>
+									    <div class="col-xs-8">
+									      <input type="text" class="form-control">
+									    </div>
+									</div>
+			            		</div>
+			            		<div class="col-xs-12">
+								    <a href="javascript:;" class="col-xs-3 col-xs-offset-3 addoption">添加选项+</a>
+								</div>
+			            	</div>
+			            	<div class="row">
+			            		<div class="col-xs-10 col-xs-offset-1">
+			            			<label class="col-xs-2"><span class="required">*</span>题目答案：</label>
+				            		<div class="checkboxcon col-xs-10">
+				            			<label class="checkbox-inline">
+										  	<input type="checkbox" id="inlinecheckbox1" class="boxselection"> A
+										</label>
+										<label class="checkbox-inline">
+										  	<input type="checkbox" id="inlinecheckbox2" class="boxselection"> B
+										</label>
+										<label class="checkbox-inline">
+										  	<input type="checkbox" id="inlinecheckbox3" class="boxselection"> C
+										</label>
+										<label class="checkbox-inline">
+										  	<input type="checkbox" id="inlinecheckbox4" class="boxselection"> D
+										</label>
+				            		</div>
+			            		</div>
+			            	</div>
+		            	</div>
+		            	<div class="optionTab">
+			            	<div class="row">
+			            		<div class="col-xs-10 col-xs-offset-1">
+			            			<label class="col-xs-2"><span class="required">*</span>题目答案：</label>
+				            		<div class="col-xs-10">
+		            					<textarea class="form-control answerText" rows="3" placeholder="请输入题目答案（最多可输入200字）"></textarea>
+		            				</div>
+			            		</div>
+			            	</div>
+		            	</div>
+		            	<div class="optionTab">
+			            	<div class="row">
+			            		<div class="col-xs-10 col-xs-offset-1 answerQuestion">
+			            			<label><span class="required">*</span>选项类型：</label>
+				            		<label class="radio-inline">
+									  	<input type="radio" name="toggleradio" id="inlinecheckbox1" class="boxselection"> 对
+									</label>
+									<label class="radio-inline">
+									  	<input type="radio" name="toggleradio" id="inlinecheckbox2" class="boxselection"> 错
+									</label>
+			            		</div>
+			            	</div>
+		            	</div>
+		            	<div class="row">
+		            		<div class="col-xs-10 col-xs-offset-1">
+		            			<label class="col-xs-2 text-center">题目解析：</label>
+			            		<div class="col-xs-10">
+	            					<textarea class="form-control classificationBuild" rows="3" placeholder="请输入题目解析（最多可输入2000字）"></textarea>
+	            				</div>
+		            		</div>
+		            	</div>
+		           </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-primary preservation">保存</button>
+        				<button type="button" class="btn btn-default cancel" data-dismiss="modal">取消</button>
+		            </div>
+		        </div><!-- /.modal-content -->
+		        
+		    </div><!-- /.modal -->
+		</div>
+		<div class="loadingBox">
+			<img src="img/importloading.gif"/>
+		</div>
+</body>
+<script type="text/javascript" src="../../r/wx/common/pathimage"></script>
+<script src="js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/bootstrap-paginator.js"></script>
+<script src="layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+$(function(){
+	function getQueryString(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null)
+			return decodeURI(r[2]);
+			return null;
+	}
+	//获取地址栏参数
+	function GetQueryString(name){
+	    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	    var r = window.location.search.substr(1).match(reg);
+	    if(r!=null)return  decodeURI(r[2]); return null;
+	};
+	$(".queryNmae").text(GetQueryString("name"));
+	var bankId = GetQueryString("id");
+	
+	//批量导入题目
+	$(".importSubject").on("click",function(){
+		$(".xzjy").show();
+		$(".importBtnBox").show();
+		$(".importSubjectAlert").show();
+	})
+	$("a:contains('下载模板文件')").attr("href",_ctxPath+"pc/impAllExamPc/download.action?type=1");
+	layui.use('upload', function(){
+		var upload = layui.upload; //得到 upload 对象
+	  	upload.render({
+		    elem: '#selectFile',
+		    url: _ctxPath+'pc/impAllExamPc/vifExcel.action',
+		    auto: false,
+		    field: "file",
+		    data:{
+		    	bankId:bankId
+		    },
+		    accept: 'file',
+		    ext: 'xls|xlsx',
+		    bindAction: '.verification',
+		    done: function(res){
+		    	if (res.success != 0) {
+		    		$(".xzjy").hide();
+		    		$(".importBtnBox").hide();
+		    		$(".prompt").show();
+			    	$(".promptText").text("校验成功！");
+			    	$(".promptSure,.prompt .close").off("click").on("click",function(){
+			    		$(".prompt").hide();
+			    		importFun();
+			    	})
+		    	} else{
+		    		$(".prompt").show();
+			    	$(".promptText").text(res.message);
+			    	$(".promptSure,.prompt .close").off("click").on("click",function(){
+			    		$(".prompt").hide();
+			    	})
+		    	}
+		    },
+		    error: function(){
+		    	$(".prompt").show();
+		    	$(".promptText").text("校验失败！");
+		    	$(".promptSure,.prompt .close").off("click").on("click",function(){
+		    		$(".prompt").hide();
+		    	});
+		    }
+		});
+	});
+	function importFun(){
+		$("#importBtn").attr("style","color: #fff;")
+		$("#importBtn").off("click").on("click",function(){
+			$(".loadingBox").show();
+			$.ajax({
+				type:"get",
+				url:_ctxPath+"pc/impAllExamPc/impExcel.action",
+				dataType:"json",
+				data:{
+					bankId:bankId
+				},
+				success:function(importData){
+					$(".importSubjectAlert").hide();
+					$(".loadingBox").hide();
+					if (importData.success == true) {
+						seeSubject(page);
+					} else{
+						$(".prompt").show();
+				    	$(".promptText").text(importData.message);
+				    	$(".promptSure,.prompt .close").off("click").on("click",function(){
+				    		$(".prompt").hide();
+				    	})
+					}
+				}
+			});
+		})
+	}
+	//切换题目类型
+	$(".optionTab").eq(0).show();
+	$(".questionTypeTab .radio-inline").off("click").on("click",function(){
+		$(".optionTab").eq($(this).index()-1).show().siblings('.optionTab').hide();
+		$(".classificationBuild").val("");
+		newaddFun($(this).index());
+	});
+	$(".importSubjectAlert .close,.cancelBtn").on("click",function(){
+		$(".importSubjectAlert").hide();
+	})
+	$("button.newBuildClassification").on("click",function(){
+		$("#myModal #gridSystemModalLabel").text("添加题目");
+		$(".optionTab *").val("");
+		$(".optionTab:eq(0)").show().siblings('.optionTab').hide();
+		$(".questionTypeTab").html('<label><span class="required">*</span>题目类型：</label><label class="radio-inline"><input type="radio" checked="" name="inlineRadioOptions" id="inlineRadio1" checked value="option1"><span>单选题</span></label><label class="radio-inline"><input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"><span>多选题</span></label><label class="radio-inline"><input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"><span>填空题</span></label><label class="radio-inline"><input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"><span>判断题</span></label>');
+		$(".questionTypeTab .radio-inline").off("click").on("click",function(){
+			$(".optionTab").eq($(this).index()-1).show().siblings('.optionTab').hide();
+			$(".classificationBuild").val("");
+			newaddFun($(this).index());
+		});
+		editAddFun();
+		newaddFun(1);
+	});
+	function editAddFun(){
+		$(".classificationBuild").val("");
+		$(".form-horizontal").eq(1).html('<div class="form-group col-xs-12"><label for="inputPassword" class="col-xs-2 col-xs-offset-1 text-right"><span class="required">*</span>A</label><div class="col-xs-8"><input type="text" class="form-control"></div></div><div class="form-group col-xs-12"><label for="inputPassword" class="col-xs-2 col-xs-offset-1 text-right"><span class="required">*</span>B</label><div class="col-xs-8"><input type="text" class="form-control"></div></div>');
+		$(".form-horizontal").eq(0).html('<div class="form-group col-xs-12"><label for="inputPassword" class="col-xs-2 col-xs-offset-1 text-right"><span class="required">*</span>A</label><div class="col-xs-8"><input type="text" class="form-control"></div></div><div class="form-group col-xs-12"><label for="inputPassword" class="col-xs-2 col-xs-offset-1 text-right"><span class="required">*</span>B</label><div class="col-xs-8"><input type="text" class="form-control"></div></div>');
+		$(".checkboxcon").html('<label class="checkbox-inline"><input type="checkbox" id="inlinecheckbox1" class="boxselection"> A</label><label class="checkbox-inline"><input type="checkbox" id="inlinecheckbox2" class="boxselection"> B</label>');
+		$(".radiocon").html('<label class="radio-inline"><input type="radio" id="inlinecheckbox1" class="boxselection"> A</label><label class="radio-inline"><input type="radio" id="inlinecheckbox2" class="boxselection"> B</label>');
+		$(".optionTab:eq(1) .addoption").show();
+		$(".optionTab:eq(0) .addoption").show();
+		$(".optionTab:eq(0) .addoption").off("click").on("click",function(){
+			$(".form-horizontal").eq(0).append('<div class="form-group col-xs-12"><label for="inputPassword" class="col-xs-2 col-xs-offset-1 text-right"></label><div class="col-xs-8"><input type="text" class="form-control"></div><div class="deleteicon col-xs-1">×</div></div>');
+			$(".radiocon").append('<label class="radio-inline"><input type="radio" class="boxselection"> C</label>');
+			sortradioFun();
+			$(".optionTab:eq(0) .deleteicon").off("click").on("click",function(){
+				var index = $(this).parent().index();
+				$(this).parent().remove();
+				$(".radiocon>label").eq(index).remove();
+				sortradioFun();
+				$(".optionTab:eq(0) .addoption").show();
+			});
+			if ($(".optionTab:eq(0) .form-group").length >= 6) {
+				$(".optionTab:eq(0) .addoption").hide();
+			} else{
+				$(".optionTab:eq(0) .addoption").show();
+			}
+		});
+		$(".optionTab:eq(1) .addoption").off("click").on("click",function(){
+			$(".form-horizontal").eq(1).append('<div class="form-group col-xs-12"><label for="inputPassword" class="col-xs-2 col-xs-offset-1 text-right"></label><div class="col-xs-8"><input type="text" class="form-control"></div><div class="deleteicon col-xs-1">×</div></div>');
+			$(".checkboxcon").append('<label class="checkbox-inline"><input type="checkbox" class="boxselection"> E</label>');
+			sortFun();
+			$(".optionTab:eq(1) .deleteicon").off("click").on("click",function(){
+				var index = $(this).parent().index();
+				$(this).parent().remove();
+				$(".checkboxcon>label").eq(index).remove();
+				sortFun();
+				$(".optionTab:eq(1) .addoption").show();
+			});
+			if ($(".optionTab:eq(1) .form-group").length >= 6) {
+				$(".optionTab:eq(1) .addoption").hide();
+			} else{
+				$(".optionTab:eq(1) .addoption").show();
+			}
+		});
+		$(".optionTab:eq(1) .deleteicon").off("click").on("click",function(){
+			var index = $(this).parent().index();
+			$(this).parent().remove();
+			$(".checkboxcon>label").eq(index).remove();
+			sortFun();
+			$(".optionTab:eq(1) .addoption").show();
+		});
+		$(".optionTab:eq(0) .deleteicon").off("click").on("click",function(){
+			var index = $(this).parent().index();
+			$(this).parent().remove();
+			$(".radiocon>label").eq(index).remove();
+			sortradioFun();
+			$(".optionTab:eq(0) .addoption").show();
+		});
+	}
+	function sortFun(){
+		var aortarr = ["A","B","C","D","E","F"];
+		for(var x = 0;x<$(".form-horizontal:eq(1) .form-group").length;x++){
+			$(".form-horizontal:eq(1) .form-group").eq(x).children("label").text(aortarr[x]);
+			$(".checkboxcon label").eq(x).html('<input type="checkbox" class="boxselection">'+aortarr[x]);
+		}
+		$(".form-horizontal:eq(1) .form-group").eq(0).children("label").html('<span class="required">*</span>A');
+		$(".form-horizontal:eq(1) .form-group:eq(0) .deleteicon").remove();
+		$(".form-horizontal:eq(1) .form-group").eq(1).children("label").html('<span class="required">*</span>B');
+		$(".form-horizontal:eq(1) .form-group:eq(1) .deleteicon").remove();
+	}
+	function sortradioFun(){
+		var aortarr = ["A","B","C","D","E","F"];
+		for(var x = 0;x<$(".form-horizontal:eq(0) .form-group").length;x++){
+			$(".form-horizontal:eq(0) .form-group").eq(x).children("label").text(aortarr[x]);
+			$(".radiocon label").eq(x).html('<input type="radio" class="boxselection">'+aortarr[x]);
+		}
+		$(".form-horizontal:eq(0) .form-group").eq(0).children("label").html('<span class="required">*</span>A');
+		$(".form-horizontal:eq(0) .form-group").eq(1).children("label").html('<span class="required">*</span>B');
+		$(".form-horizontal:eq(0) .form-group:eq(0) .deleteicon").remove();
+		$(".form-horizontal:eq(0) .form-group:eq(1) .deleteicon").remove();
+	}
+	//新增题目
+	function newaddFun(type,editType,id){
+		$(".preservation").off("click").on("click",function(){
+			var bankId = GetQueryString("id");
+			var classificationBuild = $(".classificationBuild").eq(0).val();
+			var ksysarr = [];
+			$.each($(".optionTab:eq("+(type-1)+") .boxselection"), function(index) {
+				if($(this).is(":checked")){
+					ksysarr.push(index+1);
+				}
+			});
+			var keys = ksysarr.join(";");
+			if(type == 3){
+				keys = $(".answerText").val();
+			}
+			var maps={};
+			var mapsLength = 0;
+			$.each($(".optionTab:eq("+(type-1)+") .form-group"), function(index) {
+				maps[index+1]=$(".optionTab:eq("+(type-1)+") .form-group:eq("+index+") input").val();
+			});
+			var analysis = $(".classificationBuild:last").val();
+			var mapsLengthArr = [];
+			$.each(maps, function(key,value) {
+				if (value != "") {
+					mapsLengthArr.push(value);
+				}
+			});
+			console.log($(".form-horizontal:eq(1) input").val());
+			var judgea,judgeb;
+			$.each($(".form-horizontal:eq(0) input"), function() {
+				if ($(this).val() == "") {
+					judgea = false;
+				}
+			});
+			$.each($(".form-horizontal:eq(1) input"), function() {
+				if ($(this).val() == "") {
+					judgeb = false;
+				}
+			});
+			if ($(".classificationBuild").val() == "") {
+				$(".prompt").show();
+		    	$(".promptText").text("请填写题目名称。");
+		    	$(".promptSure,.prompt .close").off("click").on("click",function(){
+		    		$(".prompt").hide();
+		    	})
+			} else if ($(".classificationBuild").val().length>200) {
+				$(".prompt").show();
+		    	$(".promptText").text("题目名称最多可填写两百字。");
+		    	$(".promptSure,.prompt .close").off("click").on("click",function(){
+		    		$(".prompt").hide();
+		    	})
+			} else if (type==1&&judgea == false) {
+				$(".prompt").show();
+		    	$(".promptText").text("题目答案不可为空。");
+		    	$(".promptSure,.prompt .close").off("click").on("click",function(){
+		    		$(".prompt").hide();
+		    	})
+			} else if (type==2&&judgeb == false) {
+				$(".prompt").show();
+		    	$(".promptText").text("题目答案不可为空。");
+		    	$(".promptSure,.prompt .close").off("click").on("click",function(){
+		    		$(".prompt").hide();
+		    	})
+			} else if (mapsLengthArr.length < 2&&(type == 1||type == 2)) {
+				$(".prompt").show();
+		    	$(".promptText").text("选择题选项最少填写两项,请确保内容完整。");
+		    	$(".promptSure,.prompt .close").off("click").on("click",function(){
+		    		$(".prompt").hide();
+		    	})
+			} else if(keys == "") {
+				$(".prompt").show();
+		    	$(".promptText").text("选择题目的答案。");
+		    	$(".promptSure,.prompt .close").off("click").on("click",function(){
+		    		$(".prompt").hide();
+		    	})
+			} else{
+				if (editType == 1) {
+					$.ajax({
+						type:"get",
+						url:_ctxPath+"pc/examQuestionsPc/saveExamQuestions.action",
+						dataType:"json",
+						data:{
+							bankId:bankId,
+							type:type,
+							title:classificationBuild,
+							keys:keys,
+							maps:JSON.stringify(maps),
+							analysis:analysis,
+							_id:id
+						},
+						success:function(editData){
+							if (editData.success == true) {
+								seeSubject(page);
+								$(".modal-backdrop,#myModal").hide();
+							} else{
+								$(".prompt").show();
+						    	$(".promptText").text(editData.message);
+						    	$(".promptSure,.prompt .close").off("click").on("click",function(){
+						    		$(".prompt").hide();
+						    	})
+							}
+						}
+					});
+				} else{
+					$.ajax({
+						type:"get",
+						url:_ctxPath+"pc/examQuestionsPc/saveExamQuestions.action",
+						dataType:"json",
+						data:{
+							bankId:bankId,
+							type:type,
+							title:classificationBuild,
+							keys:keys,
+							maps:JSON.stringify(maps),
+							analysis:analysis
+						},
+						success:function(editDatas){
+							if (editDatas.success == true) {
+								seeSubject(page);
+								$(".modal-backdrop,#myModal").hide();
+							} else{
+								$(".prompt").show();
+						    	$(".promptText").text(editDatas.message);
+						    	$(".promptSure,.prompt .close").off("click").on("click",function(){
+						    		$(".prompt").hide();
+						    	})
+							}
+						}
+					});
+				}
+			}
+		})
+	}
+	//查询
+	$(".query").on("click",function(){
+		page = 0;
+		searchFun(page);
+	})
+	function searchFun(page){
+		var bankId = GetQueryString("id");
+		var queryType;
+		if ($(".selectlist").val() == "单选题") {
+			queryType = 1;
+		} else if ($(".selectlist").val() == "多选题") {
+			queryType = 2;
+		} else if ($(".selectlist").val() == "填空题") {
+			queryType = 3;
+		} else if ($(".selectlist").val() == "判断题") {
+			queryType = 4;
+		} else if ($(".selectlist").val() == "全部") {
+			queryType = "";
+		}
+		var queryName = $(".titleSearch").val();
+		$.ajax({
+			type:"get",
+			url:_ctxPath+"pc/examQuestionsPc/findAllExamQuestions.action",
+			dataType:"json",
+			data:{
+				"bankId":bankId,
+				"type|integer":queryType,
+				"regex:title":queryName,
+				page:page,
+				size:15
+			},
+			success:function(data){
+				subjectlist(data);
+			}
+		})
+	}
+	//题目展示
+	function seeSubject(page){
+		var bankId = GetQueryString("id");
+		$.ajax({
+			type:"get",
+			url:_ctxPath+"pc/examQuestionsPc/findAllExamQuestions.action",
+			dataType:"json",
+			data:{
+				bankId:bankId,
+				page:page,
+				size:15
+			},
+			success:function(data){
+				subjectlist(data,1);
+			}
+		});
+	}
+	//隐藏弹窗
+	$(".promptdelete .close").off("click").on("click",function(){
+		$(".promptdelete").fadeOut();
+	});
+	function mapsreturnArr(maps){
+		var arrmap = [];
+		$.each(maps, function(key,value) {
+			arrmap.push(value);
+		});
+		return arrmap.join(";");
+	}
+	var page = 1;
+	seeSubject(page);
+	function subjectlist(connData,searchType){
+		var conData = connData.data;
+		if (conData.length == 0) {
+			$(".tableBox").html("暂无题目。")
+		} else{
+			var tableHtml = '<table class="table table-striped"><tr><th>题目名称</th><th>题目类别</th><th>操作</th></tr>';
+			for (var n = 0;n<conData.length;n++) {
+				tableHtml += '<tr id="'+conData[n]._id+'"><td><p>'+conData[n].title+'</p></td><td class="'+conData[n].type+'"></td><td><a href="javascript:;" class="edit" data-toggle="modal" data-target="#myModal" vaild="'+conData[n].vaild+'" titleName="'+conData[n].title+'" maps="'+mapsreturnArr(conData[n].map)+'" keys="'+conData[n].keys+'" analysis="'+conData[n].analysis+'">编辑</a><a href="javascript:;" class="delete">删除</a></td></tr>';
+			}
+			$(".tableBox").html(tableHtml);
+			$.each($(".table td[class]"), function(index) {
+				if ($(this).attr("class")==1) {
+					$(this).text("单选题");
+				} else if($(this).attr("class")==2){
+					$(this).text("多选题");
+				} else if($(this).attr("class")==3){
+					$(this).text("填空题");
+				} else if($(this).attr("class")==4){
+					$(this).text("判断题");
+				}
+			});
+			$(".edit").off("click").on("click",function(){
+				$("#myModal #gridSystemModalLabel").text("编辑题目");
+				editAddFun();
+				$(".classificationBuild:eq(0)").val($(this).attr("titleName"));
+				$(".classificationBuild:eq(1)").val($(this).attr("analysis"));
+				var id = $(this).parent().parent().attr("id");
+				var optionType = $(this).parent().prev().text();
+				if (optionType == "单选题") {
+					type = 1;
+				} else if(optionType == "多选题") {
+					type = 2;
+				} else if(optionType == "填空题") {
+					type = 3;
+				} else if(optionType == "判断题") {
+					type = 4;
+				}
+				$(".questionTypeTab .radio-inline input").removeAttr("checked");
+				$(".questionTypeTab .radio-inline span:contains('"+optionType+"')").prev().attr("checked","true");
+				var optionIndex;
+				if (optionType == "单选题") {
+					optionIndex = 0;
+					var groupList = "",radiocon = "";
+					var mapsArrr = $(this).attr('maps').split(";");
+					for (var f = 0;f<mapsArrr.length;f++) {
+						groupList += '<div class="form-group col-xs-12"><label for="inputPassword" class="col-xs-2 col-xs-offset-1 text-right"></label><div class="col-xs-8"><input type="text" value="'+mapsArrr[f]+'" class="form-control"></div><div class="deleteicon col-xs-1">×</div></div>';
+						radiocon += '<label class="radio-inline"><input type="radio" class="boxselection"> E</label>';
+					}
+					$(".form-horizontal").eq(0).html(groupList);
+					$(".radiocon").html(radiocon);
+					sortradioFun();
+					$(".radiocon input").removeAttr("checked");
+					$(".radiocon input:eq("+parseInt($(this).attr('keys')-1)+")").attr("checked","true");
+				} else if(optionType == "多选题") {
+					optionIndex = 1;
+					var groupList = "",checkboxcon = "";
+					var mapsArr = $(this).attr('maps').split(";");
+					for (var f = 0;f<mapsArr.length;f++) {
+						groupList += '<div class="form-group col-xs-12"><label for="inputPassword" class="col-xs-2 col-xs-offset-1 text-right"></label><div class="col-xs-8"><input type="text" value="'+mapsArr[f]+'" class="form-control"></div><div class="deleteicon col-xs-1">×</div></div>';
+						checkboxcon += '<label class="checkbox-inline"><input type="checkbox" class="boxselection"> E</label>';
+					}
+					$(".form-horizontal").eq(1).html(groupList);
+					$(".checkboxcon").html(checkboxcon);
+					var keysarr = $(this).attr('keys').split(";");
+					sortFun();
+					for (var j = 0;j<keysarr.length;j++) {
+						$(".checkboxcon input:eq("+(keysarr[j]-1)+")").attr("checked","true");
+					}
+				} else if(optionType == "填空题") {
+					optionIndex = 2;
+					$(".answerText").val($(this).attr('keys'));
+				} else if(optionType == "判断题") {
+					optionIndex = 3;
+					$(".answerQuestion .radio-inline:eq("+parseInt($(this).attr('keys')-1)+") input").attr("checked","true");
+				}
+				$(".optionTab").eq(optionIndex).show().siblings('.optionTab').hide();
+				newaddFun(type,1,id);
+			})
+			$(".delete").off("click").on("click",function(){
+				var questId = $(this).parent().parent().attr("id");
+				$(".promptdelete").fadeIn();
+				$(".deleteText").text('确认删除该题目吗？');
+				$(".deleteSure").off("click").on("click",function(){
+					$.ajax({
+						type:"get",
+						url:_ctxPath+"pc/examQuestionsPc/delExamQuestions.action",
+						dataType:"json",
+						data:{
+							questId:questId
+						},
+						success:function(deleteData){
+							if (deleteData.success == true) {
+								seeSubject(page);
+							} else{
+								$(".prompt").show();
+						    	$(".promptText").text(deleteData.message);
+						    	$(".promptSure,.prompt .close").off("click").on("click",function(){
+						    		$(".prompt").hide();
+						    	})
+							}
+						}
+					})
+					$(".promptdelete").fadeOut();
+				});
+				$(".cancelDelete").on("click",function(){$(".promptdelete").fadeOut();});
+			})
+			$(".navfooter").html('<nav class="navi" aria-label="Page navigation"><ul class="pagination paginationLists" id="paginationLists"></ul></nav>');
+			$('#paginationLists').bootstrapPaginator({
+			    currentPage: connData.page,//当前的请求页面。
+			    totalPages: connData.pages,//一共多少页。
+			    size:"normal",//应该是页眉的大小。
+			    bootstrapMajorVersion: 3,//bootstrap的版本要求。
+			    alignment:"right",
+			    numberOfPages:15,//一页列出多少数据。
+			    itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+			        switch (type) {
+				        case "prev": return "上一页";
+				        case "next": return "下一页";
+				        case "page": return page;
+			        }
+			    }
+			});
+			$("#paginationLists a").off("click").on("click",function(){
+				if ($(this).text() == "下一页") {
+					if (page >= connData.pages) {
+						page = connData.pages;
+					} else{
+						page++;
+					}
+					if (searchType == 1) {
+						seeSubject(page);
+					} else{
+						searchFun(page);
+					}
+				} else if($(this).text() == "上一页") {
+					if (page <= 1) {
+						page = 1;
+					} else{
+						page--;
+					}
+					if (searchType == 1) {
+						seeSubject(page);
+					} else{
+						searchFun(page);
+					}
+				} else{
+					page = $(this).text();
+					if (searchType == 1) {
+						seeSubject(page);
+					} else{
+						searchFun(page);
+					}
+				}
+			})
+		}
+	}
+})
+</script>
+</html>

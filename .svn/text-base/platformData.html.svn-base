@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title></title>
+    <meta name="description" content="overview &amp; stats" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/platformData.css">
+
+</head>
+
+<body>
+<div class="djDataBox">
+    <div class="djDataBox_nav">
+        <div class="djDataBox_left">
+            <div class="djDataBox_word">“互联网+党建”大数据平台</div>
+        </div>
+        <div class="djDataBox_right">
+            <ul>
+                <li><a href="../count/todJData.action"><div>总体概览</div></a></li>
+                <li><a href="../count/topartyData.action"><div>党员数据</div></a></li>
+                <li><a href="../count/toplatformData.action"><div>平台数据</div></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="partyData">
+        <div class="branch">内蒙古大兴安岭重点国有林管理局党委</div>
+    </div>
+    <div class="partyData_Chart">
+        <ul>
+            <li>
+                <div>
+                    <div>概况</div>
+                    <div class="basicFacts">
+                        <div>
+                            <div>累计学习时长</div><span>240000</span><span>小时</span>
+                        </div>
+                        <div>
+                            <div>累计心得发布数量</div><span>3000</span><span>篇</span>
+                        </div>
+                        <div>
+                            <div>累计互动发布数量</div><span>2000</span><span>篇</span>
+                        </div>
+                        <div>
+                            <div>累计评论发布数量</div><span>1000</span><span>篇</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div>学习时长</div>
+                    <div id="time" style="width: 382px;height:306px;"></div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div>心得发布数量</div>
+                    <div id="xindeN" style="width: 355px;height:306px;"></div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div>登录情况</div>
+                    <div id="login" style="width: 382px;height:341px;"></div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div>互动发布数量</div>
+                    <div id="InterNumber" style="width: 382px;height:300px;"></div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div>评论数量</div>
+                    <div id="criticism" style="width: 342px;height:306px;"></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/echarts.min.js"></script>
+<script>
+    // 学习时长折线图
+    // 基于准备好的dom，初始化echarts实例
+    var time = echarts.init(document.getElementById('time'));
+    var colors = ['#ffffff', '#d14a61', '#675bba'];
+    option = {
+        color: colors,
+        legend: {
+            data:[]
+        },
+        grid: {
+            top: 70,
+            bottom: 50
+        },
+        xAxis: [
+            {
+                type: 'category',
+                axisTick: {
+                    alignWithLabel: true
+                },
+                axisLine: {
+                    onZero: false,
+                    lineStyle: {
+                        color: colors[0]
+                    }
+                },
+                axisPointer: {
+                    label: {
+                        formatter: function (params) {
+                            return '降水量  ' + params.value
+                                    + (params.seriesData.length ? '：' + params.seriesData[0].data : '');
+                        }
+                    }
+                },
+                data: ["2016-1", "2016-2", "2016-3", "2016-4", "2016-5", "2016-6", "2016-7", "2016-8", "2016-9", "2016-10", "2016-11", "2016-12"]
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value',
+                axisLine: {
+                    onZero: false,
+                    lineStyle: {
+                        color: colors[0]
+                    }
+                }
+            }
+        ],
+        series: [
+            {
+                name:'2016 降水量',
+                type:'line',
+                smooth: true,
+                data: [3.9, 5.9, 11.1, 18.7, 48.3, 69.2, 231.6, 46.6, 55.4, 18.4, 10.3, 0.7],
+                itemStyle: {
+                    normal: {
+                        //定义一个list，然后根据所以取得不同的值，这样就实现了，
+                        color: function(params) {
+                            // build a color map as your need.
+                            var colorList = [
+                                '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                                '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                                '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                            ];
+                            return colorList[params.dataIndex]
+                        },
+                        //以下为是否显示，显示位置和显示格式的设置了
+                        label: {
+                            show: true,
+                            position: 'right',
+                            color:"#ffffff",//显示数值颜色
+                            formatter: '{c}'
+                        }
+                    }
+                }
+            }
+
+
+        ]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    time.setOption(option);
+    //心得发布数量
+    var xindeN = echarts.init(document.getElementById('xindeN'));
+    option = {
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            x : 'center',
+            y : 'bottom',
+            data:['汉','满族','彝族','蒙古族','苗族','维吾尔族','藏族','朝鲜族']
+        },
+        calculable : true,
+        series : [
+            {
+                name:'占比',
+                type:'pie',
+                radius : [30, 70],
+                center : ['55%', '44%'],
+                roseType : 'area',
+                data:[
+                    {value:10, name:'汉'},
+                    {value:5, name:'满族'},
+                    {value:15, name:'彝族'},
+                    {value:25, name:'蒙古族'},
+                    {value:20, name:'苗族'},
+                    {value:35, name:'维吾尔族'},
+                    {value:30, name:'藏族'},
+                    {value:40, name:'朝鲜族'}
+                ],
+                itemStyle: {
+                    normal: {
+                        //定义一个list，然后根据所以取得不同的值，这样就实现了，
+                        color: function(params) {
+                            // build a color map as your need.
+                            var colorList = [
+                                '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                                '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                                '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                            ];
+                            return colorList[params.dataIndex]
+                        },
+                        //以下为是否显示，显示位置和显示格式的设置了
+                        label: {
+                            show: true,
+                            position: 'right',
+                            color:"#ffffff",//显示数值颜色
+                            formatter: '{b}:{d}%'
+                        }
+                    }
+                }
+            }
+        ]
+    };
+    xindeN.setOption(option);
+    //登录情况
+    var login = echarts.init(document.getElementById('login'));
+    option = {
+        tooltip : {
+            trigger: 'axis'
+        },
+        legend: {
+            data:[]
+        },
+        calculable : true,
+        xAxis : [
+            {
+                type : 'category',
+                data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+        series : [
+            {
+                name:'登录次数',
+                //柱子宽度
+                barWidth:'40%',
+                type:'bar',
+                data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3],
+                markPoint : {
+                    data : [
+                        {type : 'max', name: '最大值'},
+                        {type : 'min', name: '最小值'}
+                    ]
+                },
+                itemStyle: {
+                    normal: {
+                        //以下为是否显示，显示位置和显示格式的设置了
+                        label: {
+                            show: true,
+                            position: 'top',
+                            color:"#ffffff",//显示数值颜色
+                            formatter: '{c}'
+                        }
+                    }
+                }
+            }
+        ]
+    };
+    login.setOption(option);
+
+    // 年龄柱状图
+    // 基于准备好的dom，初始化echarts实例
+    var InterNumber = echarts.init(document.getElementById('InterNumber'));
+    option = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            }
+        },
+        grid: {
+            top:'10%',
+            left: '5%',
+            right: '20%',
+            bottom: '0%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'value',
+            boundaryGap: [0, 0.01],
+            name:'数量'
+            //最小是多少，最大是多少，默认一次增加多少
+//            min: 0,
+//            max: 30,
+//            interval: 6,
+            //下面是显示格式化，一般来说还是用的上的
+//            axisLabel: {
+//                formatter: '{value} 岁'
+//            }
+        },
+        yAxis: {
+            name:'年龄',
+            type: 'category',
+            //显不显示y轴，默认是true的
+            show: true,
+            //就是每个柱的name了，根据实际情况下就好了
+            data: ['30','40','50','60','70','80',"90"],
+            axisLabel: {
+                //这个是倾斜角度，也是考虑到文字过多的时候，方式覆盖采用倾斜
+//                     rotate: 30,
+                //这里是考虑到x轴文件过多的时候设置的，如果文字太多，默认是间隔显示，设置为0，标示全部显示，当然，如果x轴都不显示，那也就没有意义了
+                interval :0
+            }
+        },
+        series: [
+            {
+                type: 'bar',
+//                数据
+                data: [35,30,45, 12,60,42],
+                //柱子宽度
+                barWidth:'30%',
+                itemStyle: {
+                    normal: {
+                        //定义一个list，然后根据所以取得不同的值，这样就实现了，
+                        color: function(params) {
+                            // build a color map as your need.
+                            var colorList = [
+                                '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                                '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                                '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                            ];
+                            return colorList[params.dataIndex]
+                        },
+                        //以下为是否显示，显示位置和显示格式的设置了
+                        label: {
+                            show: true,
+                            position: 'right',
+                            color:"#ffffff",//显示数值颜色
+                            formatter: '{c}'
+//                            formatter: '{b}\n{c}'
+                        }
+                    }
+                }
+
+            }
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    InterNumber.setOption(option);
+
+    //评论数量
+    var criticism = echarts.init(document.getElementById('criticism'));
+    option = {
+        color: ['#3398DB'],
+        tooltip : {
+            trigger: 'axis',
+            axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis : [
+            {
+                type : 'category',
+                data : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                axisTick: {
+                    alignWithLabel: true
+                }
+            }
+        ],
+        yAxis : [
+            {
+                type : 'value'
+            }
+        ],
+        series : [
+            {
+                name:'直接访问',
+                type:'bar',
+                barWidth: '30%',
+                data:[10, 52, 200, 334, 390, 330, 220],
+                itemStyle: {
+                    normal: {
+                        //定义一个list，然后根据所以取得不同的值，这样就实现了，
+                        color: function(params) {
+                            // build a color map as your need.
+                            var colorList = [
+                                '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                                '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                                '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                            ];
+                            return colorList[params.dataIndex]
+                        },
+                        //以下为是否显示，显示位置和显示格式的设置了
+                        label: {
+                            show: true,
+                            position: 'top',
+                            color:"#ffffff",//显示数值颜色
+                            formatter: '{c}'
+                        }
+                    }
+                }
+            }
+        ]
+    };
+    criticism.setOption(option);
+</script>
+
+<script>
+
+</script>
+</html>

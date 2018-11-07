@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../css/demo.css">
+    <link rel="stylesheet" href="../css/prepareTransferFormal.css">
+    <link rel="stylesheet" type="text/css" href="../css/zTreeStyle.css">
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+    <link rel="stylesheet" type="text/css" href="../css/layui.css">
+    <style>
+        .thoughtRList {
+            display: none;
+        }
+		ul.ztree {
+		    position: absolute;
+		    top: 37px;
+		    left: 90px;
+		}
+        .open {
+            display: block !important;
+        }
+        #menuContent{
+			position: absolute;
+			left: 85px;
+			top: 34px;
+		}
+        .pageConta{
+			margin: auto;
+		    text-align: center;
+		    margin-top: 47px;
+		}
+		th{
+			vertical-align: middle!important;
+		}
+		.topTransfer div:nth-child(2) input{
+			width:209px;
+			padding-left: 6px;
+            cursor: pointer;
+		}
+		.partyList table tr td{
+		 	vertical-align: middle;
+		}
+    </style>
+</head>
+<body>
+<div class="parepareTransfer">
+    <div class="innerTransfer">
+        <div class="topTransfer">
+            <div class="partyZ">党组织</div><div><input type="text" id="branch" readonly="readonly" value=""><img src="../img/select.png"></div><span class="sear">查询</span>
+			<input type="hidden" id="branchId" readonly="readonly" value="">
+        </div>
+        <div class="curParty">
+            <div class="partyTitle">
+                当前党组织:<span id="bumenName">第一党组织</span>
+            </div>
+            <div class="partyList">
+                <table cellpadding="0" cellspacing="0"   >
+                    <thead>
+                        <th>入党申请人</th>
+                        <th>积极分子</th>
+                        <th>发展对象</th>
+                        <th>预备党员</th>
+                        <th>预备党员转正</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="suma"></td>
+                            <td class="sumb"></td>
+                            <td class="sumc"></td>
+                            <td class="sumd"></td>
+                            <td class="sume"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="joinParty">
+            <div class="selectTop">
+                <ul>
+                    <li class="active">入党申请人</li>
+                    <li>积极分子</li>
+                    <li>发展对象</li>
+                    <li>预备党员</li>
+                    <li>预备党员转正</li>
+                </ul>
+                <span id="output" class="add">导出</span>
+            </div>
+            <div class="thoughtRList open" id="list0">
+                <table>
+                    <thead>
+                    <th>姓名</th>
+                    <th>出生年月</th>
+                    <th >民族</th>
+                    <th>籍贯</th>
+                    <th>学历</th>
+                    <th>所属组织</th>
+                    <th>申请入党时间</th>
+                    </thead>
+                    <tbody id="pag0">
+                    <tr style="display: none;">
+                        <td>1323131321323</td>
+                        <td>张三</td>
+                        <td><span>2017-01-12</span></td>
+                        <td>汉</td>
+                        <td><span>北京</span></td>
+                        <td>大学</td>
+                        <td>第一党支部</td>
+                        <td>2019-01-12</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pageConta" id="pageContenta"></div>
+            </div>
+            <div class="thoughtRList" id="list1">
+                <table>
+                    <thead>
+                    <th>姓名</th>
+                    <th>出生年月</th>
+                    <th >民族</th>
+                    <th>籍贯</th>
+                    <th>学历</th>
+                    <th>所属组织</th>
+                    <th>申请入党时间</th>
+                    <th>列为积极分子时间</th>
+                    </thead>
+                    <tbody id="pag1">
+                    <tr style="display: none;">
+                        <td>1323131321323</td>
+                        <td>张三</td>
+                        <td><span>2017-01-12</span></td>
+                        <td>汉</td>
+                        <td><span>北京</span></td>
+                        <td>大学</td>
+                        <td>第一党支部</td>
+                        <td>2019-01-12</td>
+                        <td>2019-01-12</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pageConta" id="pageContentb"></div>
+            </div>
+            <div class="thoughtRList" id="list2">
+                <table>
+                    <thead>
+                    <th>姓名</th>
+                    <th>出生年月</th>
+                    <th >民族</th>
+                    <th>籍贯</th>
+                    <th>学历</th>
+                    <th>所属组织</th>
+                    <th>申请入党时间</th>
+                    <th>列为积极分子时间</th>
+                    <th>确定发展对象时间</th>
+                    </thead>
+                    <tbody id="pag2">
+                    <tr style="display: none;">
+                        <td>1323131321323</td>
+                        <td>张三</td>
+                        <td><span>2017-01-12</span></td>
+                        <td>汉</td>
+                        <td><span>北京</span></td>
+                        <td>大学</td>
+                        <td>第一党支部</td>
+                        <td>2019-01-12</td>
+                        <td>2019-01-12</td>
+                        <td>2019-01-12</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pageConta" id="pageContentc"></div>
+            </div>
+            <div class="thoughtRList" id="list3">
+                <table>
+                    <thead>
+                    <th>姓名</th>
+                    <th>出生年月</th>
+                    <th >民族</th>
+                    <th>籍贯</th>
+                    <th>学历</th>
+                    <th>所属组织</th>
+                    <th>申请入党时间</th>
+                    <th>列为积极分子时间</th>
+                    <th>确定发展对象时间</th>
+                    <th>入党时间</th>
+                    </thead>
+                    <tbody id="pag3">
+                    <tr style="display: none;">
+                        <td>1323131321323</td>
+                        <td>张三</td>
+                        <td><span>2017-01-12</span></td>
+                        <td>汉</td>
+                        <td><span>北京</span></td>
+                        <td>大学</td>
+                        <td>第一党支部</td>
+                        <td>2019-01-12</td>
+                        <td>2019-01-12</td>
+                        <td>2019-01-12</td>
+                        <td>2019-01-12</td>
+
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pageConta" id="pageContentd"></div>
+            </div>
+            <div class="thoughtRList" id="list4">
+                <table>
+                    <thead>
+                    <th>姓名</th>
+                    <th>出生年月</th>
+                    <th >民族</th>
+                    <th>籍贯</th>
+                    <th>学历</th>
+                    <th>所属组织</th>
+                    <th>申请入党时间</th>
+                    <th>列为积极分子时间</th>
+                    <th>确定发展对象时间</th>
+                    <th>入党时间</th>
+                    <th>转正时间</th>
+                    </thead>
+                    <tbody id="pag4">
+                    <tr style="display: none;">
+                        <td>1323131321323</td>
+                        <td>张三</td>
+                        <td><span>2017-01-12</span></td>
+                        <td>汉</td>
+                        <td><span>北京</span></td>
+                        <td>大学</td>
+                        <td>第一党支部</td>
+                        <td>2019-01-12</td>
+                        <td>2019-01-12</td>
+                        <td>2019-01-12</td>
+                        <td>2019-01-12</td>
+                        <td>2019-01-12</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="pageConta" id="pageContente"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="menuContent" class="menuContent" style="display:none;">
+	<ul id="treeDemo" class="ztree" style="margin-top:0; width:206px;"></ul>
+</div>
+<script src="../assets/js/jquery.js"></script>
+<script src="../js/jquery.ztree.core.min.js"></script>
+<script src="../js/layer.js"></script>
+<script src="../js/layui.js"></script>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script type="text/javascript">
+	var iframe = document.getElementById("common");
+	///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+$(document).ready(function(){
+		iframe.src="../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+		if (iframe.attachEvent){//判断iframe是否加载完成
+		    iframe.attachEvent("onload", function(){
+		        getCommon();
+		     });
+		}else{
+		    iframe.onload = function(){
+		    	getCommon();
+		    };
+		}
+});
+	var _ctxPath="";
+	var _qiniuImageHost="";
+	//获取公共参数  一般为存储在session里面的数据
+	function getCommon(){//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+		var frames = window.frames["common"]; 
+		_ctxPath=frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+		_qiniuImageHost=frames._qiniuImageHost;//七牛云公共地址头 
+		frames.getFunc(funcet); //获取用户权限  
+
+		$("#branch").click(function () {
+            showMenu();
+        });
+        var setting = {
+            view: {
+                dblClickExpand: false
+            },
+            data: {
+                simpleData: {
+                    enable: true,
+                    idKey: "_id",
+                    pIdKey: "parentId"
+                },
+                key: {
+                    name: "name"
+                }
+            },
+            callback: {
+                beforeClick: beforeClick,
+                onClick: onClick
+            }
+        };
+        $.ajax({
+            type: "POST",
+            url: _ctxPath + "/bumen/queryBumenByCode.action",
+            data: {"actCode":"DPartyMemberStatistics"},
+            dataType: "json",
+            success: function (data) {
+                if (data) {
+                    zNodes = data;
+                    var zTree = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                    var node = zTree.getNodeByParam("_id", 0);
+                    //alert(JSON.stringify(node));
+                    zTree.selectNode(node);
+                    zTree.expandNode(node, true, false, false);
+                }
+            }
+        });
+        var zNodes = [];
+
+        function beforeClick(treeId, treeNode) {
+        	/* var check = (treeNode && !treeNode.isParent);
+            if (!check) {
+                parent.layer.alert('只能选择最低支部！');
+            } */
+            return true;
+        }
+
+        function onClick(e, treeId, treeNode) {
+            //alert(JSON.stringify(treeNode));
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+                nodes = zTree.getSelectedNodes(),
+                v = "";
+            nodes.sort(function compare(a, b) {
+                return a.id - b.id;
+            });
+            for (var i = 0, l = nodes.length; i < l; i++) {
+                v += nodes[i].name + ",";
+            }
+            if (v.length > 0) v = v.substring(0, v.length - 1);
+            var cityObj = $("#branch");
+            cityObj.attr("value", v);
+            $("#branchId").val(treeNode._id);
+        }
+
+        function showMenu() {
+            var cityObj = $("#branch");
+            var cityOffset = $("#branch").offset();
+            $("#menuContent").slideDown("fast");
+
+            $("body").bind("mousedown", onBodyDown);
+        }
+
+        function hideMenu() {
+            $("#menuContent").fadeOut("fast");
+            $("body").unbind("mousedown", onBodyDown);
+        }
+
+        function onBodyDown(event) {
+            if (!(event.target.id == "menuBtn" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length > 0)) {
+                hideMenu();
+            }
+        }
+	}
+	
+	function funcet(fucn){
+		if("DPartyMemberAdmin"==fucn.DPartyMemberAdmin){//如果是有管理权限
+			
+		}
+		if("DPartyMemberAudit"==fucn.DPartyMemberAudit){//如果有审批权限
+			
+		}
+	}
+</script>
+<script>
+	var bumenId="";
+    //    切换标签方法
+    var selectTop = $(".selectTop ul li");
+    for (var i = 0; i < selectTop.length; i++) {
+        (function (index) {
+            $(selectTop[index]).click(function () {
+                $(".selectTop ul li").removeClass("active");
+                $(this).addClass("active");
+                $(".thoughtRList").removeClass("open");
+                $("#list" + index).addClass("open");
+            })
+        })(i);
+    }
+    $(".sear").click(function(){
+		bumenId=$("#branchId").val();
+		if(bumenId==""){
+			parent.layer.alert('请选择要统计的部门！');
+		}else{
+			 $.ajax({
+		            type: "POST",
+		            url: _ctxPath + "/recruit/recstatis.action",
+		            data: {"bumenId":bumenId},
+		            dataType: "json",
+		            success: function (data) {
+		                if (data) {
+		                   if(data.success){
+								$(".suma").text(data.data.suma);
+								$(".sumb").text(data.data.sumb);
+								$(".sumc").text(data.data.sumc);
+								$(".sumd").text(data.data.sumd);
+								$(".sume").text(data.data.sume);
+								$("#bumenName").text($("#branch").val());
+								pageAjaxa();
+								pageAjaxab();
+								pageAjaxac();
+								pageAjaxad();
+								pageAjaxae();
+			               }else{
+			            	   parent.layer.alert(data.message);
+				           }
+		                }else{
+		                	parent.layer.alert('网络异常！');
+			            }
+		            }
+		        });
+		}
+    });
+    $("#output").click(function(){
+		bumenId=$("#branchId").val();
+		if(bumenId==""){
+			parent.layer.alert('请选择要统计的部门！');
+		}else{
+			window.location.href=_ctxPath+"/recruit/doStaticExcel/"+bumenId+".action";
+		}
+	});
+</script>
+<script type="text/javascript" src="js/prepareTransFoemal.js"></script>
+</body>
+</html>

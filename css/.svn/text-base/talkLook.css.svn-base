@@ -1,0 +1,97 @@
+body{
+    font-family: "苹方";
+    box-sizing: border-box;
+}
+ul,li{
+    margin: 0;
+    padding: 0;
+}
+.talkRecord{
+    height:44px;
+    background:#f1f1f1 ;
+    line-height: 44px;
+    font-size: 16px;
+    width: 98%;
+}
+.talkRecord img{
+    width: 15px;
+    margin-left: 42px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.back{
+    margin-right: 20px;
+}
+.talkList{
+    width: 80%;
+    margin: auto;
+    font-size: 14px;
+    overflow: hidden;
+    margin-top: 22px;
+}
+
+.left{
+    float: left;
+    width: 50%;
+}
+.right{
+    float: right;
+    width: 50%;
+}
+#back{
+    cursor: pointer;
+}
+.left>div,.right>div{
+    margin-bottom: 20px;
+}
+.left>div>div{
+    display: inline-block;
+}
+.left>div>div:first-child{
+    margin-right: 40px;
+    width: 20%;
+    text-align: right;
+}
+.right>div>div{
+    display: inline-block;
+}
+.right>div>div:first-child{
+    margin-right: 40px;
+    width: 20%;
+    text-align: right;
+}
+.talkC{
+    clear: both;
+}
+.talkC>div{
+    display: inline-block;
+}
+.talkC>div:first-child{
+    width: 10%;
+    text-align: right;
+    margin-right: 40px;
+}
+.talkC>div:last-child{
+    text-indent: 2em;
+    width: 80%;
+    vertical-align: top;
+    line-height: 180%;
+}
+.fuJ{
+    margin-top: 22px;
+}
+.fuJ>div{
+    display: inline-block;
+}
+.fuJ>div:first-child{
+    width: 10%;
+    text-align: right;
+    margin-right: 40px;
+}
+.fuJ>div:last-child{
+    width: 80%;
+}
+.fuJ>div:last-child span{
+    color:#2198f2;
+    margin-right: 28px;
+}

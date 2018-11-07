@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>分类管理</title>
+		<link rel="stylesheet" type="text/css" href="../css/base.css" />
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../layui/css/modules/layer/default/layer.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/resoueceLibrary.css" />
+		<link rel="stylesheet" type="text/css" href="../iconFont/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_773892_3azcivitme1.css"/>
+		<style type="text/css">
+			.tableItem td:first-of-type,.tableItem th:first-of-type{
+				width: 45%;
+				text-align: left;
+			}
+			.tableItem td:nth-of-type(2),.tableItem th:first-of-type:nth-of-type(2){
+				width: 29%;
+			}
+			.tableItem td:nth-of-type(3),.tableItem th:first-of-type:nth-of-type(3){
+				width: 8%;
+			}
+			.tableItem td span{
+				padding-left: 45px;
+			}
+			.tableItem td span{
+				padding-left: 45px;
+			}
+			.tableItem td small{
+				color: #2198F1;
+				cursor: pointer;
+			}
+			.tableItem.table-bordered{
+				border: none;
+			}
+			.tableItem.table-bordered>tbody>tr:first-of-type>td,.tableItem.table-bordered>thead>tr:first-of-type>td{
+				border-top: 0px;
+			}
+			.tableItem.table-bordered>tbody>tr:last-of-type>td,.tableItem.table-bordered>thead>tr:last-of-type>td{
+				border-bottom: 0px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="header">
+			<header class="container-fluid">
+				<div class="row">
+					<div class="col-xs-6 text-left">
+						<a href="javascript:history.go(-1);" style="color: #333;"><i class="fa fa-angle-double-left"></i>返回</a>
+						<h4>分类管理</h4>
+					</div>
+					<div class="col-xs-6 text-right">
+						<button class="btn btn-primary newClass">新建分类</button>
+					</div>
+				</div>
+			</header>
+		</div>
+		<article class="container-fluid">
+			<div class="tableBox">
+				<table class="table table-bordered table-striped" id="classList">
+					<tr style="display: none;"></tr>
+					<tr>
+						<th style="width: 45%;">分类名称</th>
+						<th style="width: 28.6%;">创建时间</th>
+						<th style="width: 8%;">排序</th>
+						<th style="width: 18%;">操作</th>
+					</tr>
+					<tr class="trList">
+						<td colspan="4" style="padding: 0;">
+							<table class="table table-bordered tableItem" style="margin: 0; background: transparent;">
+								<tr class="trListFirst">
+									<td><i class="iconfont icon-icon_bottom"></i> <strong id="name">党政理论与基础</strong>
+										<small id="add" class="addSonClass">添加子分类</small></td>
+									<td class="firstTime" id="createTime">2018-05-22 14:55</td>
+									<td class="sort">
+										<img id="left" src="../img/topnoicon.png" />
+										<img id="right" src="../img/bottomyesicon.png" /></td>
+									<td>
+										<a class="edit" href="javascript:;">编辑</a>
+										<a class="del" href="javascript:;">删除</a>
+										<input type="hidden" value="" />
+									</td>
+								</tr>
+								<tr class="trListSon">
+									<td><span id="Sonname">党的理论</span></td>
+									<td class="sonTime" id="SoncreateTime">2018-05-22 14:35</td>
+									<td class="sorts">
+										<img id="left" src="../img/topnoicon.png" />
+										<img id="right" src="../img/bottomyesicon.png" /></td>
+									<td>
+										<a class="edit" href="javascript:;">编辑</a>
+										<a class="del" href="javascript:;">删除</a>
+										<input type="hidden" value="" />
+									</td>
+								</tr>
+								<tr class="addSon" style="display: none;">
+									<td>
+										<input type="text" placeholder="不超过20个字" class="form-control itemName" style="width:200px;background:white;" />
+									</td>
+									<td>今天</td>
+									<td>
+										<img src="../img/topnoicon.png"/><img src="../img/bottomnoicon.png"/>
+									</td>
+									<td>
+										<a href="javascript:;" class="preservation">保存</a>
+										<a href="javascript:;">取消</a>		
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</article>
+		<div class="modal promptdelete" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+						<h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row deleteText">
+							<div class="form-inline">
+								<label for="">分类名称：</label>
+								<div class="" style="width: 120px; display: inline-block;">
+									<input class="form-control className" type="text" placeholder="不超过20字" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary deleteSure">确定</button>
+						<button class="btn btn-default cancelDelete">取消</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal -->
+		</div>
+	</body>
+	<script type="text/javascript" src="../../../r/wx/common/pathimage"></script>
+	<!--<script type="text/javascript">
+		var _ctxPath = "http://192.168.3.24:8080/dangjian/";
+	</script>-->
+	<script src="../js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/path.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../layui/lay/modules/layer.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var sort = 1,
+			trList = $(".trList"),
+			trListSon = $(".trListSon"),
+			addSon = $(".addSon"),
+			addState = true;
+
+		trList.remove();
+		trListSon.remove();
+		addSon.remove();
+
+		
+		dataFun();
+		function dataFun() {
+			$.ajax({
+				type: "get",
+				url: _ctxPath + "pc/basePc/queryByTenantId.action",
+				xhrFields: {				
+		            withCredentials: true	
+		        },							
+		        crossDomain: true,
+				dataType: "json",
+				success: function(data) {
+					if(data.success) {
+						var data = data.data;
+						$("#classList .trList").remove();
+						$.each(data, function(key,value) {
+							var trListItem = trList.clone();
+							trListItem.attr("id",value.first._id);
+							trListItem.find("strong").text(value.first.name);
+							trListItem.find("small").attr("id",value.first._id);
+							trListItem.find(".firstTime").text(value.first.createTime);
+							trListItem.find(".tableItem tr:first input").attr("id",value.first._id);
+							if (value.second.length > 0) {
+								for (var c = 0;c<value.second.length;c++){
+									var trListSons = trListSon.clone();
+									trListSons.css("display","");
+									trListSons.attr("id",value.second[c]._id);
+									trListSons.find("input").attr("id",value.second[c]._id);
+									trListSons.find("input").attr("parentId",value.second[c].parentId);
+									trListSons.find("span").text(value.second[c].name);
+									trListSons.find(".sonTime").text(value.second[c].createTime);
+									trListItem.find(".tableItem").append(trListSons);
+									if (trListSons.index() == 1 && trListSons.index() == (value.second.length)) {
+										trListSons.find(".sorts").html('<img src="../img/topnoicon.png" class="topno"/><img src="../img/bottomnoicon.png" class="bottomno"/>');
+									} else if (trListSons.index() == 1) {
+										trListSons.find(".sorts").html('<img src="../img/topnoicon.png" class="topno"/><img src="../img/bottomyesicon.png" class="bottomyes"/>');
+									} else if(trListSons.index() == (value.second.length)){
+										trListSons.find(".sorts").html('<img src="../img/topyesicon.png" class="topyes"/><img src="../img/bottomnoicon.png" class="bottomno"/>');
+									} else{
+										trListSons.find(".sorts").html('<img src="../img/topyesicon.png" class="topyes"/><img src="../img/bottomyesicon.png" class="bottomyes"/>');
+									}
+								}
+							}
+							$("#classList").append(trListItem);
+							if (trListItem.index() == 2 && trListItem.index() == (data.length+1)) {
+								trListItem.find(".sort").html('<img src="../img/topnoicon.png" class="topno"/><img src="../img/bottomnoicon.png" class="bottomno"/>');
+							} else if (trListItem.index() == 2) {
+								trListItem.find(".sort").html('<img src="../img/topnoicon.png" class="topno"/><img src="../img/bottomyesicon.png" class="bottomyes"/>');
+							} else if(trListItem.index() == (data.length+1)){
+								trListItem.find(".sort").html('<img src="../img/topyesicon.png" class="topyes"/><img src="../img/bottomnoicon.png" class="bottomno"/>');
+							} else{
+								trListItem.find(".sort").html('<img src="../img/topyesicon.png" class="topyes"/><img src="../img/bottomyesicon.png" class="bottomyes"/>');
+							}
+							//排序
+							trListItem.find("img").off("click").on("click",function(){
+								if ($(this).attr("class") == "topno") {
+									
+								} else if($(this).attr("class") == "bottomno"){
+									
+								} else if($(this).attr("class") == "topyes"){
+									if ($(this).parent().parent().attr("id")) {
+										sortFun($(this).parent().parent().attr("id"),$(this).parent().parent().prev().attr("id"));
+									} else{
+										sortFun($(this).parents(".trList").attr("id"),$(this).parents(".trList").prev().attr("id"));
+									}
+								} else if($(this).attr("class") == "bottomyes"){
+									if ($(this).parent().parent().attr("id")) {
+										sortFun($(this).parent().parent().attr("id"),$(this).parent().parent().next().attr("id"));
+									} else{
+										sortFun($(this).parents(".trList").attr("id"),$(this).parents(".trList").next().attr("id"));
+									}
+								}
+							});
+							//编辑
+							trListItem.find(".edit").off("click").on("click",function(){
+								$(".promptdelete").fadeIn();
+								var _id = $(this).next().next().attr("id");
+								var parentId = $(this).next().next().attr("parentid");
+								if (parentId) {
+									$(".className").val($(this).parents(".trListSon").find("span").text());
+								} else{
+									$(".className").val($(this).parents("tr").find("strong").text());
+								}
+								$(".promptdelete .deleteSure").off("click").on("click",function(){
+									if (parentId) {
+										newClass($(".className").val(),parentId,_id);
+									} else{
+										newClass($(".className").val(),0,_id)
+									}
+								});
+							});
+							//删除
+							trListItem.find(".del").off("click").on("click",function(){
+								var _id = $(this).next().attr("id");
+								layer.open({
+							  		content: '删除分类不会删除分类下内容，确定要删除此分类?',
+							  		fixed: false,
+								  	resize: false,
+									scrollbar: false,
+									move: false,
+							  		btn: ['确定', '取消'],
+							  		yes: function(index, layero){
+							  			$.ajax({
+											type:"get",
+											url:_ctxPath + "pc/basePc/del.action",
+											xhrFields: {				
+									            withCredentials: true	
+									        },							
+									        crossDomain: true,
+											dataType: "json",
+											data:{
+												"baseClassificationId": _id
+											},
+											success:function(datasd){
+												layer.close(index);
+												if (datasd.success){
+													dataFun();
+												} else{
+							  						layer.open({
+													  	title: '提示',
+													  	content: datasd.message
+													});
+												}
+											}
+										});
+							  		},
+							  		btn2: function(index, layero){
+							    		
+									},
+									btn3: function(index, layero){
+							    		
+									}
+								});
+							});
+							//收放操作
+							trListItem.find("i").off("click").on("click",function(){
+								if ($(this).attr("class") == "iconfont icon-icon_bottom") {
+									$(this).parent().parent().nextAll().slideUp(100);
+									$(this).attr("class","iconfont icon-icon_right1");
+								} else{
+									$(this).parent().parent().nextAll().slideDown(100);
+									$(this).attr("class","iconfont icon-icon_bottom");
+								}
+							});
+						});
+						//添()加子级分类
+						$(".addSonClass").off("click").on("click",function(){
+							if (addState) {
+								var addSontr = addSon.clone();
+								addSontr.css("display","");
+								addSontr.find(".preservation").attr("id",$(this).attr("id"));
+								$(this).parent().parent().parent().append(addSontr);
+							} else{
+								layer.open({
+								  	title: '提示',
+								  	content: "您有一个分类还未保存，请保存后再添加下一个分类！"
+								});
+							}
+							addState = false;
+							//保存、取消
+							$(".tableItem a").off("click").on("click",function(){
+								if ($(this).text() == "保存") {
+									newClass($(".itemName").val(),$(this).attr("id"),"");
+								} else if($(this).text() == "取消") {
+									$(this).parent().parent().remove();
+									addState = true;
+								}
+							});
+						});
+					} else {
+
+					}
+				}
+			});
+		}
+		//排序
+		function sortFun(classIdA,classIdB){
+			$.ajax({
+				type:"get",
+				url:_ctxPath + "pc/basePc/sort.action",
+				xhrFields: {				
+		            withCredentials: true	
+		        },							
+		        crossDomain: true,
+				data:{
+					"frombaseClassificationId": classIdA,
+					"tobaseClassificationId": classIdB
+				},
+				dataType:"json",
+				success:function(data){
+					if (data.success) {
+						dataFun();
+					} else{
+						layer.open({
+						  	title: '提示',
+						  	content: data.message
+						});
+					}
+				}
+			});
+		}
+		$(".newClass").off("click").on("click",function(){
+			$(".promptdelete").fadeIn();
+			$(".promptdelete .deleteSure").off("click").on("click",function(){
+				newClass($(".className").val(),0,"");
+			});
+		});
+		//添加分类
+		function newClass(name,parentId,_id){
+			if (name == "") {
+				layer.open({
+				  	title: '提示',
+				  	content: '请填写分类名称'
+				});
+			} else if (name.length>20) {
+				layer.open({
+				  	title: '提示',
+				  	content: '分类名称不可大于20字'
+				});
+			} else {
+				$.ajax({
+					type:"get",
+					url:_ctxPath + "pc/basePc/upsert.action",
+					xhrFields: {				
+			            withCredentials: true	
+			        },							
+			        crossDomain: true,
+					data:{
+						"name": name,
+						"parentId": parentId,
+						"_id": _id
+					},
+					dataType:"json",
+					success:function(data){
+						if (data.success) {
+							addState = true;
+							$(".promptdelete").fadeOut();
+							dataFun();
+						} else{
+							layer.open({
+							  	title: '提示',
+							  	content: data.message
+							});
+						}
+					}
+				});
+			}
+		}
+		$(".promptdelete .cancelDelete,.promptdelete .close").click(function() {
+			$(".promptdelete").fadeOut();
+		});
+	</script>
+
+</html>

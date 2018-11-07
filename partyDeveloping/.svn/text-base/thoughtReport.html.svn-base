@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/thoughtReport.css">
+    <!--<link rel="stylesheet" type="text/css" href="../css/laydate.css">-->
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+    <link rel="stylesheet" type="text/css" href="../css/layui.css">
+    <style>
+        .noDate{
+            text-align: center;
+            font-size: 14px;
+
+        }
+        .hid{
+            display: none;
+        }
+        #pageContent{
+            margin: auto;
+            text-align: center;
+            margin-top: 47px;
+        }
+    </style>
+</head>
+<body>
+<div class="thoughtReport">
+    <div class="thoughtInner">
+        <div class="thoughtTop">
+            <span id="back"><span class="arrow"><img src="../img/back.png"></span><span class="back">返回</span></span>
+            <span class="thoughtRW" id="titleN">谈话记录</span><span class="add">添加</span>
+        </div>
+        <div class="thoughtRList">
+            <table cellspacing="0" id="tableDiv">
+                <thead>
+                <th>日期</th>
+                <th>地点</th>
+                <th>谈话人</th>
+                <th>谈话人职务</th>
+                <th>操作</th>
+                </thead>
+                <tbody id="talkR">
+                <!--<tr>-->
+                    <!--<td>2015/10/21</td>-->
+                    <!--<td><span class="report">北京</span></td>-->
+                    <!--<td>-->
+                        <!--<div class="fuJ">张三</div>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<div class="fuJ">老师</div>-->
+                    <!--</td>-->
+                    <!--<td><span class="look">查看</span><span class="edit">编辑</span></td>-->
+                <!--</tr>-->
+
+                </tbody>
+            </table>
+            <div class="noDate hid">暂无数据</div>
+        </div>
+    </div>
+    <div id="pageContent"></div>
+</div>
+
+</body>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script src="../assets/js/jquery.js"></script>
+<!--<script src="../js/laydate.js"></script>-->
+<script src="../js/layer.js"></script>
+<script src="../js/layui.js"></script>
+<script>
+    $(function () {
+
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+
+        var recId = getQueryString("recId");
+        var type = getQueryString("type");
+        var stKey = getQueryString("stKey");
+        var flag = getQueryString("flag");
+        var path = "";
+        var iframe = document.getElementById("common");
+        ///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+        iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+        if (iframe.attachEvent) {//判断iframe是否加载完成
+            iframe.attachEvent("onload", function () {
+                getCommon();
+            });
+        } else {
+            iframe.onload = function () {
+                getCommon();
+            };
+        }
+
+        //获取公共参数  一般为存储在session里面的数据
+        function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+            var frames = window.frames["common"];
+            path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+            var _qiniuImageHost = frames._qiniuImageHost;//七牛云公共地址头
+
+            $("#tableDiv").find("tr").eq("even");
+
+            $("#back").click(function () {
+                window.history.back(-1);
+            });
+
+            $(".add").click(function () {
+                window.location.href = "talkRecord.html?recId=" + recId + "&&type=" + type + "&&stKey=" + stKey;
+            });
+            if(flag){
+                $(".add").addClass("hid");
+            }
+            //分页参数设置 这些全局变量关系到分页的功能
+            var pagea = 1; //开始页数
+            var sizea = 10;  //每页最多显示条数
+            var nowpagea = 1;  //当前页数
+            var pagesa = 0;  //总页数
+
+            pageAjax();
+            function pageAjax() {
+                $.ajax({
+                    type: "POST",
+                    url: path + "/deveRecord/query.action",
+                    data:{
+                        "type|integer":type,
+                        "stKey":stKey,
+                        "recrutId": recId,
+                        "page":nowpagea, //当前页数
+                        "size":sizea//每页显示条数
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        pagea = data.page;//当前页数(后台返回)
+                        pagesa = data.pages;//总页数(后台返回)
+                        var data=data.data;
+                        if(data.length==0){
+                            $(".noDate").removeClass("hid");
+                            $("#pageContent").addClass("hid");
+                        }else{
+                            handleData(data);
+                        }
+                        page();
+                    }
+                });
+            }
+
+            function handleData(data) {
+                $('#talkR').empty();
+                for(var i=0;i<data.length;i++){
+                    if(flag){
+                        var oTr='<tr>\n' +
+                            '                    <td>'+data[i].frmtCrtTime+'</td>\n' +
+                            '                    <td><span class="report">'+data[i].adress+'</span></td>\n' +
+                            '                    <td>\n' +
+                            '                        <div class="fuJ">'+data[i].userName+'</div>\n' +
+                            '                    </td>\n' +
+                            '                    <td>\n' +
+                            '                        <div class="fuJ">'+data[i].post+'</div>\n' +
+                            '                    </td>\n' +
+                            '                    <td><input type="hidden" value='+data[i]._id+' class="id"><span class="look">查看</span></td>\n' +
+                            '                </tr>';
+                    }else{
+                        var oTr='<tr>\n' +
+                            '                    <td>'+data[i].frmtCrtTime+'</td>\n' +
+                            '                    <td><span class="report">'+data[i].adress+'</span></td>\n' +
+                            '                    <td>\n' +
+                            '                        <div class="fuJ">'+data[i].userName+'</div>\n' +
+                            '                    </td>\n' +
+                            '                    <td>\n' +
+                            '                        <div class="fuJ">'+data[i].post+'</div>\n' +
+                            '                    </td>\n' +
+                            '                    <td><input type="hidden" value='+data[i]._id+' class="id"><span class="look">查看</span><span class="edit">编辑</span></td>\n' +
+                            '                </tr>';
+                    }
+
+
+                    $('#talkR').append(oTr);
+
+                }
+                $('#talkR').on("click",function (e) {
+                    var target=e.target;
+                    if($(target).text()=="查看"){
+                       var currId=$(target).parent().find("input").val();
+                        window.location.href="talkLook.html?devId="+currId;
+                    }
+                    if($(target).text()=="编辑"){
+                       var currId=$(target).parent().find("input").val();
+                       window.location.href="talkRecord.html?devId="+currId;
+                    }
+                })
+            }
+            function page() {
+                //调用分页
+                layui.use(['laypage', 'layer'], function(){
+                    var laypage = layui.laypage
+                        ,layer = layui.layer;
+                    laypage.render({
+                        elem: 'pageContent'
+                        ,count: pagesa
+                        ,limit: sizea  //每页显示的数据的条数,layui会根据count，limit进行分页的计算
+                        ,curr: nowpagea
+                        ,jump: function (obj,first) {
+                            // var currPage=obj.curr;
+                            // var perPage_num=obj.limit;
+                            nowpagea = obj.curr;
+                            pagea = (obj.curr-1)*sizea;
+                            if(!first){//一定要加此判断，否则初始时会无限刷新
+                                pageAjax();//一定要把翻页的ajax请求放到这里，不然会请求两次。
+                                location.href = '#top';
+                                //<a href="#top">返回顶部</a>
+                            }
+
+                        }
+
+                    });
+                })
+            }
+
+
+        }
+    });
+
+</script>
+</html>

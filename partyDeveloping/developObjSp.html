@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/developObjSp.css">
+    <link rel="stylesheet" href="../css/poperConfirm.css">
+    <link rel="stylesheet" type="text/css" href="../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+    <style>
+        /*已成功*/
+        .suss{
+            color: #2198f2!important;
+        }
+        /*正在审核的*/
+        .sH{
+            color: #e1080c;
+        }
+        /*成功后面的红线*/
+        .redLine.itemdiv::before {
+            background-color: #e1080c!important;
+            border: 1px solid #e1080c!important;
+        }
+        .people span{
+            color: #333333!important;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div>
+        <div class="talkRecord">
+            <span id="back"><img src="../img/back.png"><span class="back">返回</span></span>
+            <span>发展对象审批</span>
+        </div>
+        <div>
+            <div class="left">
+                <div class="developObj">
+                    <span>发展对象审批</span><span id="accessSp">通过审批</span><span class="hid" id="accessBtn">审批通过</span>
+                </div>
+                <div style="clear:both;"></div>
+
+                <div class="developW">当前发展过程</div>
+                <div class="boxWrapper">
+                    <div class="inner">
+                        <div class="hangding itemdiv dialogdiv">
+                            <div class="user  onHanding">
+                                <div><img src="../img/liC.png"></div>
+                            </div>
+                            <div class="body onWord">
+                                <div class="suss">
+                                    入党申请人
+                                </div>
+                                <div class="applyTime" id="shenQT">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="itemdiv dialogdiv">
+                            <div class="user">
+                                <div><img src="../img/handing.png"></div>
+                            </div>
+                            <div class="body">
+                                <div class="sH">
+                                    积极分子
+                                </div>
+                                <div class="applyTime" id="activerT">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="itemdiv dialogdiv">
+                            <div class="user">
+                                <div><img src="../img/noHand.png"></div>
+                            </div>
+                            <div class="body">
+                                <div>发展对象</div>
+                            </div>
+                        </div>
+                        <div class="itemdiv dialogdiv">
+                            <div class="user">
+                                <div><img src="../img/noHand.png"></div>
+                            </div>
+                            <div class="body">
+                                <div>
+                                    预备党员
+                                </div>
+                            </div>
+                        </div>
+                        <div class="itemdiv dialogdiv">
+                            <div class="user">
+                                <div><img src="../img/noHand.png"></div>
+                            </div>
+                            <div class="body">
+                                <div>
+                                    正式党员
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+                <div class="list">
+                    <div class="listLeft">
+                        <div>
+                            <div>姓名:</div>
+                            <div id="name"></div>
+                        </div>
+                        <div>
+                            <div>性别:</div>
+                            <div id="sex"></div>
+                        </div>
+                        <div>
+                            <div>民族:</div>
+                            <div id="nation"></div>
+                        </div>
+                        <div>
+                            <div>身份证号:</div>
+                            <div id="userId"></div>
+                        </div>
+                        <div>
+                            <div>出生日期:</div>
+                            <div id="birthday"></div>
+                        </div>
+                        <div>
+                            <div>学历:</div>
+                            <div id="education"></div>
+                        </div>
+                    </div>
+                    <div class="listRight">
+                        <div>
+                            <div>职务:</div>
+                            <div id="task"></div>
+                        </div>
+                        <div>
+                            <div>职称:</div>
+                            <div id="zC"></div>
+                        </div>
+                        <div>
+                            <div>籍贯:</div>
+                            <div class="jG"></div>
+                        </div>
+                        <div>
+                            <div>出生地:</div>
+                            <div class="birthL"></div>
+                        </div>
+                        <div>
+                            <div>家庭住址:</div>
+                            <div id="address"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="sixRecord" class="hidden">
+                    <div class="sugest">积极分子提交资料</div>
+                    <div class="list thoughtB" id="lookSource">
+                        <div>思想汇报</div>
+                        <div class="submitB">已提交<span id="num"></span>份，点击查看</div>
+                    </div>
+                </div>
+                <div id="liC" class="hid">
+                    <div class="sugest">流程</div>
+                    <div class="list yiJ">
+                        <div class="list_Left">
+                            <div>
+                                <div>培养联系人:</div>
+                                <div class="people"><span></span></div>
+                            </div>
+                            <div>
+                                <div>谈话记录:</div>
+                                <div><span>点击查看</span></div>
+                            </div>
+                            <div>
+                                <div>党课培训记录:</div>
+                                <div id="fiTime"><span>已完成<span id="numT">20</span>学时，点击查看</span></div>
+                            </div>
+                            <div>
+                                <div>培养考察意见:</div>
+                                <div id="suggest"><span>已提交<span class="num">4</span>份，点击查看</span></div>
+                            </div>
+                            <div>
+                                <div>党支部考察意见:</div>
+                                <div id="branchQ"><span>已提交<span class="num"></span>份，点击查看</span></div>
+                            </div>
+                        </div>
+                        <div class="list_Right">
+                            <div>
+                                <div>党小组意见:</div>
+                                <div class="look"><span>点击查看</span></div>
+                            </div>
+                            <div>
+                                <div>培养联系人意见:</div>
+                                <div class="look"><span>点击查看</span></div>
+                            </div>
+                            <div>
+                                <div>党员意见:</div>
+                                <div class="look"><span>点击查看</span></div>
+                            </div>
+                            <div>
+                                <div>群众意见:</div>
+                                <div class="look"><span>点击查看</span></div>
+                            </div>
+                            <div>
+                                <div>支部委员会意见:</div>
+                                <div class="look"><span>点击查看</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dengJ hidden" >
+                    <div>积极分子考察登记表</div>
+                    <div id="activeLook">查看</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<input type="button" value="我是弹窗" id="pop1">-->
+<!--<div class="mask hid" id="mask"></div>-->
+<!--指定入党介绍人弹窗-->
+<!--<div class="popBox hid" id="poper">-->
+    <!--<div class="popB_Top">-->
+        <!--<span class="addW" id="title">指定入党介绍人</span><span class="close" id="close"><img src="../img/close.png"></span>-->
+    <!--</div>-->
+    <!--<div class="popB_bottom">-->
+        <!--<div id="inputBox">-->
+            <!--<div>-->
+                <!--<div>入党介绍人</div>-->
+                <!--<div><input type="text" value="" ><img src="../img/select.png"></div>-->
+            <!--</div>-->
+            <!--<div>-->
+                <!--<div>入党介绍人</div>-->
+                <!--<div><input type="text" value="" ><img src="../img/select.png"></div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="btnList" id="twoB"><input type="button" id="sure" value="确定"><input type="button" id="cancel" value="取消"></div>-->
+<!--</div>-->
+
+
+</body>
+<script src="../assets/js/jquery.js"></script>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script src="../assets/js/jquery.js"></script>
+<script src="../js/laydate.js"></script>
+<script src="../js/layer.js"></script>
+<!--提示框js-->
+<script src="../js/poperConfirm.js"></script>
+<script>
+    $(function () {
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+
+        var recId = getQueryString("recId");
+        var path = "";
+        var iframe = document.getElementById("common");
+        ///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+        iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+        if (iframe.attachEvent) {//判断iframe是否加载完成
+            iframe.attachEvent("onload", function () {
+                getCommon();
+            });
+        } else {
+            iframe.onload = function () {
+                getCommon();
+            };
+        }
+
+        //获取公共参数  一般为存储在session里面的数据
+        function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+            var frames = window.frames["common"];
+            path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+            var _qiniuImageHost = frames._qiniuImageHost;//七牛云公共地址头
+            //    成功之后轴的红线
+            $(".suss").parent().parent().next().addClass("redLine");
+            $("#back").click(function () {
+                window.location.href="joinPartyApplyer.html?toPag=0";
+            });
+            function isNum(num) {
+                var re = /^[0-9]+.?[0-9]*$/;
+                if (!re.test(num)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            $("#mask").height($(document).height());
+            var bumenId = "";
+            var noSumbit = "../img/uploadSb.png";
+            var overSubmit = "../img/upScuss.png";
+            var daibN = "../img/waitB.png";
+            var daibEd = "../img/green.png";
+
+            var allData = "";
+            queryByID();
+
+            function queryByID() {
+                $.ajax({
+                    type: "POST",
+                    url: path + "/recruit/queryByRecId.action",
+                    data: {"recId": recId},
+                    dataType: "json",
+                    success: function (data) {
+                        allData = data.data;
+                        var data = data.data;
+                        if (data.type == 1) {
+                            $("#curState").text("积极分子");
+                        }
+                        bumenId = data.bumenId;
+                        $("#name").text(data.user.name);
+                        if (data.user.gender == 0) {
+                            $("#sex").text("男");
+                        } else {
+                            $("#sex").text("女");
+                        }
+                        $("#nation").text(data.user.volk);
+                        $("#userId").text(data.user.userID);
+                        $("#birthday").text(data.user.birthday);
+                        $("#education").text(data.user.education);
+                        $("#task").text(data.user.perAdminInformation.dutiesName);
+                        $("#zC").text(data.user.perAdminInformation.positionTitle);
+                        $(".jG").append("<span>" + data.user.homeplace.dProvince + "</span><span>" + data.user.homeplace.dCity + "</span><span>" + data.user.homeplace.dDistrict + "</span>");
+                        $(".birthL").append("<span>" + data.user.nativePlace.dProvince + "</span><span>" + data.user.nativePlace.dCity + "</span><span>" + data.user.nativePlace.dDistrict + "</span>");
+                        $("#address").text(data.user.address);
+
+                        $("#shenQT").text(data.formtEntialDate);
+                        $("#activerT").text(data.formtRustDate);
+
+                        if (allData.rustler.f1a == "Y"&&allData.rustler.f1b == "Y"&&allData.rustler.f1c == "Y"&& allData.rustler.f1d == "Y"&& allData.rustler.f1e == "Y"&& allData.rustler.f1f == "Y" && allData.rustler.f1g == "Y" && allData.rustler.f1h == "Y" && allData.rustler.f1i == "Y" && allData.rustler.f1j == "Y") {
+                            $(".dengJ").removeClass("hidden").find("#activeLook").click(function () {
+                                window.open(path+"/recruit/dowActivistSurveyPdf/"+recId+".action");
+                            });
+                        }
+
+                        //指定培养联系人
+                        if (data.rustler.f1a == "N" || data.rustler.f1a === undefined) {
+                            $($("#waitHandler ul li")[0]).find("img").attr("src", daibN);
+                        } else {
+                            $($("#waitHandler ul li")[0]).find("img").attr("src", daibEd);
+                            $("#liC").removeClass("hid");
+                            $($(".list_Left>div").get(0)).css("display", "block").last().find("span").text(data.rusUserNames);
+
+                        }
+                        //设置思想汇报提交要求
+                        if (data.rustler.f1l == "N" || data.rustler.f1l === undefined) {
+                            $($("#waitHandler ul li")[1]).find("img").attr("src", daibN);
+                        } else {
+                            $($("#waitHandler ul li")[1]).find("img").attr("src", daibEd);
+                            $("#sixRecord").removeClass("hidden");
+                            if(typeof data.statistics.aidea !== "undefined" || data.statistics.aidea !== null){
+                                $("#sixRecord").find("#num").text(data.statistics.aidea);
+                            }else{
+                                $("#sixRecord").find("#num").text(0);
+                            }
+
+                             $(".submitB").click(function () {
+                                 window.location.href = "siRecord.html?devId="+recId+"&&six=aidea&&flag=1";
+                             })
+                        }
+                        //上传谈话记录
+                        if (data.rustler.f1b == "N" || data.rustler.f1b === undefined) {
+                            $($("#waitHandler ul li")[2]).find("img").attr("src", daibN);
+                        } else {
+                            $($("#waitHandler ul li")[2]).find("img").attr("src", daibEd);
+                            $("#liC").removeClass("hid");
+                            $($(".list_Left>div").get(1)).css("display", "block").last().click(function () {
+                                window.location.href = "thoughtReport.html?recId=" + recId + "&&type=1&&stKey=f1b&&flag=1";
+                            });
+                        }
+                        //上传党课培训记录
+                        if (data.rustler.f1c == "N" || data.rustler.f1c === undefined) {
+                            $($("#waitHandler ul li")[3]).find("img").attr("src", daibN);
+                        } else {
+                            $($("#waitHandler ul li")[3]).find("img").attr("src", daibEd);
+                            $("#liC").removeClass("hid");
+                            $($(".list_Left>div").get(2)).css("display", "block").last().find("#numT").text(data.statistics.f1c);
+                            $("#fiTime").click(function () {
+                                window.location.href = "partyDevelopRecord.html?recId=" + recId + "&&type=1&&stKey=f1c&&flag=1";
+                            });
+                        }
+                        //上传培养考察情况
+                        if (data.rustler.f1d == "N" || data.rustler.f1d === undefined) {
+                            $($("#waitHandler ul li")[4]).find("img").attr("src", daibN);
+                        } else {
+                            $($("#waitHandler ul li")[4]).find("img").attr("src", daibEd);
+                            $($(".list_Left>div").get(3)).css("display", "block").last().find(".num").text(data.statistics.f1d);
+                            $("#suggest").click(function () {
+                                window.location.href = "cultivationInvest.html?recrutId=" + recId + '&&stKey=f1d&&flag=1&&flag1=1';
+                            });
+                        }
+                        //上传党支部考察情况
+                        if (data.rustler.f1e == "N" || data.rustler.f1e === undefined) {
+                            $($("#waitHandler ul li")[5]).find("img").attr("src", daibN);
+                        } else {
+                            $($("#waitHandler ul li")[5]).find("img").attr("src", daibEd);
+                            $("#liC").removeClass("hid");
+                            $($(".list_Left>div").get(4)).css("display", "block").last().find(".num").text(data.statistics.f1e);
+                            $("#branchQ").click(function () {
+                                window.location.href = "cultivationInvest.html?recrutId=" + recId + "&&type=1&&stKey=f1e&&flag=2&&flag1=1";
+                            });
+
+                        }
+
+                        //上传党小组意见
+                        if (data.rustler.f1f == "N" || data.rustler.f1f === undefined) {
+                            $($("#suggestL ul li")[0]).find("img").attr("src", daibN);
+                        } else {
+                            $($("#suggestL ul li")[0]).find("img").attr("src", daibEd);
+                            $("#liC").removeClass("hid");
+                            $($(".list_Right>div").get(0)).css("display", "block");
+                            $($(".list_Right>div").get(0)).find(".look").click(function () {
+                                window.location.href = "cultivationInvest.html?recrutId=" + recId + "&&type=1&&stKey=f1f&&flag=3";
+                            });
+                        }
+                        //上传培养联系人意见
+                        if (data.rustler.f1g == "N" || data.rustler.f1g === undefined) {
+                            $($("#suggestL ul li")[1]).find("img").attr("src", daibN);
+                        } else {
+                            $($("#suggestL ul li")[1]).find("img").attr("src", daibEd);
+                            $("#liC").removeClass("hid");
+                            $($(".list_Right>div").get(1)).css("display", "block");
+                            $($(".list_Right>div").get(1)).find(".look").click(function () {
+                                window.location.href = "cultivationInvest.html?recrutId=" + recId + "&&type=1&&stKey=f1g&&flag=4";
+                            });
+                        }
+                        //上传党员意见
+                        if (data.rustler.f1h == "N" || data.rustler.f1h === undefined) {
+                            $($("#suggestL ul li")[2]).find("img").attr("src", daibN);
+                        } else {
+                            $($("#suggestL ul li")[2]).find("img").attr("src", daibEd);
+                            $("#liC").removeClass("hid");
+                            $($(".list_Right>div").get(2)).css("display", "block");
+                            $($(".list_Right>div").get(2)).find(".look").click(function () {
+                                window.location.href = "cultivationInvest.html?recrutId=" + recId + "&&type=1&&stKey=f1h&&flag=5";
+                            });
+                        }
+                        //上传群众意见
+                        if (data.rustler.f1i == "N" || data.rustler.f1i === undefined) {
+                            $($("#suggestL ul li")[3]).find("img").attr("src", daibN);
+                        } else {
+                            $($("#suggestL ul li")[3]).find("img").attr("src", daibEd);
+                            $("#liC").removeClass("hid");
+                            $($(".list_Right>div").get(3)).css("display", "block");
+                            $($(".list_Right>div").get(3)).find(".look").click(function () {
+                                window.location.href = "cultivationInvest.html?recrutId=" + recId + "&&type=1&&stKey=f1i&&flag=6";
+                            });
+                        }
+                        //上传支部委员会意见
+                        if (data.rustler.f1j == "N" || data.rustler.f1j === undefined) {
+                            $($("#suggestL ul li")[4]).find("img").attr("src", daibN);
+                        } else {
+                            $($("#suggestL ul li")[4]).find("img").attr("src", daibEd);
+                            $("#liC").removeClass("hid");
+                            $($(".list_Right>div").get(4)).css("display", "block");
+                            $($(".list_Right>div").get(4)).find(".look").click(function () {
+                                window.location.href = "cultivationInvest.html?recrutId=" + recId + "&&type=1&&stKey=f1j&&flag=7";
+                            });
+                        }
+
+                        //确定发展对象，报上级党委审批
+                        if (data.rustler.f1k == "N" || data.rustler.f1k === undefined) {
+                            $($("#suggestL ul li")[5]).find("img").attr("src", daibN);
+                        } else {
+                            $($("#suggestL ul li")[5]).find("img").attr("src", daibEd);
+                        }
+
+                        if(data.isDevPm ==2){
+                            $('#accessSp').addClass("hid");
+                            $("#accessBtn").removeClass("hid");
+                        }
+                        $.ajax({
+                            type: "POST",
+                            url: path + "/recruit/findUserByBumenId.action",
+                            data: {"bumenId": bumenId},
+                            dataType: "json",
+                            success: function (data) {
+                                var data = data.data;
+                                for (var i = 0; i < data.length; i++) {
+                                    var oLi = "<li data-id=" + data[i]._id + ">" + data[i].name + "</li>";
+                                    $(".contact ul").append(oLi);
+                                }
+                                $(".lianB").click(function (e) {
+                                    $(this).next().next().slideDown();
+                                    e.stopPropagation();
+                                });
+                                $(".contact ul li").mouseover(function () {
+                                    $(".contact ul li").removeClass("activeSelcet");
+                                    $(this).addClass("activeSelcet");
+                                });
+                                $("body").click(function () {
+                                    $(".contact").slideUp();
+                                });
+                                $(".contact ul li").click(function () {
+                                    $(this).parents(".contact").prevAll(".lianB").val($(this).text());
+                                    $(this).parents(".contact").prevAll(".lianB").prev().val($(this).attr("data-id"));
+                                });
+
+                                $($("#waitHandler ul li")[0]).click(function () {
+                                    if (allData.rustler.f1a != "Y") {
+                                        $("#mask").removeClass("hid");
+                                        $("#poper1").removeClass("hid");
+                                    }
+                                });
+                                $("#mask").click(function () {
+                                    $(this).addClass("hid");
+                                    $("#poper1").addClass("hid");
+                                });
+                                $("#cancel1").click(function () {
+                                    $("#mask").addClass("hid");
+                                    $("#poper1").addClass("hid");
+                                });
+                                $("#close").click(function () {
+                                    $("#mask").addClass("hid");
+                                    $("#poper1").addClass("hid");
+                                });
+                                $("#sure1").click(function () {
+                                    if ($("#one").val() == "") {
+                                        parent.layer.alert('请选择培养联系人！');
+                                        return;
+                                    }
+                                    if ($("#two").val() == "") {
+                                        parent.layer.alert('请选择培养联系人！');
+                                        return;
+                                    }
+                                    if ($("#one").val() == $("#two").val()) {
+                                        parent.layer.alert('请选择不同的培养联系人！');
+                                        return;
+                                    }
+                                    $.ajax({
+                                        type: "POST",
+                                        url: path + "/recruit/training.action",
+                                        data: {
+                                            "recid": recId,
+                                            "userIda": $("#lianxi1").val(),
+                                            "userNamea": $("#one").val(),
+                                            "userIdb": $("#lianxi2").val(),
+                                            "userNameb": $("#two").val()
+                                        },
+                                        dataType: "json",
+                                        success: function (data) {
+                                            window.location.reload();
+                                        }
+                                    })
+                                });
+                                $($("#waitHandler ul li")[1]).click(function () {
+                                    if (allData.rustler.f1l != "Y") {
+                                        $("#mask").removeClass("hid");
+                                        $("#poper2").removeClass("hid");
+                                    }
+                                });
+                                $("#mask").click(function () {
+                                    $(this).addClass("hid");
+                                    $("#poper2").addClass("hid");
+                                });
+                                $("#cancelA").click(function () {
+                                    $("#mask").addClass("hid");
+                                    $("#poper2").addClass("hid");
+                                });
+                                $("#closeActive").click(function () {
+                                    $("#mask").addClass("hid");
+                                    $("#poper2").addClass("hid");
+                                });
+                                $("#sureA").click(function (e) {
+                                    e.stopPropagation();
+                                    if ($("#month").val().trim() == "") {
+                                        parent.layer.alert('请填写几个月交思想汇报！');
+                                        return;
+                                    }
+                                    if (!isNum($("#month").val().trim())) {
+                                        parent.layer.alert('请输入数字！');
+                                        return;
+                                    }
+                                    if (!/^\d+$/.test($("#month").val())) {
+                                        parent.layer.alert('请输入整数！');
+                                        return;
+                                    }
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: path + "/recruit/setUpdata.action",
+                                        data: {
+                                            "recid": recId,
+                                            "msum": $("#month").val().trim()
+                                        },
+                                        dataType: "json",
+                                        success: function (data) {
+                                            window.location.reload();
+                                        }
+                                    })
+                                });
+                                //上传谈话记录
+                                $($("#waitHandler ul li")[2]).click(function () {
+                                    window.location.href = "thoughtReport.html?recId=" + recId + "&&type=1&&stKey=f1b";
+                                });
+                                //上传党课培训记录
+                                $($("#waitHandler ul li")[3]).click(function () {
+                                    window.location.href = "partyDevelopRecord.html?recId=" + recId + "&&type=1&&stKey=f1c";
+                                });
+                                //添加培养考察情况
+                                $($("#waitHandler ul li")[4]).click(function () {
+                                    if (allData.rustler.f1a == 'Y') {
+                                        window.location.href = "cultivationInvest.html?recrutId=" + recId + "&&type=1&&stKey=f1d&&flag=1";
+                                    } else {
+                                        parent.layer.alert('请指定培养联系人！');
+                                    }
+                                });
+                                //上传支部考察情况
+                                $($("#waitHandler ul li")[5]).click(function () {
+                                    window.location.href = "cultivationInvest.html?recrutId=" + recId + "&&type=1&&stKey=f1e&&flag=2";
+                                });
+
+                                //上传党小组意见
+                                $($("#suggestL ul li")[0]).click(function () {
+                                    window.location.href ="addCultivationInvest.html?recId=" + recId + "&&type=1&&stKey=f1f&&flag=4"
+                                });
+                                //上传培养联系人意见
+                                $($("#suggestL ul li")[1]).click(function () {
+                                    window.location.href ="addCultivationInvest.html?recId=" + recId + "&&type=1&&stKey=f1g&&flag=5";
+                                });
+                                //上传党员意见
+                                $($("#suggestL ul li")[2]).click(function () {
+                                    window.location.href = "addCultivationInvest.html?recId=" + recId + "&&type=1&&stKey=f1h&&flag=6";
+                                });
+                                //上传群组意见
+                                $($("#suggestL ul li")[3]).click(function () {
+                                    window.location.href =  "addCultivationInvest.html?recId=" + recId + "&&type=1&&stKey=f1i&&flag=7";
+                                });
+                                //上传支部委员会意见
+                                $($("#suggestL ul li")[4]).click(function () {
+                                    window.location.href ="addCultivationInvest.html?recId=" + recId + "&&type=1&&stKey=f1j&&flag=8";
+                                });
+                                //报上级党委审批
+                                $($("#suggestL ul li")[5]).click(function () {
+                                    if (allData.rustler.f1a == "Y"&&allData.rustler.f1b == "Y"&&allData.rustler.f1c == "Y"&& allData.rustler.f1d == "Y"&& allData.rustler.f1e == "Y"&& allData.rustler.f1f == "Y" && allData.rustler.f1g == "Y" && allData.rustler.f1h == "Y" && allData.rustler.f1i == "Y" && allData.rustler.f1j == "Y") {
+                                        $.ajax({
+                                            type: "POST",
+                                            url: path + "/recruit/setDeveObj.action",
+                                            data: {
+                                                "recid": recId
+                                            },
+                                            dataType: "json",
+                                            success: function (data) {
+                                                if(data.success==true){
+                                                    window.location.reload();
+                                                }else{
+                                                    //初始化提示框   标题  内容   成功回调
+                                                    initPoper("确定发展对象", data.message,"false")
+                                                }
+                                            }
+                                        })
+                                    } else {
+                                        //初始化提示框   标题  内容   成功回调
+                                        initPoper("确定发展对象", "资料不齐全，请补全后提交审核","false")
+                                    }
+                                });
+
+
+
+                            }
+                        });
+
+                    }
+
+                });
+            }
+
+            $('#accessSp').click(function () {
+                //初始化提示框   标题  内容   成功回调
+                initPoper("审批", "是否同意该同志列为发展对象",function () {
+                    $.ajax({
+                        type: "POST",
+                        url: path + "/recruit/auditing.action",
+                        data: {
+                            "recid": recId,
+                            "type":1,
+                            "state":2
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            if(data.success==true){
+                                // parent.layer.alert('！');
+                                window.location.reload();
+                            }else{
+                                parent.layer.alert(data.message);
+                            }
+                        }
+                    })
+                });
+
+            })
+        }
+    })
+</script>
+<!--<script>-->
+       <!--$("#mask").height($(document).height());-->
+        <!--$("#pop1").click(function () {-->
+            <!--$("#mask").removeClass("hid");-->
+            <!--$("#poper").removeClass("hid");-->
+        <!--});-->
+        <!--$("#mask").click(function () {-->
+            <!--$(this).addClass("hid");-->
+            <!--$("#poper").addClass("hid");-->
+        <!--});-->
+        <!--$("#cancel").click(function () {-->
+            <!--$("#mask").addClass("hid");-->
+            <!--$("#poper").addClass("hid");-->
+        <!--});-->
+        <!--$("#close").click(function () {-->
+            <!--$("#mask").addClass("hid");-->
+            <!--$("#poper").addClass("hid");-->
+        <!--})-->
+<!--</script>-->
+</html>

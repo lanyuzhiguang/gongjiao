@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>查看详情</title>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/index.css"/>
+		<style type="text/css">
+			td img {
+				width: 18px;
+			}
+			article section:first-of-type {
+				padding-bottom: 0;
+			}
+			article section:nth-of-type(2) p {
+				line-height: 30px;
+			}
+			article section:nth-of-type(2) p strong:first-of-type {
+				display: inline-block;
+				margin-right: 200px;
+			}
+			tr td:last-of-type img {
+				width: 12px;
+			}
+			article {
+            	display: none;
+            }
+            article:first-of-type {
+            	display: block;
+            }
+		</style>
+	</head>
+	<body>
+		<aside>
+			<img src="../img/nonews.png"/>
+		</aside>
+		<nav class="header">
+			<ol class="breadcrumb">
+			  <li><a href="javascript:;">经费管理</a></li>
+			  <li><a href="javascript:;">活动经费管理</a></li>
+			  <li><a href="javascript:;">党建活动管理</a></li>
+			  <li class="active cursor">党建活动计划</li>
+			</ol>
+		</nav>
+		<article>
+			<section>
+				<button class="btnbg add">添加</button>
+				<button class="btnbg2 submitPlan">提交审核</button>
+			</section>
+			<section>
+				<p>
+					<strong>党员人数：<span>100</span></span></strong>
+					<strong>党费金额：<span>30000</span></strong></p>
+			</section>
+			<section>
+				<table class="table table-striped tableNoBor">
+					<tr style="display: none;"></tr>
+					<tr>
+						<th>时间</th>
+						<th>党建活动名称</th>
+						<th>实际参与人数</th>
+						<th>党建活动经费</th>
+						<th>留存档费（党组织工作经费）</th>
+						<th>纳入管理费（党组织工作经费）</th>
+						<th>发票（张数）</th>
+						<th>是否已上传至e先锋</th>
+						<th>活动效果</th>
+						<th>备注</th>
+						<th>操作</th>
+					</tr>
+					<tr>
+						<td>2018年1月</td>
+						<td>这是活动名称</td>
+						<td>100</td>
+						<td>30000</td>
+						<td>100</td>
+						<td>100</td>
+						<td>100</td>
+						<td>是</td>
+						<td><img class="seeContent" src="../img/see.png"/></td>
+						<td><img class="seeContent" src="../img/see.png"/></td>
+						<td>
+							<img class="edit" src="../img/edit.png"/>
+							<img src="../img/delect.png"/>
+						</td>
+					</tr>
+				</table>
+			</section>
+		</article>
+		<article>
+			<nav>
+				<ul class="clear">
+					<li class="left cursor active">添加完成情况</li>
+				</ul>
+			</nav>
+			<section class="row">
+				<form class="form-horizontal col-xs-12">
+					<div class="form-group col-xs-6">
+						<label for="" class="col-xs-5 control-label"><span class="red">*</span>时间：</label>
+						<div class="col-xs-7">
+							<input type="text" class="form-control" placeholder="请输入" />
+						</div>
+				  	</div>
+				  	<div class="form-group col-xs-6">
+						<label for="" class="col-xs-5 control-label"><span class="red">*</span>选择标题：</label>
+						<div class="col-xs-7">
+							<select class="form-control">
+								<option>请选择</option>
+								<option>标题一</option>
+							</select>
+						</div>
+				  	</div>
+				  	<div class="form-group col-xs-6">
+						<label for="" class="col-xs-5 control-label"><span class="red">*</span>实际参加人数：</label>
+						<div class="col-xs-7">
+							<input type="text" class="form-control" placeholder="请输入" />
+						</div>
+				  	</div>
+				  	<div class="form-group col-xs-6">
+						<label for="" class="col-xs-5 control-label"><span class="red">*</span>党建活动经费：</label>
+						<div class="col-xs-7">
+							<input type="text" class="form-control" placeholder="请输入" />
+						</div>
+				  	</div>
+				  	<div class="form-group col-xs-6">
+						<label for="" class="col-xs-5 control-label"><span class="red">*</span>留存档费（党组织工作经费）：</label>
+						<div class="col-xs-7">
+							<input type="text" class="form-control" placeholder="请输入" />
+						</div>
+				  	</div>
+				  	<div class="form-group col-xs-6">
+						<label for="" class="col-xs-5 control-label"><span class="red">*</span>纳入管理费（党组织工作经费）：</label>
+						<div class="col-xs-7">
+							<input type="text" class="form-control" placeholder="请输入" />
+						</div>
+				  	</div>
+				  	<div class="form-group col-xs-6">
+						<label for="" class="col-xs-5 control-label"><span class="red">*</span>发票（张数）：</label>
+						<div class="col-xs-7">
+							<input type="text" class="form-control" placeholder="请输入" />
+						</div>
+				  	</div>
+				  	<div class="form-group col-xs-6">
+						<label for="" class="col-xs-5 control-label"><span class="red">*</span>活动效果：</label>
+						<div class="col-xs-7">
+							<textarea class="form-control" placeholder="请输入" rows="4" cols=""></textarea>
+						</div>
+				  	</div>
+				  	<div class="form-group col-xs-6">
+						<label for="" class="col-xs-5 control-label"><span class="red">*</span>是否已上传至e先锋：</label>
+						<div class="col-xs-7">
+							<label class="radio-inline">
+  								<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 是
+							</label>
+							<label class="radio-inline">
+							  	<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 否
+							</label>
+						</div>
+				  	</div>
+				  	<div class="form-group col-xs-12">
+						<label for="" class="col-xs-2 control-label">备注：</label>
+						<div class="col-xs-10">
+							<textarea class="form-control" placeholder="请输入" rows="4" cols=""></textarea>
+						</div>
+				  	</div>
+				</form>
+			</section>
+			<section>
+				<div class="footerBtnBox">
+					<button class="btnbg submitBtn">提交</button>
+					<button class="btn btn-default cancelBtn">取消</button>
+				</div>
+			</section>
+		</article>
+		<div class="alertBox">
+			<div class="alert">
+				<div class="header">
+					<p class="ellipsis">内容简介</p>
+					<img class="closeAlert" src="../img/close.png"/>
+				</div>
+				<div class="alert_content">
+					<p class="indent">原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="../../../moduleweb/resources/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../resources/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function(){
+		$(".seeContent").off("click").on("click",function(){
+			$(".alertBox").fadeIn();
+		});
+		$(".alertBox .closeAlert").off("click").on("click",function(){
+			$(".alertBox").fadeOut();
+		});
+		//添加、编辑完成情况
+		$(".edit,.add").off("click").on("click",function(){
+			$("article:eq(1)").show().siblings("article").hide();
+		});
+		//提交
+		$(".submitBtn,.cancelBtn").off("click").on("click",function(){
+			$("article:eq(0)").show().siblings("article").hide();
+		});
+		//提交审核
+		$(".submitPlan").off("click").on("click",function(){
+			window.history.go(-1);
+		});
+	});
+</script>

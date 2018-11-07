@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../css/resultsofcheck.css">
+    <link rel="stylesheet" type="text/css" href="../../css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../../css/layer.css">
+    <link rel="stylesheet" type="text/css" href="../../css/zTreeStyle.css">
+    <style>
+        .noActive {
+            background: #cdd4d6 !important;
+            color: #616161 !important;
+        }
+        
+        .hid {
+            display: none;
+        }
+        
+        #pageContent,
+        #pageContent1 {
+            margin: auto;
+            text-align: center;
+            margin-top: 47px;
+        }
+        
+        .noDate,
+        .noDate1 {
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .noDate,
+        #wu,
+        #zanWu {
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        #zanWu {
+            display: none;
+        }
+        
+        .ztree li span.button.chk.checkbox_true_disable {
+            background-position: -14px 0px;
+        }
+        
+        table tr td:nth-child(4) {
+            text-align: center;
+            padding: 10px;
+        }
+        
+        table tr td:nth-child(4)>span {
+            text-align: center;
+            color: #2196f3;
+            display: block;
+            margin: auto;
+            cursor: pointer;
+        }
+        
+        .btnList input:last-of-type {
+            background: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="rulesHead">
+            <ul>
+                <li id="organizationLi" style="display: none;">党组织考核结果</li>
+                <li id="partyMemberLi" class="noActive">党员考核结果</li>
+            </ul>
+            <div style="clear:both;"></div>
+            <div class="partyMember hid">
+                <div class="topInput">
+                    <div>考核发布单位</div>
+                    <div><input id="menb" type="text"></div>
+                    <div>考核类别</div>
+                    <div class="kaoPKind">
+                        <input type="hidden" id="partyKId">
+                        <input type="text" readonly="readonly" id="membeiKind"><img src="../../img/select.png">
+                        <div id="PartyMKind" class="selectPartyBtn" style="display: none">
+                            <ul>
+                                <li data-id="">全部</li>
+                                <li data-id="1">党员</li>
+                                <li data-id="2">干部</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="searchB" id="searchM">查询</div>
+                </div>
+                <div class="tableList">
+                    <table cellpadding="0" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th style="">序号</th>
+                                <th style="">标题</th>
+                                <th style="">考核发布单位</th>
+                                <th style="">考核适用范围</th>
+                                <th style="">考核类别</th>
+                                <th style="">考核周期</th>
+                                <th style="">自查分</th>
+                                <th style="">考评分</th>
+                                <th style="">考评排名</th>
+                                <th style="">操作</th>
+                            </tr>
+
+                        </thead>
+                        <tbody id="talkR1">
+
+                        </tbody>
+                    </table>
+                    <div class="noDate1 hid">暂无数据</div>
+                </div>
+                <div id="pageContent1"></div>
+            </div>
+            <div class="partyOrganization ">
+                <div class="topInput">
+                    <div>考核发布单位</div>
+                    <div><input id="publishOffice" type="text"></div>
+                    <div>考核类别</div>
+                    <div class="kaoKind">
+                        <input type="hidden" value="" id="orgaKind">
+                        <input type="text" id="organizationL" readonly="readonly"><img src="../../img/select.png">
+                        <div id="checkKind" class="selectBtn" style="display: none">
+                            <ul>
+                                <li data-id="">全部</li>
+                                <li data-id="1">党委</li>
+                                <li data-id="2">党工委</li>
+                                <li data-id="3">党总支</li>
+                                <li data-id="4">党支部</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="searchB" id="searchO">查询</div>
+                </div>
+                <div class="tableList">
+                    <table cellpadding="0" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th style="">序号</th>
+                                <th style="">标题</th>
+                                <th style="">考核发布单位</th>
+                                <th style="">考核适用范围</th>
+                                <th style="">考核类别</th>
+                                <th style="">考核填报单位</th>
+                                <th style="">考核周期</th>
+                                <th style="">自查分</th>
+                                <th style="">考评分</th>
+                                <th style="">考评排名</th>
+                                <th style="">操作</th>
+                            </tr>
+
+                        </thead>
+                        <tbody id="talkR">
+
+                        </tbody>
+                    </table>
+                    <div class="noDate hid">暂无数据</div>
+                </div>
+                <div id="pageContent"></div>
+            </div>
+        </div>
+    </div>
+    <div class="mask hid" id="mask"></div>
+    <div class="popBox hid" id="poper1">
+        <div class="popB_Top">
+            <span class="addW" id="titleC">考核适用范围</span><span class="close" id="close"><img src="../../img/close.png"></span>
+        </div>
+        <div class="treeList">
+            <div id="menuContent1" class="menuContent">
+                <ul id="treeDemo1" class="ztree" style="margin-top:0; width:206px;"></ul>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../../r/wx/common/pathimage"></script>
+<script src="../../assets/js/jquery.js"></script>
+<script src="../../js/layer.js"></script>
+<script src="../../js/laydate.js"></script>
+<script src="../../js/layui.js"></script>
+<script src="../../js/jquery.ztree.core.min.js"></script>
+<script src="../../js/jquery.ztree.excheck.min.js"></script>
+<script>
+    $(function() {
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+
+        var recId = getQueryString("recId");
+        var path = _ctxPath; //获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+        //获取用户权限
+        $.get(_ctxPath + "user/myfunction.action", function(data) {
+                funcet(data.userrole);
+            })
+            /***权限相关处理*/
+        function funcet(fucn) {
+            if ("PartyCheckFill" == fucn.PartyCheckFill) { //如果是有管理权限
+                $("#organizationLi").css("display", "");
+                partyOrganize(1);
+            } else {
+                //id="partyMemberLi"  class="noActive"
+                $("#partyMemberLi").removeClass("noActive");
+                $("#organizationLi").addClass("noActive");
+                $(".partyMember").removeClass("hid");
+                $(".partyOrganization").addClass("hid");
+                partyMember();
+            }
+        }
+        $("#organizationLi").click(function() {
+            $(this).removeClass("noActive");
+            $("#partyMemberLi").addClass("noActive");
+            $(".partyMember").addClass("hid");
+            $(".partyOrganization").removeClass("hid");
+            partyOrganize();
+        });
+        $("#partyMemberLi").click(function() {
+            $(this).removeClass("noActive");
+            $("#organizationLi").addClass("noActive");
+            $(".partyMember").removeClass("hid");
+            $(".partyOrganization").addClass("hid");
+            partyMember();
+        });
+        partyOrganize();
+        //党员考核类别
+        $(".kaoPKind>input,.kaoPKind>img").click(function(e) {
+            $("#PartyMKind").slideDown();
+            e.stopPropagation();
+        });
+        $(".selectPartyBtn ul li").mouseover(function() {
+            $(".selectPartyBtn ul li").removeClass("activeSelcet");
+            $(this).addClass("activeSelcet");
+        });
+        $("body").click(function() {
+            $(".selectPartyBtn").slideUp();
+        });
+        $(".selectPartyBtn ul li").click(function() {
+            $(this).parents(".selectPartyBtn").prevAll("#membeiKind").val($(this).text());
+            $(this).parents(".selectPartyBtn").prevAll("#membeiKind").prev().val($(this).attr("data-id"));
+            $("#PartyMKind").slideUp();
+        });
+        //党员规则状态
+        $("#partyState").click(function(e) {
+            $(this).next().next().slideDown();
+            e.stopPropagation();
+        });
+        $(".PartyMrulerBtn ul li").mouseover(function() {
+            $(".PartyMrulerBtn ul li").removeClass("activeSelcet");
+            $(this).addClass("activeSelcet");
+        });
+        $("body").click(function() {
+            $(".PartyMrulerBtn").slideUp();
+        });
+        $(".PartyMrulerBtn ul li").click(function() {
+            $(this).parents(".PartyMrulerBtn").prevAll("#partyState").val($(this).text());
+            $(this).parents(".PartyMrulerBtn").prevAll("#partyState").prev().val($(this).attr("data-id"));
+        });
+        //党组织考核类别
+        $(".kaoKind>input,.kaoKind>img").click(function(e) {
+            $("#checkKind").slideDown();
+            e.stopPropagation();
+        });
+        $(".selectBtn ul li").mouseover(function() {
+            $(".selectBtn ul li").removeClass("activeSelcet");
+            $(this).addClass("activeSelcet");
+        });
+        $("body").click(function() {
+            $(".selectBtn").slideUp();
+        });
+        $(".selectBtn ul li").click(function() {
+            $(this).parents(".selectBtn").prevAll("#organizationL").val($(this).text());
+            $(this).parents(".selectBtn").prevAll("#organizationL").prev().val($(this).attr("data-id"));
+            $("#checkKind").slideUp();
+        });
+
+        //党组织规则状态
+        $("#ruleB").click(function(e) {
+            $(this).next().next().slideDown();
+            e.stopPropagation();
+        });
+        $(".rulerBtn ul li").mouseover(function() {
+            $(".rulerBtn ul li").removeClass("activeSelcet");
+            $(this).addClass("activeSelcet");
+        });
+        $("body").click(function() {
+            $(".rulerBtn").slideUp();
+        });
+        $(".rulerBtn ul li").click(function() {
+            $(this).parents(".rulerBtn").prevAll("#ruleB").val($(this).text());
+            $(this).parents(".rulerBtn").prevAll("#ruleB").prev().val($(this).attr("data-id"));
+        });
+        $("#searchO").click(function() {
+            $('#talkR').empty();
+            partyOrganize();
+
+        });
+        $("#searchM").click(function() {
+            $('#talkR1').empty();
+            partyMember();
+        });
+
+        function partyOrganize(type) {
+
+            //分页参数设置 这些全局变量关系到分页的功能
+            var pagea = 1; //开始页数
+            var sizea = 10; //每页最多显示条数
+            var nowpagea = 1; //当前页数
+            var pagesa = 0; //总页数
+            function page() {
+                //调用分页
+                layui.use(['laypage', 'layer'], function() {
+                    var laypage = layui.laypage,
+                        layer = layui.layer;
+                    laypage.render({
+                        elem: 'pageContent',
+                        count: pagesa,
+                        limit: sizea //每页显示的数据的条数,layui会根据count，limit进行分页的计算
+                            ,
+                        curr: nowpagea,
+                        jump: function(obj, first) {
+                            // var currPage=obj.curr;
+                            // var perPage_num=obj.limit;
+                            nowpagea = obj.curr;
+                            pagea = (obj.curr - 1) * sizea;
+                            if (!first) { //一定要加此判断，否则初始时会无限刷新
+                                pageAjax(); //一定要把翻页的ajax请求放到这里，不然会请求两次。
+                                location.href = '#top';
+                                //<a href="#top">返回顶部</a>
+                            }
+
+                        }
+
+                    });
+                })
+            }
+
+            pageAjax();
+
+            function pageAjax() {
+                $.ajax({
+                    type: "POST",
+                    url: path + "checkRecord/queryFillStatic.action",
+                    data: {
+                        "partyCheck.checkType|integer": $("#orgaKind").val(),
+                        "partyCheck.type|integer": "3",
+                        "regex:partyCheck.bumenName": $("#publishOffice").val(),
+                        "page": nowpagea, //当前页数
+                        "size": sizea //每页显示条数
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        pagea = data.page; //当前页数(后台返回)
+                        pagesa = data.total; //总页数(后台返回)
+                        var data = data.data;
+                        if (data.length == 0) {
+                            $(".noDate").removeClass("hid");
+                            $("#pageContent").addClass("hid");
+                        } else {
+                            handleData(data);
+                            $(".noDate").addClass("hid");
+                            $("#pageContent").removeClass("hid");
+                        }
+                        page();
+                    }
+                });
+            }
+
+            function handleData(data) {
+                $('#talkR').empty();
+                var ckType = "";
+                var checkType = "";
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].partyCheck.checkType == 1) {
+                        checkType = "党委"
+                    }
+                    if (data[i].partyCheck.checkType == 2) {
+                        checkType = "党工委"
+                    }
+                    if (data[i].partyCheck.checkType == 3) {
+                        checkType = "党总支"
+                    }
+                    if (data[i].partyCheck.checkType == 4) {
+                        checkType = "党支部"
+                    }
+                    if (data[i].partyCheck.checkType == 5) {
+                        checkType = "联合党支部"
+                    }
+
+                    if (data[i].partyCheck.ckType != 0) {
+                        if (data[i].partyCheck.ckType == 1) {
+                            ckType = "全部党委";
+                        }
+                        if (data[i].partyCheck.ckType == 2) {
+                            ckType = "全部党组织";
+                        }
+                        if (data[i].partyCheck.ckType == 3) {
+                            ckType = "全部党支部";
+                        }
+                        var oTr = '<tr>\n' +
+                            '                        <td>' + (i + 1) + '</td>\n' +
+                            '                        <td>' + data[i].partyCheck.title + '</td>\n' +
+                            '                        <td>' + data[i].partyCheck.bumenName + '</td>\n' +
+                            '                        <td>' + ckType + '</td>\n' +
+                            '                        <td>' + checkType + '</td>\n' +
+                            '                        <td>' + data[i].ckName + '</td>\n' +
+                            '                        <td>' + data[i].partyCheck.formtStarCycle + '到' + data[i].partyCheck.formtEndCycle + '</td>\n' +
+                            '                        <td>' + (data[i].fillScore == undefined ? "/" : data[i].fillScore) + '</td>\n' +
+                            '                        <td>' + data[i].checkScore + '</td>\n' +
+                            '                        <td>' + data[i].ranking + '</td>\n' +
+                            '                        <td><input class="ckName" type="hidden" value=' + data[i].partyCheck.title + '><input type="hidden" class="checkId" value=' + data[i].partyCheck._id + '><input type="hidden" class="id" value=' + data[i]._id + '><span class="chaK">查看</span></td>\n' +
+                            '                    </tr>';
+                    } else {
+                        if (data[i].partyCheck.ids.length > 1) {
+                            var oTr = '<tr>\n' +
+                                '                        <td>' + (i + 1) + '</td>\n' +
+                                '                        <td>' + data[i].partyCheck.title + '</td>\n' +
+                                '                        <td>' + data[i].partyCheck.bumenName + '</td>\n' +
+                                '                        <td><input class="checkType" type="hidden" value=' + data[i].partyCheck.checkType + '><input class="bumenId" type="hidden" value=' + data[i].partyCheck.bumenId + '><input class="checkId" type="hidden" value=' + data[i].partyCheck._id + ' ><span class="lookOne">查看</span></td>\n' +
+                                '                        <td>' + checkType + '</td>\n' +
+                                '                        <td>' + data[i].ckName + '</td>\n' +
+                                '                        <td>' + data[i].partyCheck.formtStarCycle + '到' + data[i].partyCheck.formtEndCycle + '</td>\n' +
+                                '                        <td>' + (data[i].fillScore == undefined ? "/" : data[i].fillScore) + '</td>\n' +
+                                '                        <td>' + data[i].checkScore + '</td>\n' +
+                                '                        <td>' + data[i].ranking + '</td>\n' +
+                                '                        <td><input class="ckName" type="hidden" value=' + data[i].partyCheck.title + '><input type="hidden" class="checkId" value=' + data[i].partyCheck._id + '><input type="hidden" class="id" value=' + data[i]._id + '><span class="chaK">查看</span></td>\n' +
+                                '                    </tr>';
+                        } else {
+                            var oTr = '<tr>\n' +
+                                '                        <td>' + (i + 1) + '</td>\n' +
+                                '                        <td>' + data[i].partyCheck.title + '</td>\n' +
+                                '                        <td>' + data[i].partyCheck.bumenName + '</td>\n' +
+                                '                        <td>' + data[i].partyCheck.nameStrs + '</td>\n' +
+                                '                        <td>' + checkType + '</td>\n' +
+                                '                        <td>' + data[i].ckName + '</td>\n' +
+                                '                        <td>' + data[i].partyCheck.formtStarCycle + '到' + data[i].partyCheck.formtEndCycle + '</td>\n' +
+                                '                        <td>' + (data[i].fillScore == undefined ? "/" : data[i].fillScore) + '</td>\n' +
+                                '                        <td>' + data[i].checkScore + '</td>\n' +
+                                '                        <td>' + data[i].ranking + '</td>\n' +
+                                '                        <td><input class="ckName" type="hidden" value=' + data[i].partyCheck.title + '><input type="hidden" class="checkId" value=' + data[i].partyCheck._id + '><input type="hidden" class="id" value=' + data[i]._id + '><span class="chaK">查看</span></td>\n' +
+                                '                    </tr>';
+                        }
+                    }
+                    $('#talkR').append(oTr);
+                    if (data[i].partyCheck.markType == 1) {
+                        $('#talkR1').prev().children().children().eq(7).show();
+                        $('#talkR1 tr td:eq(7)').show();
+                    }
+                }
+
+                $('#talkR').on("click", function(e) {
+                    var target = e.target;
+                    var bumenId = $(target).parent().find(".bumenId").val();
+                    var checkType = $(target).parent().find(".checkType").val();
+                    var checkId = $(target).parent().find(".checkId").val();
+                    var currId = $(target).parent().find(".id").val();
+                    var ckName = $(target).parent().find(".ckName").val();
+                    if ($(target).text() == "查看" && $(target).attr("class") == "chaK") {
+                        window.location.href = "checkAndEvaluateLook.html?id=" + currId + "&&checkId=" + checkId + "&&ckName=" + ckName;
+                    }
+                    if ($(target).text() == "查看" && $(target).attr("class") == "lookOne") {
+                        $("#poper1").removeClass("hid");
+                        $("#mask").removeClass("hid");
+                        var zNodes = [];
+                        //tree
+                        var setting = {
+                            view: {
+                                dblClickExpand: false
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true,
+                                    idKey: "id",
+                                    pIdKey: "pId"
+                                },
+                                key: {
+                                    name: "name"
+                                }
+                            },
+                            check: {
+                                enable: true,
+                                chkDisabledInherit: true,
+                                chkStyle: "checkbox",
+                                chkboxType: {
+                                    "Y": "",
+                                    "N": ""
+                                }
+                            },
+                            callback: {}
+                        };
+                        buildTree();
+
+                        function buildTree() {
+                            $.ajax({
+                                type: "POST",
+                                url: path + "partyCheck/findCheckBums.action",
+                                data: {
+                                    "checkId": checkId,
+                                    "bumenId": bumenId,
+                                    "checkType": checkType
+                                },
+                                dataType: "json",
+                                success: function(data) {
+                                    var data = data.data;
+                                    if (data) {
+                                        zNodes = data;
+                                        var zTree = $.fn.zTree.init($("#treeDemo1"), setting, zNodes);
+                                        var node = zTree.getNodeByParam("id", 0);
+                                        //alert(JSON.stringify(node));
+                                        zTree.selectNode(node);
+                                        zTree.expandNode(node, true, false, false);
+                                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                                        treeObj.expandAll(true);
+                                    }
+                                    hibb_Nodes();
+
+                                }
+                            });
+
+                        }
+
+                        $("#cancel").click(function() {
+                            $("#poper1").addClass("hid");
+                            $("#mask").addClass("hid");
+                        });
+                        $("#close").click(function() {
+                            $("#poper1").addClass("hid");
+                            $("#mask").addClass("hid");
+                        });
+                        $("#mask").click(function() {
+                            $("#poper1").addClass("hid");
+                            $("#mask").addClass("hid");
+                        });
+                        $("#sure").click(function() {
+                            $("#poper1").addClass("hid");
+                            $("#mask").addClass("hid");
+
+                        });
+
+                        function hibb_Nodes() {
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                            var nodes = treeObj.transformToArray(treeObj.getNodes());
+                            for (var node in nodes) {
+                                treeObj.setChkDisabled(nodes[node], true);
+                            }
+                        }
+                    }
+                })
+            }
+        }
+
+        function partyMember(type) {
+
+            //分页参数设置 这些全局变量关系到分页的功能
+            var pagea = 1; //开始页数
+            var sizea = 10; //每页最多显示条数
+            var nowpagea = 1; //当前页数
+            var pagesa = 0; //总页数
+            function page() {
+                //调用分页
+                layui.use(['laypage', 'layer'], function() {
+                    var laypage = layui.laypage,
+                        layer = layui.layer;
+                    laypage.render({
+                        elem: 'pageContent1',
+                        count: pagesa,
+                        limit: sizea //每页显示的数据的条数,layui会根据count，limit进行分页的计算
+                            ,
+                        curr: nowpagea,
+                        jump: function(obj, first) {
+                            // var currPage=obj.curr;
+                            // var perPage_num=obj.limit;
+                            nowpagea = obj.curr;
+                            pagea = (obj.curr - 1) * sizea;
+                            if (!first) { //一定要加此判断，否则初始时会无限刷新
+                                pageAjax(); //一定要把翻页的ajax请求放到这里，不然会请求两次。
+                                location.href = '#top';
+                                //<a href="#top">返回顶部</a>
+                            }
+
+                        }
+
+                    });
+                })
+            }
+
+            pageAjax();
+
+            function pageAjax() {
+                $.ajax({
+                    type: "POST",
+                    url: path + "checkRecord/queryUserStatic.action",
+                    data: {
+                        "partyCheck.checkType|integer": $("#partyKId").val(),
+                        "partyCheck.type|integer": "4",
+                        "regex:partyCheck.bumenName": $("#menb").val(),
+                        "page": nowpagea, //当前页数
+                        "size": sizea //每页显示条数
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        pagea = data.page; //当前页数(后台返回)
+                        pagesa = data.total; //总页数(后台返回)
+                        var data = data.data;
+                        if (data.length == 0) {
+                            $(".noDate1").removeClass("hid");
+                            $("#pageContent1").addClass("hid");
+                        } else {
+                            handleData(data);
+                            $(".noDate1").addClass("hid");
+                            $("#pageContent1").removeClass("hid");
+                        }
+                        page();
+                    }
+                });
+            }
+
+            function handleData(data) {
+                $('#talkR1').empty();
+                var ckType = "";
+                var checkType = "";
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].partyCheck.checkType == 1) {
+                        checkType = "党员";
+                    }
+                    if (data[i].partyCheck.checkType == 2) {
+                        checkType = "干部";
+                    }
+                    var oTr = "";
+                    if (data[i].partyCheck.ckType != 0) {
+                        if (data[i].partyCheck.ckType == 1) {
+                            ckType = "全体党员";
+                        }
+                        if (data[i].partyCheck.ckType == 2) {
+                            ckType = "处级以上干部";
+                        }
+                        if (data[i].partyCheck.ckType == 3) {
+                            ckType = "党支部书记";
+                        }
+                        if (data[i].partyCheck.ckType == 4) {
+                            ckType = "党总支书记";
+                        }
+                        if (data[i].partyCheck.ckType == 5) {
+                            ckType = "党委书记";
+                        }
+                        oTr = ' <tr>\n' +
+                            '                        <td>' + (i + 1) + '</td>\n' +
+                            '                        <td>' + data[i].partyCheck.title + '</td>\n' +
+                            '                        <td>' + data[i].partyCheck.bumenName + '</td>\n' +
+                            '                        <td>' + ckType + '</td>\n' +
+                            '                        <td>' + checkType + '</td>\n' +
+                            '                        <td>' + data[i].partyCheck.formtStarCycle + '到' + data[i].partyCheck.formtEndCycle + '</td>\n' +
+                            '                        <td>' + (data[i].fillScore == undefined ? "/" : data[i].fillScore) + '</td>\n' +
+                            '                        <td>' + data[i].checkScore + '</td>\n' +
+                            '                        <td>' + data[i].ranking + '</td>\n' +
+                            '                        <td><input class="ckName" type="hidden" value=' + data[i].partyCheck.title + '><input type="hidden" class="checkId" value=' + data[i].partyCheck._id + '><input type="hidden" class="id" value=' + data[i]._id + '><span class="chaK lookTwo">查看</span></td>\n' +
+                            '                    </tr>';
+                    } else {
+                        if (data[i].partyCheck.ids.length > 1) { //查看
+                            oTr = ' <tr>\n' +
+                                '                        <td>' + (i + 1) + '</td>\n' +
+                                '                        <td>' + data[i].partyCheck.title + '</td>\n' +
+                                '                        <td>' + data[i].partyCheck.bumenName + '</td>\n' +
+                                '                        <td><input class="checkType" type="hidden" value=' + data[i].partyCheck.checkType + '><input class="bumenId" type="hidden" value=' + data[i].partyCheck.bumenId + '><input type="hidden" class="checkId" value=' + data[i].partyCheck._id + '><span class="lookOne">查看</span></td>\n' +
+                                '                        <td>' + checkType + '</td>\n' +
+                                '                        <td>' + data[i].partyCheck.formtStarCycle + '到' + data[i].partyCheck.formtEndCycle + '</td>\n' +
+                                '                        <td>' + (data[i].fillScore == undefined ? "/" : data[i].fillScore) + '</td>\n' +
+                                '                        <td>' + data[i].checkScore + '</td>\n' +
+                                '                        <td>' + data[i].ranking + '</td>\n' +
+                                '                        <td><input class="ckName" type="hidden" value=' + data[i].partyCheck.title + '><input type="hidden" class="checkId" value=' + data[i].partyCheck._id + '><input type="hidden" class="id" value=' + data[i]._id + '><span class="chaK lookTwo">查看</span></td>\n' +
+                                '                    </tr>';
+                        } else {
+                            oTr = ' <tr>\n' +
+                                '                        <td>' + (i + 1) + '</td>\n' +
+                                '                        <td>' + data[i].partyCheck.title + '</td>\n' +
+                                '                        <td>' + data[i].partyCheck.bumenName + '</td>\n' +
+                                '                        <td>' + data[i].partyCheck.nameStrs + '</td>\n' +
+                                '                        <td>' + checkType + '</td>\n' +
+                                '                        <td>' + data[i].partyCheck.formtStarCycle + '到' + data[i].partyCheck.formtEndCycle + '</td>\n' +
+                                '                        <td>' + (data[i].fillScore == undefined ? "/" : data[i].fillScore) + '</td>\n' +
+                                '                        <td>' + data[i].checkScore + '</td>\n' +
+                                '                        <td>' + data[i].ranking + '</td>\n' +
+                                '                        <td><input class="ckName" type="hidden" value=' + data[i].partyCheck.title + '><input type="hidden" class="checkId" value=' + data[i].partyCheck._id + '><input type="hidden" class="id" value=' + data[i]._id + '><span class="chaK lookTwo">查看</span></td>\n' +
+                                '                    </tr>';
+                        }
+                    }
+                    $('#talkR1').append(oTr);
+                    if (data[i].partyCheck.markType == 1) {
+                        $('#talkR1').prev().children().children().eq(6).show();
+                        $('#talkR1 tr td:eq(6)').show();
+                    }
+                }
+                $('#talkR1').on("click", function(e) {
+                    var target = e.target;
+                    var bumenId = $(target).parent().find(".bumenId").val();
+                    var checkType = $(target).parent().find(".checkType").val();
+                    var checkId = $(target).parent().find(".checkId").val();
+                    var currId = $(target).parent().find(".id").val();
+                    var ckName = $(target).parent().find(".ckName").val();
+                    if ($(target).text() == "查看" && $(target).attr("class") == "chaK lookTwo") {
+                        window.location.href = "checkAndEvaluateLook.html?id=" + currId + "&&checkId=" + checkId + "&&ckName=" + ckName;
+                    }
+                    if ($(target).text() == "查看" && $(target).attr("class") == "lookOne") {
+                        $("#poper1").removeClass("hid");
+                        $("#mask").removeClass("hid");
+                        var zNodes = [];
+                        //tree
+                        var setting = {
+                            view: {
+                                dblClickExpand: false
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true,
+                                    idKey: "id",
+                                    pIdKey: "pId"
+                                },
+                                key: {
+                                    name: "name"
+                                }
+                            },
+                            check: {
+                                enable: true,
+                                chkDisabledInherit: true,
+                                chkStyle: "checkbox",
+                                chkboxType: {
+                                    "Y": "",
+                                    "N": ""
+                                }
+                            },
+                            callback: {}
+                        };
+                        buildTree();
+
+                        function buildTree() {
+
+                            $.ajax({
+                                type: "POST",
+                                url: path + "partyCheck/findCheckBUsers.action",
+                                data: {
+                                    "checkId": checkId,
+                                    "bumenId": bumenId,
+                                    "checkType": checkType
+                                },
+                                dataType: "json",
+                                success: function(data) {
+                                    var data = data.data;
+                                    if (data) {
+                                        zNodes = data;
+                                        var zTree = $.fn.zTree.init($("#treeDemo1"), setting, zNodes);
+                                        var node = zTree.getNodeByParam("id", 0);
+                                        //alert(JSON.stringify(node));
+                                        zTree.selectNode(node);
+                                        zTree.expandNode(node, true, false, false);
+                                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                                        treeObj.expandAll(true);
+                                    }
+                                    hibb_Nodes();
+
+                                }
+                            });
+                        }
+
+                    }
+
+
+                    $("#cancel").click(function() {
+                        $("#poper1").addClass("hid");
+                        $("#mask").addClass("hid");
+                    });
+                    $("#close").click(function() {
+                        $("#poper1").addClass("hid");
+                        $("#mask").addClass("hid");
+                    });
+                    $("#mask").click(function() {
+                        $("#poper1").addClass("hid");
+                        $("#mask").addClass("hid");
+                    });
+                    $("#sure").click(function() {
+                        $("#poper1").addClass("hid");
+                        $("#mask").addClass("hid");
+
+                    });
+
+                    function hibb_Nodes() {
+                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                        var nodes = treeObj.transformToArray(treeObj.getNodes());
+                        for (var node in nodes) {
+                            treeObj.setChkDisabled(nodes[node], true);
+                        }
+                    }
+                })
+            }
+        }
+    })
+</script>
+
+</html>

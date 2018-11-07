@@ -1,0 +1,55 @@
+html,body {
+				width: 100%;
+				height: 100%;
+				min-width: 920px;
+				overflow-y: auto;
+			}
+			body {
+				background: url(img/indexbg.jpg) left top no-repeat;
+				background-size: 100% 100%;
+			}
+			.logoBox img{
+				width: 18rem;
+				margin-left: 14.4rem;
+			}
+			article {
+				width: 67.05rem;
+				margin: auto;
+				position: absolute;
+				top: 10.5rem;
+				right: 14.4rem;
+				bottom: 10.5rem;
+				left: 14.4rem;
+				min-height: 32.8rem;
+			}
+			section {
+				display: flex;
+				justify-content: space-between;
+				margin-bottom: 2rem;
+			}
+			section>div {
+				background: rgba(0,62,150,0.45);
+				text-align: center;
+				height: 9.6rem;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				border-radius: 0.35rem;
+			}
+			section>div p {
+				font-size: 1.1rem;
+				font-weight: bold;
+				color: #fff;
+			}
+			section>div img {
+				width: 4.5rem;
+				height: 4.5rem;
+				margin-bottom: 0.9rem;
+			}
+			.widthLarge {
+				width: 20.9rem;
+			}
+			.widthSmall {
+				width: 9.6rem;
+			}

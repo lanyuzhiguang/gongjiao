@@ -1,0 +1,80 @@
+body{
+    font-family: "苹方";
+}
+.talkRecord{
+    height:44px;
+    background:#f1f1f1 ;
+    line-height: 44px;
+    font-size: 16px;
+}
+.talkRecord img{
+    width: 15px;
+    margin-left: 42px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+#back{
+    cursor: pointer;
+}
+.back{
+    margin-right: 20px;
+}
+.partySuggest{
+    font-size: 14px;
+    background: #f8f8f8;
+    width: 93%;
+    margin: auto;
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 2px;
+}
+.innerSuggest{
+    background: #ffffff;
+    width: 97%;
+    margin: auto;
+    border: 1px solid #c6c6c6;
+    border-radius: 2px;
+}
+.suggestTop{
+    border-bottom: 1px solid #c6c6c6 ;
+    height: 43px;
+    line-height: 43px;
+    text-align: center;
+}
+.content{
+    padding:37px;
+    text-indent: 2em;
+    line-height: 180%;
+}
+
+.biaoZ{
+    width: 100%;
+    font-size: 14px;
+
+    overflow: hidden;
+}
+.inner{
+   float: right;
+}
+.biaoZ>div>div>div{
+    display: inline-block;
+}
+.biaoZ>div>div>div:first-child{
+    width: 50%;
+    text-align: right!important;
+}
+.biaoZ>div>div>div:first-child{
+    margin-right: 20px;
+}
+
+.inner{
+    width: 50%;
+    margin-right: 100px;
+}
+.inner>div:first-child{
+    margin-bottom: 15px;
+}
+.inner>div:last-child{
+    margin-bottom: 20px;
+}

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>创建表头</title>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/steps.css"/>
+		<style type="text/css">
+			td img:first-of-type,th img {
+				width: 12px;
+				margin-right: 5px;
+			}
+			td img:last-of-type{
+				width: 12px;
+			}
+			td img.seeDetaile,td img.seeContent,td img.seeAuditing,td img.seePlanDetaile {
+				width: 18px;
+			}
+			.creatHeader {
+				padding: 30px;
+			}
+			.creatHeader div {
+				font-size: 18px;
+				color: #fff;
+				width: 150px;
+				height: 44px;
+				line-height: 44px;
+				text-align: center;
+				background: linear-gradient(#d81a1e,#ed0f45);
+				margin: 0 auto;
+			}
+			.creatHeader div:last-of-type {
+				background: #FFF;
+				border: 1px solid #D80C18;
+				margin: 0 auto;
+				margin-top: -50px;
+				position: relative;
+				z-index: -1;
+				right: 6px;
+			}
+			.formFooter {
+				margin-top: 70px;
+				text-align: center;
+			}
+			.formFooter .btn-default {
+				width: 70px;
+				margin-left: 20px;
+			}
+			article {
+            	display: none;
+            }
+            article:first-of-type {
+            	display: block;
+            }
+            .steps {
+            	margin-bottom: 0;
+            }
+		</style>
+	</head>
+	<body>
+		<aside>
+			<img src="../img/nonews.png"/>
+		</aside>
+		<nav class="header">
+			<ol class="breadcrumb">
+			  <li><a href="javascript:;">经费管理</a></li>
+			  <li><a href="javascript:;">活动经费管理</a></li>
+			  <li><a href="javascript:;">党建活动管理</a></li>
+			  <li class="active cursor">党建活动计划</li>
+			</ol>
+		</nav>
+		<article>
+			<section>
+				<ul class="steps clear">
+				    <li class="active">填写表头</li>
+				    <li>填写详情</li>
+				</ul>
+			</section>
+			<div class="tabCon">
+				<div class="tabContent1">
+					<section class="row">
+						<form class="form-horizontal col-xs-7 col-xs-offset-2">
+							<div class="form-group">
+								<label class="col-xs-5 control-label"><span class="red">*</span>留存党费预算使用（元）</label>
+						    	<div class="col-xs-7">
+						    		<input type="text" class="form-control" placeholder="请输入">
+						    	</div>
+							</div>
+							<div class="form-group">
+								<label for="" class="col-xs-5 control-label"><span class="red">*</span>留存党费实际使用（元）</label>
+						    	<div class="col-xs-7">
+						    		<input type="text" class="form-control" placeholder="请输入">
+						    	</div>
+							</div>
+							<div class="form-group">
+								<label for="" class="col-xs-5 control-label"><span class="red">*</span>上年度职工工资总额1%（元）</label>
+						    	<div class="col-xs-7">
+						    		<input type="text" class="form-control" placeholder="请输入">
+						    	</div>
+							</div>
+							<div class="form-group">
+								<label for="" class="col-xs-5 control-label"><span class="red">*</span>预计支出总额（元）</label>
+						    	<div class="col-xs-7">
+						    		<input type="text" class="form-control" placeholder="请输入">
+						    	</div>
+							</div>
+							<div class="form-group">
+								<label for="" class="col-xs-5 control-label"><span class="red">*</span>预算完成情况（元）</label>
+						    	<div class="col-xs-7">
+						    		<input type="text" class="form-control" placeholder="请输入">
+						    	</div>
+							</div>
+						</form>
+						<div class="formFooter col-xs-12">
+							<button class="btn btn-default cancelCreate">取消</button>
+							<button class="btnbg2 nextBtn">下一步</button>
+						</div>
+					</section>
+				</div>
+				<div class="tabContent2">
+					<section>
+						<button class="btnbg add">添加</button>
+					</section>
+					<section>
+						<nav>
+							<ul class="clear">
+								<li class="left active">留存党费部分预算情况</li>
+								<li class="left">纳入管理费的部分预算情况</li>
+							</ul>
+						</nav>
+					</section>
+					<section>
+						<table class="table table-striped tableNoBor">
+							<tr>
+								<th>序号</th>
+								<th>项目名称</th>
+								<th>细项</th>
+								<th>金额</th>
+								<th>预算情况备注</th>
+								<th>是否完成</th>
+								<th>实际使用金额</th>
+								<th>差值</th>
+								<th>完成情况备注</th>
+								<th>操作</th>
+							</tr>
+							<tr style="display: none;"></tr>
+							<tr>
+								<td>1</td>
+								<td>项目的名字</td>
+								<td><img class="seeContent" src="../img/see.png"/></td>
+								<td>100</td>
+								<td><img class="seeContent" src="../img/see.png"/></td>
+								<td>是</td>
+								<td>100</td>
+								<td>0</td>
+								<td>没有备注</td>
+								<td>
+									<img class="edit" src="../img/edit.png" />
+									<img src="../img/delect.png" />
+								</td>
+							</tr>
+							<tr>
+								<td colspan="10">合计：</td>
+							</tr>
+						</table>
+					</section>
+					<section>
+						<div class="footerBtnBox">
+							<button class="btn btn-default prevBtn">上一步</button>
+							<button class="btnbg">保存</button>
+						</div>
+					</section>
+				</div>
+			</div>
+		</article>
+		<article>
+			<nav>
+				<ul class="clear">
+					<li class="left cursor active">添加明细</li>
+				</ul>
+			</nav>
+			<section class="row">
+				<form class="form-horizontal col-xs-10 col-xs-offset-1">
+					<div class="form-group col-xs-6">
+						<label for="" class="col-xs-5 control-label"><span class="red">*</span>选择经费分类：</label>
+						<div class="col-xs-7">
+							<select class="form-control">
+								<option>留存档费</option>
+								<option>纳入管理费</option>
+							</select>
+						</div>
+				  	</div>
+				  	<div class="form-group col-xs-6">
+						<label for="" class="col-xs-5 control-label"><span class="red">*</span>是否完成：</label>
+						<div class="col-xs-7">
+							<label class="radio-inline">
+							  	<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 是
+							</label>
+							<label class="radio-inline">
+							  	<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 否
+							</label>
+						</div>
+				  	</div>
+					<div class="form-group col-xs-6">
+						<label for="" class="col-xs-5 control-label"><span class="red">*</span>选择项目：</label>
+						<div class="col-xs-7">
+							<select class="form-control">
+								<option>项目一</option>
+								<option>项目二</option>
+							</select>
+						</div>
+				  	</div>
+				  	<div class="form-group col-xs-6">
+						<label for="" class="col-xs-5 control-label"><span class="red">*</span>实际使用金额：</label>
+						<div class="col-xs-7">
+							<input type="text" class="form-control" placeholder="请输入" />
+						</div>
+				  	</div>
+				  	<div class="form-group col-xs-6">
+						<label for="" class="col-xs-5 control-label"><span class="red">*</span>细项：</label>
+						<div class="col-xs-7">
+							<input type="text" class="form-control" placeholder="请输入" />
+						</div>
+				  	</div>
+				  	<div class="form-group col-xs-6">
+						<label for="" class="col-xs-5 control-label"><span class="red">*</span>差值：</label>
+						<div class="col-xs-7">
+							<input type="text" class="form-control" placeholder="请输入" />
+						</div>
+				  	</div>
+				  	<div class="form-group col-xs-6">
+						<label for="" class="col-xs-5 control-label"><span class="red">*</span>金额：</label>
+						<div class="col-xs-7">
+							<input type="text" class="form-control" placeholder="请输入" />
+						</div>
+				  	</div>
+				  	<div class="form-group col-xs-6">
+						<label for="" class="col-xs-5 control-label"><span class="red">*</span>完成情况备注：</label>
+						<div class="col-xs-7">
+							<textarea class="form-control" placeholder="请输入" rows="4" cols=""></textarea>
+						</div>
+				  	</div>
+				  	<div class="form-group col-xs-6">
+						<label for="" class="col-xs-5 control-label"><span class="red">*</span>预算备注：</label>
+						<div class="col-xs-7">
+							<textarea class="form-control" placeholder="请输入" rows="4" cols=""></textarea>
+						</div>
+				  	</div>
+				</form>
+			</section>
+			<section>
+				<div class="footerBtnBox">
+					<button class="btnbg submitBtn">提交</button>
+					<button class="btnbg2 cancelBtn">取消</button>
+				</div>
+			</section>
+		</article>
+	</body>
+</html>
+<script src="../../../moduleweb/resources/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../resources/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function(){
+		//添加、编辑计划
+		$(".edit,.add").off("click").on("click",function(){
+			$("article:eq(1)").show().siblings("article").hide();
+		});
+		//提交
+		$(".submitBtn,.cancelBtn").off("click").on("click",function(){
+			$("article:eq(0)").show().siblings("article").hide();
+		});
+		//上、下一步
+		$(".nextBtn").off("click").on("click",function(){
+			$(".tabCon>div").eq(1).show().siblings().hide();
+		});
+		$(".prevBtn").off("click").on("click",function(){
+			$(".tabCon>div").eq(0).show().siblings().hide();
+		});
+		//取消创建
+		$(".cancelCreate").off("click").on("click",function(){
+			window.history.go(-1);
+		});
+	})
+</script>

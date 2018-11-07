@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/createRulesOfOrganization.css">
+    <link rel="stylesheet" type="text/css" href="../css/zTreeStyle.css">
+    <link rel="stylesheet" type="text/css" href="../css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+    <style>
+        .hanging {
+            color: #da0109;
+        }
+
+        .hid {
+            display: none;
+        }
+
+        .noData {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #c4c4c4;
+        }
+
+        .overSelected {
+            color: #2196f1 !important;
+        }
+
+        .ztree li span.button.chk.checkbox_true_disable {
+            background-position: -14px 0px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="talkRecord">
+            <span id="backBtn">
+                 <img src="../img/back.png"><span class="back">返回</span>
+            </span>
+        <span id="where">创建党员考核规则</span>
+    </div>
+    <div class="kindList">
+        <div class="headProcess">
+            <div class="firstImg"><img src="../img/handingB.png"><span>1</span>
+                <div class="wordSetting  hanging">基本设置</div>
+            </div>
+            <div class="lineRed"></div>
+            <div class="lastImg"><img src="../img/noHanding.png"><span>2</span>
+                <div class="checkRegular">考核规则设置</div>
+            </div>
+        </div>
+        <div class="formList">
+            <div>
+                <div><span class="redX">*</span>标题</div>
+                <div><input type="text" id="title" value=""></div>
+            </div>
+            <div>
+                <div><span class="redX">*</span>考核类别</div>
+                <div id="checkK">
+                    <input type="hidden" value="" id="kindId">
+                    <input type="text" readonly value="" id="kindN"><img src="../img/select.png">
+                    <div id="rulerState" class="rulerBtn" style="display: none">
+                        <ul>
+                            <li data-id="1">党员</li>
+                            <li data-id="2">干部</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div><span class="redX">*</span>考核发布单位</div>
+                <div id="officeBox">
+                    <input type="hidden" value="" id="publishId">
+                    <input type="text" readonly value="" id="publichOffice"><img src="../img/select.png">
+                    <div class="officeBtn" style="display: none">
+                        <ul>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div><span class="redX">*</span>考核周期</div>
+                <div class="beginDate"><input type="text" id="dateA" readonly value=""><img src="../img/date.png"></div>
+                至
+                <div class="overDate"><input type="text" readonly id="dateB" value=""><img src="../img/date.png"></div>
+            </div>
+            <div>
+                <div><span class="redX">*</span>总分</div>
+                <!--张良修改，为分数输入框只能输入数字，屏蔽字母、汉字，开始，20181030-->
+                <div><input type="text" oninput="value=value.replace(/[^\d]/g,'')" id="totalGrade" value=""></div>
+                <!--张良修改，为分数输入框只能输入数字，屏蔽字母、汉字，结束，20181030-->
+            </div>
+            <div>
+                <div><span class="redX">*</span>打分方式</div>
+                <div id="daFBox">
+                    <input type="hidden" value="" id="daFtype">
+                    <input type="text" readonly value="" id="daFValue"><img src="../img/select.png">
+                    <div class="daF" style="display: none">
+                        <ul>
+                            <li data-id="1">自查+评分</li>
+                            <li data-id="2">评分</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div><span class="redX">*</span>考核适用范围</div>
+                <div><span class="selectBtn">＋</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="btnList"><span id="saveBack">保存并返回</span><span id="saveNext">保存并下一步</span><span id="can">取消</span></div>
+
+</div>
+<div class="mask hid" id="mask"></div>
+<div class="popBox hid" id="poper1">
+    <div class="popB_Top">
+        <span class="addW" id="titleC">考核适用范围</span><span class="close" id="close"><img src="../img/close.png"></span>
+    </div>
+    <div class="popB_bottom">
+        <div>快速选择</div>
+        <div class="checkList">
+
+        </div>
+        <!--<div>-->
+        <!--<label><input type="checkbox" >全部党委</label>-->
+        <!--</div>-->
+        <!--<div>-->
+        <!--<label><input type="checkbox" >全部党总支</label>-->
+        <!--</div>-->
+        <!--<div>-->
+        <!--<label><input type="checkbox" >全部党支部</label>-->
+        <!--</div>-->
+    </div>
+    <div class="treeList">
+        <div id="menuContent" class="menuContent">
+            <ul id="treeDemo" class="ztree" style="margin-top:0; width:206px;"></ul>
+        </div>
+        <div class="noData hid">你所选择得</div>
+    </div>
+    <div class="btnList" id="tD"><input type="button" class="s" id="sure" value="确定"><input type="button" class="c"
+                                                                                            id="cancel" value="取消">
+    </div>
+</div>
+
+
+</body>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script src="../assets/js/jquery.js"></script>
+<script src="../js/jquery.ztree.core.min.js"></script>
+<script src="../js/jquery.ztree.excheck.min.js"></script>
+<script src="../js/laydate.js"></script>
+<script src="../js/layer.js"></script>
+<script src="../js/layui.js"></script>
+<script>
+    $(function () {
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+
+        var plan=null,//初始考核主信息（如果是编辑则有）
+    	publishId=null,//发布单位id
+    	orgaKind=null,//考核类别
+    	fset=true;//用于编辑的第一次树的生成
+	    // 组织架构
+	    var selectednodeName="";
+	    var selectednodeId="";
+	    var selectItem = 0;
+        var id = getQueryString("id");
+        var path = "";
+        var iframe = document.getElementById("common");
+        ///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+        iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+        if (iframe.attachEvent) {//判断iframe是否加载完成
+            iframe.attachEvent("onload", function () {
+                getCommon();
+            });
+        } else {
+            iframe.onload = function () {
+                getCommon();
+            };
+        }
+
+        //获取公共参数  一般为存储在session里面的数据
+        function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+            var frames = window.frames["common"];
+            path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+            var _qiniuImageHost = frames._qiniuImageHost;//七牛云公共地址头
+
+
+            function isNum(num) {
+                var re = /^[0-9]+.?[0-9]*$/;
+                if (!re.test(num)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            $("#backBtn").click(function () {
+            	window.location.href="rulesofCheck.html";
+            });
+            $("#mask").height($(document).height());
+            //时间插件方法
+            laydate.render({
+                elem: "#dateA"
+                //type:"datetime",
+            });
+            //时间插件方法
+            laydate.render({
+                elem: "#dateB"
+                //type:"datetime",
+            });
+            //考核类别
+            $("#kindN").click(function (e) {
+                $(this).next().next().slideDown();
+                e.stopPropagation();
+            });
+            $(".rulerBtn ul li").mouseover(function () {
+                $(".rulerBtn ul li").removeClass("activeSelcet");
+                $(this).addClass("activeSelcet");
+            });
+            $("body").click(function () {
+                $(".rulerBtn").slideUp();
+            });
+            $(".rulerBtn ul li").click(function () {
+                $(this).parents(".rulerBtn").prevAll("#kindN").val($(this).text());
+                $(this).parents(".rulerBtn").prevAll("#kindN").prev().val($(this).attr("data-id"));
+            });
+            // 查看
+            if (typeof id !== "undefined" && id !== null) {
+                $.ajax({
+                    type: "POST",
+                    url: path + "/partyCheck/findCheckById.action",
+                    data: {"checkId": id},
+                    dataType: "json",
+                    success: function (data) {
+                        var data = data.data;
+                        plan = data;
+                        $("#title").val(data.title);
+                        if (data.checkType == 1) {
+                            $("#kindN").val("党员")
+                            $("#kindId").val(data.checkType);
+                        }
+                        if (data.checkType == 2) {
+                            $("#kindN").val("干部");
+                            $("#kindId").val(data.checkType);
+                        }
+                        $("#publichOffice").val(data.bumenName);
+                        // $("#publichOffice").attr("disabled",true);
+                        // $("#publichOffice").unbind("click");
+                        $("#publishId").val(data.bumenId);
+                        $("#dateA").val(data.formtStarCycle);
+                        $("#dateB").val(data.formtEndCycle);
+                        $("#totalGrade").val(data.totalScore);
+                      	//数据初始化
+                        selectednodeName=data.nameStrs;
+                        selectednodeId=data.idstrs;
+                        publishId=data.bumenId,//发布单位id
+                    	orgaKind=data.type;//考核类别
+                    	selectItem=data.ckType;
+
+                        if (data.markType == "1") {
+                            $("#daFtype").val("1");
+                            $("#daFValue").val("自查+评分");
+                        }
+                        if (data.markType == "2") {
+                            $("#daFtype").val("2");
+                            $("#daFValue").val("评分");
+                        }
+                        $(".selectBtn").text("已选择").addClass("overSelected");
+                    }
+                })
+
+
+            }
+            $.ajax({
+                type: "POST",
+                url: path + "/partyCheck/findRoleBumens.action",
+                data: {},
+                dataType: "json",
+                success: function (data) {
+                    var data = data;
+                    for (var i = 0; i < data.length; i++) {
+                        var oLi = "<li data-id=" + data[i]._id + ">" + data[i].name + "</li>";
+                        $(".officeBtn ul").append(oLi);
+                    }
+                    //考核发布单位
+                    $("#publichOffice").click(function (e) {
+                        $(this).next().next().slideDown();
+                        e.stopPropagation();
+                    });
+                    $(".officeBtn ul li").mouseover(function () {
+                        $(".officeBtn ul li").removeClass("activeSelcet");
+                        $(this).addClass("activeSelcet");
+                    });
+                    $("body").click(function () {
+                        $(".officeBtn").slideUp();
+                    });
+                    $(".officeBtn ul li").click(function () {
+                        $(this).parents(".officeBtn").prevAll("#publichOffice").val($(this).text());
+                        $(this).parents(".officeBtn").prevAll("#publichOffice").prev().val($(this).attr("data-id"));
+                    });
+                }
+            });
+
+            //打分方式
+            $("#daFValue").click(function (e) {
+                $(this).next().next().slideDown();
+                e.stopPropagation();
+            });
+            $(".daF ul li").mouseover(function () {
+                $(".daF ul li").removeClass("activeSelcet");
+                $(this).addClass("activeSelcet");
+            });
+            $("body").click(function () {
+                $(".daF").slideUp();
+            });
+            $(".daF ul li").click(function () {
+                $(this).parents(".daF").prevAll("#daFValue").val($(this).text());
+                $(this).parents(".daF").prevAll("#daFValue").prev().val($(this).attr("data-id"));
+            });
+            // 组织架构
+            var ztreeObjz;
+            var isallSelect = "";
+            $(".selectBtn").click(function () {
+                if (plan == null) {//创建
+                    $(".checkList").empty();
+                    if ($("#kindN").val() == "") {
+                        parent.layer.alert('请选择考核类别！');
+                        return;
+                    }
+                    if ($("#publichOffice").val() == "") {
+                        parent.layer.alert('请选择考核发布单位！');
+                        return;
+                    }
+                    $("#poper1").removeClass("hid");
+                    $("#mask").removeClass("hid");
+                    if ($("#kindN").val() == "党员") {
+                        $(".checkList").append("<div>\n" +
+                            "            <label><input type=\"checkbox\"  name=\"items\" class='it'  >全部党员</label>\n" +
+                            "        </div>");
+                        if (selectItem == 0) {
+							$(".it").prop("checked", "")
+						} else if(selectItem == 1){
+							$(".it").prop("checked", "")
+	                        $(".it").eq(0).parent().text() == "全部党员"?$(".it").eq(0).prop("checked", "checked"):$(".it").eq(0).prop("checked", "");
+						}
+                    }
+                    if ($("#kindN").val() == "干部") {
+                        $(".checkList").append(" <div>\n" +
+                            "            <label><input type=\"checkbox\"  name=\"items\" class='it'>处级以上</label>\n" +
+                            "        </div> <div>\n" +
+                            "        <label><input type=\"checkbox\"  class='it'>党支部书记</label>\n" +
+                            "        </div><div>\n" +
+                            "        <label><input type=\"checkbox\"  class='it'>党总支书记</label>\n" +
+                            "        </div> <div>\n" +
+                            "        <label><input type=\"checkbox\" class='it' >党委书记</label>\n" +
+                            "        </div>");
+						if (selectItem == 0) {
+							$(".it").prop("checked", "")
+						} else if(selectItem == 2){
+							$(".it").prop("checked", "")
+	                        $(".it").eq(0).parent().text() == "处级以上"?$(".it").eq(0).prop("checked", "checked"):$(".it").eq(0).prop("checked", "");
+						} else if(selectItem == 3){
+							$(".it").prop("checked", "")
+	                        $(".it").eq(1).prop("checked", "checked")
+						} else if(selectItem == 4){
+							$(".it").prop("checked", "")
+	                        $(".it").eq(2).prop("checked", "checked")
+						} else if(selectItem == 5){
+							$(".it").prop("checked", "")
+	                        $(".it").eq(3).prop("checked", "checked")
+						}
+
+                    }
+                    var zNodes = [];
+                    //tree
+                    var setting = {
+                        data: {
+                            simpleData: {
+                                enable: true,
+                                idKey: "id",
+                                pIdKey: "pId"
+                            },
+                            key: {
+                                name: "name"
+                            }
+                        },
+                        check: {
+                            enable: true,
+                            chkStyle: "checkbox",
+                            chkboxType: {"Y": "", "N": ""}
+                        }
+                    };
+                    buildTree();
+                    function buildTree() {
+                        // alert(1);
+                    	if(publishId!=$("#publishId").val()||orgaKind!=$("#kindId").val()){
+                            publishId=$("#publishId").val();//发布单位id
+                        	orgaKind=$("#kindId").val();//考核类别
+	                        $.ajax({
+	                            type: "POST",
+	                            url: path + "/partyCheck/findCheckBUsers.action",
+	                            data: {
+	                                "bumenId": $("#publishId").val(),
+	                                "checkType": $("#kindId").val()
+                                  // "checkId":id
+	                            },
+	                            dataType: "json",
+	                            success: function (data) {
+	                            	zNodes = [];
+	                                var data = data.data;
+	                                if (data) {
+	                                    zNodes = data;
+	                                    var zTree = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+	                                    //var node = zTree.getNodeByParam("id", 0);
+	                                    //alert(JSON.stringify(node));
+	                                    //zTree.selectNode(node);
+	                                    //zTree.expandNode(node, true, false, false);
+	                                    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+	                                    treeObj.expandAll(true);
+	                                    ztreeObjz = treeObj;
+	                                }
+	                                //setDisabledNode();
+	                            }
+	                        });
+                    	}
+                    }
+
+                    //设置禁用的复选框节点
+                    function setDisabledNode() {
+                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                        if ($("#kindId").val() == 1) {//党员
+                            var disabledNode1 = treeObj.getNodeByParam("isParent", true);
+                            treeObj.setChkDisabled(disabledNode1, true);
+                        }
+                        if ($("#kindId").val() == 2) {//干部
+                            var disabledNode1 = treeObj.getNodeByParam("isParent", true);
+                            treeObj.setChkDisabled(disabledNode1, true);
+                        }
+
+                    }
+
+                    //设置选择哪个checkbox全选某个
+                    $(".checkList input").click(function (e) {//点击相应的chekbox,进行全选和全部取消
+                        if ($(this).is(":checked")) {
+                            // 先把所有的checkbox 都设置为不选种
+                            $('.it').prop('checked', false);
+                            // 把自己设置为选中
+                            $(this).prop('checked',true);
+                        }
+                        e.stopPropagation();
+                        if ($(this).prop("checked") == true) {
+                            if ($(this).parent().text() == "全部党员") {
+                                //选  typea=4 全都勾选
+                                allNodes("typea");
+                            }
+                            if ($(this).parent().text() == "处级以上") {
+                                //全选 typec  !=7,8,9 !=null !=undefined !="" 全勾选
+                                allNodes("typec");
+                            }
+                            if ($(this).parent().text() == "党支部书记") {
+                                //全选  typeb ="4-1" "4-2" 全选
+                                allNodes("typeb1");
+                            }
+                            if ($(this).parent().text() == "党总支书记") {
+                                //全选  typeb ="3-1" "3-2" 全选
+                                allNodes("typeb2");
+                            }
+                            if ($(this).parent().text() == "党委书记") {
+                                //全选  typeb ="1-1" "1-2" "2-1" "2-2"全选
+                                allNodes("typeb3");
+                            }
+                        } else {
+                            if ($(this).parent().text() == "全部党员") {
+                                //选  typea=4 全都勾选
+                                cancelAllNodes("typea");
+                            }
+                            if ($(this).parent().text() == "处级以上干部") {
+                                //全选 typec  !=7,8,9 !=null !=undefined !="" 全勾选
+                                cancelAllNodes("typec");
+                            }
+                            if ($(this).parent().text() == "党支部书记") {
+                                //全选  typeb ="4-1" "4-2" 全选
+                                cancelAllNodes("typeb1");
+                            }
+                            if ($(this).parent().text() == "党总支书记") {
+                                //全选  typeb ="3-1" "3-2" 全选
+                                cancelAllNodes("typeb2");
+                            }
+                            if ($(this).parent().text() == "党委书记") {
+                                //全选  typeb ="1-1" "1-2" "2-1" "2-2"全选
+                                cancelAllNodes("typeb3");
+                            }
+                        }
+
+                    });
+
+                    function allNodes(type) {
+                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                        var nodes = treeObj.transformToArray(treeObj.getNodes());
+                        //遍历所有节点
+                        for (var node in nodes) {
+                            if (nodes[node].chkDisabled == true) {//如果是禁选状态进入下一次循环
+                                continue;
+                            } else {
+                                if (type == "typea") {
+                                    //判断节点
+                                    if ($.inArray("4",nodes[node].typea.split(","))!=-1) {
+                                        treeObj.checkNode(nodes[node], true, true);//指定选中ID的节点
+                                    }
+                                }
+                                if (type == "typec") {
+                                    //判断节点
+                                    if (nodes[node].typec !== null && typeof nodes[node].typec !== "undefined" && $.inArray("7",nodes[node].typec.split(","))==-1 && $.inArray("8",nodes[node].typec.split(","))==-1 &&$.inArray("9",nodes[node].typec.split(","))==-1 && nodes[node].typec != "" ) {
+                                        treeObj.checkNode(nodes[node], true, true);//指定选中ID的节点
+                                    }
+                                }
+                                if (type == "typeb1") {
+                                    //判断节点
+                                    if (nodes[node].typeb !== null && typeof nodes[node].typeb !== "undefined" && ($.inArray("4-1",nodes[node].typeb.split(","))!=-1||$.inArray("4-2",nodes[node].typeb.split(","))!=-1)) {
+                                        treeObj.checkNode(nodes[node], true, true);//指定选中ID的节点
+                                    }
+                                }
+                                if (type == "typeb2") {
+                                    //判断节点
+                                    if (nodes[node].typeb !== null && typeof nodes[node].typeb !== "undefined" && ($.inArray("3-1",nodes[node].typeb.split(","))!=-1 || $.inArray("3-2",nodes[node].typeb.split(","))!=-1)) {
+                                        treeObj.checkNode(nodes[node], true, true);//指定选中ID的节点
+                                    }
+                                }
+                                if (type == "typeb3") {
+                                    //判断节点
+                                    if (nodes[node].typeb !== null && typeof nodes[node].typeb !== "undefined" && ($.inArray("1-1",nodes[node].typeb.split(","))!=-1 || $.inArray("1-2",nodes[node].typeb.split(","))!=-1 || $.inArray("2-1",nodes[node].typeb.split(","))!=-1 || $.inArray("2-2",nodes[node].typeb.split(","))!=-1)) {
+                                        treeObj.checkNode(nodes[node], true, true);//指定选中ID的节点
+                                    }
+                                }
+
+                            }
+
+                        }
+                    }
+
+                    function cancelAllNodes(type) {
+                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                        var nodes = treeObj.transformToArray(treeObj.getNodes());
+                        //遍历所有节点
+                        for (var node in nodes) {
+                            if (nodes[node].chkDisabled == true) {//如果是禁选状态进入下一次循环
+                                continue;
+                            } else {
+                                if (type == "typea") {
+                                    //判断节点
+                                    if ($.inArray("4",nodes[node].typea.split(","))!=-1) {
+                                        treeObj.checkNode(nodes[node],false, true);
+                                    }
+                                }
+                                if (type == "typec") {
+                                    //判断节点
+                                    if (nodes[node].typec !== null && typeof nodes[node].typec !== "undefined" && $.inArray("7",nodes[node].typec.split(","))==-1 && $.inArray("8",nodes[node].typec.split(","))==-1 &&$.inArray("9",nodes[node].typec.split(","))==-1 && nodes[node].typec != "" ) {
+                                        treeObj.checkNode(nodes[node],false, true);
+                                    }
+                                }
+                                if (type == "typeb1") {
+                                    //判断节点
+                                    if (nodes[node].typeb!== null && typeof nodes[node].typeb !== "undefined" && ($.inArray("4-1",nodes[node].typeb.split(","))!=-1||$.inArray("4-2",nodes[node].typeb.split(","))!=-1)) {
+                                        treeObj.checkNode(nodes[node],false, true);
+                                    }
+                                }
+                                if (type == "typeb2") {
+                                    //判断节点
+                                    if (nodes[node].typeb!== null && typeof nodes[node].typeb !== "undefined" && ($.inArray("3-1",nodes[node].typeb.split(","))!=-1 || $.inArray("3-2",nodes[node].typeb.split(","))!=-1)) {
+                                        treeObj.checkNode(nodes[node],false, true);
+                                    }
+                                }
+                                if (type == "typeb3") {
+                                    //判断节点
+                                    if (nodes[node].typeb !== null && typeof nodes[node].typeb !== "undefined" && ($.inArray("1-1",nodes[node].typeb.split(","))!=-1 || $.inArray("1-2",nodes[node].typeb.split(","))!=-1 || $.inArray("2-1",nodes[node].typeb.split(","))!=-1 || $.inArray("2-2",nodes[node].typeb.split(","))!=-1)) {
+                                        treeObj.checkNode(nodes[node],false, true);
+                                    }
+                                }
+
+                            }
+
+                        }
+                    }
+                } else {//查看树
+                    $(".checkList").empty();
+                    if ($("#kindN").val() == "") {
+                        parent.layer.alert('请选择考核类别！');
+                        return;
+                    }
+                    if ($("#publichOffice").val() == "") {
+                        parent.layer.alert('请选择考核发布单位！');
+                        return;
+                    }
+                    $("#poper1").removeClass("hid");
+                    $("#mask").removeClass("hid");
+                    if ($("#kindN").val() == "党员") {
+                        $(".checkList").append("<div>\n" +
+                            "            <label><input type=\"checkbox\"  name=\"items\" class='it'  >全部党员</label>\n" +
+                            "        </div>");
+                        if (selectItem == 0) {
+							$(".it").prop("checked", "")
+						} else if(selectItem == 1){
+							$(".it").prop("checked", "")
+	                        $(".it").eq(0).parent().text() == "全部党员"?$(".it").eq(0).prop("checked", "checked"):$(".it").eq(0).prop("checked", "");
+						}
+
+                    }
+                    if ($("#kindN").val() == "干部") {
+                        $(".checkList").append(" <div>\n" +
+                            "            <label><input type=\"checkbox\"  name=\"items\" class='it'>处级以上</label>\n" +
+                            "        </div> <div>\n" +
+                            "        <label><input type=\"checkbox\"  class='it'>党支部书记</label>\n" +
+                            "        </div><div>\n" +
+                            "        <label><input type=\"checkbox\"  class='it'>党总支书记</label>\n" +
+                            "        </div> <div>\n" +
+                            "        <label><input type=\"checkbox\" class='it' >党委书记</label>\n" +
+                            "        </div>");
+
+						if (selectItem == 0) {
+							$(".it").prop("checked", "")
+						} else if(selectItem == 2){
+							$(".it").prop("checked", "")
+	                        $(".it").eq(0).parent().text() == "处级以上"?$(".it").eq(0).prop("checked", "checked"):$(".it").eq(0).prop("checked", "");
+						} else if(selectItem == 3){
+							$(".it").prop("checked", "")
+	                        $(".it").eq(1).prop("checked", "checked")
+						} else if(selectItem == 4){
+							$(".it").prop("checked", "")
+	                        $(".it").eq(2).prop("checked", "checked")
+						} else if(selectItem == 5){
+							$(".it").prop("checked", "")
+	                        $(".it").eq(3).prop("checked", "checked")
+						}
+                    }
+
+                    var zNodes = [];
+                    //tree
+                    var setting = {
+                        data: {
+                            simpleData: {
+                                enable: true,
+                                idKey: "id",
+                                pIdKey: "pId"
+                            },
+                            key: {
+                                name: "name"
+                            }
+                        },
+                        check: {
+                            enable: true,
+                            chkStyle: "checkbox",
+                            chkboxType: {"Y": "", "N": ""}
+                        }
+                    };
+                    buildTree();
+                    function buildTree() {
+                    	// alert(2);
+                        if(publishId!=$("#publishId").val()||orgaKind!=$("#kindId").val()||fset){
+                            publishId=$("#publishId").val();//发布单位id
+                        	orgaKind=$("#kindId").val();//考核类别
+                        $.ajax({
+                            type: "POST",
+                            url: path + "/partyCheck/findCheckBUsers.action",
+                            data: {
+                                "bumenId": $("#publishId").val(),
+                                "checkType": $("#kindId").val(),
+                                "checkId":id
+                            },
+                            dataType: "json",
+                            success: function (data) {
+                            	zNodes = [];
+                                var data = data.data;
+                                if (data) {
+                                    zNodes = data;
+                                    var zTree = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                                   // var node = zTree.getNodeByParam("id", 0);
+                                    //alert(JSON.stringify(node));
+                                    //zTree.selectNode(node);
+                                    //zTree.expandNode(node, true, false, false);
+                                    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                                    treeObj.expandAll(true);
+                                    ztreeObjz = treeObj;
+                                    if (selectItem == 0) {
+										$(".it").prop("checked", "")
+									} else if(selectItem == 1){
+										$(".it").prop("checked", "")
+				                        $(".it").eq(0).parent().text() == "全部党员"?$(".it").eq(0).prop("checked", "checked"):$(".it").eq(0).prop("checked", "");
+									} else if(selectItem == 2){
+										$(".it").prop("checked", "")
+				                        $(".it").eq(0).parent().text() == "处级以上"?$(".it").eq(0).prop("checked", "checked"):$(".it").eq(0).prop("checked", "");
+									} else if(selectItem == 3){
+										$(".it").prop("checked", "")
+				                        $(".it").eq(1).prop("checked", "checked")
+									} else if(selectItem == 4){
+										$(".it").prop("checked", "")
+				                        $(".it").eq(2).prop("checked", "checked")
+									} else if(selectItem == 5){
+										$(".it").prop("checked", "")
+				                        $(".it").eq(3).prop("checked", "checked")
+									}
+                                }
+                                setDisabledNode();
+                            }
+                        });//
+                        }
+                        if(fset){
+                        	fset=false;
+                        }
+                    }
+                    //设置禁用的复选框节点
+                    function setDisabledNode() {
+                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                        if ($("#kindId").val() == 1) {//党员
+                            var disabledNode1 = treeObj.getNodeByParam("isParent", true);
+                            treeObj.setChkDisabled(disabledNode1, true);
+                        }
+                        if ($("#kindId").val() == 2) {//干部
+                            var disabledNode1 = treeObj.getNodeByParam("isParent", true);
+                            treeObj.setChkDisabled(disabledNode1, true);
+                        }
+
+                    }
+
+                    //设置选择哪个checkbox全选某个
+                    $(".checkList input").click(function (e) {//点击相应的chekbox,进行全选和全部取消
+                        e.stopPropagation();
+                        if ($(this).is(":checked")) {
+                            // 先把所有的checkbox 都设置为不选种
+                            $('.it').prop('checked', false);
+                            // 把自己设置为选中
+                            $(this).prop('checked',true);
+                        }
+						if ($(this).prop("checked") == true) {
+                                if ($(this).parent().text() == "全部党员") {
+                                    //选  typea=4 全都勾选
+                                    cancelAllNodes("typec");
+                                    cancelAllNodes("typeb1");
+                                    cancelAllNodes("typeb2");
+                                    cancelAllNodes("typeb3");
+                                    allNodes("typea");
+                                }
+                                if ($(this).parent().text() == "处级以上") {
+                                    //全选 typec  !=7,8,9 !=null !=undefined !="" 全勾选
+                                    cancelAllNodes("typea");
+                                    cancelAllNodes("typeb1");
+                                    cancelAllNodes("typeb2");
+                                    cancelAllNodes("typeb3");
+                                    allNodes("typec");
+                                }
+                                if ($(this).parent().text() == "党支部书记") {
+                                    //全选  typeb ="4-1" "4-2" 全选
+                                    cancelAllNodes("typea");
+                                    cancelAllNodes("typec");
+                                    cancelAllNodes("typeb2");
+                                    cancelAllNodes("typeb3");
+                                    allNodes("typeb1");
+                                }
+                                if ($(this).parent().text() == "党总支书记") {
+                                    //全选  typeb ="3-1" "3-2" 全选
+                                    cancelAllNodes("typea");
+                                    cancelAllNodes("typec");
+                                    cancelAllNodes("typeb1");
+                                    cancelAllNodes("typeb3");
+                                    allNodes("typeb2");
+                                }
+                                if ($(this).parent().text() == "党委书记") {
+                                    //全选  typeb ="1-1" "1-2" "2-1" "2-2"全选
+                                    cancelAllNodes("typea");
+                                    cancelAllNodes("typec");
+                                    cancelAllNodes("typeb1");
+                                    cancelAllNodes("typeb2");
+                                    allNodes("typeb3");
+                                }
+                            } else {
+                                if ($(this).parent().text() == "全部党员") {
+                                    //选  typea=4 全都勾选
+                                    cancelAllNodes("typea");
+                                }
+                                if ($(this).parent().text() == "处级以上干部") {
+                                    //全选 typec  !=7,8,9 !=null !=undefined !="" 全勾选
+                                    cancelAllNodes("typec");
+                                }
+                                if ($(this).parent().text() == "党支部书记") {
+                                    //全选  typeb ="4-1" "4-2" 全选
+                                    cancelAllNodes("typeb1");
+                                }
+                                if ($(this).parent().text() == "党总支书记") {
+                                    //全选  typeb ="3-1" "3-2" 全选
+                                    cancelAllNodes("typeb2");
+                                }
+                                if ($(this).parent().text() == "党委书记") {
+                                    //全选  typeb ="1-1" "1-2" "2-1" "2-2"全选
+                                    cancelAllNodes("typeb3");
+                                }
+                            }
+
+                    });
+
+                    function allNodes(type) {
+                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                        var nodes = treeObj.transformToArray(treeObj.getNodes());
+                        //遍历所有节点
+                        for (var node in nodes) {
+                            if (nodes[node].chkDisabled == true) {//如果是禁选状态进入下一次循环
+                                continue;
+                            } else {
+                                if (type == "typea") {
+                                    //判断节点
+                                    if ($.inArray("4",nodes[node].typea.split(","))!=-1) {
+                                        treeObj.checkNode(nodes[node], true, true);//指定选中ID的节点
+                                    }
+                                }
+                                if (type == "typec") {
+                                    //判断节点
+                                    if (nodes[node].typec !== null && typeof nodes[node].typec !== "undefined" && $.inArray("7",nodes[node].typec.split(","))==-1 && $.inArray("8",nodes[node].typec.split(","))==-1 &&$.inArray("9",nodes[node].typec.split(","))==-1 && nodes[node].typec != "" ) {
+                                        treeObj.checkNode(nodes[node], true, true);//指定选中ID的节点
+                                    }
+                                }
+                                if (type == "typeb1") {
+                                    //判断节点
+                                    if (nodes[node].typeb !== null && typeof nodes[node].typeb !== "undefined" && ($.inArray("4-1",nodes[node].typeb.split(","))!=-1||$.inArray("4-2",nodes[node].typeb.split(","))!=-1)) {
+                                        treeObj.checkNode(nodes[node], true, true);//指定选中ID的节点
+                                    }
+                                }
+                                if (type == "typeb2") {
+                                    //判断节点
+                                    if (nodes[node].typeb !== null && typeof nodes[node].typeb !== "undefined" && ($.inArray("3-1",nodes[node].typeb.split(","))!=-1 || $.inArray("3-2",nodes[node].typeb.split(","))!=-1)) {
+                                        treeObj.checkNode(nodes[node], true, true);//指定选中ID的节点
+                                    }
+                                }
+                                if (type == "typeb3") {
+                                    //判断节点
+                                    if (nodes[node].typeb !== null && typeof nodes[node].typeb !== "undefined" && ($.inArray("1-1",nodes[node].typeb.split(","))!=-1 || $.inArray("1-2",nodes[node].typeb.split(","))!=-1 || $.inArray("2-1",nodes[node].typeb.split(","))!=-1 || $.inArray("2-2",nodes[node].typeb.split(","))!=-1)) {
+                                        treeObj.checkNode(nodes[node], true, true);//指定选中ID的节点
+                                    }
+                                }
+
+                            }
+
+                        }
+                    }
+
+                    function cancelAllNodes(type) {
+                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                        var nodes = treeObj.transformToArray(treeObj.getNodes());
+                        //遍历所有节点
+                        for (var node in nodes) {
+                            if (nodes[node].chkDisabled == true) {//如果是禁选状态进入下一次循环
+                                continue;
+                            } else {
+                                if (type == "typea") {
+                                    //判断节点
+                                    if ($.inArray("4",nodes[node].typea.split(","))!=-1) {
+                                        treeObj.checkNode(nodes[node],false, true);
+                                    }
+                                }
+                                if (type == "typec") {
+                                    //判断节点
+                                    if (nodes[node].typec !== null && typeof nodes[node].typec !== "undefined" && $.inArray("7",nodes[node].typec.split(","))==-1 && $.inArray("8",nodes[node].typec.split(","))==-1 &&$.inArray("9",nodes[node].typec.split(","))==-1 && nodes[node].typec != "" ) {
+                                        treeObj.checkNode(nodes[node],false, true);
+                                    }
+                                }
+                                if (type == "typeb1") {
+                                    //判断节点
+                                    if (nodes[node].typeb!== null && typeof nodes[node].typeb !== "undefined" && ($.inArray("4-1",nodes[node].typeb.split(","))!=-1||$.inArray("4-2",nodes[node].typeb.split(","))!=-1)) {
+                                        treeObj.checkNode(nodes[node],false, true);
+                                    }
+                                }
+                                if (type == "typeb2") {
+                                    //判断节点
+                                    if (nodes[node].typeb!== null && typeof nodes[node].typeb !== "undefined" && ($.inArray("3-1",nodes[node].typeb.split(","))!=-1 || $.inArray("3-2",nodes[node].typeb.split(","))!=-1)) {
+                                        treeObj.checkNode(nodes[node],false, true);
+                                    }
+                                }
+                                if (type == "typeb3") {
+                                    //判断节点
+                                    if (nodes[node].typeb !== null && typeof nodes[node].typeb !== "undefined" && ($.inArray("1-1",nodes[node].typeb.split(","))!=-1 || $.inArray("1-2",nodes[node].typeb.split(","))!=-1 || $.inArray("2-1",nodes[node].typeb.split(","))!=-1 || $.inArray("2-2",nodes[node].typeb.split(","))!=-1)) {
+                                        treeObj.checkNode(nodes[node],false, true);
+                                    }
+                                }
+
+                            }
+
+                        }
+                    }
+                }
+            });
+            $("#cancel").click(function () {
+                // $.fn.zTree.destroy("treeDemo");
+                $("#poper1").addClass("hid");
+                $("#mask").addClass("hid");
+            });
+            $("#close").click(function () {
+                // $.fn.zTree.destroy("treeDemo");
+                $("#poper1").addClass("hid");
+                $("#mask").addClass("hid");
+            });
+            $("#mask").click(function () {
+                // $.fn.zTree.destroy("treeDemo");
+                $("#poper1").addClass("hid");
+                $("#mask").addClass("hid");
+            });
+            $("#sure").click(function () {
+                var checkBLength=$('.it');
+                for(var i=0;i<checkBLength.length;i++){
+                    console.log($(checkBLength[i]).prop("checked"));
+                    if($(checkBLength[i]).prop("checked")==true){
+                        if($(checkBLength[i]).parent().text() == "全部党员"){
+                            selectItem=1;
+                        }
+                        if($(checkBLength[i]).parent().text() == "处级以上"){
+                            selectItem=2;
+                        }
+                        if($(checkBLength[i]).parent().text() == "党支部书记"){
+                            selectItem=3;
+                        }
+                        if($(checkBLength[i]).parent().text() == "党总支书记"){
+                            selectItem=4;
+                        }
+                        if($(checkBLength[i]).parent().text() == "党委书记"){
+                            selectItem=5;
+                        }
+                        break;
+                    }
+                }
+                allSelectedNode();
+                $("#poper1").addClass("hid");
+                $("#mask").addClass("hid");
+                $(".selectBtn").text("已选择").addClass("overSelected");
+            });
+
+            //所有选中的节点
+            function allSelectedNode() {
+                var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                var nodes = treeObj.transformToArray(treeObj.getNodes());
+                for (var node in nodes) {
+                    if (nodes[node].chkDisabled == true) {
+                        continue;
+                    } else {
+                        //判断节点是否选中
+                        var checked = nodes[node].checked;
+                        if (checked == true) {
+                            selectednodeName += nodes[node].name + ",";
+                            selectednodeId += nodes[node].id + ",";
+                        }
+                    }
+                }
+            }
+
+            // 保存下一步按钮
+            $("#saveNext").click(function () {
+                if ($("#title").val().trim() == "") {
+                    parent.layer.alert('请填写标题！');
+                    return;
+                }
+                if ($("#kindN").val() == "") {
+                    parent.layer.alert('请选择考核类别！');
+                    return;
+                }
+                if ($("#publichOffice").val() == "") {
+                    parent.layer.alert('请选择考核发布单位！');
+                    return;
+                }
+                if ($("#dateA").val() == "") {
+                    parent.layer.alert('请选择开始日期！');
+                    return;
+                }
+                if ($("#dateB").val() == "") {
+                    parent.layer.alert('请选择结束日期！');
+                    return;
+                }
+                if ($("#totalGrade").val() == "") {
+                    parent.layer.alert('请填写总分！');
+                    return;
+                }
+                if (!isNum($("#totalGrade").val())) {
+                    parent.layer.alert('请填写总分为数字！');
+                    return;
+                }else if($("#totalGrade").val()<=0){
+                	 parent.layer.alert('总分为数字且要大于零！');
+                     return;
+                }
+                if ($("#daFValue").val() == "") {
+                    parent.layer.alert('请选择打分方式！');
+                    return;
+                }
+                if ($(".selectBtn").text() != "已选择") {
+                    parent.layer.alert('请选择范围！');
+                    return;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: path + "/partyCheck/upsertCkBasic.action",
+                    data: {
+                        "type": 2,
+                        "title": $("#title").val(),
+                        "checkType": $("#kindId").val(),
+                        "bumenId": $("#publishId").val(),
+                        "bumenName": $("#publichOffice").val(),
+                        "starCycle": $("#dateA").val(),
+                        "endCycle": $("#dateB").val(),
+                        "totalScore": $("#totalGrade").val(),
+                        "markType": $("#daFtype").val(),
+                        "idstrs": selectednodeId,
+                        "nameStrs": selectednodeName,
+                        "ckType": selectItem,
+                        "_id":id
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.success) {
+                            window.location.href = "RuleofOrganizeList.html?id="+data.data._id+"&&member=2"
+                        } else {
+                            parent.layer.alert(data.message);
+                        }
+
+                    }
+                })
+            });
+            // 保存返回按钮
+            $("#saveBack").click(function () {
+                if ($("#title").val().trim() == "") {
+                    parent.layer.alert('请填写标题！');
+                    return;
+                }
+                if ($("#kindN").val() == "") {
+                    parent.layer.alert('请选择考核类别！');
+                    return;
+                }
+                if ($("#publichOffice").val() == "") {
+                    parent.layer.alert('请选择考核发布单位！');
+                    return;
+                }
+                if ($("#dateA").val() == "") {
+                    parent.layer.alert('请选择开始日期！');
+                    return;
+                }
+                if ($("#dateB").val() == "") {
+                    parent.layer.alert('请选择结束日期！');
+                    return;
+                }
+                if ($("#totalGrade").val() == "") {
+                    parent.layer.alert('请填写总分！');
+                    return;
+                }
+                if (!isNum($("#totalGrade").val())) {
+                    parent.layer.alert('请填写总分为数字！');
+                    return;
+                }else if($("#totalGrade").val()<=0){
+                	 parent.layer.alert('总分为数字且要大于零！');
+                     return;
+                }
+                if ($("#daFValue").val() == "") {
+                    parent.layer.alert('请选择打分方式！');
+                    return;
+                }
+                if ($(".selectBtn").text() != "已选择") {
+                    parent.layer.alert('请选择范围！');
+                    return;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: path + "/partyCheck/upsertCkBasic.action",
+                    data: {
+                        "type": 2,
+                        "title": $("#title").val(),
+                        "checkType": $("#kindId").val(),
+                        "bumenId": $("#publishId").val(),
+                        "bumenName": $("#publichOffice").val(),
+                        "starCycle": $("#dateA").val(),
+                        "endCycle": $("#dateB").val(),
+                        "totalScore": $("#totalGrade").val(),
+                        "markType": $("#daFtype").val(),
+                        "idstrs": selectednodeId,
+                        "nameStrs": selectednodeName,
+                        "ckType": selectItem,
+                        "_id":id
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.success) {
+                        	window.location.href="rulesofCheck.html";
+                        } else {
+                            parent.layer.alert(data.message);
+                        }
+
+                    }
+                })
+            });
+            $("#can").click(function () {
+                if ($("#title").val().trim() == "") {
+                    parent.layer.alert('请填写标题！');
+                    return;
+                }
+                if ($("#kindN").val() == "") {
+                    parent.layer.alert('请选择考核类别！');
+                    return;
+                }
+                if ($("#publichOffice").val() == "") {
+                    parent.layer.alert('请选择考核发布单位！');
+                    return;
+                }
+                if ($("#dateA").val() == "") {
+                    parent.layer.alert('请选择开始日期！');
+                    return;
+                }
+                if ($("#dateB").val() == "") {
+                    parent.layer.alert('请选择结束日期！');
+                    return;
+                }
+                if ($("#totalGrade").val() == "") {
+                    parent.layer.alert('请填写总分！');
+                    return;
+                }
+                if (!isNum($("#totalGrade").val())) {
+                    parent.layer.alert('请填写总分为数字！');
+                    return;
+                }else if($("#totalGrade").val()<=0){
+                	 parent.layer.alert('总分为数字且要大于零！');
+                     return;
+                }
+                if ($("#daFValue").val() == "") {
+                    parent.layer.alert('请选择打分方式！');
+                    return;
+                }
+                if ($(".selectBtn").text() != "已选择") {
+                    parent.layer.alert('请选择范围！');
+                    return;
+                }
+                parent.layer.confirm('您有未保存的内容，是否保存？', {icon: 3, title: '\n' + '提示'}, function (index) {
+                    $.ajax({
+                        type: "POST",
+                        url: path + "/partyCheck/upsertCkBasic.action",
+                        data: {
+                            "type": 2,
+                            "title": $("#title").val(),
+                            "checkType": $("#kindId").val(),
+                            "bumenId": $("#publishId").val(),
+                            "bumenName": $("#publichOffice").val(),
+                            "starCycle": $("#dateA").val(),
+                            "endCycle": $("#dateB").val(),
+                            "totalScore": $("#totalGrade").val(),
+                            "markType": $("#daFtype").val(),
+                            "idstrs": selectednodeId,
+                            "nameStrs": selectednodeName,
+                            "ckType": selectItem,
+                            "_id":id
+                        },
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.success) {
+                            	window.location.href="rulesofCheck.html";
+                            } else {
+                                parent.layer.alert(data.message);
+                            }
+                        }
+                    });
+                    parent.layer.close(index);
+                },function (index) {
+                	window.location.href="rulesofCheck.html";
+                    parent.layer.close(index);
+                });
+            })
+
+        }
+    })
+</script>
+</html>

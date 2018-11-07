@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>组织结构</title>
+		<link rel="stylesheet" type="text/css" href="../resources/plugins/ztree/zTreeStyle.css" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../resources/css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="css/index.css"/>
+		<link rel="stylesheet" type="text/css" href="../resources/css/swiper-3.4.2.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../layui/css/layui.css" />
+		<link rel="stylesheet" href="">
+		<style type="text/css">
+			article {
+				padding: 0 30px;
+			}
+			article section:nth-of-type(2),article section:nth-of-type(3) {
+				padding: 0;
+				margin-top: 20px;
+				border: 1px solid #DEDEDE;
+				border-radius: 20px;
+				overflow: hidden;
+			}
+			.superscript {
+				width: 240px;
+				height: 50px;
+				line-height: 50px;
+				padding-left: 30px;
+				background: linear-gradient(#d81a1e,#ed0f45);
+				font-size: 20px;
+			}
+			.superscript img {
+				width: 23px;
+				height: 25px;
+				margin-right: 5px;
+				vertical-align: middle;
+			}
+			.superscript span {
+				color: #fff;
+			}
+			.content {
+				padding: 20px 35px;
+				position: relative;
+			}
+			.bumendetail {
+				line-height: 32px;
+			}
+			.bumenImg .swiper-container {
+				min-width: 450px;
+				max-width: 500px;
+				min-height: 200px;
+				margin-top: -30px;
+			}
+			.bumenImg .swiper-container-horizontal>.swiper-pagination-bullets {
+				width: auto;
+				height: 30px;
+				line-height: 30px;
+				left: auto;
+				right: 0;
+				bottom: 0;
+				background: rgba(216,12,24,0.2);
+				padding-left: 16px;
+				border-bottom-left-radius: 18px;
+				border-top-left-radius: 18px;
+			}
+			.bumenImg .swiper-pagination-bullet {
+				opacity: 1;
+				background: transparent;
+				border: 1px solid #fff;
+			}
+			.bumenImg .swiper-pagination-bullet-active {
+				background-color: #D80C18;
+				border: none;
+			}
+			.bumenImg .swiper-slide {
+				background: #4390EE;
+			}
+			.swiper-slide img {
+				width: 100%;
+			}
+			
+			.swiper-container2 {
+				margin: 0 30px;
+			}
+			.swiper-slide p{
+				margin-top: 10px;
+				text-align: center;
+				line-height: 20px;
+			}
+			.treeinput{
+				height: 34px;
+				padding: 6px 12px;
+				color: #555;
+				border: 1px solid #dddddd;
+				border-radius: 4px;
+				width:268px;
+
+			}
+			section {
+				position: relative;
+			}
+			.sctiontree {
+				width: 268px;
+				overflow-x: auto;
+				overflow-y: scroll;
+				z-index: 99999;
+				position: absolute;
+				left:74px;
+				background-color: #ffffff;
+			}
+			.swiperonelist{
+				height: 280px;
+			}
+			.swiperonelist img{
+				height: 100%;
+				width: auto;
+			}
+			.bumenImg .swiper-slide{
+				background: #000000;
+			}
+			.swipertwoitem{
+				text-align: center;
+
+			}
+			.swipertwoitem img{
+				height: 176px;
+			}
+			.swiperitem{
+				text-align: center;
+			}
+
+			#picturepage{
+				margin-top: 20px;
+				float: right;
+			}
+			.layui-laypage .layui-laypage-curr .layui-laypage-em {
+				background-color: #1890FF;
+				border-radius: 4px;
+			}
+
+			.layui-laypage a,
+			.layui-laypage span {
+				margin-right: 4px;
+				border-radius: 4px;
+				background: none;
+			}
+
+			.layui-laypage-count {
+				border: none !important;
+				margin: 0;
+				padding: 0;
+			}
+
+			.layui-laypage span {
+				color: #5A5A5A;
+				font-weight: 400;
+			}
+
+			.layui-laypage-limits {
+				border: none !important;
+				margin: 0;
+				padding: 0;
+			}
+
+			.layui-laypage-skip {
+				border: none !important;
+				margin: 0 !important;
+				padding: 0 !important;
+			}
+
+			.layui-laypage input {
+				width: 30px;
+				padding: 0;
+			}
+
+			.layui-laypage-limits select {
+				border: 1px solid#CCCCCC;
+				border-radius: 4px;
+				padding: 5px;
+			}
+
+			.layui-input,
+			.layui-textarea {
+				display: inline-block;
+			}
+		</style>
+	</head>
+	<body>
+		<aside>
+			<img src="img/nonews.png"/>
+		</aside>
+		<nav class="header">
+			<ol class="breadcrumb">
+			  <li class="active cursor">组织结构</li>
+			</ol>
+		</nav>
+		<article>
+			<section>
+				<label >选择支部：</label>
+				<input type="text" class="treeinput " readonly placeholder="请选择部门" onclick="seetree()">
+				<div class="sctiontree" style="display: none"><ul id="treeDemo1" class="ztree"></ul></div>
+
+			</section>
+			<section>
+				<div class="superscript">
+					<img src="img/message.png"/>
+					<span>单位基本信息</span>
+				</div>
+				<div class="content row">
+					<div class="col-xs-6 bumendetail">
+						<p>组织名称：<span class="sectionTEXT">××××党支部</span></p>
+						<p>党员人数：<span class="peoplenums">20</span></p>
+						<p>地理位置：<span class="site">××××号楼</span></p>
+						<p>组织类别：<span class="classfiy">党支部</span></p>
+						<p>党组织建立时间：<span class="time">2018年1月29日</span></p>
+						<p>组织简介：<span class="intro">简介内容简介内容简介内容简介内容简介内容简介内容简介内容</span></p>
+					</div>
+					<div class="col-xs-6 bumenImg">
+						<div class="swiper-container swiper-container1">
+							<div class="swiper-wrapper swiperonelist">
+
+								<!--<div class="swiper-slide"><img src="../resources/img/profile-menu.png"/></div>-->
+								<!--<div class="swiper-slide"><img src="../resources/img/profile-menu.png"/></div>-->
+							</div>
+							<div class="swiper-pagination"></div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section>
+				<div class="superscript">
+					<img src="img/rongyu.png"/>
+					<span>荣誉展示</span>
+				</div>
+				<div class="content">
+					<div class="swiper-container swiper-container2">
+						<div class="swiper-wrapper swipertwolist">
+
+						</div>
+					</div>
+					<!--<div class="swiper-button-prev swiper-button-black"></div>-->
+    				<!--<div class="swiper-button-next swiper-button-black"></div>-->
+					<div id="picturepage"></div>
+				</div>
+			</section>
+		</article>
+	</body>
+</html>
+<!--轮播图-->
+<div class="swiper-slide swiperitem" style="display:none"><img src="" class="imgitem"/></div>
+<!--lun-->
+<div class="swiper-slide swipertwoitem" style="display:none">
+	<img src="" class="swiperimgtwo"/><p class="swipertitle"></p>
+</div>
+<script type="text/javascript" src="../../r/wx/common/pathimage"></script>
+<script src="../../moduleweb/resources/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../resources/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../resources/js/swiper-3.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../resources/plugins/ztree/jquery.ztree.core.min.js"></script>
+<script src="../resources/plugins/ztree/jquery.ztree.excheck.js" type="text/javascript" charset="utf-8"></script>
+<script src="../layui/layui.all.js"></script>
+
+<script type="text/javascript">
+    var optionitem = $(".optionitem");
+    optionitem.remove()
+    var swiperitem = $(".swiperitem");
+    var swipertwoitem = $(".swipertwoitem")
+	$(function(){
+        bumentree();
+        queryById("0");
+	});
+	function seetree(){
+	    $(".sctiontree").css("display","")
+	}
+	 //通过部门Id查询部门
+	    function queryById(id) {
+	        $.ajax({
+	            type: "post",
+	            url: _ctxPath + "gjbumen/queryById.action",
+	            async:false,
+	            dataType: "json",
+	            data:{'bumenId':id},
+	            success: function (data) {
+                    var sectiondetails = data.data;
+                    $(".sectionTEXT").text(sectiondetails.name);
+                    $(".peoplenums").text(sectiondetails.count);
+                    $(".classfiy").text(sectiondetails.bumenType);
+                    $(".time").text(sectiondetails.recordTime);
+                    $(".intros").text(sectiondetails.summary);
+                    $(".site").text(sectiondetails.address);
+                    var sectionid =sectiondetails._id;
+                    queryPictrueById(sectionid);
+
+		      }
+		  });
+    }
+	    
+
+		 //通过部门Id查询图片
+	    function queryPictrueById(typeId) {
+	        $.ajax({
+	            type: "post",
+	            url: _ctxPath + "gjbmpictrue/query.action",
+	            async:false,
+	            dataType: "json",
+	            data:{'bumenId':typeId,"type|integer":1,size:10},
+	            success: function (data) {
+                    console.log(data)
+	                $(".swiperonelist").html("");
+					var imgonearr = data.data.data;
+                   $(imgonearr).each(function(){
+                       var item = swiperitem.clone().css("display","");
+                       item.find(".imgitem").attr("src",_qiniuImageHost+this.pictrue);
+                       $(".swiperonelist").append(item)
+				   })
+                    var mySwiper = new Swiper('.swiper-container1', {
+                        autoplay: 5000,//可选选项，自动滑动
+                        autoplayDisableOnInteraction : false,
+                        pagination : '.swiper-pagination',
+                        loop: true
+                    });
+
+
+
+		      }
+		  });
+    }
+
+</script>
+<script>
+    //部门
+    var zNodes = [];
+    var setting = {
+        view: {
+            selectedMulti: false
+        },
+        check: {
+            enable: true,
+            chkStyle: "radio",
+            radioType: "all"
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            beforeCheck: beforeCheck,
+            onCheck: onCheck
+        }
+    };
+    var code, log, className = "dark";
+
+    function beforeCheck(treeId, treeNode) {
+        className = (className === "dark" ? "" : "dark");
+        if (treeNode.checked) {
+            return false;
+        }
+
+        return true;
+    }
+    function onCheck(e, treeId, treeNode) {
+        $(".sctiontree").css("display","none");
+        $(".treeinput").val(treeNode.name);
+        $(".treeinput").attr("id", treeNode.id);
+
+        queryById(treeNode.id);
+        queryPictrueById(treeNode.id);
+        pactureFindpage(treeNode.id)
+
+    }
+    //查询部门树
+    function bumentree() {
+        //分类
+        $.ajax({
+            type: "get",
+            url: _ctxPath + "gjbumen/bumentree.action",
+            dataType: "json",
+            success: function (data) {
+                var zNodes = data.data;
+                // console.log(zNodes)
+                $(zNodes).each(function(){
+                    this.icon = "img/bumen.png"
+				})
+
+                var zTree = $.fn.zTree.init($("#treeDemo1"), setting, zNodes)
+                var node = zTree.getNodeByParam("id", 0)
+            }
+
+        });
+    }
+
+
+</script>
+<script>
+    var pagea = 1; //开始页数
+    var sizea = 8; //每页最多显示条数
+    var nowpagea = 1; //当前页数
+    var pagesa = 0;
+    pactureFindpage()
+    function pagepeozhi() {
+        layui.use(['laypage', 'layer'], function() {
+            var laypage = layui.laypage,
+                layer = layui.layer;
+            laypage.render({
+                elem: 'picturepage',
+                count: pagesa,
+                curr: nowpagea,
+                limit: sizea,
+                layout: ['count', 'prev', 'page', 'next', 'skip'],
+                jump: function(obj, first) {
+                    // var currPage=obj.curr;
+                    // var perPage_num=obj.limit;
+                    nowpagea = obj.curr;
+                    pagea = (obj.curr - 1) * sizea;
+                    if (!first) { //一定要加此判断，否则初始时会无限刷新
+                        pactureFindpage(); //一定要把翻页的ajax请求放到这里，不然会请求两次。
+                        location.href = '#top';
+                        //<a href="#top">返回顶部</a>
+                    }
+                }
+            });
+        });
+    }
+
+    function pactureFindpage(typeId) {
+        $(".swipertwolist").html("");
+        $.ajax({
+            type: "post",
+            url: _ctxPath + "gjbmpictrue/query.action",
+            async: false,
+            dataType: "json",
+            data: {
+                'bumenId': typeId,
+                "type|integer": 2,
+                "page": nowpagea, //当前页数
+                "size": sizea,
+            },
+            success: function (data) {
+                console.log(data)
+                pagea = data.data.page; //当前页数(后台返回)
+                pagesa = data.data.total;
+                var imgonearr = data.data.data;
+                $(imgonearr).each(function () {
+                    var item = swipertwoitem.clone().css("display", "");
+                    item.find(".swiperimgtwo").attr("src", _qiniuImageHost + this.pictrue);
+                    item.find(".swipertitle").text(this.title)
+                    $(".swipertwolist").append(item)
+                })
+                var mySwiper = new Swiper('.swiper-container2', {
+                    slidesPerView : 4,
+                    spaceBetween : 30,
+                    // slidesPerColumn: 2,
+                    slidesPerColumn : 2,
+                    slidesPerColumnFill : 'row',
+                    paginationClickable: true,
+                    // prevButton:'.swiper-button-prev',
+                    // nextButton:'.swiper-button-next'
+                });
+
+                pagepeozhi()
+
+            }
+        })
+    }
+
+
+
+
+</script>

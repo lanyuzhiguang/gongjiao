@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../css/createRulesOfOrganization.css">
+    <link rel="stylesheet" type="text/css" href="../../css/zTreeStyle.css">
+    <link rel="stylesheet" type="text/css" href="../../css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../../css/layer.css">
+    <style>
+        .hanging {
+            color: #da0109;
+        }
+        
+        .hid {
+            display: none;
+        }
+        
+        .noData {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #c4c4c4;
+        }
+        
+        .overSelected {
+            color: #2196f1!important;
+        }
+        
+        .ztree li span.button.chk.checkbox_true_disable {
+            background-position: -14px 0px;
+        }
+        
+        .btnList input:last-of-type {
+            background: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="talkRecord">
+            <span id="backBtn">
+                 <img src="../../img/back.png"><span class="back">返回</span>
+            </span>
+            <span id="where">创建党组织考核规则</span>
+        </div>
+        <div class="kindList">
+            <div class="headProcess">
+                <div class="firstImg"><img src="../../img/handingB.png"><span>1</span>
+                    <div class="wordSetting  hanging">基本设置</div>
+                </div>
+                <div class="lineRed"></div>
+                <div class="lastImg"><img src="../../img/noHanding.png"><span>2</span>
+                    <div class="checkRegular">考核规则设置</div>
+                </div>
+            </div>
+            <div class="formList">
+                <div>
+                    <div><span class="redX">*</span>标题</div>
+                    <div><input type="text" id="title" value=""></div>
+                </div>
+                <div>
+                    <div><span class="redX">*</span>考核类别</div>
+                    <div id="checkK">
+                        <input type="hidden" value="" id="kindId">
+                        <input type="text" readonly value="" id="kindN"><img src="../../img/select.png">
+                        <div id="rulerState" class="rulerBtn" style="display: none">
+                            <ul>
+                                <li data-id="1">党委</li>
+                                <li data-id="2">党工委</li>
+                                <li data-id="3">党总支</li>
+                                <li data-id="4">党支部</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div><span class="redX">*</span>考核发布单位</div>
+                    <div id="officeBox">
+                        <input type="hidden" value="" id="publishId">
+                        <input type="text" readonly value="" id="publichOffice"><img src="../../img/select.png">
+                        <div class="officeBtn" style="display: none">
+                            <ul>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div><span class="redX">*</span>考核周期</div>
+                    <div class="beginDate"><input type="text" id="dateA" readonly value=""><img src="../../img/date.png"></div>
+                    至
+                    <div class="overDate"><input type="text" readonly id="dateB" value=""><img src="../../img/date.png"></div>
+                </div>
+                <div style="display: none;">
+                    <div><span class="redX">*</span>总分</div>
+                    <div><input type="text" id="totalGrade" value=""></div>
+                </div>
+                <div>
+                    <div><span class="redX">*</span>打分方式</div>
+                    <div id="daFBox">
+                        <input type="hidden" value="" id="daFtype">
+                        <input type="text" readonly value="" id="daFValue"><img src="../../img/select.png">
+                        <div class="daF" style="display: none">
+                            <ul>
+                                <li data-id="1">自查+评分</li>
+                                <li data-id="2">评分</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div><span class="redX">*</span>考核适用范围</div>
+                    <div><span class="selectBtn">＋</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="btnList"><span id="saveBack">保存并返回</span><span id="saveNext">保存并下一步</span><span id="can">取消</span></div>
+
+    </div>
+    <div class="mask hid" id="mask"></div>
+    <div class="popBox hid" id="poper1">
+        <div class="popB_Top">
+            <span class="addW" id="titleC">考核适用范围</span><span class="close" id="close"><img src="../../img/close.png"></span>
+        </div>
+        <div class="popB_bottom">
+            <div>快速选择</div>
+            <div class="checkList">
+
+            </div>
+            <!--<div>-->
+            <!--<label><input type="checkbox" >全部党委</label>-->
+            <!--</div>-->
+            <!--<div>-->
+            <!--<label><input type="checkbox" >全部党总支</label>-->
+            <!--</div>-->
+            <!--<div>-->
+            <!--<label><input type="checkbox" >全部党支部</label>-->
+            <!--</div>-->
+        </div>
+        <div class="treeList">
+            <div id="menuContent" class="menuContent">
+                <ul id="treeDemo" class="ztree" style="margin-top:0; width:206px;"></ul>
+            </div>
+            <div class="noData hid">你所选择得</div>
+        </div>
+        <div class="btnList" id="tD"><input type="button" class="s" id="sure" value="确定"><input type="button" class="c" id="cancel" value="取消"></div>
+    </div>
+
+
+
+</body>
+<script type="text/javascript" src="../../../r/wx/common/pathimage"></script>
+<script src="../../assets/js/jquery.js"></script>
+<script src="../../js/jquery.ztree.core.min.js"></script>
+<script src="../../js/jquery.ztree.excheck.min.js"></script>
+<script src="../../js/laydate.js"></script>
+<script src="../../js/layer.js"></script>
+<script src="../../js/layui.js"></script>
+<script>
+    $(function() {
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+        var plan = null, //初始考核主信息（如果是编辑则有）
+            publishId = null, //发布单位id
+            orgaKind = null, //考核类别
+            fset = true; //用于编辑的第一次树的生成
+        // 组织架构
+        var selectednodeName = "";
+        var selectednodeId = "";
+        var selectItem = 0;
+        var id = getQueryString("id");
+        var type = getQueryString("type");
+        var path = _ctxPath; //获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+        function isNum(num) {
+            var re = /^[0-9]+.?[0-9]*$/;
+            if (!re.test(num)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        $("#backBtn").click(function() {
+            window.location.href = "rulesofCheck.html";
+        });
+        $("#mask").height($(document).height());
+        //时间插件方法
+        layui.use(['laydate'], function() {
+            var $ = layui.$;
+            var laydate = layui.laydate;
+            var nowTime = new Date().valueOf();
+            var max = null;
+
+            var start = laydate.render({
+                elem: '#dateA',
+                btns: ['clear', 'confirm'],
+                done: function(value, date) {
+                    endMax = end.config.max;
+                    end.config.min = date;
+                    end.config.min.month = date.month - 1;
+                }
+            });
+            var end = laydate.render({
+                elem: '#dateB',
+                done: function(value, date) {
+                    if ($.trim(value) == '') {
+                        var curDate = new Date();
+                        date = {
+                            'date': curDate.getDate(),
+                            'month': curDate.getMonth() + 1,
+                            'year': curDate.getFullYear()
+                        };
+                    }
+                    start.config.max = date;
+                    start.config.max.month = date.month - 1;
+                }
+            });
+        })
+
+        //考核类别
+        $("#kindN").click(function(e) {
+            $(this).next().next().slideDown();
+            e.stopPropagation();
+        });
+        $(".rulerBtn ul li").mouseover(function() {
+            $(".rulerBtn ul li").removeClass("activeSelcet");
+            $(this).addClass("activeSelcet");
+        });
+        $("body").click(function() {
+            $(".rulerBtn").slideUp();
+        });
+        $(".rulerBtn ul li").click(function() {
+            $(this).parents(".rulerBtn").prevAll("#kindN").val($(this).text());
+            $(this).parents(".rulerBtn").prevAll("#kindN").prev().val($(this).attr("data-id"));
+        });
+        // 查看
+        if (typeof id !== "undefined" && id !== null) {
+            $.ajax({
+                type: "POST",
+                url: path + "partyCheck/findCheckById.action",
+                data: {
+                    "checkId": id
+                },
+                dataType: "json",
+                success: function(data) {
+                    var data = data.data;
+                    plan = data;
+                    $("#title").val(data.title);
+                    if (data.checkType == 1) {
+                        $("#kindN").val("党委")
+                        $("#kindId").val(data.checkType);
+                    }
+                    if (data.checkType == 2) {
+                        $("#kindN").val("党工委");
+                        $("#kindId").val(data.checkType);
+                    }
+                    if (data.checkType == 3) {
+                        $("#kindN").val("党总支");
+                        $("#kindId").val(data.checkType);
+                    }
+                    if (data.checkType == 4) {
+                        $("#kindN").val("党支部");
+                        $("#kindId").val(data.checkType);
+                    }
+                    if (data.checkType == 5) {
+                        $("#kindN").val("联合党支部");
+                        $("#kindId").val(data.checkType);
+                    }
+                    $("#publichOffice").val(data.bumenName);
+                    // $("#publichOffice").attr("disabled",true);
+                    // $("#publichOffice").unbind("click");
+                    $("#publishId").val(data.bumenId);
+                    $("#dateA").val(data.formtStarCycle);
+                    $("#dateB").val(data.formtEndCycle);
+                    $("#totalGrade").val(data.totalScore);
+                    //数据初始化
+                    selectednodeName = data.nameStrs;
+                    selectednodeId = data.idstrs;
+                    publishId = data.bumenId, //发布单位id
+                        orgaKind = data.checkType; //考核类别
+                    selectItem = data.ckType;
+
+                    if (data.markType == "1") {
+                        $("#daFtype").val("1");
+                        $("#daFValue").val("自查+评分");
+                    }
+                    if (data.markType == "2") {
+                        $("#daFtype").val("2");
+                        $("#daFValue").val("评分");
+                    }
+                    $(".selectBtn").text("已选择").addClass("overSelected");
+                }
+            })
+
+
+        }
+        $.ajax({
+            type: "POST",
+            url: path + "partyCheck/findRoleBumens.action",
+            data: {},
+            dataType: "json",
+            success: function(data) {
+                var data = data;
+                for (var i = 0; i < data.length; i++) {
+                    var oLi = "<li data-id=" + data[i]._id + ">" + data[i].name + "</li>";
+                    $(".officeBtn ul").append(oLi);
+                }
+                //考核发布单位
+                $("#publichOffice").click(function(e) {
+                    $(this).next().next().slideDown();
+                    e.stopPropagation();
+                });
+                $(".officeBtn ul li").mouseover(function() {
+                    $(".officeBtn ul li").removeClass("activeSelcet");
+                    $(this).addClass("activeSelcet");
+                });
+                $("body").click(function() {
+                    $(".officeBtn").slideUp();
+                });
+                $(".officeBtn ul li").click(function() {
+                    $(this).parents(".officeBtn").prevAll("#publichOffice").val($(this).text());
+                    $(this).parents(".officeBtn").prevAll("#publichOffice").prev().val($(this).attr("data-id"));
+                });
+            }
+        });
+
+        //打分方式
+        $("#daFValue").click(function(e) {
+            $(this).next().next().slideDown();
+            e.stopPropagation();
+        });
+        $(".daF ul li").mouseover(function() {
+            $(".daF ul li").removeClass("activeSelcet");
+            $(this).addClass("activeSelcet");
+        });
+        $("body").click(function() {
+            $(".daF").slideUp();
+        });
+        $(".daF ul li").click(function() {
+            $(this).parents(".daF").prevAll("#daFValue").val($(this).text());
+            $(this).parents(".daF").prevAll("#daFValue").prev().val($(this).attr("data-id"));
+        });
+        // 组织架构
+        var isallSelect = "";
+        $(".selectBtn").click(function() {
+            if (plan == null) { //创建
+                $(".checkList").empty();
+                if ($("#kindN").val() == "") {
+                    parent.layer.alert('请选择考核类别！');
+                    return;
+                }
+                if ($("#publichOffice").val() == "") {
+                    parent.layer.alert('请选择考核发布单位！');
+                    return;
+                }
+                $("#poper1").removeClass("hid");
+                $("#mask").removeClass("hid");
+                if ($("#kindN").val() == "党委" || $("#kindN").val() == "党工委") {
+                    $(".checkList").append("<div>\n" +
+                        "            <label><input type=\"checkbox\"  name=\"items\" id='it'  >全部党委</label>\n" +
+                        "        </div>");
+                    isallSelect = 1;
+                }
+                if ($("#kindN").val() == "党总支") {
+                    $(".checkList").append(" <div>\n" +
+                        "            <label><input type=\"checkbox\"  name=\"items\"  id='it'>全部党总支</label>\n" +
+                        "        </div>");
+                    isallSelect = 2;
+                }
+                if ($("#kindN").val() == "党支部") {
+                    $(".checkList").append(" <div>\n" +
+                        "            <label><input type=\"checkbox\"   name=\"items\" id='it'>全部党支部</label>\n" +
+                        "        </div>");
+                    isallSelect = 3;
+                }
+                var zNodes = [];
+                //tree
+                var setting = {
+                    data: {
+                        simpleData: {
+                            enable: true,
+                            idKey: "id",
+                            pIdKey: "pId"
+                        },
+                        key: {
+                            name: "name"
+                        }
+                    },
+                    check: {
+                        enable: true,
+                        chkStyle: "checkbox",
+                        chkboxType: {
+                            "Y": "",
+                            "N": ""
+                        }
+                    }
+                };
+                buildTree();
+
+                function buildTree() {
+                    if (publishId != $("#publishId").val() || orgaKind != $("#kindId").val()) {
+                        publishId = $("#publishId").val(); //发布单位id
+                        orgaKind = $("#kindId").val(); //考核类别
+                        $.ajax({
+                            type: "POST",
+                            url: path + "partyCheck/findCheckBums.action",
+                            data: {
+                                "bumenId": $("#publishId").val(),
+                                "checkType": $("#kindId").val()
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                var data = data.data;
+                                if (data) {
+                                    zNodes = data;
+                                    var zTree = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                                    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                                    treeObj.expandAll(true);
+                                    if (allNodes()) {
+                                        //全部选中了
+                                        $("#it").prop("checked", "checked");
+                                    }
+                                }
+                                //setDisabledNode();
+                            }
+                        });
+                    }
+                }
+
+                function allNodes() {
+                    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                    var nodes = treeObj.transformToArray(treeObj.getNodes());
+                    //遍历所有节点
+                    for (var node in nodes) {
+                        if (nodes[node].chkDisabled == true) { //如果是禁选状态进入下一次循环
+                            continue;
+                        } else {
+                            //判断节点是否选中
+                            var checked = nodes[node].checked;
+                            if (!checked) { //有一个未选中 就退出
+                                $("#it").prop("checked", "");
+                                return false;
+                            } else { //选中了 进行下一次循环
+                                continue;
+                            }
+                        }
+
+                    }
+                    //全部选中啦
+                    return true;
+
+                }
+                // 点击选择或取消的判断
+                function onCheck(e, treeId, treeNode) {
+                    console.log(treeNode.name);
+                    // 判断是否全部选中
+                    if (allNodes()) {
+                        //全部选中了
+                        $("#it").prop("checked", "checked");
+                    }
+
+                    function allNodes() {
+                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                        var nodes = treeObj.transformToArray(treeObj.getNodes());
+                        //遍历所有节点
+                        for (var node in nodes) {
+                            if (nodes[node].chkDisabled == true) { //如果是禁选状态进入下一次循环
+                                continue;
+                            } else {
+                                //判断节点是否选中
+                                var checked = nodes[node].checked;
+                                if (!checked) { //有一个未选中 就退出
+                                    $("#it").prop("checked", "");
+                                    return false;
+                                } else { //选中了 进行下一次循环
+                                    continue;
+                                }
+                            }
+
+                        }
+                        //全部选中啦
+                        return true;
+
+                    }
+
+                }
+                //设置禁用的复选框节点
+                function setDisabledNode() {
+                    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                    console.log(treeObj);
+                    if ($("#kindId").val() == 3) { //党总支
+                        var disabledNode1 = treeObj.getNodeByParam("typea", 1);
+                        var disabledNode2 = treeObj.getNodeByParam("typea", 2);
+                        treeObj.setChkDisabled(disabledNode1, true);
+                        treeObj.setChkDisabled(disabledNode2, true);
+                    }
+                    if ($("#kindId").val() == 4) { //党支部
+                        var disabledNode1 = treeObj.getNodeByParam("typea", 1);
+                        var disabledNode2 = treeObj.getNodeByParam("typea", 2);
+                        var disabledNode3 = treeObj.getNodeByParam("typea", 3);
+                        treeObj.setChkDisabled(disabledNode1, true);
+                        treeObj.setChkDisabled(disabledNode2, true);
+                        treeObj.setChkDisabled(disabledNode3, true);
+                    }
+
+                }
+                $(".checkList input").click(function(e) { //点击相应的chekbox,进行全选和全部取消
+                    e.stopPropagation();
+                    if ($(this).prop("checked") == true) {
+                        if ($(this).parent().text() == "全部党支部") {
+                            //全选
+                            CheckAllNodes();
+                        }
+                        if ($(this).parent().text() == "全部党总支") {
+                            //全选
+                            CheckAllNodes();
+                        }
+                        if ($(this).parent().text() == "全部党委") {
+                            //全选
+                            CheckAllNodes();
+                        }
+                    } else {
+                        if ($(this).parent().text() == "全部党支部") {
+                            //取消
+                            cancelAllNodes();
+                        }
+                        if ($(this).parent().text() == "全部党总支") {
+                            //取消
+                            cancelAllNodes();
+                        }
+                        if ($(this).parent().text() == "全部党委") {
+                            //取消
+                            cancelAllNodes();
+                        }
+                    }
+
+                });
+                // 取消选择方法
+                function cancelAllNodes() {
+                    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                    treeObj.checkAllNodes(false);
+                }
+
+                //全部勾选方法
+                function CheckAllNodes() {
+                    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                    treeObj.checkAllNodes(true);
+                }
+
+
+            } else { //查看树
+                $(".checkList").empty();
+                if ($("#kindN").val() == "") {
+                    parent.layer.alert('请选择考核类别！');
+                    return;
+                }
+                if ($("#publichOffice").val() == "") {
+                    parent.layer.alert('请选择考核发布单位！');
+                    return;
+                }
+                $("#poper1").removeClass("hid");
+                $("#mask").removeClass("hid");
+                if ($("#kindN").val() == "党委" || $("#kindN").val() == "党工委") {
+                    $(".checkList").append("<div>\n" +
+                        "            <label><input type=\"checkbox\"  name=\"items\" id='it'  >全部党委</label>\n" +
+                        "        </div>");
+                    isallSelect = 1;
+                }
+                if ($("#kindN").val() == "党总支") {
+                    $(".checkList").append(" <div>\n" +
+                        "            <label><input type=\"checkbox\"  name=\"items\"  id='it'>全部党总支</label>\n" +
+                        "        </div>");
+                    isallSelect = 2;
+                }
+                if ($("#kindN").val() == "党支部") {
+                    $(".checkList").append(" <div>\n" +
+                        "            <label><input type=\"checkbox\"   name=\"items\" id='it'>全部党支部</label>\n" +
+                        "        </div>");
+                    isallSelect = 3;
+                }
+                //                  if (itCheckFun()) {
+                //                  	$("#it").prop("checked", "checked");
+                //                  }
+                itCheckFun();
+
+                function itCheckFun() {
+                    for (var ind = 0; ind < $("#treeDemo span.chk").length; ind++) {
+                        if ($("#treeDemo span.chk").eq(ind).hasClass("checkbox_false_disable")) {
+                            continue;
+                        } else {
+                            if ($("#treeDemo span.chk").eq(ind).hasClass("checkbox_true_full") == false) { //有一个未选中 就退出
+                                $("#it").prop("checked", "");
+                                return false;
+                            } else { //选中了 进行下一次循环
+                                continue;
+                            }
+                        }
+                    }
+                    $("#it").prop("checked", "checked");
+                    //                  	return true;
+                }
+                var zNodes = [];
+                //tree
+                var setting = {
+                    data: {
+                        simpleData: {
+                            enable: true,
+                            idKey: "id",
+                            pIdKey: "pId"
+                        },
+                        key: {
+                            name: "name"
+                        }
+                    },
+                    check: {
+                        enable: true,
+                        chkStyle: "checkbox",
+                        chkboxType: {
+                            "Y": "",
+                            "N": ""
+                        }
+                    },
+                    callback: {
+                        onCheck: onCheck
+                    }
+                };
+                //console.log(publishId + "----" + $("#publishId").val())
+                //console.log(orgaKind + "----" + $("#kindId").val())
+                buildTree();
+
+                function buildTree() {
+                    if (publishId != $("#publishId").val() || orgaKind != $("#kindId").val()) {
+                        publishId = $("#publishId").val(); //发布单位id
+                        orgaKind = $("#kindId").val(); //考核类别
+                        $.ajax({
+                            type: "POST",
+                            url: path + "partyCheck/findCheckBums.action",
+                            data: {
+                                "bumenId": $("#publishId").val(),
+                                "checkType": $("#kindId").val(),
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                var data = data.data;
+                                if (data) {
+                                    zNodes = data;
+                                    var zTree = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                                    //var node = zTree.getNodeByParam("id", 0);
+                                    //alert(JSON.stringify(node));
+                                    //zTree.selectNode(node);
+                                    //zTree.expandNode(node, true, false, false);
+                                    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                                    treeObj.expandAll(true);
+                                    if (allNodes()) {
+                                        //全部选中了
+                                        $("#it").prop("checked", "checked");
+                                    }
+                                }
+                                //setDisabledNode();
+                            }
+                        });
+                    } else if (fset) {
+                        publishId = $("#publishId").val(); //发布单位id
+                        orgaKind = $("#kindId").val(); //考核类别
+                        $.ajax({
+                            type: "POST",
+                            url: path + "partyCheck/findCheckBums.action",
+                            data: {
+                                "bumenId": $("#publishId").val(),
+                                "checkType": $("#kindId").val(),
+                                "checkId": plan._id
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                var data = data.data;
+                                if (data) {
+                                    zNodes = data;
+                                    var zTree = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                                    //var node = zTree.getNodeByParam("id", 0);
+                                    //alert(JSON.stringify(node));
+                                    //zTree.selectNode(node);
+                                    //zTree.expandNode(node, true, false, false);
+                                    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                                    treeObj.expandAll(true);
+                                    if (allNodes()) {
+                                        //全部选中了
+                                        $("#it").prop("checked", "checked");
+                                    }
+                                }
+                                //setDisabledNode();
+                            }
+                        });
+                        fset = false;
+                    }
+                }
+
+                function allNodes() {
+                    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                    var nodes = treeObj.transformToArray(treeObj.getNodes());
+                    //遍历所有节点
+                    for (var node in nodes) {
+                        if (nodes[node].chkDisabled == true) { //如果是禁选状态进入下一次循环
+                            continue;
+                        } else {
+                            //判断节点是否选中
+                            var checked = nodes[node].checked;
+                            if (!checked) { //有一个未选中 就退出
+                                $("#it").prop("checked", "");
+                                return false;
+                            } else { //选中了 进行下一次循环
+                                continue;
+                            }
+                        }
+
+                    }
+                    //全部选中啦
+                    return true;
+
+                }
+                // 点击选择或取消的判断
+                function onCheck(e, treeId, treeNode) {
+                    console.log(treeNode.name);
+                    console.log(allNodes());
+                    // 判断是否全部选中
+                    if (allNodes()) {
+                        //全部选中了
+                        $("#it").prop("checked", "checked");
+                    }
+
+                    function allNodes() {
+                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                        var nodes = treeObj.transformToArray(treeObj.getNodes());
+                        //遍历所有节点
+                        for (var node in nodes) {
+                            if (nodes[node].chkDisabled == true) { //如果是禁选状态进入下一次循环
+                                continue;
+                            } else {
+                                //判断节点是否选中
+                                var checked = nodes[node].checked;
+                                if (!checked) { //有一个未选中 就退出
+                                    $("#it").prop("checked", "");
+                                    return false;
+                                } else { //选中了 进行下一次循环
+                                    continue;
+                                }
+                            }
+
+                        }
+                        //全部选中啦
+                        return true;
+
+                    }
+
+                }
+
+                //设置禁用的复选框节点
+                function setDisabledNode() {
+                    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                    console.log(treeObj);
+                    if ($("#kindId").val() == 3) { //党总支
+                        var disabledNode1 = treeObj.getNodeByParam("typea", 1);
+                        var disabledNode2 = treeObj.getNodeByParam("typea", 2);
+                        treeObj.setChkDisabled(disabledNode1, true);
+                        treeObj.setChkDisabled(disabledNode2, true);
+                    }
+                    if ($("#kindId").val() == 4) { //党支部
+                        var disabledNode1 = treeObj.getNodeByParam("typea", 1);
+                        var disabledNode2 = treeObj.getNodeByParam("typea", 2);
+                        var disabledNode3 = treeObj.getNodeByParam("typea", 3);
+                        treeObj.setChkDisabled(disabledNode1, true);
+                        treeObj.setChkDisabled(disabledNode2, true);
+                        treeObj.setChkDisabled(disabledNode3, true);
+                    }
+
+                }
+
+                $(".checkList input").click(function(e) { //点击相应的chekbox,进行全选和全部取消
+                    e.stopPropagation();
+                    if ($(this).prop("checked") == true) {
+                        if ($(this).parent().text() == "全部党支部") {
+                            //全选
+                            CheckAllNodes();
+                        }
+                        if ($(this).parent().text() == "全部党总支") {
+                            //全选
+                            CheckAllNodes();
+                        }
+                        if ($(this).parent().text() == "全部党委") {
+                            //全选
+                            CheckAllNodes();
+                        }
+                    } else {
+                        if ($(this).parent().text() == "全部党支部") {
+                            //取消
+                            cancelAllNodes();
+                        }
+                        if ($(this).parent().text() == "全部党总支") {
+                            //取消
+                            cancelAllNodes();
+                        }
+                        if ($(this).parent().text() == "全部党委") {
+                            //取消
+                            cancelAllNodes();
+                        }
+                    }
+
+                });
+
+                // 取消选择方法
+                function cancelAllNodes() {
+                    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                    treeObj.checkAllNodes(false);
+                }
+
+                //全部勾选方法
+                function CheckAllNodes() {
+                    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                    treeObj.checkAllNodes(true);
+                }
+            }
+
+        });
+        $("#cancel").click(function() {
+            $("#poper1").addClass("hid");
+            $("#mask").addClass("hid");
+        });
+        $("#close").click(function() {
+            $("#poper1").addClass("hid");
+            $("#mask").addClass("hid");
+        });
+        $("#mask").click(function() {
+            $("#poper1").addClass("hid");
+            $("#mask").addClass("hid");
+        });
+        $("#sure").click(function() {
+            if (isallSelect == 1) {
+                console.log($("#it").prop("checked"));
+                if ($("#it").prop("checked") == true) {
+                    selectItem = 1;
+                }
+            }
+            if (isallSelect == 2) {
+                console.log($("#it").prop("checked"));
+                if ($("#it").prop("checked") == true) {
+                    selectItem = 2;
+                }
+            }
+
+            if (isallSelect == 3) {
+                console.log($("#it").prop("checked"));
+                if ($("#it").prop("checked") == true) {
+                    selectItem = 3;
+                }
+            }
+            allSelectedNode();
+            $("#poper1").addClass("hid");
+            $("#mask").addClass("hid");
+            $(".selectBtn").text("已选择").addClass("overSelected");
+        });
+        //所有选中的节点
+        function allSelectedNode() {
+            var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+            var nodes = treeObj.transformToArray(treeObj.getNodes());
+            for (var node in nodes) {
+                if (nodes[node].chkDisabled == true) {
+                    continue;
+                } else {
+                    //判断节点是否选中
+                    var checked = nodes[node].checked;
+                    if (checked == true) {
+                        selectednodeName += nodes[node].name + ",";
+                        selectednodeId += nodes[node].id + ",";
+                    }
+                }
+            }
+        }
+        // 保存下一步按钮
+        $("#saveNext").click(function() {
+            if ($("#title").val().trim() == "") {
+                parent.layer.alert('请填写标题！');
+                return;
+            }
+            if ($("#kindN").val() == "") {
+                parent.layer.alert('请选择考核类别！');
+                return;
+            }
+            if ($("#publichOffice").val() == "") {
+                parent.layer.alert('请选择考核发布单位！');
+                return;
+            }
+            if ($("#dateA").val() == "") {
+                parent.layer.alert('请选择开始日期！');
+                return;
+            }
+            if ($("#dateB").val() == "") {
+                parent.layer.alert('请选择结束日期！');
+                return;
+            }
+            /* if ($("#totalGrade").val() == "") {
+                parent.layer.alert('请填写总分！');
+                return;
+            } */
+            /* if (!isNum($("#totalGrade").val())) {
+                parent.layer.alert('请填写总分为数字！');
+                return;
+            } else if ($("#totalGrade").val() <= 0) {
+                parent.layer.alert('总分为数字且要大于零！');
+                return;
+            } */
+            if ($("#daFValue").val() == "") {
+                parent.layer.alert('请选择打分方式！');
+                return;
+            }
+            if ($(".selectBtn").text() != "已选择") {
+                parent.layer.alert('请选择范围！');
+                return;
+            }
+            $.ajax({
+                type: "POST",
+                url: path + "partyCheck/upsertCkBasic.action",
+                data: {
+                    "type": 3,
+                    "title": $("#title").val(),
+                    "checkType": $("#kindId").val(),
+                    "bumenId": $("#publishId").val(),
+                    "bumenName": $("#publichOffice").val(),
+                    "starCycle": $("#dateA").val(),
+                    "endCycle": $("#dateB").val(),
+                    "totalScore": $("#totalGrade").val(),
+                    "markType": $("#daFtype").val(),
+                    "idstrs": selectednodeId,
+                    "nameStrs": selectednodeName,
+                    "ckType": selectItem,
+                    "_id": id
+                },
+                dataType: "json",
+                success: function(data) {
+                    if (data.success) {
+                    	id = data.data._id;
+                        window.location.href = "RuleofOrganizeList.html?id=" + data.data._id+ "&&member=3"
+                    } else {
+                        parent.layer.alert(data.message);
+                    }
+
+                }
+            })
+        });
+        // 保存返回按钮
+        $("#saveBack").click(function() {
+            if ($("#title").val().trim() == "") {
+                parent.layer.alert('请填写标题！');
+                return;
+            }
+            if ($("#kindN").val() == "") {
+                parent.layer.alert('请选择考核类别！');
+                return;
+            }
+            if ($("#publichOffice").val() == "") {
+                parent.layer.alert('请选择考核发布单位！');
+                return;
+            }
+            if ($("#dateA").val() == "") {
+                parent.layer.alert('请选择开始日期！');
+                return;
+            }
+            if ($("#dateB").val() == "") {
+                parent.layer.alert('请选择结束日期！');
+                return;
+            }
+/*             if ($("#totalGrade").val() == "") {
+                parent.layer.alert('请填写总分！');
+                return;
+            }
+ */            /* if (!isNum($("#totalGrade").val())) {
+                parent.layer.alert('请填写总分为数字！');
+                return;
+            } else if ($("#totalGrade").val() <= 0) {
+                parent.layer.alert('总分为数字且要大于零！');
+                return;
+            } */
+            if ($("#daFValue").val() == "") {
+                parent.layer.alert('请选择打分方式！');
+                return;
+            }
+            if ($(".selectBtn").text() != "已选择") {
+                parent.layer.alert('请选择范围！');
+                return;
+            }
+            $.ajax({
+                type: "POST",
+                url: path + "partyCheck/upsertCkBasic.action",
+                data: {
+                    "type": 3,
+                    "title": $("#title").val(),
+                    "checkType": $("#kindId").val(),
+                    "bumenId": $("#publishId").val(),
+                    "bumenName": $("#publichOffice").val(),
+                    "starCycle": $("#dateA").val(),
+                    "endCycle": $("#dateB").val(),
+                    "totalScore": $("#totalGrade").val(),
+                    "markType": $("#daFtype").val(),
+                    "idstrs": selectednodeId,
+                    "nameStrs": selectednodeName,
+                    "ckType": selectItem,
+                    "_id": id
+                },
+                dataType: "json",
+                success: function(data) {
+                    if (data.success) {
+                    	id = data.data._id;
+                        window.location.href = "rulesofCheck.html";
+                    } else {
+                        parent.layer.alert(data.message);
+                    }
+
+                }
+            })
+        });
+        $("#can").click(function() {
+            if ($("#title").val().trim() == "") {
+                parent.layer.alert('请填写标题！');
+                return;
+            }
+            if ($("#kindN").val() == "") {
+                parent.layer.alert('请选择考核类别！');
+                return;
+            }
+            if ($("#publichOffice").val() == "") {
+                parent.layer.alert('请选择考核发布单位！');
+                return;
+            }
+            if ($("#dateA").val() == "") {
+                parent.layer.alert('请选择开始日期！');
+                return;
+            }
+            if ($("#dateB").val() == "") {
+                parent.layer.alert('请选择结束日期！');
+                return;
+            }
+            /* if ($("#totalGrade").val() == "") {
+                parent.layer.alert('请填写总分！');
+                return;
+            } */
+            /* if (!isNum($("#totalGrade").val())) {
+                parent.layer.alert('请填写总分为数字！');
+                return;
+            } else if ($("#totalGrade").val() <= 0) {
+                parent.layer.alert('总分为数字且要大于零！');
+                return;
+            } */
+            if ($("#daFValue").val() == "") {
+                parent.layer.alert('请选择打分方式！');
+                return;
+            }
+            if ($(".selectBtn").text() != "已选择") {
+                parent.layer.alert('请选择范围！');
+                return;
+            }
+            parent.layer.confirm('您有未保存的内容，是否保存？', {
+                icon: 3,
+                title: '\n' + '提示'
+            }, function(index) {
+                $.ajax({
+                    type: "POST",
+                    url: path + "partyCheck/upsertCkBasic.action",
+                    data: {
+                        "type": 3,
+                        "title": $("#title").val(),
+                        "checkType": $("#kindId").val(),
+                        "bumenId": $("#publishId").val(),
+                        "bumenName": $("#publichOffice").val(),
+                        "starCycle": $("#dateA").val(),
+                        "endCycle": $("#dateB").val(),
+                        "totalScore": $("#totalGrade").val(),
+                        "markType": $("#daFtype").val(),
+                        "idstrs": selectednodeId,
+                        "nameStrs": selectednodeName,
+                        "ckType": selectItem,
+                        "_id": id
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        if (data.success) {
+                        	id = data.data._id;
+                            window.location.href = "rulesofCheck.html";
+                        } else {
+                            parent.layer.alert(data.message);
+                        }
+                    }
+                });
+                parent.layer.close(index);
+            }, function(index) {
+
+            });
+        })
+
+    })
+</script>
+
+</html>

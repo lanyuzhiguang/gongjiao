@@ -1,0 +1,156 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.talkRecord{
+    height:44px;
+    background:#f1f1f1 ;
+    line-height: 44px;
+    font-size: 16px;
+}
+.talkRecord img{
+    width: 15px;
+    margin-left: 42px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.back{
+    margin-right: 20px;
+
+}
+#back{
+    cursor: pointer;
+}
+.talkInput{
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    margin-top: 14px;
+}
+
+.headList{
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+    font-size: 16px;
+}
+.headList>input{
+    width:210px;
+    height: 28px;
+    border: 1px solid #c4c4c4;
+    border-radius: 2px;
+    outline: none;
+}
+.headList>span:first-child{
+    margin-right: 10px;
+    color: #797e80;
+}
+.headList>span:nth-child(4){
+    display: inline-block;
+    color: #ffffff;
+    background: #2196f3;
+    width: 68px;
+    height: 30px;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 16px;
+    margin-right: 21px;
+    cursor: pointer;
+}
+.headList>span:nth-child(3){
+    display: inline-block;
+    color: #ffffff;
+    background: #2196f3;
+    width: 68px;
+    height: 30px;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 16px;
+    margin-right: 21px;
+    cursor: pointer;
+    margin-left: 59px;
+}
+.taskState{
+    display: inline-block;
+    width: 178px;
+    height: 27px;
+    position: relative;
+    cursor: pointer;
+}
+.taskState>input{
+    width: 176px;
+    height: 25px;
+    border: 1px solid #c4c4c4;
+    outline: none;
+    cursor: pointer;
+}
+.taskState>img{
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    position: absolute;
+    cursor: pointer;
+}
+table{
+    margin: auto;
+    width: 95%;
+    color:#797e80;
+    font-size: 14px;
+    border: 1px solid #e6e5e4;
+    border-top: 1px solid transparent;
+    border-bottom:1px solid transparent;
+}
+
+table tr td{
+    text-align: center;
+    border-right: 1px solid #e6e5e4;
+    border-bottom:1px solid #e6e5e4;
+
+}
+table tr td:last-child{
+    border-right:1px solid transparent;
+}
+table th:last-child{
+    border-right:1px solid transparent;
+}
+table th{
+    background: #efefef;
+    padding: 8px 7px;
+    border-right: 1px solid #e6e5e4;
+    border-bottom:1px solid #e6e5e4;
+}
+table tr td:nth-child(2){
+    text-align: left;
+}
+table tr td:nth-child(3){
+    width: 10%;
+    text-align: center;
+    padding-left: 10px;
+}
+table tr td:nth-child(4){
+    text-align: center;
+    padding: 10px;
+}
+table tr td:nth-child(5){
+    text-align: left;
+    padding: 10px;
+}
+table tr td:nth-child(6){
+    text-align: center!important;
+
+}
+table tr td:last-child>span{
+    color:#2196f3;
+    /*margin: 0 13px;*/
+    cursor: pointer;
+    display: block;
+    text-align: center;
+}
+.tableList{
+    margin-top: 21px;
+}
+.overDate{
+    color:#d8272a;
+}

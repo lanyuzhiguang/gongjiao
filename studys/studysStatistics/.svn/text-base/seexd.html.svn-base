@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>查看课程心得</title>
+		<link rel="stylesheet" type="text/css" href="../css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap-datetimepicker.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/resoueceLibrary.css"/>
+		<link rel="stylesheet" type="text/css" href="../layui/css/modules/layer/default/layer.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/zTreeStyle.css"/>
+		<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css"/>
+	</head>
+	<body>
+		<div class="header">
+			<header class="container-fluid">
+				<div class="row">
+					<div class="col-xs-6 text-left">
+						<a href="javascript:history.go(-1);" style="color: #333;"><i class="fa fa-angle-double-left"></i>返回</a>
+						<h4>课程心得</h4>
+					</div>
+				</div>
+			</header>
+		</div>
+		<article class="container-fluid">
+			<table class="table table-bordered table-hover">
+				<tr>
+					<th>序号</th>
+					<th>心得内容</th>
+					<th>发布人</th>
+					<th>点赞次数</th>
+					<th>评论次数</th>
+					<th>发布时间</th>
+				</tr>
+				<tr class="trList">
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</table>
+			<div class="navfooter" style="text-align: center;">
+
+			</div>
+		</article>
+	</body>
+</html>
+<script src="../../../r/wx/common/pathimage"></script>
+<script src="../js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/bootstrap-datetimepicker.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/bootstrap-paginator.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery.ztree.core.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/jquery.ztree.excheck.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="../layui/lay/modules/layer.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+//	var _ctxPath = "http://192.168.3.24:8080/dangjian/";
+    $(function(){
+    	var trList = $(".trList"),
+    		page = 1;
+    	trList.remove();
+    	//获取地址栏参数
+		function GetQueryString(name){
+		    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		    var r = window.location.search.substr(1).match(reg);
+		    if(r!=null)return  decodeURI(r[2]); return null;
+		};
+		var _ids = GetQueryString("id");
+		function(page);
+		function (page) {
+			$.ajax({
+				type:"get",
+				url:_ctxPath + "pc/basegainedPc/gainedList.action",
+				dataType:"json",
+				data:{
+	                baseId:_ids,
+	                page: page,
+	                size: 15
+				},
+				xhrFields: {				
+		            withCredentials: true	
+		        },							
+		        crossDomain: true,
+		        success:function(datas){
+	        		var data = datas.data;
+	        		$.each(data, function(key,value) {
+	        			var trListItem = trList.clone();
+	        			trListItem.find("td:eq(0)").text(key+1);
+	        			trListItem.find("td:eq(1)").text(value.content);
+	        			trListItem.find("td:eq(2)").text(value.userName);
+	        			trListItem.find("td:eq(3)").text(value.zanTimes);
+	        			trListItem.find("td:eq(4)").text(value.commentTimes);
+	        			trListItem.find("td:eq(5)").text(value.createTime);
+	        			$(".table").append(trListItem);
+	        		});
+	        		$(".navfooter").html('<nav class="navi" aria-label="Page navigation"><ul class="pagination paginationLists" id="paginationLists"></ul></nav>');
+					$('#paginationLists').bootstrapPaginator({
+					    currentPage: datas.page,//当前的请求页面。
+					    totalPages: datas.pages,//一共多少页。
+					    size:"normal",//应该是页眉的大小。
+					    bootstrapMajorVersion: 3,//bootstrap的版本要求。
+					    alignment:"right",
+					    numberOfPages:15,//一页列出多少数据。
+					    itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+					        switch (type) {
+						        case "prev": return "上一页";
+						        case "next": return "下一页";
+						        case "page": return page;
+					        }
+					    }
+					});
+					$("#paginationLists a").off("click").on("click",function(){
+						if ($(this).text() == "下一页") {
+							if (page >= datas.pages) {
+								page = datas.pages;
+							} else{
+								page++;
+							}
+							listFun(page);
+						} else if($(this).text() == "上一页") {
+							if (page <= 1) {
+								page = 1;
+							} else{
+								page--;
+							}
+							listFun(page);
+						} else{
+							page = $(this).text();
+							listFun(page);
+						}
+					})
+		        }
+			});
+		}
+		function alertFun(content){
+			layer.open({
+			  	title: '提示',
+			  	content: content,
+			  	fixed: false,
+			  	resize: false,
+				scrollbar: false,
+				move: false
+			});
+		}
+	})
+</script>

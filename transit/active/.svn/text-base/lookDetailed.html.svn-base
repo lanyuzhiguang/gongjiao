@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>查看明细</title>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/index.css"/>
+		<style type="text/css">
+			.tableHead table {
+				background: #fbfafa;
+			}
+			td img {
+				width: 20px;
+			}
+			.tableNoBor.table>tbody>tr>td:first-of-type {
+				max-width: 150px;
+			}
+			.creatHeader {
+				padding: 30px;
+			}
+			.creatHeader div {
+				font-size: 18px;
+				color: #fff;
+				width: 150px;
+				height: 44px;
+				line-height: 44px;
+				text-align: center;
+				background: linear-gradient(#d81a1e,#ed0f45);
+				margin: 0 auto;
+			}
+			.creatHeader div:last-of-type {
+				background: #FFF;
+				border: 1px solid #D80C18;
+				margin: 0 auto;
+				margin-top: -50px;
+				position: relative;
+				z-index: -1;
+				right: 6px;
+			}
+			.formFooter {
+				margin-top: 70px;
+				text-align: center;
+			}
+			.formFooter .btn-default {
+				width: 70px;
+				margin-left: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<aside>
+			<img src="../img/nonews.png"/>
+		</aside>
+		<nav class="header">
+			<ol class="breadcrumb">
+			  <li><a href="javascript:;">经费管理</a></li>
+			  <li><a href="javascript:;">活动经费管理</a></li>
+			  <li><a href="javascript:;">党建活动管理</a></li>
+			  <li class="active cursor">工作经费预算及完成情况汇总表</li>
+			</ol>
+		</nav>
+		<article>
+			<nav>
+				<ul class="clear">
+					<li class="left cursor active">党建情况汇总表查询</li>
+					<li class="left cursor">完成情况汇总表审核</li>
+					<li class="left cursor">完成情况汇总表填报</li>
+				</ul>
+			</nav>
+			<div class="tabCon">
+				<div class="tabContent1">暂无内容.</div>
+				<div class="tabContent2">
+					<nav>
+						<ul class="clear">
+							<li class="left active">留存党费部分预算情况</li>
+							<li class="left">纳入管理费的部分预算情况</li>
+						</ul>
+					</nav>
+					<section>
+						<button class="btnbg">导出</button>
+					</section>
+					<section class="tableHead">
+						<table class="table table-bordered">
+							<tr>
+								<th>单位名称</th>
+								<th>留存党费预算使用</th>
+								<th>留存党费实际使用</th>
+								<th>上年度职工工资总额1%</th>
+								<th>预计支出总额</th>
+								<th>预算完成情况（%）</th>
+							</tr>
+							<tr>
+								<td>××××党委××××支部</td>
+								<td>100</td>
+								<td>3000</td>
+								<td>100</td>
+								<td>100</td>
+								<td>100</td>
+							</tr>
+						</table>
+					</section>
+					<section>
+						<table class="table table-striped tableNoBor">
+							<tr>
+								<th colspan="9" style="text-align: center;">留存党费部分预算情况</th>
+							</tr>
+							<tr style="display: none;"></tr>
+							<tr>
+								<th>项目名称</th>
+								<th>序号</th>
+								<th>细项</th>
+								<th>金额</th>
+								<th>预算情况备注</th>
+								<th>是否完成</th>
+								<th>实际使用金额</th>
+								<th>差值</th>
+								<th>完成情况备注</th>
+							</tr>
+							<tr>
+								<td><p class="ellipsis">项目名称</p></td>
+								<td>1</td>
+								<td><img src="../img/see.png"/></td>
+								<td>100</td>
+								<td><img src="../img/see.png"/></td>
+								<td>完成</td>
+								<td>100</td>
+								<td>0</td>
+								<td>花完了</td>
+							</tr>
+						</table>
+					</section>
+				</div>
+				<div class="tabContent3">
+					<div class="creatHeader">
+						<div>创建表头</div>
+						<div></div>
+					</div>
+					<form class="form-horizontal col-xs-7 col-xs-offset-2">
+						<div class="form-group">
+							<label class="col-xs-5 control-label"><span class="red">*</span>留存党费预算使用（元）</label>
+					    	<div class="col-xs-7">
+					    		<input type="text" class="form-control" placeholder="请输入">
+					    	</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-xs-5 control-label"><span class="red">*</span>留存党费实际使用（元）</label>
+					    	<div class="col-xs-7">
+					    		<input type="text" class="form-control" placeholder="请输入">
+					    	</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-xs-5 control-label"><span class="red">*</span>上年度职工工资总额1%（元）</label>
+					    	<div class="col-xs-7">
+					    		<input type="text" class="form-control" placeholder="请输入">
+					    	</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-xs-5 control-label"><span class="red">*</span>预计支出总额（元）</label>
+					    	<div class="col-xs-7">
+					    		<input type="text" class="form-control" placeholder="请输入">
+					    	</div>
+						</div>
+						<div class="form-group">
+							<label for="" class="col-xs-5 control-label"><span class="red">*</span>预算完成情况（元）</label>
+					    	<div class="col-xs-7">
+					    		<input type="text" class="form-control" placeholder="请输入">
+					    	</div>
+						</div>
+					</form>
+					<div class="formFooter col-xs-12">
+						<button class="btnbg">提交</button>
+						<button class="btn btn-default">取消</button>
+					</div>
+				</div>
+			</div>
+		</article>
+	</body>
+</html>
+<script src="../../../moduleweb/resources/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../resources/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function(){
+		$("article>nav li").off("click").on("click",function() {
+			$(".tabCon>div").eq($(this).index()).show().siblings().hide();
+			$(this).addClass("active").siblings().removeClass("active");
+		});
+	});
+</script>

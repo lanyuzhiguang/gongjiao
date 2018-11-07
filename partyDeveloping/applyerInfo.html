@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/applyerInfo.css">
+    <link rel="stylesheet" href="../css/poperConfirm.css">
+    <link rel="stylesheet" type="text/css" href="../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+    <style>
+        /*已成功*/
+        .suss {
+            color: #2198f2 !important;
+        }
+
+        /*正在审核的*/
+        .sH {
+            color: #e1080c;
+        }
+
+        .hid {
+            display: none !important;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div>
+        <div class="talkRecord">
+            <span id="back"><img src="../img/back.png"><span class="back">返回</span></span>
+            <span id="curState"></span>
+        </div>
+        <div>
+            <div class="left">
+                <div class="developW">当前发展过程</div>
+                <div class="boxWrapper">
+                    <div class="inner">
+                        <div class="hangding itemdiv dialogdiv">
+                            <div class="user  onHanding">
+                                <div><img src="../img/handing.png"></div>
+                            </div>
+                            <div class="body onWord">
+                                <div class="sH">
+                                    入党申请人
+                                </div>
+                                <div class="applyTime" id="shenQT">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="itemdiv dialogdiv">
+                            <div class="user">
+                                <div><img src="../img/noHand.png"></div>
+                            </div>
+                            <div class="body">
+                                <div>
+                                    积极分子
+                                </div>
+                            </div>
+                        </div>
+                        <div class="itemdiv dialogdiv">
+                            <div class="user">
+                                <div><img src="../img/noHand.png"></div>
+                            </div>
+                            <div class="body">
+                                <div>
+                                    发展对象
+                                </div>
+                            </div>
+                        </div>
+                        <div class="itemdiv dialogdiv">
+                            <div class="user">
+                                <div><img src="../img/noHand.png"></div>
+                            </div>
+                            <div class="body">
+                                <div>
+                                    预备党员
+                                </div>
+                            </div>
+                        </div>
+                        <div class="itemdiv dialogdiv">
+                            <div class="user">
+                                <div><img src="../img/noHand.png"></div>
+                            </div>
+                            <div class="body">
+                                <div>
+                                    正式党员
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+                <div class="list">
+                    <div class="listLeft">
+                        <div>
+                            <div>姓名:</div>
+                            <div id="name"></div>
+                        </div>
+                        <div>
+                            <div>性别:</div>
+                            <div id="sex"></div>
+                        </div>
+                        <div>
+                            <div>民族:</div>
+                            <div id="nation"></div>
+                        </div>
+                        <div>
+                            <div>身份证号:</div>
+                            <div id="userId"></div>
+                        </div>
+                        <div>
+                            <div>出生日期:</div>
+                            <div id="birthday"></div>
+                        </div>
+                        <div>
+                            <div>学历:</div>
+                            <div id="education"></div>
+                        </div>
+                    </div>
+                    <div class="listRight">
+                        <div>
+                            <div>职务:</div>
+                            <div id="task"></div>
+                        </div>
+                        <div>
+                            <div>职称:</div>
+                            <div id="zC"></div>
+                        </div>
+                        <div>
+                            <div>籍贯:</div>
+                            <div class="jG"></div>
+                        </div>
+                        <div>
+                            <div>出生地:</div>
+                            <div class="birthL"></div>
+                        </div>
+                        <div>
+                            <div>家庭住址:</div>
+                            <div id="address"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="liuC" class="hid">
+                    <div class="sugest">流程</div>
+                    <div class="list yiJ" id="daiBList">
+                        <div class="hid">
+                            <div>谈话人:</div>
+                            <div>张三</div>
+                        </div>
+                        <div class="hid">
+                            <div>谈话记录:</div>
+                            <div><span>点击查看</span></div>
+                        </div>
+                        <div class="hid">
+                            <div>支部委员会意见:</div>
+                            <div><span>点击查看</span></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="right">
+                <div class="rightTop">
+                    <div class="ziL">入党申请人提交材料</div>
+                    <div class="p" id="applyShu"><img src="../img/uploadSb.png"><span>入党申请书</span><span class="sureB_R">确定</span>
+                    </div>
+                    <div class="p" id="resume"><img src="../img/uploadSb.png"><span class="personR">个人简历</span></div>
+                </div>
+                <div class="rightBottom">
+                    <div class="waitB">待办</div>
+                    <div class="waitList">
+                        <ul>
+                            <li id="talker"><img src="../img/waitB.png"><span>指定谈话人</span></li>
+                            <li id="talkerRecord"><img src="../img/waitB.png"><span>上传谈话记录</span></li>
+                            <li id="upBranch"><img src="../img/waitB.png"><span>上传支部委员会意见</span></li>
+                            <li id="isActiver"><img src="../img/waitB.png"><span>列为积极分子</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="mask hid" id="mask"></div>
+<!--列为积极分子弹窗-->
+<div class="popBox hid" id="poper2">
+    <div class="popB_Top">
+        <span class="addW">确定</span><span class="close" id="closeActive"><img src="../img/close.png"></span>
+    </div>
+    <div class="popB_bottom">
+        <div id="sureActive">
+            <div>将该同志列为积极分子</div>
+            <div>
+                <div>列为积极分子日期</div>
+                <div><input type="text" id="dateA" readonly value=""><img src="../img/date.png"></div>
+            </div>
+        </div>
+    </div>
+    <div class="btnList"><input type="button" id="sureA" value="确定"><input type="button" id="cancelA" value="取消"></div>
+</div>
+<!--入党申请人信息确认收到申请书弹窗-->
+<div class="popBox hid" id="poper">
+    <div class="popB_Top">
+        <span class="addW">确定</span><span class="close" id="close"><img src="../img/close.png"></span>
+    </div>
+    <div class="popB_bottom">
+        <div id="sureDate">
+            <div>确认已收到入党申请书</div>
+            <div>
+                <div>收到申请书日期</div>
+                <div><input type="text" id="date" readonly value=""><img src="../img/date.png"></div>
+            </div>
+        </div>
+    </div>
+    <div class="btnList"><input type="button" id="sure" value="确定"><input type="button" id="cancel" value="取消"></div>
+</div>
+
+<!--入党申请人信息谈话弹窗-->
+<div class="popBox hid" id="poper1">
+    <div class="popB_Top">
+        <span class="addW" id="title">指定谈话人</span><span class="close" id="closeB"><img src="../img/close.png"></span>
+    </div>
+    <div class="popB_bottom">
+        <div id="inputBox">
+            <div>
+                <div>选择谈话人</div>
+                <div id="selectTalk">
+                    <input type="hidden" value="" id="talkerId">
+                    <input id="talkerList" type="text" readonly="readonly" value=""><img src="../img/select.png">
+                    <div class="selectList  hidden">
+                        <ul>
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="btnList" id="twoB"><input type="button" class="sure" id="sureOther" value="确定"><input type="button"
+                                                                                                      class="cancel"
+                                                                                                      id="cancelOther"
+                                                                                                      value="取消"></div>
+</div>
+
+</body>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script src="../assets/js/jquery.js"></script>
+<script src="../js/laydate.js"></script>
+<script src="../js/layer.js"></script>
+<script>
+    $(function () {
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+
+        var recId = getQueryString("recId");
+        var path = "";
+        var iframe = document.getElementById("common");
+        ///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+        iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+        if (iframe.attachEvent) {//判断iframe是否加载完成
+            iframe.attachEvent("onload", function () {
+                getCommon();
+            });
+        } else {
+            iframe.onload = function () {
+                getCommon();
+            };
+        }
+
+        //获取公共参数  一般为存储在session里面的数据
+        function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+            var frames = window.frames["common"];
+            path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+            var _qiniuImageHost = frames._qiniuImageHost;//七牛云公共地址头
+
+            $("#back").click(function () {
+                window.location.href="joinPartyApplyer.html?toPag=0";
+            });
+
+            <!--入党申请人信息确认收到申请书弹窗-->
+            $("#mask").height($(document).height());
+            $(".suss").parent().parent().next().addClass("redLine");
+            //时间插件方法
+            var startDate = laydate.render({
+                elem: "#date"
+                //type:"datetime",
+            });
+            //时间插件方法
+            laydate.render({
+                elem: "#dateA"
+                //type:"datetime",
+            });
+            var bumenId = "";
+            var noSumbit = "../img/uploadSb.png";
+            var overSubmit = "../img/upScuss.png";
+            var daibN = "../img/waitB.png";
+            var daibEd = "../img/green.png";
+
+            var allData = "";
+            queryByID();
+
+            function queryByID() {
+                $.ajax({
+                    type: "POST",
+                    url: path + "/recruit/queryByRecId.action",
+                    data: {"recId": recId},
+                    dataType: "json",
+                    success: function (data) {
+                        allData = data.data;
+                        var data = data.data;
+                        if (data.type == 5) {
+                            $("#curState").text("入党申请人");
+                        }
+                        bumenId = data.bumenId;
+                        $("#name").text(data.user.name);
+                        if (data.user.gender == 0) {
+                            $("#sex").text("男");
+                        } else {
+                            $("#sex").text("女");
+                        }
+                        $("#nation").text(data.user.volk);
+                        $("#userId").text(data.user.userID);
+                        $("#birthday").text(data.user.birthday);
+                        $("#education").text(data.user.education);
+                        $("#task").text(data.user.perAdminInformation.dutiesName);
+                        $("#zC").text(data.user.perAdminInformation.positionTitle);
+                        $(".jG").append("<span>" + data.user.homeplace.dProvince + "</span><span>" + data.user.homeplace.dCity + "</span><span>" + data.user.homeplace.dDistrict + "</span>");
+                        $(".birthL").append("<span>" + data.user.nativePlace.dProvince + "</span><span>" + data.user.nativePlace.dCity + "</span><span>" + data.user.nativePlace.dDistrict + "</span>");
+                        $("#address").text(data.user.address);
+
+                        $("#shenQT").text(data.formtEntialDate);
+                        //入党申请书
+                        if (data.aditi.f5a == "N" || data.aditi.f5a === undefined) {
+                            $("#applyShu").find("img").attr("src", noSumbit);
+                            $("#applyShu").find(".sureB_R").css({"display": " "});
+                        } else {
+                            $("#applyShu").find("img").attr("src", overSubmit);
+                            $("#applyShu").find(".sureB_R").css({"display": "none"});
+                        }
+                        //个人简历
+                        if (data.isResume == 0) {
+                            $("#resume").find("img").attr("src", noSumbit);
+                        } else {
+                            $("#resume").find("img").attr("src", overSubmit);
+                        }
+
+                        //指定谈话人
+                        if (data.aditi.f5b == "N" || data.aditi.f5b === undefined) {
+                            $("#talker").find("img").attr("src", daibN);
+                        } else {
+                            $("#talker").find("img").attr("src", daibEd);
+                            $("#liuC").removeClass("hid");
+                            $($("#daiBList>div").get(0)).removeClass("hid");
+                            $($("#daiBList>div").get(0)).find("div").last().text(allData.adiUserNames);
+                        }
+                        //上传谈话记录
+                        if (data.aditi.f5c == "N" || data.aditi.f5c === undefined) {
+                            $("#talkerRecord").find("img").attr("src", daibN);
+                        } else {
+                            $("#talkerRecord").find("img").attr("src", daibEd);
+                            $($("#daiBList>div").get(1)).removeClass("hid");
+                            $($("#daiBList>div").get(1)).find("div").last().click(function () {
+                                window.location.href = "talkLook.html?recrutId=" + recId + "&&stKey=f5c";
+                            });
+                        }
+                        //上传支部委员会意见
+                        if (data.aditi.f5d == "N" || data.aditi.f5d === undefined) {
+                            $("#upBranch").find("img").attr("src", daibN);
+                        } else {
+                            $("#upBranch").find("img").attr("src", daibEd);
+                            $($("#daiBList>div").get(2)).removeClass("hid");
+                            $($("#daiBList>div").get(2)).find("div").last().click(function () {
+                                window.location.href = "partyZuSuggest.html?recrutId=" + recId + "&&stKey=f5d&&flag=1";
+                            });
+                        }
+                        //列为积极分子
+                        if (data.aditi.f5e == "N" || data.aditi.f5e === undefined) {
+                            $("#isActiver").find("img").attr("src", daibN);
+                        } else {
+                            $("#isActiver").find("img").attr("src", daibEd);
+                        }
+
+
+                        $("#applyShu").find(".sureB_R").click(function () {
+                            $("#mask").removeClass("hid");
+                            $("#poper").removeClass("hid");
+                        });
+                        $("#mask").click(function () {
+                            $(this).addClass("hid");
+                            $("#poper").addClass("hid");
+                        });
+                        $("#cancel").click(function () {
+                            $("#mask").addClass("hid");
+                            $("#poper").addClass("hid");
+                        });
+                        $("#close").click(function () {
+                            $("#mask").addClass("hid");
+                            $("#poper").addClass("hid");
+                        });
+                        $("#sure").click(function () {
+                            if ($("#date").val() == "") {
+                                parent.layer.alert('请选择日期！');
+                                return;
+                            }
+                            $.ajax({
+                                type: "POST",
+                                url: path + "/recruit/comSumb.action",
+                                data: {"recId": recId, "jionPartyData": $("#date").val()},
+                                dataType: "json",
+                                success: function (data) {
+                                    window.location.reload();
+                                }
+                            })
+
+
+                        });
+
+                        $("#resume").click(function () {
+                            window.location.href = "personResume.html?overSumbt=2&&recrutId=" + recId;
+                        });
+
+
+                        $.ajax({
+                            type: "POST",
+                            url: path + "/recruit/findUserByBumenId.action",
+                            data: {"bumenId": bumenId},
+                            dataType: "json",
+                            success: function (data) {
+                                var data = data.data;
+                                for (var i = 0; i < data.length; i++) {
+                                    var oLi = "<li data-id=" + data[i]._id + ">" + data[i].name + "</li>";
+                                    $(".selectList ul").append(oLi);
+                                }
+                                $("#talkerList").click(function (e) {
+                                    $(".selectList").slideDown();
+                                    e.stopPropagation();
+                                });
+                                $(".selectList ul li").mouseover(function () {
+                                    $(".selectList ul li").removeClass("activeSelcet");
+                                    $(this).addClass("activeSelcet");
+                                });
+                                $("body").click(function () {
+                                    $(".selectList").slideUp();
+                                });
+                                $(".selectList ul li").click(function () {
+                                    $("#talkerList").val($(this).text());
+                                    $("#talkerId").val($(this).attr("data-id"));
+                                });
+
+                                // 指定谈话人
+                                $("#talker").click(function () {
+                                    if (allData.aditi.f5b != 'Y') {
+                                        if (allData.aditi.f5a == "Y" && allData.isResume == 1) {
+                                            $("#mask").removeClass("hid");
+                                            $("#poper1").removeClass("hid");
+                                        } else {
+                                            parent.layer.alert('请提交申请人需要的资料！');
+                                        }
+                                        return;
+                                    }
+                                });
+                                $("#cancelOther").click(function () {
+                                    $("#mask").addClass("hid");
+                                    $("#poper1").addClass("hid");
+                                });
+                                $("#mask").click(function () {
+                                    $(this).addClass("hid");
+                                    $("#poper1").addClass("hid");
+                                });
+                                $("#closeB").click(function () {
+                                    $("#mask").addClass("hid");
+                                    $("#poper1").addClass("hid");
+                                });
+                                $("#sureOther").click(function () {
+                                    if ($("#talkerList").val() == "") {
+                                        parent.layer.alert('请选择谈话人！');
+                                        return;
+                                    }
+                                    $.ajax({
+                                        type: "POST",
+                                        url: path + "/recruit/addTalk.action",
+                                        data: {
+                                            "recid": recId,
+                                            "userId": $("#talkerId").val(),
+                                            "userName": $("#talkerList").val()
+                                        },
+                                        dataType: "json",
+                                        success: function (data) {
+                                            window.location.reload();
+                                        }
+                                    })
+                                });
+                                //上传谈话记录
+                                $("#talkerRecord").click(function () {
+                                    if (allData.aditi.f5c != "Y") {
+                                        if (allData.aditi.f5a == "Y" && allData.isResume == 1) {
+                                            if (allData.aditi.f5b == "Y") {
+                                                window.location.href = "talkRecord.html?recId=" + recId + "&&type=5&&stKey=f5c";
+                                            } else {
+                                                parent.layer.alert('请指定谈话人！');
+                                            }
+                                        } else {
+                                            parent.layer.alert('请提交申请人需要的资料！');
+                                        }
+                                    }
+                                });
+                                //上传支部委员会意见
+                                $("#upBranch").click(function () {
+                                    if (allData.aditi.f5d != "Y") {
+                                        if (allData.aditi.f5a == "Y" && allData.isResume == 1) {
+                                            if (allData.aditi.f5c == 'Y') {
+                                                window.location.href = "addCultivationInvest.html?recId=" + recId + "&&type=5&&stKey=f5d&&flag=1";
+                                            } else {
+                                                parent.layer.alert('请上传谈话记录！');
+                                            }
+                                        } else {
+                                            parent.layer.alert('请提交申请人需要的资料！');
+                                        }
+                                    }
+
+                                });
+                                //列为积极分子
+                                $("#isActiver").click(function () {
+                                    if (allData.aditi.f5e != 'Y') {
+                                        if (allData.aditi.f5a == 'Y' && allData.isResume == 1) {
+                                            if (allData.aditi.f5d == 'Y') {
+                                                $("#mask").removeClass("hid");
+                                                $("#poper2").removeClass("hid");
+                                            } else {
+                                                parent.layer.alert('请上传支部委员会意见！');
+                                            }
+                                        } else {
+                                            parent.layer.alert('请提交申请人需要的资料！');
+                                        }
+                                    }
+                                });
+                                $("#mask").click(function () {
+                                    $(this).addClass("hid");
+                                    $("#poper2").addClass("hid");
+                                });
+                                $("#cancelA").click(function () {
+                                    $("#mask").addClass("hid");
+                                    $("#poper2").addClass("hid");
+                                });
+                                $("#closeActive").click(function () {
+                                    $("#mask").addClass("hid");
+                                    $("#poper2").addClass("hid");
+                                });
+                                $("#sureA").click(function () {
+                                    if ($("#dateA").val() == "") {
+                                        parent.layer.alert('请选择日期！');
+                                        return;
+                                    }
+                                    $.ajax({
+                                        type: "POST",
+                                        url: path + "/recruit/rustler.action",
+                                        data: {"recid": recId, "rustDate": $("#dateA").val()},
+                                        dataType: "json",
+                                        success: function (data) {
+                                            window.location.reload();
+                                        }
+                                    })
+
+
+                                })
+
+                            }
+                        })
+                    }
+
+                })
+
+            }
+        }
+    })
+
+
+</script>
+</html>

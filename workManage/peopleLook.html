@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/peopleLook.css">
+    <link rel="stylesheet" href="../css/poperConfirm.css">
+    <link rel="stylesheet" type="text/css" href="../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+    <style>
+        .taskState {
+            position: relative;
+        }
+
+        .officeBtn ul li {
+            list-style: none;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 5px;
+            padding: 2px 0;
+        }
+
+        .officeBtn {
+            z-index: 100000;
+            width: 99%;
+            position: absolute;
+            top: 24px;
+            background: #e0e0e0;
+            border: 1px solid #d5d5d5;
+            height: 151px;
+            overflow: auto;
+        }
+        .activeSelcet {
+            background: #2198f2;
+            color: #ffffff;
+        }
+
+        .hid {
+            display: none;
+        }
+        .noDate{
+            text-align: center;
+            font-size: 14px;
+
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <div class="talkRecord">
+                <span id="back">
+                      <img src="../img/back.png"><span class="back">返回</span>
+                </span>
+        <span id="tanTile">人员姓名</span>
+    </div>
+    <div class="">
+        <div class="tableList">
+            <table cellpadding="0" cellspacing="0">
+                <thead>
+                <tr>
+                    <th style="width: 5%">序号</th>
+                    <th style="width: 10%">开始时间</th>
+                    <th style="width: 10%">截止时间</th>
+                    <th style="width:10%">任务类型</th>
+                    <th style="">任务内容</th>
+                    <th style="width:10%">参与人员</th>
+                    <th style="width:5%">状态</th>
+                    <th style="width:5%">操作</th>
+                </tr>
+
+                </thead>
+                <tbody id="talkR">
+                <tr>
+                    <td>1</td>
+                    <td>2018-01-01</td>
+                    <td>2018-01-01</td>
+                    <td>学习</td>
+                    <td>任务内容任务内容任务内容任务内容任务内容任务内容任务内</td>
+                    <td>人员信息</td>
+                    <td class="overDate">已逾期</td>
+                    <td><span>填报</span></td>
+                </tr>
+            </table>
+            <div class="noDate hid">暂无数据</div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="../assets/js/jquery.js"></script>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script src="../assets/js/jquery.js"></script>
+<script src="../js/laydate.js"></script>
+<script src="../js/layer.js"></script>
+<script>
+    $(function () {
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+
+        var id = getQueryString("id");
+        var path = "";
+        var iframe = document.getElementById("common");
+        ///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+        iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+        if (iframe.attachEvent) {//判断iframe是否加载完成
+            iframe.attachEvent("onload", function () {
+                getCommon();
+            });
+        } else {
+            iframe.onload = function () {
+                getCommon();
+            };
+        }
+
+        //获取公共参数  一般为存储在session里面的数据
+        function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+            var frames = window.frames["common"];
+            path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+            var _qiniuImageHost = frames._qiniuImageHost;//七牛云公共地址头
+            $("#back").click(function () {
+                window.history.back(-1);
+            });
+            $("#kindName").click(function (e) {
+                $(this).next().next().slideDown();
+                e.stopPropagation();
+            });
+            $(".officeBtn ul li").mouseover(function () {
+                $(".officeBtn ul li").removeClass("activeSelcet");
+                $(this).addClass("activeSelcet");
+            });
+            $("body").click(function () {
+                $(".officeBtn").slideUp();
+            });
+            $(".officeBtn ul li").click(function () {
+                $(this).parents(".officeBtn").prevAll("#kindName").val($(this).text());
+                $(this).parents(".officeBtn").prevAll("#kindName").prev().val($(this).attr("data-id"));
+            });
+            list();
+            $(".search").click(function () {
+                $("#talkR").empty();
+                list();
+            });
+            function list() {
+                $.ajax({
+                    type: "POST",
+                    url: path + "/planTerm/findPlanByIdb.action",
+                    data: {
+                        "basicId": id,
+                        "vail":$("#publishId").val()
+                    },
+                    dataType: "json",
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    success: function (data) {
+                        if(data.length==0){
+                            $(".noDate").removeClass("hid");
+                        }
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].vail == 2) {
+                                var oTr = '<tr>\n' +
+                                    '                    <td>' + (i + 1) + '</td>\n' +
+                                    '                    <td>' + data[i].planRule.formStarPlanDate + '</td>\n' +
+                                    '                    <td>' + data[i].planRule.formEndPlanDate + '</td>\n' +
+                                    '                    <td>' + data[i].planRule.taskName + '</td>\n' +
+                                    '                    <td>' + data[i].planRule.content + '</td>\n' +
+                                    '                    <td>' + data[i].adName + '</td>\n' +
+                                    '                    <td>已逾期</td>\n' +
+                                    '                    <td><input type="hidden" value=' + data[i]._id + '><span class="tianB">填报</span></td>\n' +
+                                    '                </tr>';
+                            }
+                            if (data[i].vail == 0) {
+                                var oTr = '<tr>\n' +
+                                    '                    <td>' + (i + 1) + '</td>\n' +
+                                    '                    <td>' + data[i].planRule.formStarPlanDate + '</td>\n' +
+                                    '                    <td>' + data[i].planRule.formEndPlanDate + '</td>\n' +
+                                    '                    <td>' + data[i].planRule.taskName + '</td>\n' +
+                                    '                    <td>' + data[i].planRule.content + '</td>\n' +
+                                    '                    <td>' + data[i].adName + '</td>\n' +
+                                    '                     <td>未填报</td>\n' +
+                                    '                    <td><input type="hidden" value=' + data[i]._id + '><span class="tianB">填报</span></td>\n' +
+                                    '                </tr>';
+                            }
+                            if (data[i].vail == 1) {
+                                var oTr = '<tr>\n' +
+                                    '                    <td>' + (i + 1) + '</td>\n' +
+                                    '                    <td>' + data[i].planRule.formStarPlanDate + '</td>\n' +
+                                    '                    <td>' + data[i].planRule.formEndPlanDate + '</td>\n' +
+                                    '                    <td>' + data[i].planRule.taskName + '</td>\n' +
+                                    '                    <td>' + data[i].planRule.content + '</td>\n' +
+                                    '                    <td>' + data[i].adName + '</td>\n' +
+                                    '                    <td>已填报</td>\n' +
+                                    '                    <td><input type="hidden" value=' + data[i]._id + '><span class="look">查看</span></td>\n' +
+                                    '                </tr>';
+                            }
+                            if (data[i].vail == 3) {
+                                var oTr = '<tr>\n' +
+                                    '                    <td>' + (i + 1) + '</td>\n' +
+                                    '                    <td>' + data[i].planRule.formStarPlanDate + '</td>\n' +
+                                    '                    <td>' + data[i].planRule.formEndPlanDate + '</td>\n' +
+                                    '                    <td>' + data[i].planRule.taskName + '</td>\n' +
+                                    '                    <td>' + data[i].planRule.content + '</td>\n' +
+                                    '                    <td>' + data[i].adName + '</td>\n' +
+                                    '                    <td>已越期提交</td>\n' +
+                                    '                    <td><input type="hidden" value=' + data[i]._id + '><span class="look">查看</span></td>\n' +
+                                    '                </tr>';
+                            }
+
+                            $("#talkR").append(oTr);
+                        }
+                        $('#talkR').on("click", function (e) {
+                            var target = e.target;
+                            var currId = $(target).parent().find("input").val();
+                            if ($(target).text()=="查看") {
+                                window.location.href="planLook.html?id="+currId;
+                            }
+                            if ($(target).text()=="填报") {
+                                window.location.href="planFill.html?id="+currId;
+                            }
+
+                        })
+                    }
+                });
+            }
+
+
+        }
+    })
+</script>
+</html>

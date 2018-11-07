@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>分类管理</title>
+		<link rel="stylesheet" type="text/css" href="css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/question_bank.css"/>
+		<link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
+		<style type="text/css">
+			.taleBox td:nth-of-type(2){
+				width: 500px;
+			}
+			.table tr>td:nth-of-type(2) p{
+				max-width: 500px;
+				text-align: left;
+				overflow: hidden;
+		        white-space: nowrap;
+		        text-overflow: ellipsis;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<header class="container-fluid">
+				<div class="row">
+					<div class="col-xs-2">
+						<a href="javascript:history.go(-1);" style="color: #333;"><i class="fa fa-angle-double-left"></i>返回</a>
+						<h4 style="display: inline-block;">分类管理</h4>
+					</div>
+					<div class="col-xs-2 col-xs-offset-8 text-right">
+						<button type="0" class="btn btn-primary newBuildClassification" data-toggle="modal" data-target=".bs-example-modal-lg">新建分类</button>
+					</div>
+				</div>
+			</header>
+		</div>
+		<article class="container-fluid">
+			<div class="taleBox">
+				
+			</div>
+			<div class="row">
+	      		<nav class="navi" aria-label="Page navigation" style="text-align: center;">
+					<ul class="pagination paginationList">
+						  
+					</ul>
+				</nav>
+	    	</div>
+		</article>
+		<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        				<h4 class="modal-title" id="gridSystemModalLabel">新建分类</h4>
+		            </div>
+		            <div class="modal-body">
+		            	<div class="row">
+		            		<!--<div class="form-inline">-->
+		            			<div class="form-group col-xs-12">
+		            				<label class="col-xs-2 text-right col-xs-offset-1"><span class="required">*</span>分类名称</label>
+		            				<div class="col-xs-8">
+		            					<input type="text" class="form-control classificationName" placeholder="请输入分类名称(不可超过20字)" />
+		            					<p class="smallPrompt" style="color: red;display: none;"><small>分类名称不可超过20字</small></p>
+		            				</div>
+		            			</div>
+		            			<div class="form-group col-xs-12">
+		            				<label class="col-xs-2 text-right col-xs-offset-1">描述</label>
+		            				<div class="col-xs-8">
+		            					<textarea class="form-control classificationBuild" rows="3" placeholder="请输入描述内容"></textarea>
+		            				</div>
+		            			</div>
+		            		<!--</div>-->
+		            	</div>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-primary newBuild">保存</button>
+		            </div>
+		        </div><!-- /.modal-content -->
+		    </div><!-- /.modal -->
+		</div>
+		<div class="modal prompt" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+        				<h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+		            </div>
+		            <div class="modal-body">
+		            	<div class="row promptText">
+		            		
+		            	</div>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-primary promptSure">确定</button>
+		            </div>
+		        </div><!-- /.modal-content -->
+		    </div><!-- /.modal -->
+		</div>
+		<div class="modal promptdelete" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+        				<h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+		            </div>
+		            <div class="modal-body">
+		            	<div class="row deleteText">
+		            		
+		            	</div>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-primary deleteSure">确定</button>
+		                <button class="btn btn-default cancelDelete">取消</button>
+		            </div>
+		        </div><!-- /.modal-content -->
+		    </div><!-- /.modal -->
+		</div>
+	</body>
+	<script type="text/javascript" src="../../r/wx/common/pathimage"></script>
+	<script src="js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		function getQueryString(name) {
+			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+			var r = window.location.search.substr(1).match(reg);
+			if (r != null)
+				return decodeURI(r[2]);
+				return null;
+		}
+		classification();
+		function classification(){
+			$.ajax({
+				type:"get",
+				url:_ctxPath+"pc/examClassificationPc/queryClassification.action",
+				dataType:"json",
+				success:function(data){
+					if (data.success == true) {
+						var data = data.data;
+						var trList = '<table class="table table-striped"><tr><th>分类名称</th><th>描述</th><th>操作</th></tr>';
+						for (var a = 0;a<data.length;a++) {
+							trList += '<tr id="'+data[a]._id+'"><td>'+data[a].name+'</td><td><p>'+data[a].about+'</p></td><td><a href="javascript:;" class="edit"  data-toggle="modal" data-target=".bs-example-modal-lg" type="1" vaild="'+data[a].vaild+'">编辑</a><a href="javascript:;" contact="'+data[a].contact+'">删除</a></td></tr>';
+						}
+						$(".taleBox").html(trList+'</table>');
+						//分页	
+						var index = 0;
+						var size = 10;
+						var liList = '';
+						var liListNum = Math.ceil($("tr[id]").length / size);
+						for(var i = 0;i < liListNum;i++){
+							liList += '<li><a href="javascript:;" name="page">'+(i+1)+'</a></li>'
+						}
+						$(".pagination").html('<li class="preve"><a href="javascript:;" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>'+liList+'<li class="next"><a href="javascript:;" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>');
+						function pagingMethod(){
+							$("tr[id]").hide();
+							$(".pagination>li").removeClass("active");
+							$("li").removeClass("disabled");
+							$(".pagination>li").eq(index+1).attr("class","active");
+							if(index == 0){
+								$("tr[id]:lt("+size+")").show();
+								$(".preve").addClass("disabled");
+								$(".pagination>li").eq(index+1).attr("class","active");
+								
+							}else {
+					      		$("tr[id]:gt(" + (index * size - 1) + "):lt("+size+")").show();
+					   		}
+							if(index == Math.floor(($("tr[id]").length-1) / size)){
+								$(".next").addClass("disabled");
+							}
+						};
+						pagingMethod();
+						$(".next").on("click",function(){
+							if(index == Math.floor(($("tr[id]").length-1) / size)){
+								index == Math.floor(($("tr[id]").length-1) / size);
+							}else{
+								index++;
+							}
+							pagingMethod();
+						});
+						$(".preve").on("click",function(){
+							if(index == 0){
+								
+							}else{
+								index--;
+							}
+							pagingMethod();
+						});
+						$(".pagination a[name]").on("click",function(){
+							index = $(this).parent().index()-1;
+							pagingMethod();
+						})
+						$.each($("a[contact]"), function(index,element) {
+							if ($(this).attr("contact") != 0) {
+								$(this).addClass("disabled").attr("disabled",'disabled');
+								$(this).css({"color":"#828282"})
+							} else{
+								
+							}
+						});
+						//删除
+						$("a[contact=0]").on("click",function(){
+							var _id = $(this).parent().parent().attr("id");
+							deleteFun(_id);
+						})
+						//新增
+						$(".newBuildClassification").on("click",function(){
+							var identification = $(this).attr("type");
+							$(".classificationName").val('');
+							$(".classificationBuild").val('');
+							$(".smallPrompt").hide();
+							newBuildFun(identification)
+						})
+						//编辑
+						$(".edit").on("click",function(){
+							var identification = $(this).attr("type");
+							var vaild = $(this).attr("vaild");
+							var _id = $(this).parent().parent().attr("id");
+							$(".classificationName").val($(this).parent().prev().prev().text());
+							$(".classificationBuild").val($(this).parent().prev().text());
+							$(".smallPrompt").hide();
+							newBuildFun(identification,_id,vaild);
+						})
+					} else{
+						$(".prompt").fadeIn();
+						$(".promptText").text(data.message);
+						$(".promptSure,.prompt .close").on("click",function(){
+							$(".prompt").fadeOut();
+						})
+					}
+				}
+			});
+		}
+		//新增、编辑函数
+		function newBuildFun(identification,_id,vaild){
+			$(".newBuild").off("click").on("click",function(){
+				var classificationName = $(".classificationName").val();
+				var classificationBuild = $(".classificationBuild").val();
+				if(classificationName.length == 0){
+					$(".smallPrompt small").text("分类名称不可为空！");
+					$(".smallPrompt").show();
+				} else if(classificationName.length > 20){
+					$(".smallPrompt small").text("分类名称不可大于二十字！");
+					$(".smallPrompt").show();
+				} else if(identification == 0){
+					$.ajax({
+						type:"get",
+						url:_ctxPath+"pc/examClassificationPc/newClassification.action",
+						dataType:"json",
+						data:{
+							name:classificationName,
+							about:classificationBuild
+						},
+						success:function(newClassificationData){
+							if (newClassificationData.success == true) {
+								classification();
+								$("#myModal,.modal-backdrop").hide();
+							} else{
+								$(".prompt").fadeIn();
+								$(".promptText").text(newClassificationData.message);
+								$(".promptSure,.prompt .close").on("click",function(){
+									$(".prompt").fadeOut();
+								})
+							}
+						}
+					});
+				} else if(identification == 1){
+					$.ajax({
+						type:"get",
+						url:_ctxPath+"pc/examClassificationPc/newClassification.action",
+						dataType:"json",
+						data:{
+							_id:_id,
+							name:classificationName,
+							about:classificationBuild,
+							vaild:vaild
+						},
+						success:function(newClassificationData){
+							if (newClassificationData.success == true) {
+								classification();
+								$("#myModal,.modal-backdrop").hide();
+							} else{
+								$(".prompt").fadeIn();
+								$(".promptText").text(newClassificationData.message);
+								$(".promptSure,.prompt .close").on("click",function(){
+									$(".prompt").fadeOut();
+								})
+							}
+						}
+					});
+				}
+			});
+		}
+		$(".promptdelete .close").off("click").on("click",function(){
+			$(".promptdelete").fadeOut();
+		})
+		//删除
+		function deleteFun(_id){
+			$(".promptdelete").fadeIn();
+			$(".deleteText").text('确认删除该项分类吗？');
+			$(".deleteSure").off("click").on("click",function(){
+				$.ajax({
+					type:"get",
+					url:_ctxPath+"pc/examClassificationPc/delClassification.action",
+					dataType:"json",
+					data:{
+						labelId : _id
+					},
+					success:function(data){
+						if (data.success == true) {
+							classification();
+						} else{
+							$(".prompt").fadeIn();
+							$(".promptText").text(data.message);
+							$(".promptSure,.prompt .close").on("click",function(){
+								$(".prompt").fadeOut();
+							})
+						}
+						$(".promptdelete").fadeOut();
+					}
+				});
+			})
+			$(".cancelDelete").on("click",function(){$(".promptdelete").fadeOut();});
+		}
+//		})
+		
+	</script>
+</html>

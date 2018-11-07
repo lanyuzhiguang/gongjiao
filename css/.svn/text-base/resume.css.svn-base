@@ -1,0 +1,141 @@
+*{
+    margin:0;
+    padding:0;
+}
+.outW{
+    padding:0;
+}
+.rightB{
+    padding:0;
+}
+.line_{
+    margin-top:10px;
+}
+.page-content{
+    padding: 21px 0px 0px 13px;
+}
+.widget-header-flat{
+    background: #ffffff;
+    padding-left: 0;
+}
+.branchTit_1{
+    color:red;
+}
+.icon-bianji{
+    color: #478FCA;
+    margin-right: 10px;
+}
+.resum{
+    font-size: 20px;
+}
+.formT{
+    width:100%;
+}
+.form-horizontal{
+    margin-top: 58px;
+}
+.img-responsive{
+    border-radius: 100%;
+    width: 127px;
+    height: 127px;
+    border: 1px solid transparent;
+}
+.profile-picture{
+    border: 1px solid transparent;
+    box-shadow:none;
+    float: right;
+    margin-right: 27px;
+    position: relative;
+    padding: 0;
+    border-radius: 100%;
+    overflow: hidden;
+}
+.editable-click:hover{
+    border-color: transparent;
+}
+img.editable-click{
+    border:1px solid transparent;
+}
+.topH{
+    margin-top: 17px;
+}
+.rank {
+    padding-left: 0;
+    padding-right: 0;
+    border: 1px solid #f4f4f4;
+    padding-bottom: 20px;
+}
+.branchTitl {
+    /*background: #F7F7F7;*/
+    height: 32px;
+    line-height: 31px;
+    text-align: left;
+    font-size: 16px;
+    color: red;
+    padding-left: 5px;
+    border-bottom: 1px solid transparent!important;
+}
+.hotT {
+    width: 93%;
+    margin: auto;
+    background: #fafafa;
+}
+.hotTopice {
+    background: #ffffff;
+    padding-right: 0;
+    padding-left: 0;
+    margin-top: 26px;
+}
+.floatTip{
+    width: 100%;
+    overflow: hidden;
+    margin-top: 20px;
+}
+.ziL,.pos-rel{
+    float: left;
+}
+.pos-rel{
+    width: 50%;
+}
+.ziL{
+    margin-right: 10px;
+    color:#72B566;
+    margin-left: 10px;
+}
+.progress-bar{
+    background: #72B566;
+}
+.progress{
+    height: 15px!important;
+}
+.progress .progress-bar{
+    line-height: 15px;
+}
+.icon-tongguo{
+    color:#82CB32;
+}
+.icon-weitongguo{
+    color:#F85E5E;
+}
+.integrity{
+    width: 80%;
+    margin: auto;
+}
+.integrity div{
+   margin-bottom: 10px;
+}
+.changH{
+    padding-left: 27px;
+    padding-right: 26px;
+    background: #000000;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    opacity: 0.6;
+    color: #ffffff;
+    position: absolute;
+    bottom: -2px;
+    left: 5px;
+}
+.changH:hover{
+    cursor:pointer
+}

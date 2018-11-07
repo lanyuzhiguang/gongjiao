@@ -1,0 +1,172 @@
+body{
+    font-family: "苹方";
+}
+.innerTop{
+    width: 99%;
+    height:44px;
+    background: #f1f1f1;
+    line-height: 44px;
+    font-size: 16px;
+    margin-left: 1%;
+    margin-top: 2%;
+}
+.dev{
+    margin-left: 92px;
+    margin-right: 26px;
+}
+.applyer{
+    color:#d8272a ;
+}
+.developTime{
+    width: 64%;
+    margin: auto;
+    margin-top: 91px;
+}
+
+/*红轴*/
+.itemdiv {
+    padding-right: 3px;
+    min-height:30px;
+    position: relative;
+    top: -3px;
+}
+.itemdiv.dialogdiv:before {
+    position: absolute;
+    display: block;
+    content: "";
+    top: 0;
+    bottom: 0;
+    left: 8px;
+    width: 0px;
+    max-width: 3px;
+    background-color: #cecece;
+    border: 1px solid #cecece;
+    border-width: 0 1px;
+}
+.itemdiv.dialogdiv:last-child:before{
+    display: none;
+}
+.itemdiv.dialogdiv:first-child{
+    min-height: 10px!important;
+}
+.itemdiv > .user {
+    display: inline-block;
+    width: 42px;
+    position: absolute;
+    left: 0;
+}
+.itemdiv.dialogdiv > .user > img {
+    border-color: #C9D6E5;
+}
+
+.itemdiv > .user > img, .itemdiv > .user > .img {
+    border-radius: 100%;
+    max-width: 40px;
+    position: relative;
+}
+.itemdiv.dialogdiv > .body {
+   background: #f1f1f1;
+    padding: 5px 8px 8px;
+    border-left-width: 2px;
+    margin-right: 1px;
+    top: -91px;
+}
+
+.itemdiv > .body {
+    width: auto;
+    margin-left: 50px;
+    margin-right: 12px;
+    position: relative;
+    top:-72px;
+}
+.itemdiv.dialogdiv > .body:before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: -5px;
+    top: 73px;
+    width: 8px;
+    height: 8px;
+    border: 2px solid #f1f1f1;
+    border-width: 2px 0 0 2px;
+    background-color: #f1f1f1;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.rightB{
+    margin-left:32px ;
+    margin-top: 20px;
+    font-size: 14px;
+}
+.rightB>div>div{
+    display: inline-block;
+}
+.rightB>div>div:last-child{
+    vertical-align: top;
+}
+.rightB>div>div:first-child{
+    margin-right: 22px;
+}
+.rightB>div{
+    margin-bottom:16px ;
+}
+.rightB>div>div:last-child img{
+    width: 14px;
+    vertical-align: middle;
+    margin-right: 6px;
+
+}
+.innerInfo>div{
+    margin-bottom: 10px;
+}
+.joinPartySHU{
+    margin-right:30px ;
+}
+.rightB>div:last-child{
+    margin-bottom: 0!important;
+}
+.leftW{
+    position: relative;
+    right: 99px;
+    font-size: 16px;
+    color: #d8272a;
+}
+.activeFz{
+    position: relative;
+    right:82px;
+}
+
+.leftW1{
+    position: relative;
+    right: 99px;
+    font-size: 16px;
+}
+
+
+.thoughtH{
+    margin-right: 32px;
+}
+.sour{
+    margin-right: 34px!important;
+}
+.lianxiP{
+    margin-right: 20px!important;
+}
+.itemdiv.dialogdiv:last-child > .body:before{
+    top:12px;
+}
+.itemdiv.dialogdiv:last-child > .body .rightB{
+    margin-top: 5px!important;
+}
+.redW{
+    color: #d8272a!important;
+}
+.blackW{
+    color: #333333!important;
+}

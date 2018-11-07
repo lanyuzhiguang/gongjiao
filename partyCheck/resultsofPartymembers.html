@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/resultsofPartymembers.css">
+    <link rel="stylesheet" type="text/css" href="../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+    <style>
+        .noActive{
+            background: #cdd4d6!important;
+            color: #616161!important;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="rulesHead">
+        <ul>
+            <li id="organizationLi" class="noActive" >党组织考核结果</li>
+            <li id="partyMemberLi">党员考核结果</li>
+        </ul>
+        <div style="clear:both;"></div>
+        <div   class="partyMember">
+            <div class="topInput">
+                <div>考核发布单位</div><div><input type="text" ></div>
+                <div>考核类别</div><div class="kaoKind"><input type="text" readonly="readonly" ><img src="../img/select.png"></div>
+                <div class="searchB">查询</div>
+            </div>
+            <div class="tableList">
+                <table  cellpadding="0" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th style="">序号</th>
+                        <th style="">标题</th>
+                        <th style="">考核发布单位</th>
+                        <th  style="">考核适用范围</th>
+                        <th style="">考核类别</th>
+                        <th style="">考核周期</th>
+                        <th style="">自查分</th>
+                        <th style="">考评分</th>
+                        <th style="">考评排名</th>
+                        <th style="">操作</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>xxx党委考核规则</td>
+                        <td>xx党委</td>
+                        <td>处级以上干部</td>
+                        <td>党员</td>
+                        <td>2018-01-01到2019-02-12</td>
+                        <td>30</td>
+                        <td>29</td>
+                        <td>1</td>
+                        <td><span class="chaK">查看</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="partyOrganization  hid">
+            <div class="topInput">
+                <div>考核发布单位</div><div><input type="text" ></div>
+                <div>考核类别</div><div class="kaoKind"><input type="text" readonly="readonly" ><img src="../img/select.png"></div>
+                <div class="searchB">查询</div>
+            </div>
+            <div class="tableList">
+                <table  cellpadding="0" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th style="">序号</th>
+                        <th style="">标题</th>
+                        <th style="">考核发布单位</th>
+                        <th  style="">考核适用范围</th>
+                        <th style="">考核类别</th>
+                        <th style="">考核周期</th>
+                        <th style="">自查分</th>
+                        <th style="">考评分</th>
+                        <th style="">考评排名</th>
+                        <th style="">操作</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>xxx党委考核规则</td>
+                        <td>xx党委</td>
+                        <td>处级以上干部</td>
+                        <td>党员</td>
+                        <td>2018-01-01到2019-02-12</td>
+                        <td>30</td>
+                        <td>29</td>
+                        <td>1</td>
+                        <td><span class="chaK">查看</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script src="../assets/js/jquery.js"></script>
+<script src="../js/laydate.js"></script>
+<script src="../js/layer.js"></script>
+<script>
+    $("#organizationLi").click(function () {
+        $(this).removeClass("noActive");
+        $("#partyMemberLi").addClass("noActive");
+        $(".partyMember").addClass("hid");
+        $(".partyOrganization").removeClass("hid");
+    });
+    $("#partyMemberLi").click(function () {
+        $(this).removeClass("noActive");
+        $("#organizationLi").addClass("noActive");
+        $(".partyMember").removeClass("hid");
+        $(".partyOrganization").addClass("hid");
+    })
+</script>
+</html>

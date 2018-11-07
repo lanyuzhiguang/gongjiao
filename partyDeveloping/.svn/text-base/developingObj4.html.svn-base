@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet"  href="../css/developingObj.css">
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+    <style>
+        .subD{
+            margin-right: 10px;
+        }
+        .hid{
+            display: none;
+        }
+        .innerInfo>div span{
+            cursor: pointer;
+            color: #2198f2;
+        }
+    </style>
+</head>
+<body>
+<div class="developObj">
+    <div class="developObjInner">
+        <div class="innerTop">
+            <span class="dev">发展过程:</span><span class="applyer" id="handing"></span>
+        </div>
+
+        <div  class="developTime">
+            <div class="scroll-content" style="max-height: 300px;">
+                <div class="itemdiv dialogdiv">
+                    <div class="user">
+                        <img alt="Alexa's Avatar" id="applyer" src="../img/smallRed.png">
+                    </div>
+                    <div class="leftW1" id="w1">
+                        入党申请人
+                    </div>
+                    <div class="body hid" id="applyB">
+                        <div class="rightB">
+                            <div>
+                                <div class="applyDate">申请日期:</div><div id="shenQT"></div>
+                            </div>
+                            <div>
+                                <div class="submitSource">提交材料:</div>
+                                <div class="innerInfo">
+                                    <div class="baseI"><img src="../img/upScuss.png"><span>基本信息</span></div>
+                                    <div class="applyS"><img src="../img/upScuss.png"><span class="joinPartySHU">入党申请书</span><span id="submitS" class="hid"><span class="subD">2017-11-12</span><span>已提交</span></span></div>
+                                    <div class="resume"><img src="../img/upDbeat.png"><span>个人简历</span></div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="itemdiv dialogdiv">
+                    <div class="user">
+                        <img alt="Alexa's Avatar" id="activer" src="../img/gray.png">
+                    </div>
+                    <div class="activeFz blackW" id="w2">
+                        积极分子
+                    </div>
+                    <div class="body hid"  id="activeB" >
+                        <div class="rightB">
+                            <div>
+                                <div class="applyDate">列为积极分子日期:</div><div id="activerT"></div>
+                            </div>
+                            <div>
+                                <div>培养联系人:</div><div id="developPeople"></div>
+                            </div>
+                            <div>
+                                <div class="submitSource lianxiP">培养联系人:</div>
+                                <div class="innerInfo">
+                                    <div id="activer_si"><img src="../img/upScuss.png"><span class="thoughtH">提交思想汇报</span><span>请每<span id="activer_month"></span>个月提交一篇思想汇报</span></div>
+                                    <div id="activer_record"><img src="../img/upScuss.png"><span class="joinPartySHU">党课培训记录</span></div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="itemdiv dialogdiv">
+                    <div class="user">
+                        <img alt="Alexa's Avatar" id="developer" src="../img/gray.png">
+                    </div>
+                    <div class="activeFz blackW" id="w3">
+                        发展对象
+                    </div>
+                    <div class="body hid" id="developB">
+                        <div class="rightB">
+                            <div>
+                                <div class="applyDate">列为发展对象日期:</div><div id="developT"></div>
+                            </div>
+                            <div>
+                                <div>入党介绍人:</div><div id="joinPartyPeople"></div>
+                            </div>
+                            <div>
+                                <div class="submitSource sour">提交资料:</div>
+                                <div class="innerInfo">
+                                    <div class="develop_six"><img src="../img/upScuss.png"><span class="thoughtH">提交思想汇报</span><span>请每<span class="develop_month"></span>个月提交一篇思想汇报</span></div>
+                                    <div class="develop_record"><img src="../img/upDbeat.png"><span class="joinPartySHU">集中培训记录</span></div>
+                                    <div class="develop_zhS"><img src="../img/upDbeat.png"><span>入党志愿书</span></div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="itemdiv dialogdiv">
+                    <div class="user">
+                        <img alt="Alexa's Avatar" id="preparer" src="../img/gray.png">
+                    </div>
+                    <div class="activeFz blackW" id="w4">
+                        预备党员
+                    </div>
+                    <div class="body hid" id="prepareB">
+                        <div class="rightB">
+                            <div>
+                                <div class="applyDate">成为预备党员日期:</div><div id="prepareT"></div>
+                            </div>
+                            <div>
+                                <div class="submitSource ">提交资料:</div>
+                                <div class="innerInfo">
+                                    <div class="prepare_source"><img src="../img/upScuss.png"><span class="thoughtH">提交思想汇报</span></div>
+                                    <div class="prepare_shu"><img src="../img/upDbeat.png"><span>转正申请书</span></div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="itemdiv dialogdiv">
+                    <div class="user">
+                        <img alt="John's Avatar" id="formaler" src="../img/gray.png">
+                    </div>
+                    <div class="activeFz" id="w5">
+                        正式党员
+                    </div>
+                    <div class="body hid" id="formalB"  style="top:-29px">
+                        <div class="rightB">
+                            <div>
+                                <div class="applyDate">成为正式党员日期:</div><div id="formalT"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script src="../assets/js/jquery.js"></script>
+<script src="../js/layer.js"></script>
+<script>
+    $(function () {
+        var path = "";
+        var iframe = document.getElementById("common");
+        ///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+        iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+        if (iframe.attachEvent) {//判断iframe是否加载完成
+            iframe.attachEvent("onload", function () {
+                getCommon();
+            });
+        } else {
+            iframe.onload = function () {
+                getCommon();
+            };
+        }
+        //获取公共参数  一般为存储在session里面的数据
+        function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+            var frames = window.frames["common"];
+            path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+            var _qiniuImageHost = frames._qiniuImageHost;//七牛云公共地址头
+//            alert(_ctxPath+_qiniuImageHost);
+            var success="../img/success.png";//第一步
+            var handing="../img/smallRed.png";
+            var successGreen="../img/green.png";
+            var noHanding="../img/gray.png";
+
+//            资料提交状态
+            var noSubmit="../img/upDbeat.png";
+            var overSubmit="../img/upScuss.png";
+
+            $.ajax({
+                type: "POST",
+                url: path + "/recruit/queryme.action",
+                data: {},
+                dataType: "json",
+                success: function (data) {
+                    if(data){
+                    if(data.success){
+                   	
+                    var data=data.data;
+
+                    function shenQ() {
+                            $("#shenQT").text(data.formtEntialDate);
+                          //基本信息
+                          if (data.isEntial == 0) {
+                              $(".baseI").find("img").attr("src",noSubmit);
+                              $(".baseI").click(function () {
+                                  parent.layer.alert('请提交基本信息！');
+                              })
+                          } else {
+                              $(".baseI").find("img").attr("src",overSubmit);
+                              $(".baseI").click(function () {
+                                  window.location.href="applyJoinParty.html?recId="+data._id;
+                              })
+                          }
+
+                          //入党申请书
+                          if (data.aditi.f5a != "Y") {
+                              $(".applyS").find("img").attr("src",noSubmit);
+                              $(".applyS").click(function () {
+                                  parent.layer.alert('请尽快提交入党申请书到支部！');
+                              })
+
+                          } else {
+                             $(".applyS").find("img").attr("src",overSubmit);
+                             $(".applyS").find("#submitS").removeClass("hid").find(".subD").text(data.entialDate);
+                              $("#submitS").removeClass("hid");
+                              $(".subD").text(data.statistics.f5a);
+                          }
+                          //个人简历
+                          if (data.isResume == 0) {
+                              $(".resume").find("img").attr("src",noSubmit);
+                              $(".resume").click(function () {
+                                  window.location.href="personResume.html?resumeId="+data._id+"&&overSumbt=0";
+//                                parent.layer.alert('请提交个人简历！');
+                              })
+                          } else {
+                              $(".resume").find("img").attr("src",overSubmit);
+                              $(".resume").click(function () {
+                                  window.location.href="personResume.html?resumeId="+data._id+"&&overSumbt=1";
+                              })
+                          }
+                      }
+                    function activer() {
+                        $("#activerT").text(data.formtRustDate);
+                        $("#developPeople").text(data.rusUserNames);
+                        if(data.userOper.aidea=="Y"){
+                            $("#activer_si").find("img").attr("src",overSubmit);
+                        }else{
+                            $("#activer_si").find("img").attr("src",noSubmit)
+                        }
+                        $("#activer_si").click(function () {
+                           	window.location.href="siRecord.html?devId="+data._id+"&&six=aidea";
+                        });
+                        $("#activer_month").text(data.statistics.f1l);
+                        if(data.rustler.f1c=='Y'){
+                            $('#activer_record').find("img").attr("src",overSubmit)
+                        }else{
+                            $('#activer_record').find("img").attr("src",noSubmit);
+
+                        }
+                        $('#activer_record').click(function () {
+                            window.location.href = "partyDevelopRecord1.html?devId="+data._id+ "&&type=1&&stKey=f1c";
+                        })
+                    }
+                    function develop() {
+                        $("#developT").text(data.formtRuDate);
+                        $("#joinPartyPeople").text(data.rudUserNames);
+                        if(data.userOper.bidea=="Y"){
+                            $(".develop_six").find("img").attr("src",overSubmit)
+                        }else{
+                            $(".develop_six").find("img").attr("src",noSubmit)
+                        }
+                        $(".develop_six").click(function () {
+                            window.location.href="siRecord.html?devId="+data._id+"&&six=bidea";
+                        });
+                        $(".develop_month").text(data.statistics.f1l);
+                        if(data.ruObject.f2c=='Y'){
+                            $(".develop_record").find("img").attr("src",overSubmit)
+                        }else{
+                            $(".develop_record").find("img").attr("src",noSubmit)
+                        }
+                        $(".develop_record").click(function () {
+                            window.location.href="togetherDevelopRecord1.html?devId="+data._id+ "&&type=2&&stKey=f2c&&flag=1";
+                        });
+                        if(data.userOper.Volbook=='Y'){	 //Volbook 入党志愿书  默认value为N
+                            $(".develop_zhS").find("img").attr("src",overSubmit);
+                            $(".develop_zhS").click(function () {
+                                window.location.href="branchSuggest.html?recrutId="+data._id+"&&type=0&&stKey=Volbook";
+                            })
+                        }else{
+                            $(".develop_zhS").find("img").attr("src",noSubmit);
+                            $(".develop_zhS").click(function () {
+                                //只有通过党委预审的发展对象，才能填写入党志愿书，否则点击提示无法不满足条件
+                                if(data.isPerpl>1){
+	                                window.location.href = "politicsRecord.html?recId=" + data._id + "&&type=0&&stKey=Volbook";
+                                }else{
+                                	parent.layer.alert("不满足条件");
+                                }
+                            })
+                        }
+                    }
+                    function prepare() {
+                        $("#prepareT").text(data.formtProbPartyDate);
+                        if(data.userOper.cidea=='Y'){
+                            $(".prepare_source").find("img").attr("src",overSubmit)
+                        }else{
+                            $(".prepare_source").find("img").attr("src",noSubmit)
+                        }
+                        $(".prepare_source").click(function () {
+                            window.location.href="siRecord.html?devId="+data._id+"&&six=cidea";
+                        });
+                        if(data.userOper.XXNEW=='Y'){// XXNEW 转正申请书  默认value为N
+                            $(".prepare_shu").find("img").attr("src",overSubmit);
+                            $(".prepare_shu").click(function () {
+                                window.location.href="branchSuggest.html?recrutId="+data._id+"&&type=0&&stKey=XXNEW";
+                            })
+                        }else{
+                            $(".prepare_shu").find("img").attr("src",noSubmit);
+                            $(".prepare_shu").click(function () {
+                                //从成为预备党员日期开始计算，一年后方可填写转正申请书。 未到期之前，点击提示请预备期满后提交转正申请书
+                                window.location.href = "politicsRecord.html?recId=" + data._id + "&&type=0&&stKey=XXNEW";
+                            })
+                        }
+                    }
+//                    入党申请人
+                    if(data.type==5){
+                        $("#handing").text("入党申请人");
+                        $("#w1").addClass("redW");
+                        $("#handing").text("入党申请人");
+                        $("#applyer").attr("src",handing);
+                        // $("#applyB").find(".applyDate").text(data.jionPartyData);
+                         $("#applyB").removeClass("hid");
+                        shenQ();
+                    }
+//                    积极分子
+                    if (data.type == 1) {
+                        $("#handing").text("积极分子");
+                        $("#w2").addClass("redW");
+                        $('#activer').attr("src",handing);
+                        $("#applyer").attr("src",successGreen);
+                        $("#applyB").removeClass("hid");
+                        $("#activeB").removeClass("hid");
+
+                        // $("#developPeople").text(data.rusUserNames);
+                        shenQ();
+                        activer();
+                    }
+                    //发展对象
+                    if (data.type == 2) {
+                        $("#handing").text("发展对象");
+                        $("#w3").addClass("redW");
+                        $('#activer').attr("src",successGreen);
+                        $("#applyer").attr("src",successGreen);
+                        $('#developer').attr("src",handing);
+                        $("#applyB").removeClass("hid");
+                        $("#activeB").removeClass("hid");
+                        $("#developB").removeClass("hid");
+                        shenQ();
+                        activer();
+                        develop();
+                    }
+                    //预备党员
+                    if (data.type == 3) {
+                        $("#handing").text("预备党员");
+                        $("#w4").addClass("redW");
+                        $('#activer').attr("src",successGreen);
+                        $("#applyer").attr("src",successGreen);
+                        $('#developer').attr("src",successGreen);
+                        $("#applyB").removeClass("hid");
+                        $("#activeB").removeClass("hid");
+                        $("#developB").removeClass("hid");
+                        $("#prepareB").removeClass("hid");
+                        $("#preparer").attr("src",handing);
+                        shenQ();
+                        activer();
+                        develop();
+                        prepare();
+                    }
+                    //正式党员
+                    if (data.type == 4) {
+                        $("#handing").text("正式党员");
+                        $("#w5").addClass("redW");
+                        $('#activer').attr("src",successGreen);
+                        $("#applyer").attr("src",successGreen);
+                        $('#developer').attr("src",successGreen);
+                        $('#preparer').attr("src",successGreen);
+                        $("#applyB").removeClass("hid");
+                        $("#activeB").removeClass("hid");
+                        $("#developB").removeClass("hid");
+                        $("#prepareB").removeClass("hid");
+                        $("#formalB").removeClass("hid");
+                        $("#formaler").attr("src",handing);
+                        $("#formalT").text(data.formtToPartyDate);
+                        shenQ();
+                        activer();
+                        develop();
+                        prepare();
+                    }
+                    }else{
+                    	parent.layer.alert(data.message);
+                    }
+                    }else{
+                    	parent.layer.alert("获取信息异常！");
+                    }
+                }
+            })
+
+        }
+    })
+</script>
+</body>
+</html>

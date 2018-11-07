@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet"  href="../css/developingObj.css">
+</head>
+<body>
+    <div class="developObj">
+        <div class="developObjInner">
+            <div class="innerTop">
+                <span class="dev">发展过程:</span><span class="applyer">入党申请人</span>
+            </div>
+
+            <div  class="developTime">
+                <div class="scroll-content" style="max-height: 300px;">
+                    <div class="itemdiv dialogdiv">
+                        <div class="user">
+                            <img alt="Alexa's Avatar" src="../img/smallRed.png">
+                        </div>
+                        <div class="leftW">
+                            入党申请人
+                        </div>
+                        <div class="body">
+                            <div class="rightB">
+                                <div>
+                                    <div class="applyDate">申请日期:</div><div>2017-01-12</div>
+                                </div>
+                                <div>
+                                    <div class="submitSource">提交材料:</div>
+                                    <div class="innerInfo">
+                                        <div><img src="../img/upScuss.png"><span>基本信息</span></div>
+                                        <div><img src="../img/upScuss.png"><span class="joinPartySHU">入党申请书</span><span>2017-11-12</span><span>已提交</span></div>
+                                        <div><img src="../img/upDbeat.png"><span>个人简历</span></div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="itemdiv dialogdiv">
+                        <div class="user">
+                            <img alt="John's Avatar" src="../img/gray.png">
+                        </div>
+                        <div class="activeFz">
+                            积极分子
+                        </div>
+                    </div>
+                    <div class="itemdiv dialogdiv">
+                        <div class="user">
+                            <img alt="John's Avatar" src="../img/gray.png">
+                        </div>
+                        <div class="activeFz">
+                            发展对象
+                        </div>
+                    </div>
+                    <div class="itemdiv dialogdiv">
+                        <div class="user">
+                            <img alt="John's Avatar" src="../img/gray.png">
+                        </div>
+                        <div class="activeFz">
+                            预备党员
+                        </div>
+                    </div>
+                    <div class="itemdiv dialogdiv">
+                        <div class="user">
+                            <img alt="John's Avatar" src="../img/gray.png">
+                        </div>
+                        <div class="activeFz">
+                            正式党员
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

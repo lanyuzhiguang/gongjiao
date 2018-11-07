@@ -1,0 +1,362 @@
+body{
+    font-family: "苹方";
+
+}
+*{margin: 0;padding: 0}
+.talkRecord{
+    height: 44px;
+    background: #f1f1f1;
+    line-height: 44px;
+    font-size: 16px;
+    width: 98%;
+    margin: auto;
+}
+.talkRecord img{
+    width: 15px;
+    margin-left: 42px;
+    margin-right: 10px;
+    vertical-align: middle;
+
+}
+.back{
+    margin-right: 20px;
+}
+#backBtn{
+    cursor: pointer;
+}
+.kindList{
+    width: 100%;
+}
+.headProcess{
+    width: 69%;
+    margin: auto;
+    height: 37px;
+    line-height: 37px;
+    position: relative;
+    margin-top: 36px;
+}
+.headProcess>div:first-child>img{
+    /*float:left;*/
+    position: absolute;
+    left:0;
+    top:50%;
+    margin-top: -18px;
+    z-index: 1;
+    width: 36px;
+    height: 36px;
+}
+.headProcess>div:last-child>img{
+    /*float: right;*/
+    position: absolute;
+    right: 0;
+    width: 36px;
+    height: 36px;
+}
+.lineRed{
+    border-bottom: 3px solid #ff8a86;
+    position: absolute;
+    top:50%;
+    width: 89%;
+    left: 5.5%;
+}
+.firstImg{
+    width: 36px;
+    height: 36px;
+
+}
+.lastImg{
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    right: 0;
+    top: 1%;
+}
+.firstImg span{
+   display: inline-block;
+    width: 36px;
+    height: 36px;
+    text-align: center;
+    line-height: 36px;
+    position: absolute;
+    z-index: 2;
+    color:#ffffff;
+}
+.lastImg span{
+    display: inline-block;
+    width: 35px;
+    height: 36px;
+    text-align: center;
+    line-height: 36px;
+    position: absolute;
+    z-index: 2;
+    color:#ffffff;
+}
+.addKind{
+    display: inline-block;
+    width: 90px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    color:#ffffff;
+    border-radius: 2px;
+    font-size: 14px;
+    background: #2196f3;
+    cursor: pointer;
+    margin-left: 84px;
+    margin-bottom: 10px;
+}
+.kindListContent{
+    margin-top: 42px;
+}
+.wordSetting{
+    position: absolute;
+    top:34px;
+    width:100px;
+    left: -11px;
+    font-size: 14px;
+    color:#656565;
+}
+.checkRegular{
+    position: absolute;
+    top:34px;
+    width:100px;
+    left:-25px;
+    font-size: 14px;
+    color:#656565;
+}
+#look{
+    color:#2196f3;
+    cursor: pointer;
+}
+.checkList{
+    width: 98%;
+    margin: auto;
+}
+.contentTitle{
+    width: 100%;
+    height: 48px;
+    line-height: 48px;
+    background: #f2f4f3;
+    font-size: 14px;
+    color:#969797;
+    position: relative;
+}
+.classEdit,.conEdit{
+  position: absolute;
+  right: 60px;
+  color: #2196f3;
+  cursor: pointer;
+}
+.conName{
+  display: inline-block;
+  max-width: 400px;
+  overflow: hidden;
+  vertical-align: bottom;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.contentTitle img{
+    position: absolute;
+    right: 30px;
+    top:50%;
+    margin-top: -5.5px;
+    cursor: pointer;
+}
+.innerTitle{
+    width: 100%;
+    height: 48px;
+    line-height: 48px;
+    background: #f9fafa;
+    font-size: 14px;
+    color:#969797;
+    position: relative;
+}
+.innerTitle img{
+    position: absolute;
+    right: 30px;
+    top:50%;
+    margin-top: -5.5px;
+    cursor: pointer;
+}
+
+.checkContent{
+    margin-top: 11px;
+}
+
+.kindN{
+    margin-left: 50px;
+    margin-right: 14px;
+}
+.projectN{
+    margin-left: 80px;
+    margin-right: 14px;
+}
+.allF{
+    margin-left: 14px;
+}
+.checkContent table{
+    color:#797e80;
+    font-size: 14px;
+    border: 1px solid #e6e5e4;
+    border-top: 1px solid transparent;
+    border-bottom:1px solid transparent;
+    width: 100%;
+}
+
+.checkContent table tr td{
+    text-align: center;
+    border-right: 1px solid #e6e5e4;
+    border-bottom:1px solid #e6e5e4;
+
+}
+.checkContent table tr td:last-child{
+    border-right:1px solid transparent;
+}
+.checkContent table th:last-child{
+    border-right:1px solid transparent;
+}
+.checkContent table th{
+    padding: 8px 7px;
+    border-right: 1px solid #e6e5e4;
+    border-bottom:1px solid #e6e5e4;
+}
+.checkContent table tr td:nth-child(2){
+    text-align: left;
+    padding: 10px;
+}
+.checkContent table tr td:nth-child(3){
+    width: 10%;
+}
+.checkContent table tr td:nth-child(4){
+    text-align: left;
+    padding: 10px;
+}
+.checkContent table tr td:nth-child(5){
+    text-align: left;
+    padding: 10px;
+}
+.checkContent table tr td:nth-child(6){
+    text-align: center!important;
+    padding: 15px;
+}
+.checkContent table tr td:nth-child(6)>span{
+    color:#2196f3;
+    margin: 0 10px;
+    cursor: pointer;
+}
+.checkContent table tr td:nth-child(6)>span img{
+    width: 8px;
+}
+
+.overAdd{
+    margin-left: 42px;
+    margin-right:10px;
+}
+.addProject{
+    color:#2196f3;
+    cursor: pointer;
+}
+.fenShu{
+    margin-right: 40px;
+}
+.btnList{
+    margin-top: 48px;
+    text-align: center;
+
+}
+.btnList span{
+    display: inline-block;
+    background: #2196f3;
+    color:#ffffff;
+    height:46px;
+    border-radius:4px ;
+    text-align: center;
+    line-height: 46px;
+    padding: 0 20px;
+    font-size: 16px;
+    margin-right: 76px;
+    cursor: pointer;
+}
+.btnList span:last-child{
+    width:116px;
+    background: #ffffff;
+    color:#4d4d4d;
+    border: 1px solid #c4c4c4;
+    padding: 0 0;
+}
+.kindBox{
+    margin-top: 20px;
+}
+.kindBox>div{
+    width: 100%;
+    margin-bottom: 10px;
+}
+.fistK>div,.projectList>div>div{
+    display: inline-block;
+    font-size:14px;
+}
+.fistK>div:first-child,.projectList>div>div:first-child{
+    width: 35%;
+    text-align: right;
+}
+.fistK>div:last-child,.projectList>div>div:last-child{
+    margin-left: 10px;
+}
+.projectList>div{
+    margin-bottom: 10px;
+}
+.fistK>div>input,.projectList>div>div>input{
+    height: 26px;
+    line-height: 26px;
+    border: 1px solid #e4e4e4;
+    border-radius: 2px;
+    padding-left: 14px;
+    width: 136px;
+    outline: none;
+}
+.leiList{
+    width: 152px;
+    height: 28px;
+}
+.leiList img{
+    position: absolute;
+    right: 0px;
+    top:0px;
+    bottom: 0;
+    height: 100%;
+}
+.jifenItem{
+    width:100%;
+}
+.jifenItem>div{
+    margin-bottom: 10px;
+}
+.jifenItem>div>div{
+    display: inline-block;
+    font-size: 14px;
+}
+.jifenItem>div>div:first-child{
+    width: 35%;
+    text-align: right;
+}
+.jifenItem>div>div:last-child{
+    margin-left: 10px;
+    vertical-align: top;
+}
+.jifenItem>div>div:last-child input{
+    width: 79px;
+    height: 26px;
+    border: 1px solid #e4e4e4;
+    border-radius: 2px;
+    outline: none;
+}
+.jifenItem>div>div:last-child textarea{
+    border: 1px solid #e4e4e4;
+    border-radius: 2px;
+    outline: none;
+    resize: none;
+    height: 50px;
+}
+.dongBegin{
+    transition-duration:1s;
+}

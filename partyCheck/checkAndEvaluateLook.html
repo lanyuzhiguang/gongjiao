@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/checkAndEvaluateLook.css">
+    <link rel="stylesheet" type="text/css" href="../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+    <style>
+        .hid {
+            display: none;
+        }
+        .innerTitle>span:nth-of-type(2),.contentTitle>span:nth-of-type(2){
+          display: inline-block;
+          max-width: 400px;
+          overflow: hidden;
+          vertical-align: bottom;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+        table tr td:last-of-type>span{
+        	color: #2196f3;
+        	cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="talkRecord">
+            <span id="backBtn">
+                 <img src="../img/back.png"><span class="back">返回</span>
+            </span>
+        <span id="where"></span><span class="resultExport" id="submit">考核结果导出</span>
+    </div>
+    <div>
+        <div class="grade"><span >自查分</span><span id="z"></span><span>考评分</span><span id="k"></span></div>
+        <div class="checkList check">
+
+        </div>
+    </div>
+</div>
+<div class="mask hid"></div>
+<!--查看填报-->
+<div class="popBox hid" style="width: 505px;" id="poper3">
+    <div class="popB_Top">
+        <span class="addW" id="lookTitle">查看</span><span class="close" id="lookClose"><img
+            src="../img/close.png"></span>
+    </div>
+    <div class="popB_bottom" style="border-bottom: 1px solid transparent">
+        <div id="tianBox1" class="">
+            <div>
+                <div>填报内容</div>
+                <div class="developWrap" id="contentL">
+
+                </div>
+            </div>
+            <div style="display: none;">
+                <div>图片</div>
+                <div class="developWrap">
+                    <div class="" id="img"></div>
+                </div>
+            </div>
+            <div style="display: none;">
+                <div>附件</div>
+                <div class="developWrap">
+                    <div class="fuJList" id="fuj"></div>
+                </div>
+            </div>
+            <div>
+                <div>自查评分</div>
+                <div class="developWrap" id="fen">
+
+                </div>
+            </div>
+            <div>
+                <div>考评分</div>
+                <div class="developWrap" id="checkfen">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script src="../assets/js/jquery.js"></script>
+<script src="../js/laydate.js"></script>
+<script src="../js/layer.js"></script>
+<script>
+	var path = "",id,checkId,ckName,_qiniuImageHost;
+	var currId = "";
+	var record = null;
+    $(function () {
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+
+        id = getQueryString("id");
+        checkId = getQueryString("checkId");
+        ckName = getQueryString("ckName");
+
+        var iframe = document.getElementById("common");
+        ///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+        iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+        if (iframe.attachEvent) {//判断iframe是否加载完成
+            iframe.attachEvent("onload", function () {
+                getCommon();
+            });
+        } else {
+            iframe.onload = function () {
+                getCommon();
+            };
+        }
+
+        //获取公共参数  一般为存储在session里面的数据
+        function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+            var frames = window.frames["common"];
+            path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+            _qiniuImageHost = frames._qiniuImageHost;//七牛云公共地址头
+
+            $("#backBtn").click(function () {
+                window.history.back(-1);
+            });
+            $("#where").text(ckName);
+
+            // 查询列表
+            getRecord(id);
+        }
+    })
+
+    function getRecord(Id){
+    	 $.ajax({
+             type: "GET",
+             url: path + "/checkRecord/findRecordId.action",
+             data: {"recordId": Id},
+             dataType: "json",
+             success: function (data) {
+              if(data){
+            	  record = data.data;
+                  if (record.fill == 0) {
+                      $(".btnList").removeClass("hid");
+                  } else if (record.fill == 1) {
+                      $(".btnList").addClass("hid");
+                  }
+                  $("#z").text(record.fillScore);
+                  $("#k").text(record.checkScore);
+                  ruleas(record.partyCheck._id);
+              }
+            }
+         });
+     }
+    function ruleas(Id){
+    	$.ajax({//父
+            type: "GET",
+            url: path + "/checkReule/checkRules.action",
+            data: {"checkId": Id},
+            dataType: "json",
+            success: function (data) {
+            	var project = data;
+                if (project.length != 0) {
+                    $(".noDate").addClass("hid");
+                    $("#subBtn").removeClass("hid");
+                }
+                for (var i = 0; i < project.length; i++) {
+                	if(project[i].type===1){
+	                    var contentBox = "<div class=\"checkContent\" id=\""+project[i]._id+"\"></div>";
+	                    $(".check").append(contentBox);
+ 	                    var projectK = '<div class="contentTitle"><span class="kindN"></span><span title="'+ project[i].name +'">' + project[i].name + '</span><span\n' +
+	                        '                            class="allF">总分' + project[i].score + '分</span>\n' +
+	                        '                            <img class="img" src="../img/down.png">\n' +
+	                        '                    </div>';
+	                        $("#" + project[i]._id).append(projectK);
+	                    ruleaChaild(project,project[i]);
+                	}
+                }
+                initClik()
+            }
+       });
+	}
+	function ruleaChaild(data,pRule){
+		var childItem = data;
+		var pId=pRule._id;
+        if (pRule.chaildType == 3) {
+        	if (record.partyCheck.markType == 1) {
+                var tableWrap = '<table cellpadding="0" cellspacing="0">\n' +
+                    '                        <thead>\n' +
+                    '                        <tr>\n' +
+                    '                            <th style="width:6%">序号</th>\n' +
+                    '                            <th style="width:18%">考核内容</th>\n' +
+                    '                            <th style="width:5%">基础分值</th>\n' +
+                    '                            <th style="width:15%">评分标准</th>\n' +
+                    '                            <th style="width:17%">考核方式</th>\n' +
+                    '                            <th style="width:12%">自查分</th>\n' +
+                    '                            <th style="width:12%">考评分</th>\n' +
+                    '                            <th style="width:17%">操作</th>\n' +
+                    '                        </tr>\n' +
+                    '                        </thead>\n' +
+                    '                        <tbody class="innerItem"></tbody>\n' +
+                    '                    </table>';
+            } else if (record.partyCheck.markType == 2) {
+                var tableWrap = '<table cellpadding="0" cellspacing="0">\n' +
+                    '                        <thead>\n' +
+                    '                        <tr>\n' +
+                    '                            <th style="width:6%">序号</th>\n' +
+                    '                            <th style="width:18%">考核内容</th>\n' +
+                    '                            <th style="width:5%">基础分值</th>\n' +
+                    '                            <th style="width:15%">评分标准</th>\n' +
+                    '                            <th style="width:17%">考核方式</th>\n' +
+                    '                            <th style="width:12%">考评分</th>\n' +
+                    '                            <th style="width:17%">操作</th>\n' +
+                    '                        </tr>\n' +
+                    '                        </thead>\n' +
+                    '                        <tbody class="innerItem"></tbody>\n' +
+                    '                    </table>';
+            }
+            $("#" + pId).append(tableWrap);
+        }
+        for (var j = 0; j < childItem.length; j++) {
+            if(childItem[j].parentId!="undefined"&&childItem[j].parentId===pId){
+                if(pRule.chaildType == 3){
+                	var mm = record.checkTermMap[childItem[j]._id];
+                    if (mm == "" || mm === null || typeof mm === "undefined" || mm.fillSubm == 0) {
+                        var option = "考评"
+                    } else if (mm.evaluation == 1) {
+                        var option = "查看"
+                    } else if (mm.evaluation == 0) {
+                        var option = "考评"
+                    }
+                    if (mm != "" && mm !== null && typeof mm !== "undefined") {
+                        var selfFen = mm.selfScore;
+                        var evalScore = mm.evalScore;
+                    } else {
+                        var selfFen = " ";
+                        var evalScore = ' ';
+                    }
+                    if (record.partyCheck.markType == 1) {
+                        var jiFItem = ' <tr>\n' +
+                            '                            <td>' + childItem[j].oder + '</td>\n' +
+                            '                            <td>' + childItem[j].name + '</td>\n' +
+                            '                            <td>' + childItem[j].score + '</td>\n' +
+                            '                            <td>' + childItem[j].standard + '</td>\n' +
+                            '                            <td>' + childItem[j].mode + '</td>\n' +
+                            '                            <td>' + selfFen + '</td>\n' +
+                            '                            <td>' + evalScore + '</td>\n' +
+                            '                            <td><input type="hidden" value=' + childItem[j]._id + '><span>' + option + '</span></td>\n' +
+                            '                        </tr>';
+                    } else if (record.partyCheck.markType == 2) {
+                        var jiFItem = ' <tr>\n' +
+                            '                            <td>' + childItem[j].oder + '</td>\n' +
+                            '                            <td>' + childItem[j].name + '</td>\n' +
+                            '                            <td>' + childItem[j].score + '</td>\n' +
+                            '                            <td>' + childItem[j].standard + '</td>\n' +
+                            '                            <td>' + childItem[j].mode + '</td>\n' +
+                            '                            <td>' + evalScore + '</td>\n' +
+                            '                            <td><input type="hidden" value=' + childItem[j]._id + '><span>' + option + '</span></td>\n' +
+                            '                        </tr>';
+                    }
+                    $("#" + pId).find(".innerItem").append(jiFItem);
+                }else{
+                    var twoC = "<div class=\"innerWrap\" id=\""+childItem[j]._id+"\"></div>";
+                    $("#" + pId).append(twoC);
+                    var child = ' <div class="innerTitle"><span class="projectN"></span><span title="'+ childItem[j].name +'">' + childItem[j].name + '</span><span class="allF">总分' + childItem[j].score + '分</span>\n' +
+                    '                           <img class="img" src="../img/down.png">\n' +
+                    '                    </div>';
+                    $("#" + childItem[j]._id).append(child);
+                }
+                if (childItem[j].type != 3) {
+                	ruleaChaild(childItem,childItem[j]);
+                }
+            }
+        }
+    }
+
+
+    function initClik(){
+    	$(".check").on("click", function (e) {
+            var tar = e.target;
+            currId = $(tar).parent().find("input").val();
+            var closeList = '../img/right.png';
+            var openList = '../img/down.png';
+            if ($(tar).attr("class") == 'img') {
+                if ($(tar).parent().attr("class") == "contentTitle") {
+                    console.log($(tar));
+                    if ($(tar).attr("src") == closeList) {//合上
+                        $(tar).parent().nextAll().css("display", "table");
+                        $(tar).attr("src", openList);
+                    } else {
+                        $(tar).parent().nextAll().css("display", "none");
+                        $(tar).attr("src", closeList);
+
+                    }
+                }
+                if ($(tar).parent().attr("class") == "innerTitle") {
+                    console.log($(tar));
+                    if ($(tar).attr("src") == closeList) {//合上
+                        $(tar).parent().nextAll().css("display", "table");
+                        $(tar).attr("src", openList);
+                    } else {
+                        $(tar).parent().nextAll().css("display", "none");
+                        $(tar).attr("src", closeList);
+                    }
+                }
+            }
+
+            if ($(tar).text() == "查看") {
+                var mm = record.checkTermMap[currId];
+                if (record.check == 1) {//查看
+                    $("#poper3").removeClass("hid");
+                    $(".mask").removeClass("hid");
+                    $(".mask").click(function () {
+                        $("#poper3").addClass("hid");
+                        $(".mask").addClass("hid");
+                    });
+                    $("#lookClose").click(function () {
+                        $("#poper3").addClass("hid");
+                        $(".mask").addClass("hid");
+                    });
+                    $("#fuj").parent().parent().css("display","none");
+                    $("#img").parent().parent().css("display","none");
+                    if (mm != "" && mm !== null && typeof mm !== "undefined") {
+                        $("#fuj").html("");
+                        $("#img").html("");
+                        $("#contentL").text(mm.cont);
+                        for (var i = 0; i < mm.files.length; i++) {
+                        	$("#fuj").parent().parent().css("display","");
+                            $("#fuj").append("<a href=" + _qiniuImageHost + mm.files[i].fileId + "   target='_blank'>" + mm.files[i].fileName + "</a>");
+                        }
+                        for (var i = 0; i < mm.images.length; i++) {
+                            $("#img").parent().parent().css("display","");
+                            $("#img").append("<a style='width: 75px;height: 75px;' href=" + _qiniuImageHost + mm.images[i].fileId
+                                    + "   target='_blank'><img style='width: 75px;height: 75px;' "
+                                    +"onclick='openImg(\"" + _qiniuImageHost + mm.images[i].fileId
+                                    + "\",\"" + mm.images[i].fileName + "\")' src="
+                                    + _qiniuImageHost + mm.images[i].fileId + "></a>")
+                        }
+                        $("#fen").text(mm.selfScore);
+                        $("#checkfen").text(mm.evalScore);
+                    }
+
+                } else if (record.check == 0) {//编辑
+                    $(".zic").val("");
+                    $("#poper2").removeClass("hid");
+                    $(".mask").removeClass("hid");
+                    $(".mask").click(function () {
+                        $("#poper2").addClass("hid");
+                        $(".mask").addClass("hid");
+                    });
+                    $("#tianClose").click(function () {
+                        $("#poper2").addClass("hid");
+                        $(".mask").addClass("hid");
+                    });
+                    $("#tianCancel").click(function () {
+                        $("#poper2").addClass("hid");
+                        $(".mask").addClass("hid");
+                    });
+                    $("#fuj").parent().parent().css("display","none");
+                    $("#img").parent().parent().css("display","none");
+                    if (mm != "" && mm !== null && typeof mm !== "undefined") {
+                    	$("#fuj").html("");
+                        $("#img").html("");
+                        $("#contentL").text(mm.cont);
+                        for (var i = 0; i < mm.files.length; i++) {
+                        	$("#fuj").parent().parent().css("display","");
+                            $("#fuj").append("<a href=" + _qiniuImageHost + mm.files[i].fileId + "   target='_blank'>" + mm.files[i].fileName + "</a>");
+                        }
+                        for (var i = 0; i < mm.images.length; i++) {
+                            $("#img").parent().parent().css("display","");
+                            $("#img").append("<a style='width: 75px;height: 75px;' href=" + _qiniuImageHost + mm.images[i].fileId
+                                    + "   target='_blank'><img style='width: 75px;height: 75px;' "
+                                    +"onclick='openImg(\"" + _qiniuImageHost + mm.images[i].fileId
+                                    + "\",\"" + mm.images[i].fileName + "\")' src="
+                                    + _qiniuImageHost + mm.images[i].fileId + "></a>")
+                        }
+                        $("#fen").text(mm.selfScore);
+                        $("#checkfen").text(mm.evalScore);
+
+                    }
+
+                }
+            }
+        })
+    	//导出结果处理接口
+        $("#submit").click(function () {
+			window.location.href=path + "/export/exportExaminationResult.action?recordId="+id;
+        })
+    }
+    function isNum(num) {
+        var re = /^[0-9]+.?[0-9]*$/;
+        if (!re.test(num)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+</script>
+</html>

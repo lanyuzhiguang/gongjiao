@@ -1,0 +1,159 @@
+body{
+    font-family: "苹方";
+}
+.personTop{
+    height:44px ;
+    background: #f1f4f3;
+    line-height: 44px;
+    font-size: 14px;
+    width: 92%;
+    margin: auto;
+    position: relative;
+}
+.arrow img{
+    width: 15px;
+    margin-left: 42px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+#backBtnP{
+    cursor: pointer;
+}
+#backBtn{
+    cursor: pointer;
+}
+.personResumW{
+    margin-left: 18px;
+}
+.xing{
+    color:#d8272a;
+}
+.infoW{
+    font-size: 14px;
+    margin-left: 98px;
+    margin-top: 26px;
+}
+.thoughtRList{
+    margin-top: 20px;
+    position: relative;
+}
+.thoughtRList table input{
+    border: 1px solid transparent;
+    display: block;
+    margin: auto;
+    outline: none;
+    width: 90%;
+    background: transparent;
+}
+.thoughtRList>table{
+    width: 92%;
+    margin: auto;
+    font-size: 14px;
+}
+.thoughtRList table tr{
+    height:48px;
+    border-bottom: 1px solid #d8d8d8;
+}
+.thoughtRList table th{
+    text-align: center;
+    background: #f1f4f3;
+    border-right: 1px solid #d8d8d8;
+    color: #949796;
+}
+.thoughtRList table tr:nth-child(even){
+    background: #f1f4f3;
+}
+.thoughtRList table tr td{
+    border-right: 1px solid #d8d8d8;
+    border-bottom: 1px solid #d8d8d8;
+}
+.thoughtRList table tr td:first-child input{
+    text-align: center;
+}
+.thoughtRList table tr td:nth-child(2) input{
+    text-align: center;
+}
+
+.thoughtRList table tr td:nth-child(4) input{
+    text-align: center;
+}
+.thoughtRList table tr td:nth-child(5) input{
+    text-align: center;
+}
+.home table input{
+    border: 1px solid transparent;
+    display: block;
+    margin: auto;
+    outline: none;
+    width: 90%;
+    background: transparent;
+}
+.home table tr td{
+    text-align: center;
+}
+.home  table tr td:nth-child(3) input{
+    text-align: center!important;
+}
+
+.textareaB textarea{
+    display: block;
+    width: 91%;
+    height:162px;
+    border: 1px solid #d2d2d2;
+   margin: auto;
+    margin-top: 21px;
+    outline: none;
+}
+.btnList{
+    width: 43%;
+    margin: auto;
+    overflow: hidden;
+    margin-top: 53px;
+}
+.btnList input{
+    outline: none;
+    width: 174px;
+    height: 46px;
+    background: #2198f2;
+    border-radius: 4px;
+    line-height: 46px;
+    padding: 0 0;
+    text-align: center;
+    border: 1px solid  #2198f2;
+    color:#ffffff;
+    font-size: 18px;
+    cursor: pointer;
+}
+#submit{
+    float: left;
+    cursor: pointer;
+}
+#back{
+    float: right;
+    cursor: pointer;
+}
+
+.operate{
+    position: absolute;
+    right: 1.7%;
+    bottom: 0px;
+    cursor: pointer;
+}
+.operate img{
+   display: block;
+}
+.operate img:first-child{
+    margin-bottom: 12px;
+}
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:#c5c5c5;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:#c5c5c5;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:#c5c5c5;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #c5c5c5;
+}

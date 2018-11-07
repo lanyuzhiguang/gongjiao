@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>积分统计设置</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css" media="screen" title="no title">
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker3.min.css"/>
+    <style type="text/css">
+        td {
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: deepskyblue;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        a:link {
+            color: deepskyblue;
+            text-decoration: none;
+        }
+
+        a {
+            margin: 0 5px;
+        }
+
+        .monthText {
+            width: 40px;
+        }
+
+        .timeSelect, .timeSelect label {
+            padding: 0;
+        }
+
+        .col-xs-12 {
+            padding: 5px 0;
+        }
+
+        label.col-xs-3 {
+            padding: 0;
+        }
+
+        .buttonGroup {
+            text-align: center;
+        }
+
+        .mask {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            z-index: 2000;
+            display: none;
+        }
+
+        .popup {
+            width: 600px;
+            margin: 30px auto;
+            border-radius: 6px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+            background: white;
+            z-index: 1051;
+        }
+
+        .mask .modal-header {
+            border: none;
+        }
+
+        .mask .modal-content {
+            -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0)
+        }
+
+        .mask .modal-body {
+            text-align: center;
+        }
+
+        .popup .content {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .popup .footer {
+            padding: 10px 0;
+        }
+
+        .errorAlert {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            z-index: 2000;
+            display: none;
+        }
+
+        .errorAlert .modal-header {
+            border: none;
+        }
+
+        .errorAlert .modal-content {
+            -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0)
+        }
+
+        .errorAlert .modal-body {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid tableBox">
+
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+            </div>
+            <div class="modal-body col-xs-12">
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<div class="mask">
+    <div class="modal-dialog">
+        <div class="popup">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close closeBtn">&times;</button>
+                    <h5 class="modal-title" id="myModalLabel">提示</h5>
+                </div>
+                <div class="modal-body col-xs-12">
+                    确定删除吗？
+                </div>
+            </div>
+            <div class="footer">
+                <div class="buttonGroup sureIntegralType">
+                    <button class="btn btn-primary fadeinBtn">确定</button>
+                    <button class="btn btn-default fadeoutBtn">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="errorAlert">
+    <div class="modal-dialog">
+        <div class="popup">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close closeBtn">&times;</button>
+                    <h5 class="modal-title" id="myModalLabel">提示</h5>
+                </div>
+                <div class="modal-body col-xs-12">
+                    积分设置成功。
+                </div>
+            </div>
+            <div class="footer">
+                <div class="buttonGroup sureIntegralType">
+                    <button class="btn btn-primary fadeinBtn">确定</button>
+                    <button class="btn btn-default fadeoutBtn">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script src="./js/jquery-3.1.1.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="js/bootstrap-paginator.js"></script>
+<script src="js/bootstrap-datepicker.min.js"></script>
+<script src="js/bootstrap-datepicker.zh-CN.min.js"></script>
+<script type="text/javascript">
+    var path = "";
+    $(function () {
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null)
+                return decodeURI(r[2]);
+            return null;
+        }
+
+        var iframe = document.getElementById("common");///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+        iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+        if (iframe.attachEvent) {//判断iframe是否加载完成
+            iframe.attachEvent("onload", function () {
+                getCommon();
+            });
+        } else {
+            iframe.onload = function () {
+                getCommon();
+            };
+        }
+    });
+
+    //获取公共参数  一般为存储在session里面的数据
+    function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+        var frames = window.frames["common"];
+        path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+
+        //积分统计设置
+        integralSetting();
+
+        function integralSetting() {
+            $.ajax({
+                type: "post",
+                url: path + "/pc/ScorePartyMemberPc/findSecondRule.action",
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                success: function (data) {
+                    $(".tableBox").html('<table class="table table-bordered integralSettingTable"><tr><td>序号</td><td>设置项</td><td>规则描述</td><td>适用场景</td><td>状态</td><td>操作</td></tr><tr><td>1</td><td>分时段排名</td><td>不区分时段进行整体排名</td><td>党员排名；党组织排名</td><td></td><td><a href="javascript:;" data-toggle="modal" data-target="#myModal" time="' + data.futureNowEntryIntoForceTime + '" monthtime="' + data.future + '">规则设置</a><a href="javascript:;" id="' + data.subsectionRankingState + '"></a></td></tr></table>');
+                    $.each($(".integralSettingTable a[id]"), function (index, element) {
+                        if ($(".integralSettingTable a[id]").eq(index).attr("id") == 1) {
+                            $(".integralSettingTable a[id]").eq(index).text("启用");
+                            $(this).parent().parent().children().eq(4).text("未生效");
+                            $(this).parent().parent().children().eq(2).text("不区分时段进行整体排名");
+                        } else if ($(".integralSettingTable a[id]").eq(index).attr("id") == 2) {
+                            $(".integralSettingTable a[id]").eq(index).text("禁用");
+                            $(this).parent().parent().children().eq(4).text("生效");
+                            $(this).parent().parent().children().eq(2).text("区分时段进行整体排名");
+                        }
+                    });
+                    $(".integralSettingTable a:contains('规则设置')").off("click").on("click", function () {
+                        var monthTime = $(this).attr("monthtime");
+                        var time = data.futureNowEntryIntoForceTime;
+//							(monthTime == false) ? future = '' : future = time;
+//							(time == false) ? futureNowEntryIntoForceTime = '' : futureNowEntryIntoForceTime = monthTime;
+                        $(".modal-header").html('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">规则设置</h5>');
+                        if ($(this).parent().parent().children().eq(1).text() == "分时段排名") {
+                            $(".modal-body").html('<div class="container-fluid"><div class="container col-xs-12"><p>分时段排名规则设置：</p><div><label>区分时段进行排名</label></div><div>每<input type="text" class="monthText" />个月重新进行排名（请填写正整数）</div><div class="col-xs-12"><label class="col-xs-3">规则生效起始月份</label><div class="col-xs-6 input-group" id="datepicker"><input type="text" class="input-sm form-control starttimeo" name="start" /></div></div></div></div>');
+                        } else {
+                            $(".modal-body").html('<div class="container-fluid"><div class="container col-xs-12"><p>工作时段积分限制设置：</p><div class="col-xs-12 timeSelect"><label class="col-xs-3">设置工作时段区间</label><div class="col-xs-6"><div class="input-group" id="datepicker"><input type="text" class="input-sm form-control starttimet" name="start" /><span class="input-group-addon">到</span><input type="text" class="input-sm form-control endtimet" name="end" /></div></div><div><button class="btn btn-primary">添加时段</button></div></div><div class="col-xs-$2"><label>限制积分类型</label><input type="text" /></div></div></div>');
+                        }
+
+                        function timestampToTime(timestamp) {
+                            var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+                            Y = date.getFullYear() + '-';
+                            M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1);
+                            D = date.getDate() + ' ';
+                            h = date.getHours() + ':';
+                            m = date.getMinutes() + ':';
+                            s = date.getSeconds();
+                            return Y + M;
+                        }
+
+                        time = timestampToTime(time / 1000);
+                        $(".monthText").val(monthTime);
+                        $(".starttimeo").val(time);
+                        $(".modal-footer").html('<div class="buttonGroup"><button class="btn btn-primary" aria-hidden="true" data-dismiss="modal">确定</button><button class="btn btn-default" aria-hidden="true" data-dismiss="modal">取消</button></div>');
+
+                        //调用日历插件
+                        $(".input-group input[name=start],.input-group input[name=end]").datepicker({
+                            minViewMode: 1,
+                            maxViewMode: 2,
+                            minView: "month",
+                            language: "zh-CN",
+                            autoclose: true,
+                            format: "yyyy-mm",
+                            startView: 2
+                        });
+                        //规则设置
+                        $(".buttonGroup button:contains('确定')").off("click").on("click", function () {
+                            var monthText = $(".monthText").val();
+                            var starttimeo = $(".starttimeo").val() + '-01';
+                            var reg = /^[1-9]\d*$/;
+                            if (monthText == "" || starttimeo == "-1") {
+                                $(".mask").fadeIn(100);
+                                $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                $(".mask .modal-body").html("请将内容输入完整");
+                                $(".mask .closeBtn").off("click").on("click", function () {
+                                    $(".mask").fadeOut();
+                                })
+                            } else if (reg.test(monthText) == false) {
+                                $(".mask").fadeIn(100);
+                                $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                $(".mask .modal-body").html("重新进行排名的时段只能输入正整数");
+                                $(".mask .closeBtn").off("click").on("click", function () {
+                                    $(".mask").fadeOut();
+                                })
+                            } else {
+                                $.ajax({
+                                    type: "post",
+                                    url: path + "/pc/ScorePartyMemberPc/updateSubsectionSetting.action",
+                                    dataType: "json",
+                                    data: {
+                                        "mouth": monthText,
+                                        "time": starttimeo
+                                    },
+                                    jsonp: "callback",
+                                    jsonpCallback: "message",
+                                    success: function (settingData) {
+                                        if (settingData.success == true) {
+                                            integralSetting();
+                                            $(".errorAlert").fadeIn();
+                                            $(".errorAlert .modal-body").html("规则设置成功。");
+                                            $(".errorAlert .close,.errorAlert .fadeinBtn,.errorAlert .fadeoutBtn").off("click").on("click", function () {
+                                                $(".errorAlert").fadeOut();
+                                            })
+//												$(".errorAlert .modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                        } else {
+                                            $(".errorAlert").fadeIn();
+                                            $(".errorAlert .modal-body").html(settingData.message);
+                                            $(".errorAlert .close,.errorAlert .fadeinBtn,.errorAlert .fadeoutBtn").off("click").on("click", function () {
+                                                $(".errorAlert").fadeOut();
+                                            })
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    });
+                    //禁用、启用
+                    $(".integralSettingTable a[id]").off("click").on("click", function () {
+                        var aindex = $(this).parent().parent().index();
+                        var thisState = $(this).attr("id");
+
+                        if ($(this).text() == "禁用") {
+                            $.ajax({
+                                type: "post",
+                                url: path + "/pc/ScorePartyMemberPc/changeIntegralStatistics.action",
+                                dataType: "json",
+                                data: {
+                                    "type": 1,
+                                    "state": thisState
+                                },
+                                success: function (statisticsData) {
+                                    if (statisticsData.success == false) {
+                                        $(".mask").fadeIn();
+                                        $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                        $(".mask .modal-body").html(statisticsData.message);
+                                        $(".mask .closeBtn").off("click").on("click", function () {
+                                            $(".mask").fadeOut();
+                                        })
+                                    } else {
+                                        $(".mask").fadeIn();
+                                        $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                        $(".mask .modal-body").html("规则禁止后，党员或党组织排名将不在按照规则设置进行排名，是否确认禁止？");
+                                        $(".mask .closeBtn").off("click").on("click", function () {
+                                            $(".mask").fadeOut();
+                                            $(".errorAlert").fadeOut();
+                                        })
+                                        $(".mask .fadeinBtn").off("click").on("click", function () {
+                                            integralSetting();
+                                            $(".mask").fadeOut();
+                                            $(".errorAlert").fadeOut();
+                                        })
+
+                                    }
+                                }
+                            });
+                        } else {
+                            $.ajax({
+                                type: "post",
+                                url: path + "/pc/ScorePartyMemberPc/changeIntegralStatistics.action",
+                                dataType: "json",
+                                data: {
+                                    "type": 1,
+                                    "state": thisState
+                                },
+                                success: function (statisticsData) {
+                                    if (statisticsData.success == false) {
+                                        $(".mask").fadeIn();
+                                        $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                        $(".mask .modal-body").html(statisticsData.message);
+                                        $(".mask .closeBtn").off("click").on("click", function () {
+                                            $(".mask").fadeOut();
+                                        })
+                                    } else {
+                                        $(".mask").fadeIn();
+                                        $(".modal-header").html('<button type="button" class="close closeBtn" data-dismiss="modal" aria-hidden="true">&times;</button><h5 class="modal-title" id="myModalLabel">提示</h5>');
+                                        $(".mask .modal-body").html("启用成功");
+                                        $(".mask .closeBtn,.fadeinBtn").off("click").on("click", function () {
+                                            $(".mask").fadeOut();
+                                            $(".errorAlert").fadeOut();
+                                        })
+                                        integralSetting();
+                                        $(".errorAlert").fadeOut();
+                                    }
+                                }
+                            });
+
+                        }
+
+                    });
+                }
+            });
+        };
+        //隐藏弹窗
+        $(".fadeinBtn,.fadeoutBtn,.mask .closeBtn").on("click", function () {
+            $(".mask").fadeOut(100);
+        })
+
+
+    }
+
+</script>
+</html>

@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>天合互联党建</title>
+    <link rel="stylesheet" type="text/css" href="../css/demo.css">
+    <link rel="stylesheet" type="text/css" href="../css/apply.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+    <link rel="stylesheet" type="text/css" href="../css/zTreeStyle.css">
+</head>
+<body>
+<header>
+    <div class="apply">申请入党</div>
+</header>
+<div class="body">
+    <div class="info">基本信息（请填写真实信息）</div>
+    <input type="hidden" value="" id="birth_province">
+    <input type="hidden" value="" id="birth_city">
+    <input type="hidden" value="" id="birth_area">
+    <input type="hidden" value="" id="jG_province">
+    <input type="hidden" value="" id="jG_city">
+    <input type="hidden" value="" id="jG_area">
+    <ul>
+        <li class="li1"><span class="sp1">*</span><span class="sp2">姓名</span>
+            <input type="text" id="name"/>
+        </li>
+        <li class="li2"><span class="sp1">*</span><span class="sp2">出生日期</span>
+            <input type="text" id="date" name='' class=""/>
+        </li>
+        <li class="li3"><span class="sp1">*</span><span class="sp2">籍贯</span>
+            <span class="span  pca" id="jiGuan">
+						<span>
+							<select id="jiGuan_province" name="s_province">
+								<option value="">省份</option>
+							</select>
+			    		</span>
+						<span>
+							<select id="jiGuan_city" name="s_city">
+								<option value="">地级市</option>
+							</select>
+						</span>
+						<span>
+							<select id="jiGuan_county" name="s_county">
+								<option value="">区</option>   
+							</select>
+						</span>
+					</span>
+        </li>
+        <li class="li8">
+            <span class="sp1">*</span>
+            <span class="sp2">性别</span>
+            <span class="choose">
+						<label class="radio">男<input type="radio" name="radio" value="0" checked><i></i></label>
+						<label class="radio">女<input type="radio" value="1" name="radio"><i></i></label>
+					</span>
+        </li>
+
+        <li class="li4"><span class="sp1">*</span><span class="sp2">民族</span>
+            <select id="nation">
+                <option>请选择民族</option>
+            </select>
+        </li>
+        <li class="li5"><span class="sp1">*</span><span class="sp2">出生地</span>
+            <span class="span pca" id="birthJ">
+						<span>
+							<select id="birthLocal_province" name="s_province">
+								<option value="">省份</option>
+							</select>
+			    		</span>
+						<span>
+							<select id="birthLocal_city" name="s_city">
+								<option value="">地级市</option>
+							</select>
+						</span>
+						<span>
+							<select id="birthLocal_county" name="s_county">
+								<option value="">区</option>   
+							</select>
+						</span>
+					</span>
+        </li>
+        <li class="li1"><span class="sp1">*</span><span class="sp2">学历</span>
+            <select id="university">
+                <option value="请选择学历">请选择学历</option>
+            </select>
+        </li>
+        <li class="li5 newL"><span class="sp1">*</span><span class="sp2">职务</span>
+            <input type="text" value="" id="task">
+        </li>
+        <li class="li6">
+					<span id="span">
+						<span class="sp1">*</span>
+						<span class="sp2">家庭住址</span>
+					</span>
+            <textarea cols="30" id="address" rows="5" placeholder="请输入详细地址，具体到门牌号"></textarea>
+        </li>
+        <li class="li7"><span class="sp1">*</span><span class="sp2">身份证号码</span>
+            <input type="text" id="userId"/>
+        </li>
+        <li class="li5"><span class="sp1">*</span><span class="sp2">职称</span>
+            <input type="text" id="zC"/>
+        </li>
+    </ul>
+</div>
+<div class="body1">
+    <div class="info">提交申请的党支部</div>
+    <li class="li7 bran" style="margin-top: 24px;"><span class="sp1">*</span><span class="sp2">党支部名称</span>
+        <input type="hidden" id="branchId" value="">
+        <input type="text" id="branch" readonly="readonly"/>
+        <div id="menuContent" class="menuContent" style="display:none;">
+            <ul id="treeDemo" class="ztree" style="margin-top:0; width:206px;"></ul>
+        </div>
+    </li>
+    <button type="button" id="submit">提交</button>
+</div>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+</body>
+<script src="../assets/js/jquery.js"></script>
+<script src="../js/laydate.js"></script>
+<script src="../js/layer.js"></script>
+<script src="../js/jquery.ztree.core.min.js"></script>
+<script>
+    $(function () {
+        var path = "";
+        var iframe = document.getElementById("common");
+        ///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+        iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+        if (iframe.attachEvent) {//判断iframe是否加载完成
+            iframe.attachEvent("onload", function () {
+                getCommon();
+            });
+        } else {
+            iframe.onload = function () {
+                getCommon();
+            };
+        }
+
+        //获取公共参数  一般为存储在session里面的数据
+        function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+            var frames = window.frames["common"];
+            path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+            var _qiniuImageHost = frames._qiniuImageHost;//七牛云公共地址头
+//            alert(_ctxPath+_qiniuImageHost);
+            var nationN = "请选择民族";
+            var universityN = "请选择学历";
+            var user_ID = "";
+            var gender = 0;
+            var selectP_Jg = "省份";
+            var selectC_Jg = "地级市";
+            var selectA_Jg = "区";
+            var selectP_birth = "省份";
+            var selectC_birth = "地级市";
+            var selectA_birth = "区";
+            $(".choose").find("label").on("tap", function () {
+                gender = $(this).find("input").val();
+                console.log(gender);
+            });
+            $("#branch").click(function () {
+                showMenu();
+            });
+            var setting = {
+                view: {
+                    dblClickExpand: false
+                },
+                data: {
+                    simpleData: {
+                        enable: true,
+                        idKey: "_id",
+                        pIdKey: "parentId"
+                    },
+                    key: {
+                        name: "name"
+                    }
+                },
+                callback: {
+                    beforeClick: beforeClick,
+                    onClick: onClick
+                }
+            };
+            $.ajax({
+                type: "POST",
+                url: "/dangjian" + "/bumen/queryBumenAlls.action",
+                data: {},
+                dataType: "json",
+                success: function (data) {
+                    if (data) {
+                        zNodes = data;
+                        var zTree = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                        var node = zTree.getNodeByParam("_id", 0);
+                        //alert(JSON.stringify(node));
+                        zTree.selectNode(node);
+                        zTree.expandNode(node, true, false, false);
+                    }
+                }
+            });
+            var zNodes = [];
+
+            function beforeClick(treeId, treeNode) {
+                var check = (treeNode && !treeNode.isParent);
+                if (!check) {
+                    parent.layer.alert('请选择党支部！');
+                }
+                return check;
+            }
+
+            function onClick(e, treeId, treeNode) {
+                var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+                    nodes = zTree.getSelectedNodes(),
+                    v = "";
+                nodes.sort(function compare(a, b) {
+                    return a.id - b.id;
+                });
+                for (var i = 0, l = nodes.length; i < l; i++) {
+                    v += nodes[i].name + ",";
+                }
+                if (v.length > 0) v = v.substring(0, v.length - 1);
+                var cityObj = $("#branch");
+                cityObj.attr("value", v);
+                $("#branchId").val(treeNode._id);
+            }
+
+            function showMenu() {
+                var cityObj = $("#branch");
+                var cityOffset = $("#branch").offset();
+                $("#menuContent").slideDown("fast");
+
+                $("body").bind("mousedown", onBodyDown);
+            }
+
+            function hideMenu() {
+                $("#menuContent").fadeOut("fast");
+                $("body").unbind("mousedown", onBodyDown);
+            }
+
+            function onBodyDown(event) {
+                if (!(event.target.id == "menuBtn" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length > 0)) {
+                    hideMenu();
+                }
+            }
+
+
+            //籍贯
+            var se = $("#jiGuan select");
+            $.ajax({
+                type: "POST",
+                url: path + "/division/queryProvince.action",
+                data: {},
+                dataType: "json",
+                success: function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        var pro = "<option data-id=" + data[i]._id + " value=" + data[i].name + ">" + data[i].name + "</option>";
+                        $("#jiGuan_province").append(pro);
+                    }
+                    for (var j = 0; j < se.length; j++) {
+                        (function (k) {
+                            $(se[k]).on("change", function () {
+                                if (k == 0) {
+                                    if ($(se[k]).val() != selectP_Jg) {
+                                        var selectPro_id = $(se[k]).find("option:selected").attr("data-id");
+                                        $("#jG_province").val(selectPro_id);
+                                        $("#jiGuan_city").empty();
+                                        $("#jiGuan_city").append("<option value='地级市'>地级市</option>");
+                                        $("#jiGuan_county").empty();
+                                        $("#jiGuan_county").append("<option value='区'>区</option>");
+                                        selectP_Jg = $(se[k]).val();
+//                                        console.log(selectP_Jg);
+                                        $.ajax({
+                                            type: "POST",
+                                            url: path + "/division/queryCity.action",
+                                            data: {provinceId: selectPro_id},
+                                            dataType: "json",
+                                            success: function (data) {
+                                                for (var m = 0; m < data.length; m++) {
+                                                    var city = "<option data-id=" + data[m]._id + " value=" + data[m].name + ">" + data[m].name + "</option>";
+                                                    $("#jiGuan_city").append(city);
+                                                }
+                                            }
+                                        });
+                                    }
+                                } else if (k == 1) {
+                                    if ($(se[k]).val() != selectC_Jg) {
+                                        var selectCity_id = $(se[k]).find("option:selected").attr("data-id");
+                                        $("#jG_city").val(selectCity_id);
+                                        $("#jiGuan_county").empty();
+                                        $("#jiGuan_county").append("<option value='区'>区</option>");
+                                        selectC_Jg = $(se[k]).val();
+//                                        console.log(selectC_Jg);
+                                        $.ajax({
+                                            type: "POST",
+                                            url: path + "/division/queryDistrict.action",
+                                            data: {cityId: selectCity_id},
+                                            dataType: "json",
+                                            success: function (data) {
+                                                for (var y = 0; y < data.length; y++) {
+                                                    var area = "<option data-id=" + data[y]._id + " value=" + data[y].name + ">" + data[y].name + "</option>";
+                                                    $("#jiGuan_county").append(area);
+                                                }
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    if ($(se[k]).val() != selectA_Jg) {
+                                        var selectArea_id = $(se[k]).find("option:selected").attr("data-id");
+                                        selectA_Jg = $(se[k]).val();
+                                        $("#jG_area").val(selectArea_id);
+//                                        console.log(selectA_Jg);
+                                    }
+                                }
+
+                            })
+                        })(j)
+
+                    }
+                }
+
+            });
+            //出生地
+            var bir = $("#birthJ select");
+            $.ajax({
+                type: "POST",
+                url: path + "/division/queryProvince.action",
+                data: {},
+                dataType: "json",
+                success: function (data) {
+                    for (var b = 0; b < data.length; b++) {
+                        var pro = "<option data-id=" + data[b]._id + " value=" + data[b].name + ">" + data[b].name + "</option>";
+                        $("#birthLocal_province").append(pro);
+                    }
+                    for (var n = 0; n < bir.length; n++) {
+                        (function (k) {
+                            $(bir[k]).on("change", function () {
+                                if (k == 0) {
+                                    if ($(bir[k]).val() != selectP_birth) {
+                                        var selectPro_id = $(bir[k]).find("option:selected").attr("data-id");
+                                        $("#birth_province").val(selectPro_id);
+                                        $("#birthLocal_city").empty();
+                                        $("#birthLocal_city").append("<option value='地级市'>地级市</option>");
+                                        $("#birthLocal_county").empty();
+                                        $("#birthLocal_county").append("<option value='区'>区</option>");
+                                        selectP_birth = $(bir[k]).val();
+//                                        console.log(selectP_birth);
+                                        $.ajax({
+                                            type: "POST",
+                                            url: path + "/division/queryCity.action",
+                                            data: {provinceId: selectPro_id},
+                                            dataType: "json",
+                                            success: function (data) {
+                                                for (var f = 0; f < data.length; f++) {
+                                                    var city = "<option data-id=" + data[f]._id + " value=" + data[f].name + ">" + data[f].name + "</option>";
+                                                    $("#birthLocal_city").append(city);
+                                                }
+                                            }
+                                        });
+                                    }
+                                } else if (k == 1) {
+                                    if ($(bir[k]).val() != selectC_birth) {
+                                        var selectCity_id = $(bir[k]).find("option:selected").attr("data-id");
+                                        $("#birth_city").val(selectCity_id);
+                                        $("#birthLocal_county").empty();
+                                        $("#birthLocal_county").append("<option value='区'>区</option>");
+                                        selectC_birth = $(bir[k]).val();
+//                                        console.log(selectC_birth);
+                                        $.ajax({
+                                            type: "POST",
+                                            url: path + "/division/queryDistrict.action",
+                                            data: {cityId: selectCity_id},
+                                            dataType: "json",
+                                            success: function (data) {
+                                                for (var c = 0; c < data.length; c++) {
+                                                    var area = "<option data-id=" + data[c]._id + " value=" + data[c].name + ">" + data[c].name + "</option>";
+                                                    $("#birthLocal_county").append(area);
+                                                }
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    if ($(bir[k]).val() != selectA_birth) {
+                                        var selectArea_id = $(bir[k]).find("option:selected").attr("data-id");
+                                        selectA_birth = $(bir[k]).val();
+                                        $("#birth_area").val(selectArea_id);
+//                                        console.log(selectA_birth);
+                                    }
+                                }
+
+                            })
+                        })(n)
+
+                    }
+                }
+            });
+
+
+            var university = [{
+                value: "博士研究生",
+                text: '博士研究生'
+            }, {
+                value: "硕士研究生",
+                text: '硕士研究生'
+            }, {
+                value: "硕士生班",
+                text: '硕士生班'
+            }, {
+                value: "中央党校研究生",
+                text: '中央党校研究生'
+            }, {
+                value: "省（区、市）委党校研究生",
+                text: '省（区、市）委党校研究生'
+            }, {
+                value: "大学",
+                text: '大学'
+            }, {
+                value: "大专",
+                text: '大专'
+            }, {
+                value: "大学普通班",
+                text: '大学普通班'
+            }, {
+                value: "第二学士学位班",
+                text: '第二学士学位班'
+            }, {
+                value: "中央党校大学",
+                text: '中央党校大学'
+            }, {
+                value: "省（区、市）委党校大学",
+                text: '省（区、市）委党校大学'
+            }, {
+                value: "中央党校大专",
+                text: '中央党校大专'
+            }, {
+                value: "省（区、市）委党校大专",
+                text: '省（区、市）委党校大专'
+            }, {
+                value: "中等专科",
+                text: '中等专科'
+            }, {
+                value: "职业高中",
+                text: '职业高中'
+            }, {
+                value: "技工学校",
+                text: '技工学校'
+            }, {
+                value: "普通高中",
+                text: '普通高中'
+            }, {
+                value: "初中",
+                text: '初中'
+            }, {
+                value: "小学",
+                text: '小学'
+            }, {
+                value: "其他",
+                text: '其他'
+            }];
+
+            var nation = [{
+                value: "汉族",
+                text: '汉族'
+            }, {
+                value: "蒙古族",
+                text: '蒙古族'
+            }, {
+                value: "回族",
+                text: '回族'
+            }, {
+                value: "藏族",
+                text: '藏族'
+            }, {
+                value: "维吾尔族",
+                text: '维吾尔族'
+            }, {
+                value: "苗族",
+                text: '苗族'
+            }, {
+                value: "彝族",
+                text: '彝族'
+            }, {
+                value: "壮族",
+                text: '壮族'
+            }, {
+                value: "布依族",
+                text: '布依族'
+            }, {
+                value: "朝鲜族",
+                text: '朝鲜族'
+            }, {
+                value: "满族",
+                text: '满族'
+            }, {
+                value: "侗族",
+                text: '侗族'
+            }, {
+                value: "瑶族",
+                text: '瑶族'
+            }, {
+                value: "白族",
+                text: '白族'
+            }, {
+                value: "土家族",
+                text: '土家族'
+            }, {
+                value: "哈尼族",
+                text: '哈尼族'
+            }, {
+                value: "哈萨克族",
+                text: '哈萨克族'
+            }, {
+                value: "傣族",
+                text: '傣族'
+            }, {
+                value: "黎族",
+                text: '黎族'
+            }, {
+                value: "傈僳族",
+                text: '傈僳族'
+            }, {
+                value: "佤族",
+                text: '佤族'
+            }, {
+                value: "畲族",
+                text: '畲族'
+            }, {
+                value: "高山族",
+                text: '高山族'
+            }, {
+                value: "拉祜族",
+                text: '拉祜族'
+            }, {
+                value: "水族",
+                text: '水族'
+            }, {
+                value: "东乡族",
+                text: '东乡族'
+            }, {
+                value: "纳西族",
+                text: '纳西族'
+            }, {
+                value: "景颇族",
+                text: '景颇族'
+            }, {
+                value: "柯尔克孜族",
+                text: '柯尔克孜族'
+            }, {
+                value: "土族",
+                text: '土族'
+            }, {
+                value: "达斡尔族",
+                text: '达斡尔族'
+            }, {
+                value: "仫佬族",
+                text: '仫佬族'
+            }, {
+                value: "羌族",
+                text: '羌族'
+            }, {
+                value: "布朗族",
+                text: '布朗族'
+            }, {
+                value: "撒拉族",
+                text: '撒拉族'
+            }, {
+                value: "毛南族",
+                text: '毛南族'
+            }, {
+                value: "仡佬族",
+                text: '仡佬族'
+            }, {
+                value: "锡伯族",
+                text: '锡伯族'
+            }, {
+                value: "阿昌族",
+                text: '阿昌族'
+            }, {
+                value: "普米族",
+                text: '普米族'
+            }, {
+                value: "塔吉克族",
+                text: '塔吉克族'
+            }, {
+                value: "怒族",
+                text: '怒族'
+            }, {
+                value: "乌孜别克族",
+                text: '乌孜别克族'
+            }, {
+                value: "俄罗斯族",
+                text: '俄罗斯族'
+            }, {
+                value: "鄂温克族",
+                text: '鄂温克族'
+            }, {
+                value: "德昂族",
+                text: '德昂族'
+            }, {
+                value: "保安族",
+                text: '保安族'
+            }, {
+                value: "裕固族",
+                text: '裕固族'
+            }, {
+                value: "京族",
+                text: '京族'
+            }, {
+                value: "塔塔尔族",
+                text: '塔塔尔族'
+            }, {
+                value: "独龙族",
+                text: '独龙族'
+            }, {
+                value: "鄂伦春族",
+                text: '鄂伦春族'
+            }, {
+                value: "赫哲族",
+                text: '赫哲族'
+            }, {
+                value: "门巴族",
+                text: '门巴族'
+            }, {
+                value: "珞巴族",
+                text: '珞巴族'
+            }, {
+                value: "基诺族",
+                text: '基诺族'
+            }, {
+                value: "其他族",
+                text: '其他族'
+            }, {
+                value: "外国血统",
+                text: '外国血统'
+            }, {
+                value: "外国民族",
+                text: '外国民族'
+            }];
+
+            for (var p = 0; p < university.length; p++) {
+                var op = '<option  value=' + university[p].text + '>' + university[p].text + '</option>';
+                $('#university').append(op);
+                $('#university').change(function () {
+                    universityN = $(this).find('option:selected').text();
+                })
+            }
+
+            for (var pN = 0; pN < nation.length; pN++) {
+                var opN = '<option  value=' + nation[pN].text + '>' + nation[pN].text + '</option>';
+                $('#nation').append(opN);
+                $('#nation').change(function () {
+                    nationN = $(this).find('option:selected').text();
+                })
+            }
+            for (var pTask = 0; pTask < task.length; pTask++) {
+                var opTask = '<option  value=' + task[pTask].text + '>' + task[pTask].text + '</option>';
+                $('#task').append(opTask);
+                $('#task').change(function () {
+                    taskN = $(this).find('option:selected').text();
+                })
+            }
+
+            //时间插件方法
+            var startDate = laydate.render({
+                elem: "#date"
+                //type:"datetime",
+            });
+            // 获取用户信息
+            $.ajax({
+                type: "POST",
+                url: path + "/user/mine.action",
+                data: {},
+                dataType: "json",
+                success: function (data) {
+                    $("#name").val(data.name);
+                    $("#date").val(data.birthday);
+                    $("#jiGuan_province").val(data.homeplace.dProvince);
+                    selectP_Jg=data.homeplace.dProvince;
+                    $("#jiGuan_city").append("<option value="+data.homeplace.dCity+">"+data.homeplace.dCity+"</option>");
+                    $("#jiGuan_city").val(data.homeplace.dCity);
+                    selectC_Jg=data.homeplace.dCity;
+                    $("#jiGuan_county").append("<option value="+data.homeplace.dDistrict+">"+data.homeplace.dDistrict+"</option>");
+                    $("#jiGuan_county").val(data.homeplace.dDistrict);
+                    selectA_Jg=data.homeplace.dDistrict;
+                    if (typeof(data.volk) != "undefined"&&$.trim(data.volk)!="") { 
+	                    $("#nation").val(data.volk);
+                    }
+                    nationN=data.volk;
+                    $("#birthLocal_province").val(data.nativePlace.dProvince);
+                    selectP_birth=data.nativePlace.dProvince;
+                    $("#birthLocal_city").append("<option value="+data.nativePlace.dCity+">"+data.nativePlace.dCity+"</option>");
+                    $("#birthLocal_city").val(data.nativePlace.dCity);
+                    selectC_birth=data.nativePlace.dCity;
+                    $("#birthLocal_county").append("<option value="+data.nativePlace.dDistrict+">"+data.nativePlace.dDistrict+"</option>");
+                    $("#birthLocal_county").val(data.nativePlace.dDistrict);
+                    selectA_birth=data.nativePlace.dDistrict;
+                    if (typeof(data.education) != "undefined"&&$.trim(data.education)!="") { 
+	                    $("#university").val(data.education);
+                    }
+                    universityN=data.education;
+                    $("#task").val(data.perAdminInformation.dutiesName);
+                    $("#address").val(data.address);
+                    $("#userId").val(data.userID);
+                    $("#zC").val(data.perAdminInformation.positionTitle);
+                    $("#branchId").val(data.bumenId);//绑定用户部门id
+                    $("#branch").val(data.bumenName);
+                    if(data.gender==0){
+                        $($(".choose").find("label").get(0)).find("input").attr("checked","true");
+                    }else{
+                        $($(".choose").find("label").get(1)).find("input").attr("checked","true");
+                    }
+                    $(".choose").find("label").find("input").attr("disabled","true");
+
+                    if($("#name").val()!=""){
+                        $("#name").attr("readonly","readonly");
+                        $("#name").attr("disabled","true");
+                    }
+                    if($("#date").val()!=""){
+                        $("#date").attr("readonly","readonly");
+                        $("#date").attr("disabled","true");
+                    }
+                    if($("#jiGuan_province").val()!=""){
+                        $("#jiGuan_province").attr("disabled","true");
+                    }
+                    if($("#jiGuan_city").val()!=""){
+                        $("#jiGuan_city").attr("disabled","true");
+                    }
+                    if($("#jiGuan_county").val()!=""){
+                        $("#jiGuan_county").attr("disabled","true");
+                    }
+                    if($("#birthLocal_province").val()!=""){
+                        $("#birthLocal_province").attr("disabled","true");
+                    }
+                    if($("#birthLocal_city").val()!=""){
+                        $("#birthLocal_city").attr("disabled","true");
+                    }
+                    if($("#birthLocal_county").val()!=""){
+                        $("#birthLocal_county").attr("disabled","true");
+                    }
+                    if($("#nation").val()!=""&&$.trim($("#nation").val())!="请选择民族"){
+                        $("#nation").attr("disabled","true");
+                    }
+                    if($("#university").val()!=""&&$.trim($("#university").val())!="请选择学历"){
+                        //alert($.trim($("#university").val()));
+                        $("#university").attr("disabled","true");
+                    }
+                    if($("#task").val()!=""){
+                        $("#task").attr("readonly","readonly");
+                        $("#task").attr("disabled","true");
+                    }
+                    if($("#address").val()!=""){
+                        $("#address").attr("readonly","readonly");
+                        $("#address").attr("disabled","true");
+                    }
+                    if($("#userId").val()!=""){
+                        $("#userId").attr("readonly","readonly");
+                        $("#userId").attr("disabled","true");
+                    }
+                    if($("#zC").val()!=""){
+                        $("#zC").attr("readonly","readonly");
+                        $("#zC").attr("disabled","true");
+                    }
+                    if($("#branch").val()!=""){
+                        $("#branch").attr("disabled","true");
+                    }
+
+                }
+
+            });
+            $("#submit").click(function () {
+                if ($("#name").val().trim() == "") {
+                    parent.layer.alert('请填写姓名！');
+                    return;
+                }
+                if ($("#date").val().trim() == "") {
+                    parent.layer.alert('请选择出生日期！');
+                    return;
+                }
+                if (selectP_Jg == "省份") {
+                    parent.layer.alert('请选择籍贯省份！');
+                    return;
+                }
+                if (selectC_Jg == "地级市") {
+                    parent.layer.alert('请选择籍贯的市！');
+                    return;
+                }
+                if (selectA_Jg == "区") {
+                    parent.layer.alert('请选择籍贯的区！');
+                    return;
+                }
+                if (nationN == "请选择民族") {
+                    parent.layer.alert('请选择民族！');
+                    return;
+                }
+                if (selectP_birth == "省份") {
+                    parent.layer.alert('请选择出生地省份！');
+                    return;
+                }
+                if (selectC_birth == "地级市") {
+                    parent.layer.alert('请选择出生地的市！');
+                    return;
+                }
+                if (selectA_birth == "区") {
+                    parent.layer.alert('请选择出生地的区！');
+                    return;
+                }
+                if (universityN == "请选择学历") {
+                    parent.layer.alert('请选择学历！');
+                    return;
+                }
+
+                if ($("#task").val().trim() == "") {
+                    parent.layer.alert('请选择职务！');
+                    return;
+                }
+                if ($("#address").val().trim() == "") {
+                    parent.layer.alert('请填写家庭住址！');
+                    return;
+                }
+                if ($("#userId").val().trim() == "") {
+                    parent.layer.alert('请填写身份证号！');
+                    return;
+                }
+                if (!isCardNo($("#userId").val().trim())) {
+                    parent.layer.alert('请填写正确的身份证号！');
+                    return;
+                }
+                if ($("#zC").val().trim() == "") {
+                    parent.layer.alert('请填写职称！');
+                    return;
+                }
+                if ($("#branch").val() == "") {
+                    parent.layer.alert('请选择党支部名称！');
+                    return;
+                }
+                parent.layer.confirm('请进行信息核对，提交后将不能进行修改', {icon: 3, title: '提示'}, function (index) {
+                    //do something
+                    $.ajax({
+                        type: "POST",
+                        url: path + "/user/mine.action",
+                        data: {},
+                        dataType: "json",
+                        success: function (data) {
+                            user_ID = data._id;
+                            $.ajax({
+                                type: "POST",
+                                url: path + "/recruit/upRecru.action",
+                                data: {
+                                    _id: user_ID,
+                                    name: $("#name").val().trim(),
+                                    gender: gender,
+                                    volk: nationN,
+                                    userID: $("#userId").val(),
+                                    birthday: $("#date").val(),
+                                    education: universityN,
+                                    "perAdminInformation.dutiesName": $("#task").val(),
+                                    "perAdminInformation.positionTitle": $("#zC").val(),
+                                    address: $("#address").val(),
+                                    bumenId: $("#branchId").val(),
+                                    bumenName: $("#branch").val(),
+                                    "nativePlace.dProvinceId": $("#birth_province").val(),
+                                    "nativePlace.dProvince": selectP_birth,
+                                    "nativePlace.dCityId": $("#birth_city").val(),
+                                    "nativePlace.dCity": selectC_birth,
+                                    "nativePlace.dDistrictId": $("#birth_area").val(),
+                                    "nativePlace.dDistrict": selectA_birth,
+                                    "homeplace.dProvinceId": $("#jG_province").val(),
+                                    "homeplace.dProvince": selectP_Jg,
+                                    "homeplace.dCityId": $("#jG_city").val(),
+                                    "homeplace.dCity": selectC_Jg,
+                                    "homeplace.dDistrictId": $("#jG_area").val(),
+                                    "homeplace.dDistrict": selectA_Jg
+                                },
+                                dataType: "json",
+                                success: function (data) {
+
+                                    if (data.success == true) {
+                                        parent.layer.alert('您已提交入党申请。请尽快将入党申请书提交至申请党支部。<br>您信息已经更新，请到我的入党历程查看！');
+                                            parent.location.reload();
+                                            window.location.href =path + "/modulepc/partyDeveloping/applyJoinParty.html?recId="+data.data._id;
+                                    }else{
+                                    	parent.layer.alert(data.message);
+                                        parent.layer.close(index);
+                                    }
+
+                                }
+                            })
+                        }
+                    });
+                    layer.close(index);
+
+                })
+            });
+
+            // 验证身份证
+            function isCardNo(card) {
+                var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+                return reg.test(card);
+            }
+        }
+    });
+
+
+</script>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet"  href="../css/developingObj.css">
+</head>
+<body>
+<div class="developObj">
+    <div class="developObjInner">
+        <div class="innerTop">
+            <span class="dev">发展过程:</span><span class="applyer">预备党员</span>
+        </div>
+
+        <div  class="developTime">
+            <div class="scroll-content" style="max-height: 300px;">
+                <div class="itemdiv dialogdiv">
+                    <div class="user">
+                        <img alt="Alexa's Avatar" src="../img/success.png">
+                    </div>
+                    <div class="leftW1">
+                        入党申请人
+                    </div>
+                    <div class="body">
+                        <div class="rightB">
+                            <div>
+                                <div class="applyDate">申请日期:</div><div>2017-01-12</div>
+                            </div>
+                            <div>
+                                <div class="submitSource">提交材料:</div>
+                                <div class="innerInfo">
+                                    <div><img src="../img/upScuss.png"><span>基本信息</span></div>
+                                    <div><img src="../img/upScuss.png"><span class="joinPartySHU">入党申请书</span><span>2017-11-12</span><span>已提交</span></div>
+                                    <div><img src="../img/upDbeat.png"><span>个人简历</span></div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="itemdiv dialogdiv">
+                    <div class="user">
+                        <img alt="Alexa's Avatar" src="../img/green.png">
+                    </div>
+                    <div class="leftW1">
+                        积极分子
+                    </div>
+                    <div class="body">
+                        <div class="rightB">
+                            <div>
+                                <div class="applyDate">列为积极分子日期:</div><div>2017-01-12</div>
+                            </div>
+                            <div>
+                                <div>培养联系人:</div><div>张三 李四</div>
+                            </div>
+                            <div>
+                                <div class="submitSource lianxiP">培养联系人:</div>
+                                <div class="innerInfo">
+                                    <div><img src="../img/upScuss.png"><span class="thoughtH">提交思想汇报</span><span>请每三个月提交一篇思想汇报</span></div>
+                                    <div><img src="../img/upScuss.png"><span class="joinPartySHU">党课培训记录</span></div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="itemdiv dialogdiv">
+                    <div class="user">
+                        <img alt="Alexa's Avatar" src="../img/smallRed.png">
+                    </div>
+                    <div class="leftW1 redW">
+                        发展对象
+                    </div>
+                    <div class="body">
+                        <div class="rightB">
+                            <div>
+                                <div class="applyDate">列为发展对象日期:</div><div>2017-01-12</div>
+                            </div>
+                            <div>
+                                <div>入党介绍人:</div><div>张三 李四</div>
+                            </div>
+                            <div>
+                                <div class="submitSource sour">提交资料:</div>
+                                <div class="innerInfo">
+                                    <div><img src="../img/upScuss.png"><span class="thoughtH">提交思想汇报</span><span>请每三个月提交一篇思想汇报</span></div>
+                                    <div><img src="../img/upDbeat.png"><span class="joinPartySHU">党课培训记录</span></div>
+                                    <div><img src="../img/upDbeat.png"><span>入党志愿书</span></div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="itemdiv dialogdiv">
+                    <div class="user">
+                        <img alt="Alexa's Avatar" src="../img/smallRed.png">
+                    </div>
+                    <div class="leftW1 redW">
+                        预备党员
+                    </div>
+                    <div class="body">
+                        <div class="rightB">
+                            <div>
+                                <div class="applyDate">成为预备党员日期:</div><div>2017-01-12</div>
+                            </div>
+                            <div>
+                                <div class="submitSource ">提交资料:</div>
+                                <div class="innerInfo">
+                                    <div><img src="../img/upScuss.png"><span class="thoughtH">提交思想汇报</span></div>
+                                    <div><img src="../img/upDbeat.png"><span>转正申请书</span></div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="itemdiv dialogdiv">
+                    <div class="user">
+                        <img alt="John's Avatar" src="../img/gray.png">
+                    </div>
+                    <div class="activeFz">
+                        正式党员
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

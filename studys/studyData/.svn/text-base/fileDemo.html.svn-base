@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>上传demo</title>
+		<link rel="stylesheet" type="text/css" href="../../resources/plugins/toastr/toastr.css"/>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			.fileinput-button {
+	            position: relative;
+	            display: inline-block;
+	            overflow: hidden;
+	            color: #fff;
+	            background-color: deepskyblue;
+	            border-radius: 5px;
+	            padding: 8px 15px;
+	        }
+	        .fileinput-button input{
+	            position: absolute;
+	            left: 0px;
+	            top: 0px;
+	            height: 100%;
+	            opacity: 0;
+	            -ms-filter: 'alpha(opacity=0)';
+	        }
+	        .progress{
+	        	width: 200px;
+	        	height: 25px;
+	        	border: 1px solid #ccc;
+	        	border-radius: 4px;
+	        }
+	        .progressSon{
+	        	height: 23px;
+	        	width: 0%;
+	        	color: #fff;
+	        	font-size: 14px;
+	        	line-height: 25px;
+	        	text-align: center;
+	        	background-color: limegreen;
+	        }
+		</style>
+	</head>
+	<body style="padding: 20px;">
+		<span class="fileinput-button">
+			<span>上传</span>
+			<input type="file" name="myfile" id="myfile" value="选择上传文件" onchange="fileChange(this,'image',true)" />
+		</span>
+		<div class="progress">
+			<div class="progressSon">50%</div>
+		</div>
+		<div class="fileUtil">
+			<p><span>文件大小：</span><span class="filesize">0KB</span></p>
+			<p><span>文件名字：</span><span class="filename">名字</span></p>
+		</div>
+	</body>
+	<script src="../js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../resources/plugins/toastr/toastr.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../resources/plugins/qiniu.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		function fileChange(_this,ftype,isPrivate){
+			var name = _this.files[0].name;
+			var f = _this.files[0];
+			$(".filesize").text(_this.files[0].size+"KB");
+			$(".filename").text(name);
+//			ftype = ftype.split(",");
+			/* 校验文件格式
+			 * pdf   文档
+			 * audio 音频
+			 * video 视频
+			 * image 图片*/
+			if (_this.files[0].type.indexOf(ftype) == -1) {
+				alert("文件格式不符合要求！");
+			} else{
+				$.post('http://localhost:8080/dangjian/back/super/file/upToken.do', {
+				isPrivate : isPrivate,
+				fileName : name
+			}, function(data) {
+				var observable = qiniu.upload(f, data.key, data.token);
+					observable.subscribe({
+						complete : function(res) {
+							var d = [];
+							if (data.url)
+								d.push(data.key + '~' + data.url);
+							else
+								d.push(data.key);
+							d = {
+								data : d,
+								success : true
+							};
+							console.log("文件id："+res.key);
+							toastr.success("上传成功！");
+						},
+						next : function(res){
+							$(".progressSon").css("width",res.total.percent+"%");
+							$(".progressSon").text(parseInt(res.total.percent)+"%");
+							console.log("文件大小（七牛）："+res.total.size);
+						},
+						error : function(err) {
+							toastr.success("上传失败:" + err.message);
+						}
+					})
+				});
+			}
+		}
+	</script>
+</html>

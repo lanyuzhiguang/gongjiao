@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/preparePartySp.css">
+    <link rel="stylesheet" href="../css/poperConfirm.css">
+    <link rel="stylesheet" type="text/css" href="../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+    <style>
+        /*已成功*/
+    .suss {
+        color: #2198f2 !important;
+    }
+
+    /*正在审核的*/
+    .sH {
+        color: #e1080c;
+    }
+
+    .hid {
+        display: none !important;
+    }
+
+    .hidden {
+        display: none;
+    }
+    /*已成功*/
+    .suss{
+        color: #2198f2!important;
+    }
+    /*正在审核的*/
+    .sH{
+        color: #e1080c;
+    }
+    /*成功后面的红线*/
+    .redLine.itemdiv::before {
+        background-color: #e1080c!important;
+        border: 1px solid #e1080c!important;
+    }
+        .sureZys{
+            margin-left: 21px;
+            cursor: pointer!important;
+        }
+        .zs{
+            color:#333333!important;
+            cursor: auto!important;
+        }
+        .list_Left>div,.list_Right>div{
+            display: none;
+        }
+        .people{
+            cursor: auto!important;
+        }
+        .people span{
+            color: #333333!important;
+            cursor: auto!important;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <div>
+        <div class="talkRecord">
+            <span id="back">
+                <img src="../img/back.png"><span class="back">返回</span>
+            </span>
+            <span>发展对象信息</span>
+        </div>
+        <div>
+            <div class="left">
+                <!--<div class="developObj">-->
+                    <!--<span>党委预审</span><span>通过审批</span>-->
+                <!--</div>-->
+                <div style="clear:both;"></div>
+                <div class="developW">当前发展过程</div>
+                <div class="boxWrapper">
+                    <div class="inner">
+                        <div class="hangding itemdiv dialogdiv">
+                            <div class="user  onHanding">
+                                <div><img src="../img/liC.png"></div>
+                            </div>
+                            <div class="body onWord">
+                                <div class="suss">
+                                    入党申请人
+                                </div>
+                                <div class="applyTime" id="shenQT">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="itemdiv dialogdiv">
+                            <div class="user">
+                                <div><img src="../img/liC.png"></div>
+                            </div>
+                            <div class="body">
+                                <div class="suss">
+                                    积极分子
+                                </div>
+                                <div class="applyTime" id="activerT">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="itemdiv dialogdiv">
+                            <div class="user">
+                                <div id="devObj"><img src="../img/handing.png"></div>
+                            </div>
+                            <div class="body">
+                                <div class="sH" id="developObj">发展对象</div>
+                                <div class="applyTime" id="developT">
+
+                                </div>
+                            </div>
+                            <!--<div class="applyTime developObj">-->
+
+                            <!--</div>-->
+                        </div>
+                        <div class="itemdiv dialogdiv">
+                            <div class="user">
+                                <div id="prepare"><img src="../img/noHand.png"></div>
+                            </div>
+                            <div class="body">
+                                <div id="prepareParty">
+                                    预备党员
+                                </div>
+                                <div class="applyTime" id="prepareT">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="itemdiv dialogdiv">
+                            <div class="user">
+                                <div><img src="../img/noHand.png"></div>
+                            </div>
+                            <div class="body">
+                                <div>
+                                    正式党员
+                                </div>
+                                <div class="applyTime" id="formalT">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="clear: both;"></div>
+                <div class="list">
+                    <div class="listLeft">
+                        <div>
+                            <div>姓名:</div>
+                            <div id="name"></div>
+                        </div>
+                        <div>
+                            <div>性别:</div>
+                            <div id="sex"></div>
+                        </div>
+                        <div>
+                            <div>民族:</div>
+                            <div id="nation"></div>
+                        </div>
+                        <div>
+                            <div>身份证号:</div>
+                            <div id="userId"></div>
+                        </div>
+                        <div>
+                            <div>出生日期:</div>
+                            <div id="birthday"></div>
+                        </div>
+                        <div>
+                            <div>学历:</div>
+                            <div id="education"></div>
+                        </div>
+                    </div>
+                    <div class="listRight">
+                        <div>
+                            <div>职务:</div>
+                            <div id="task"></div>
+                        </div>
+                        <div>
+                            <div>职称:</div>
+                            <div id="zC"></div>
+                        </div>
+                        <div>
+                            <div>籍贯:</div>
+                            <div class="jG"></div>
+                        </div>
+                        <div>
+                            <div>出生地:</div>
+                            <div class="birthL"></div>
+                        </div>
+                        <div>
+                            <div>家庭住址:</div>
+                            <div id="address"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div id="sixRecord" class="hidden">
+                    <div class="sugest">发展对象提交资料</div>
+                    <div class="list thoughtB" id="lookSource">
+                        <div>思想汇报</div>
+                        <div class="submitB">已提交<span id="num"></span>份，点击查看</div>
+                    </div>
+                </div>
+                <div id="liC" class="hid">
+                    <div class="sugest">流程</div>
+                    <div class="list yiJ">
+                        <div class="list_Left">
+                            <div>
+                                <div>入党介绍人:</div>
+                                <div class="people"><span></span></div>
+                            </div>
+                            <div>
+                                <div>政治审查报告:</div>
+                                <div class="look"><span>点击查看</span></div>
+                            </div>
+                            <div>
+                                <div>集中培训记录:</div>
+                                <div class="hoursLook"><span>已完成<span class="num"></span>学时，点击查看</span></div>
+                            </div>
+                            <div>
+                                <div>支委会审查意见:</div>
+                                <div class="look"><span>点击查看</span></div>
+                            </div>
+                        </div>
+                        <div class="list_Right">
+                            <div>
+                                <div>上级党委预审:</div>
+                                <div><span class="status"></span></div>
+                            </div>
+                            <div>
+                                <div>支部大会决议:</div>
+                                <div class="look"><span>点击查看</span></div>
+                            </div>
+                            <div>
+                                <div>党组织谈话记录:</div>
+                                <div class="look"><span>点击查看</span></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="right">
+                <!--<div class="rightTop">-->
+                <!--<div class="ziL">入党申请人提交材料</div>-->
+                <!--<div class="p"><img src="../img/uploadSb.png"><span>入党申请书</span><span class="sure">确定</span></div>-->
+                <!--<div class="p"><img src="../img/uploadSb.png"><span class="personR">个人简历</span><span class="sure">确定</span></div>-->
+                <!--</div>-->
+                <div class="rightBottom">
+                    <div class="waitB">待办</div>
+                    <div class="waitList"  id="waitHandler">
+                        <ul>
+                            <li><img src="../img/waitB.png"><span>指定入党介绍人</span></li>
+                            <li><img src="../img/waitB.png"><span>进行政治审查</span></li>
+                            <li><img src="../img/waitB.png"><span>上传集中培训记录</span></li>
+                            <li><img src="../img/waitB.png"><span>支部委员会审查</span></li>
+                            <li><img src="../img/waitB.png"><span>报上级党委预审</span></li>
+                            <li><img src="../img/waitB.png"><span class="zs">入党志愿书</span><span class="sureZys">确认</span></li>
+                            <li><img src="../img/waitB.png"><span>支部大会决议</span></li>
+                            <li><img src="../img/waitB.png"><span>党组织谈话记录</span></li>
+                            <li><img src="../img/waitB.png"><span>报上级党委审批</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--<div class="rightBottom geyJ">-->
+                    <!--<div class="waitB">列为发展对象时各方意见</div>-->
+                    <!--<div class="waitList">-->
+                        <!--<ul>-->
+                            <!--<li><img src="../img/waitB.png"><span>上传党小组意见</span></li>-->
+                            <!--<li><img src="../img/waitB.png"><span>上传培养联系人意见</span></li>-->
+                            <!--<li><img src="../img/waitB.png"><span>上传党员意见</span></li>-->
+                            <!--<li><img src="../img/waitB.png"><span>上传群众意见</span></li>-->
+                            <!--<li><img src="../img/waitB.png"><span>上传支部委员会意见</span></li>-->
+                            <!--<li><img src="../img/waitB.png"><span>确定发展对象，报上级党委审批</span></li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--<input type="button" value="我是弹窗" id="pop1">-->
+<div class="mask hid" id="mask"></div>
+<!--指定入党介绍人弹窗-->
+<div class="popBox hid" id="poper1">
+    <div class="popB_Top">
+        <span class="addW" id="title">指定入党介绍人</span><span class="close" id="close"><img src="../img/close.png"></span>
+    </div>
+    <div class="popB_bottom">
+        <div id="inputBox">
+            <div>
+                <div>入党介绍人</div>
+                <div class="developWrap">
+                    <input type="hidden" value="" id="lianxi1">
+                    <input type="text" class="lianB" id="one" value="" readonly="readonly"><img src="../img/select.png">
+                    <div id="contact" class="contact hidden">
+                        <ul>
+                            <li></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div>入党介绍人</div>
+                <div class="developWrap">
+                    <input type="hidden" value="" id="lianxi2">
+                    <input type="text" class="lianB" id="two" value="" readonly="readonly"><img src="../img/select.png">
+                    <div id="developCon" class="contact hidden">
+                        <ul>
+                            <li></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btnList" id="twoB"><input type="button" id="sure1" value="确定"><input type="button" id="cancel1"
+                                                                                     value="取消"></div>
+</div>
+
+<!--入党志愿书-->
+<div class="popBox hid" id="poper3">
+    <div class="popB_Top">
+        <span class="addW">确定</span><span class="close" id="closeActive"><img src="../img/close.png"></span>
+    </div>
+    <div class="popB_bottom">
+        <div id="sureDate">
+            <div>确认已收到入党申请书</div>
+            <div>
+                <div>收到申请书日期</div>
+                <div><input type="text"  id="date" readonly value=""><img src="../img/date.png"></div>
+            </div>
+        </div>
+    </div>
+    <div class="btnList"><input type="button" id="sure" value="确定"><input type="button" id="cancel" value="取消"></div>
+</div>
+</body>
+<script src="../assets/js/jquery.js"></script>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script src="../assets/js/jquery.js"></script>
+<script src="../js/laydate.js"></script>
+<script src="../js/layer.js"></script>
+<!--提示框js-->
+<script src="../js/poperConfirm.js"></script>
+<script>
+    $(function () {
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+
+        var recId = getQueryString("recId");
+        var path = "";
+        var iframe = document.getElementById("common");
+        ///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+        iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+        if (iframe.attachEvent) {//判断iframe是否加载完成
+            iframe.attachEvent("onload", function () {
+                getCommon();
+            });
+        } else {
+            iframe.onload = function () {
+                getCommon();
+            };
+        }
+
+        //获取公共参数  一般为存储在session里面的数据
+        function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+            var frames = window.frames["common"];
+            path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+            var _qiniuImageHost = frames._qiniuImageHost;//七牛云公共地址头
+            //    成功之后轴的红线
+            $(".suss").parent().parent().next().addClass("redLine");
+            $("#back").click(function () {
+                window.location.href="joinPartyApplyer.html?toPag=0";
+            });
+            //时间插件方法
+            laydate.render({
+                elem: "#date"
+                //type:"datetime",
+            });
+
+            function isNum(num) {
+                var re = /^[0-9]+.?[0-9]*$/;
+                if (!re.test(num)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            $("#mask").height($(document).height());
+            var bumenId = "";
+            var noSumbit = "../img/uploadSb.png";
+            var overSubmit = "../img/upScuss.png";
+            var daibN = "../img/waitB.png";
+            var daibEd = "../img/green.png";
+
+            var allData = "";
+            queryByID();
+
+            function queryByID() {
+                $.ajax({
+                    type: "POST",
+                    url: path + "/recruit/queryByRecId.action",
+                    data: {"recId": recId},
+                    dataType: "json",
+                    success: function (data) {
+                        allData = data.data;
+                        var data = data.data;
+                        if (data.type == 1) {
+                            $("#curState").text("积极分子");
+                        }
+                        bumenId = data.bumenId;
+                        $("#name").text(data.user.name);
+                        if (data.user.gender == 0) {
+                            $("#sex").text("男");
+                        } else {
+                            $("#sex").text("女");
+                        }
+                        $("#nation").text(data.user.volk);
+                        $("#userId").text(data.user.userID);
+                        $("#birthday").text(data.user.birthday);
+                        $("#education").text(data.user.education);
+                        $("#task").text(data.user.perAdminInformation.dutiesName);
+                        $("#zC").text(data.user.perAdminInformation.positionTitle);
+                        $(".jG").append("<span>" + data.user.homeplace.dProvince + "</span><span>" + data.user.homeplace.dCity + "</span><span>" + data.user.homeplace.dDistrict + "</span>");
+                        $(".birthL").append("<span>" + data.user.nativePlace.dProvince + "</span><span>" + data.user.nativePlace.dCity + "</span><span>" + data.user.nativePlace.dDistrict + "</span>");
+                        $("#address").text(data.user.address);
+
+
+                        $("#shenQT").text(data.formtEntialDate);
+                        $("#activerT").text(data.formtRustDate);
+                        $("#developT").text(data.formtRuDate);
+
+
+                        //指定入党介绍人
+                        if (data.ruObject.f2a == "N" || data.ruObject.f2a === undefined) {
+                            $($("#waitHandler ul li")[0]).find("img").attr("src", daibN);
+                        } else {
+                            $($("#waitHandler ul li")[0]).find("img").attr("src", daibEd);
+                            $("#liC").removeClass("hid");
+                            $($(".list_Left>div").get(0)).css("display", "block").last().find("span").text(data.rudUserNames);
+                        }
+                        $("#sixRecord").removeClass("hidden");
+                        if(typeof data.statistics.bidea !== "undefined"){
+                            $(".submitB").find("#num").text(data.statistics.bidea);
+                        }else{
+                            $(".submitB").find("#num").text(0);
+                        }
+
+                        $(".submitB").click(function () {
+                            window.location.href="siRecord.html?devId="+recId+"&&six=bidea&&flag=1";
+                        });
+                        //进行整治审查
+                        if (data.ruObject.f2b == "N" || data.ruObject.f2b === undefined) {
+                            $($("#waitHandler ul li")[1]).find("img").attr("src", daibN);
+                        } else {
+                            $($("#waitHandler ul li")[1]).find("img").attr("src", daibEd);
+                            $("#liC").removeClass("hid");
+                            $($(".list_Left>div").get(1)).css("display", "block").last().click(function () {
+                                window.location.href="branchSuggest.html?recrutId="+recId+"&&stKey=f2b";
+                            });
+                            // $("#sixRecord").removeClass("hidden");
+                            // $("#sixRecord").find(".num").text(data.statistics.aidea);
+                        }
+                        //上传集中培训记录
+                        if (data.ruObject.f2c== "N" || data.ruObject.f2c === undefined) {
+                            $($("#waitHandler ul li")[2]).find("img").attr("src", daibN);
+                        } else {
+                            $($("#waitHandler ul li")[2]).find("img").attr("src", daibEd);
+                            $("#liC").removeClass("hid");
+                            $($(".list_Left>div").get(2)).css("display", "block").last().find(".num").text(data.statistics.f2c);
+                            $($(".list_Left>div").get(2)).last().click(function () {
+                                window.location.href = "togetherDevelopRecord.html?recId=" + recId + "&&type=2&&stKey=f2c";
+                            });
+                        }
+                        //支部委员会审查
+                        if (data.ruObject.f2d == "N" || data.ruObject.f2d === undefined) {
+                            $($("#waitHandler ul li")[3]).find("img").attr("src", daibN);
+                        } else {
+                            $($("#waitHandler ul li")[3]).find("img").attr("src", daibEd);
+                            $($(".list_Left>div").get(3)).css("display", "block").last().click(function () {
+                                window.location.href="branchSuggest.html?recrutId="+recId+"&&stKey=f2d";
+                            });
+                        }
+                        //报上级党委预审
+                        if (data.ruObject.f2e == "N" || data.ruObject.f2e === undefined) {
+                            $($("#waitHandler ul li")[4]).find("img").attr("src", daibN);
+                        } else {
+                            $($("#waitHandler ul li")[4]).find("img").attr("src", daibEd);
+                            $("#liC").removeClass("hid");
+                            $($(".list_Right>div").get(0)).css("display", "block");
+                            if(data.isPerpl==1){
+                                $($(".list_Right>div").get(0)).last().find(".status").text("待预审");
+                            }
+                            if(data.isPerpl==2){
+                                $($(".list_Right>div").get(0)).last().find(".status").text("预审通过");
+                            }
+                            if(data.isPerpl==3){
+                                $($(".list_Right>div").get(0)).last().find(".status").text("待审批");
+                            }
+                            if(data.isPerpl==4){
+                                $($(".list_Right>div").get(0)).last().find(".status").text("审批通过，待备案");
+                            }
+                            if(data.isPerpl==5){
+                                $($(".list_Right>div").get(0)).last().find(".status").text("已备案");
+                            }
+                            //1：已提交预审 2：预省通过 3：提交审批 4：审批通过待备案   5：审批通过备案
+
+                        }
+
+                        //入党志愿书
+                        if (data.ruObject.f2f == "N" || data.ruObject.f2f === undefined) {
+                            $($("#waitHandler ul li")[5]).find("img").attr("src", daibN);
+                        } else {
+                            $($("#waitHandler ul li")[5]).find("img").attr("src", daibEd);
+                            $(".sureZys").addClass("hid");
+                        }
+                        //支部大会决议
+                        if (data.ruObject.f2g == "N" || data.ruObject.f2g === undefined) {
+                            $($("#waitHandler ul li")[6]).find("img").attr("src", daibN);
+                        } else {
+                            $($("#waitHandler ul li")[6]).find("img").attr("src", daibEd);
+                            $("#liC").removeClass("hid");
+                            $($(".list_Right>div").get(1)).css("display", "block");
+                            $($(".list_Right>div").get(1)).find(".look").click(function () {
+                                window.location.href="branchSuggest.html?recrutId="+recId+"&&stKey=f2g";
+                            });
+                        }
+                        //党组织谈话记录
+                        if (data.ruObject.f2h == "N" || data.ruObject.f2h === undefined) {
+                            $($("#waitHandler ul li")[7]).find("img").attr("src", daibN);
+                        } else {
+                            $($("#waitHandler ul li")[7]).find("img").attr("src", daibEd);
+                            $("#liC").removeClass("hid");
+                            $($(".list_Right>div").get(2)).css("display", "block");
+                            $($(".list_Right>div").get(2)).find(".look").click(function () {
+                                window.location.href="partyTalkrecordList.html?recId="+recId+"&&type=2&&stKey=f2h";
+                            });
+                        }
+                        //报上级党委审批
+                        if (data.ruObject.f2i == "N" || data.ruObject.f2i === undefined) {
+                            $($("#waitHandler ul li")[8]).find("img").attr("src", daibN);
+                        } else {
+                            $($("#waitHandler ul li")[8]).find("img").attr("src", daibEd);
+                        }
+
+                        $.ajax({
+                            type: "POST",
+                            url: path + "/recruit/findUserByBumenId.action",
+                            data: {"bumenId": bumenId},
+                            dataType: "json",
+                            success: function (data) {
+                                var data = data.data;
+                                for (var i = 0; i < data.length; i++) {
+                                    var oLi = "<li data-id=" + data[i]._id + ">" + data[i].name + "</li>";
+                                    $(".contact ul").append(oLi);
+                                }
+                                $(".lianB").click(function (e) {
+                                    $(this).next().next().slideDown();
+                                    e.stopPropagation();
+                                });
+                                $(".contact ul li").mouseover(function () {
+                                    $(".contact ul li").removeClass("activeSelcet");
+                                    $(this).addClass("activeSelcet");
+                                });
+                                $("body").click(function () {
+                                    $(".contact").slideUp();
+                                });
+                                $(".contact ul li").click(function () {
+                                    $(this).parents(".contact").prevAll(".lianB").val($(this).text());
+                                    $(this).parents(".contact").prevAll(".lianB").prev().val($(this).attr("data-id"));
+                                });
+
+                                $($("#waitHandler ul li")[0]).click(function () {
+                                    if (allData.ruObject.f2a != "Y") {
+                                        $("#mask").removeClass("hid");
+                                        $("#poper1").removeClass("hid");
+                                    }
+                                });
+                                $("#mask").click(function () {
+                                    $(this).addClass("hid");
+                                    $("#poper1").addClass("hid");
+                                });
+                                $("#cancel1").click(function () {
+                                    $("#mask").addClass("hid");
+                                    $("#poper1").addClass("hid");
+                                });
+                                $("#close").click(function () {
+                                    $("#mask").addClass("hid");
+                                    $("#poper1").addClass("hid");
+                                });
+                                $("#sure1").click(function () {
+                                    if ($("#one").val() == "" && $("#two").val() == "") {
+                                        parent.layer.alert('请选择介绍人！');
+                                        return;
+                                    }
+
+                                    if ($("#one").val() == $("#two").val()) {
+                                        parent.layer.alert('请选择不同的介绍人！');
+                                        return;
+                                    }
+                                    $.ajax({
+                                        type: "POST",
+                                        url: path + "/recruit/forParty.action",
+                                        data: {
+                                            "recid": recId,
+                                            "userIda": $("#lianxi1").val(),
+                                            "userNamea": $("#one").val(),
+                                            "userIdb": $("#lianxi2").val(),
+                                            "userNameb": $("#two").val()
+                                        },
+                                        dataType: "json",
+                                        success: function (data) {
+                                            window.location.reload();
+                                        }
+                                    })
+                                });
+
+                                //进行政治审查
+                                $($("#waitHandler ul li")[1]).click(function () {
+                                    if(allData.ruObject.f2b != 'Y'){
+                                        window.location.href = "politicsRecord.html?recId=" + recId + "&&type=2&&stKey=f2b";
+                                    }
+
+                                });
+                                //上传集中培训记录
+                                $($("#waitHandler ul li")[2]).click(function () {
+                                    window.location.href = "togetherDevelopRecord.html?recId=" + recId + "&&type=2&&stKey=f2c";
+                                });
+                                //支部委员会审查
+                                $($("#waitHandler ul li")[3]).click(function () {
+                                    window.location.href = "politicsRecord.html?recId=" + recId + "&&type=2&&stKey=f2d";
+                                });
+                                //报上级党委预审
+                                $($("#waitHandler ul li")[4]).click(function () {
+                                    if(allData.ruObject.f2e!='Y'){
+                                        if (allData.ruObject.f2a == "Y"&&allData.ruObject.f2b == "Y"&&allData.ruObject.f2c == "Y"&& allData.ruObject.f2d == "Y") {
+                                            initPoper("报上级党委预审", "该同志资料齐全，报上级党委预审",function () {
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: path + "/recruit/upPer.action",
+                                                    data: {
+                                                        "recid": recId
+                                                    },
+                                                    dataType: "json",
+                                                    success: function (data) {
+                                                        if(data.success==true){
+                                                            parent.layer.alert("已提交到上级党委预审");
+                                                            window.location.reload();
+                                                        }else{
+                                                            parent.layer.alert(data.message);
+                                                        }
+                                                    }
+                                                })
+                                            });
+                                        } else {
+                                            parent.layer.alert("该同志资料不全，请确认资料齐备后再提交");
+                                        }
+                                    }
+                                });
+                                //入党志愿书确认
+                                $($("#waitHandler ul li")[5]).find(".sureZys").click(function () {
+                                    if(allData.isPerpl==2) {
+                                        $("#mask").removeClass("hid");
+                                        $("#poper3").removeClass("hid");
+                                    }else{
+                                        parent.layer.alert("上级党委预审还未通过！");
+                                    }
+
+                                });
+                                $("#mask").click(function () {
+                                    $(this).addClass("hid");
+                                    $("#poper3").addClass("hid");
+                                });
+                                $("#cancel").click(function () {
+                                    $("#mask").addClass("hid");
+                                    $("#poper3").addClass("hid");
+                                });
+                                $("#closeActive").click(function () {
+                                    $("#mask").addClass("hid");
+                                    $("#poper3").addClass("hid");
+                                });
+                                $("#sure").click(function () {
+                                    if ($("#date").val() == "") {
+                                        parent.layer.alert('请选择日期！');
+                                        return;
+                                    }
+                                    $.ajax({
+                                        type: "POST",
+                                        url: path + "/recruit/volbook.action",
+                                        data: {"recid": recId, "volbookData": $("#date").val()},
+                                        dataType: "json",
+                                        success: function (data) {
+                                            window.location.reload();
+                                        }
+                                    })
+                                });
+                                //支部大会决议
+                                $($("#waitHandler ul li")[6]).click(function () {
+                                    if(allData.isPerpl==2) {
+                                        window.location.href = "politicsRecord.html?recId=" + recId + "&&type=2&&stKey=f2g";
+                                    }else{
+                                        parent.layer.alert("上级党委预审还未通过！");
+                                    }
+                                });
+                                //党组织谈话记录
+                                $($("#waitHandler ul li")[7]).click(function () {
+                                    if(allData.isPerpl==2) {
+                                        window.location.href = "partyTalkrecordList.html?recId=" + recId + "&&type=2&&stKey=f2h";
+                                    }else{
+                                        parent.layer.alert("上级党委预审还未通过！");
+                                    }
+                                });
+                                //报上级党委审批
+                                $($("#waitHandler ul li")[8]).click(function () {
+                                    // if(allData.ruObject.f2i != "Y"){
+                                        if (allData.ruObject.f2a == "Y" && allData.ruObject.f2b == "Y" && allData.ruObject.f2c == "Y" &&  allData.ruObject.f2d == "Y" && allData.ruObject.f2e == "Y" && allData.ruObject.f2f == "Y" && allData.ruObject.f2g == "Y"&& allData.ruObject.f2h == "Y") {
+                                            initPoper("报上级党委审批", "该同志资料齐全，报上级党委审批",function () {
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: path + "/recruit/upAdut.action",
+                                                    data: {
+                                                        "recid": recId
+                                                    },
+                                                    dataType: "json",
+                                                    success: function (data) {
+                                                        if(data.success==true){
+                                                            parent.layer.alert("已提交到上级党委审批");
+                                                            window.location.reload();
+                                                        }else{
+                                                            parent.layer.alert(data.message);
+                                                        }
+                                                    }
+                                                })
+                                            });
+                                        } else {
+                                            parent.layer.alert("该同志资料不全，请确认资料齐备后再提交");
+
+                                        }
+                                    // }
+
+                                });
+
+
+                            }
+                        })
+                    }
+
+                });
+            }
+
+
+        }
+    })
+</script>
+</html>

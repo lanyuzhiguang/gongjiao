@@ -1,0 +1,302 @@
+/*弹窗样式*/
+.hid{
+    display: none;
+}
+.mask{
+    position: absolute;
+    top:0;
+    left:0;
+    bottom: 0;
+    right: 0;
+    height:100%;
+    width: 100%;
+    z-index: 1000;
+    background: #000000;
+    opacity: 0.14;
+}
+.developWrap{
+    position: relative;
+}
+.contact{
+    z-index: 100000;
+    width: 99%;
+    position: absolute;
+    top: 29px;
+    background: #e0e0e0;
+    border: 1px solid #d5d5d5;
+    height: 249px;
+    overflow: auto;
+}
+.contact ul li {
+    list-style: none;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 2px 0;
+}
+.popBox{
+    position: absolute;
+    left:50%;
+    margin-left: -200px;
+    width: 364px;
+    border-radius: 4px;
+    z-index: 1001;
+    background: #ffffff;
+    height: auto;
+    top:10%;
+}
+.popB_Top{
+    border-bottom: 1px solid #c4c4c4;
+    padding-bottom: 15px;
+    padding-top: 16px;
+}
+.addW{
+    font-size:16px ;
+    margin-left: 44px;
+    margin-top: 16px;
+    margin-bottom: 15px;
+}
+.close{
+    float: right;
+    margin-right: 22px;
+    width: 20px;
+    cursor: pointer;
+}
+.close img{
+    width: 15px;
+}
+.popB_bottom{
+    width: 100%;
+    font-size: 14px;
+    margin-top: 22px;
+}
+.popB_bottom>div{
+    width:67%;
+    margin: auto;
+    font-size: 14px;
+    color: #4d4d4d;
+}
+.btnList{
+    width: 61%;
+    margin: auto;
+    overflow: hidden;
+    padding-bottom: 27px;
+    margin-top: 23px;
+}
+.btnList input{
+    width: 96px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    font-size: 14px;
+    padding: 0 0;
+    outline: auto;
+    border-radius: 4px;
+}
+#onLySure{
+    background: #2198f2;
+    color:#ffffff;
+    border:1px solid #2198f2;
+    width: 128px;
+    height: 34px;
+    line-height: 34px;
+    display: block;
+    margin: auto;
+    outline: none;
+}
+
+#sure,.sure,#sureA,#sure1,#sure2{
+    float: left;
+    background: #2198f2;
+    color:#ffffff;
+    border:1px solid #2198f2;
+    cursor: pointer;
+}
+#cancel,.cancel,#cancelA,#cancel1,#cancel2{
+    float: right;
+    color:#4d4d4d ;
+    border: 1px solid #d2d2d2;
+    outline: none!important;
+    cursor: pointer;
+    background-color: #fff;
+}
+/*输入框的弹框*/
+#inputBox{
+     width: 69%!important;
+     font-size: 14px;
+     margin-left: 66px;
+ }
+#inputBox>div{
+    margin-bottom: 10px;
+}
+#inputBox>div>div{
+    display: inline-block;
+}
+#inputBox>div>div:first-child{
+    width: 32%!important;
+    text-align: right;
+    margin-right: 10px;
+}
+#inputBox>div>div:last-child input{
+    border: 1px solid #d2d2d2 ;
+    border-radius: 2px;
+    width: 150px;
+    height: 26px;
+    outline: none;
+}
+#inputBox>div>div:last-child{
+    position: relative;
+    width: 61%;
+}
+#inputBox>div>div:last-child img{
+    width: 29px;
+    right: 1px;
+    position: absolute;
+}
+
+#inputBox1{
+    width: 69%!important;
+    font-size: 14px;
+    margin-left: 66px;
+}
+#inputBox1>div{
+    margin-bottom: 10px;
+}
+#inputBox1>div>div{
+    display: inline-block;
+}
+#inputBox1>div>div:first-child{
+    width: 32%!important;
+    text-align: right;
+    margin-right: 10px;
+}
+#inputBox1>div>div:last-child input{
+    border: 1px solid #d2d2d2 ;
+    border-radius: 2px;
+    width: 150px;
+    height: 26px;
+    outline: none;
+}
+#inputBox1>div>div:last-child{
+    position: relative;
+    width: 61%;
+}
+#inputBox1>div>div:last-child img{
+    width: 29px;
+    right: 1px;
+    position: absolute;
+}
+
+
+
+
+/*入党申请日期的弹窗*/
+#sureDate,#sureActive{
+   width: 90%;
+    font-size: 14px;
+}
+#sureDate>div:first-child,#sureActive>div:first-child{
+    margin-left:55px;
+    margin-bottom: 24px;
+}
+#sureDate>div:last-child>div,#sureActive>div:last-child>div{
+    display: inline-block;
+}
+#sureDate>div:last-child>div:first-child,#sureActive>div:last-child>div:first-child{
+    width: 30%;
+    margin-left: 55px;
+    margin-right: 13px;
+}
+#sureDate>div:last-child>div:last-child,#sureActive>div:last-child>div:last-child{
+    position: relative;
+}
+#sureDate>div:last-child>div:last-child input,#sureActive>div:last-child>div:last-child input{
+    width: 106px;
+    height: 26px;
+    border: 1px solid #d2d2d2;
+    border-radius: 2px;
+    outline: none;
+}
+#sureDate>div:last-child>div:last-child img,#sureActive>div:last-child>div:last-child img{
+    position: absolute;
+    width: 15px;
+    top: 7px;
+    right: 6px;
+}
+
+.hidY{
+    display: none;
+}
+
+.siX input{
+    width: 50px;
+    height: 23px;
+    outline: none;
+
+}
+.siX>div:first-child{
+    margin-left: 0!important;
+    margin-right: 0!important;
+    width: 37% !important;
+}
+
+
+/*//党课培训记录弹框*/
+.peiContent>div>div{
+    display: inline-block;
+}
+.peiContent>div{
+    margin-bottom: 10px;
+    width: 100%;
+}
+.peiContent>div>div:first-child{
+    width: 25%;
+    text-align: right;
+    margin-right: 17px;
+}
+.peiContent>div:first-child>div:last-child>input,.peiContent>div:nth-child(3)>div:last-child>input{
+    width: 222px;
+    height: 26px;
+    border: 1px solid #c4c4c4;
+    border-radius: 2px!important;
+}
+.peiContent>div:first-child>div:last-child,.peiContent>div:nth-child(3)>div:last-child{
+    display: inline-block;
+}
+.peiContent>div:nth-child(2)>div{
+    display: inline-block;
+}
+.peiContent>div:nth-child(2)>div:nth-child(2),.peiContent>div:nth-child(2)>div:last-child{
+    width: 100px;
+    height: 26px;
+    position: relative;
+}
+.peiContent>div:nth-child(2)>div:nth-child(2)>input,.peiContent>div:nth-child(2)>div:last-child>input{
+    width: 100px;
+    height: 26px;
+    border: 1px solid #c4c4c4;
+    border-radius: 2px!important;
+}
+.peiContent>div:nth-child(4)>div:nth-child(2)>input,.peiContent>div:nth-child(4)>div:nth-child(4)>input{
+    width: 64px;
+    height: 26px;
+    border-radius: 2px!important;
+    outline: none;
+    border: 1px solid #c4c4c4;
+}
+.peiContent>div:nth-child(2)>div:nth-child(2)>input,.peiContent>div:nth-child(2)>div:last-child>input{
+    height: 26px;
+    border-radius: 2px!important;
+    outline: none;
+    border: 1px solid #c4c4c4;
+}
+.peiContent>div:nth-child(2)>div:nth-child(2)>img,.peiContent>div:nth-child(2)>div:last-child>img{
+    position: absolute;
+    right: 6px!important;
+    top: 6px;
+}
+.peiContent>div:nth-child(4)>div:nth-child(3){
+    margin-right: 17px;
+    margin-left: 10px;
+}
+/*弹窗样式结束*/

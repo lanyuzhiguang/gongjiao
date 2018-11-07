@@ -1,0 +1,96 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "苹方";
+}
+.headList{
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+    font-size: 16px;
+}
+.headList>input{
+    width:210px;
+    height: 28px;
+    border: 1px solid #c4c4c4;
+    border-radius: 2px;
+    outline: none;
+}
+.headList>span:first-child{
+    margin-right: 10px;
+    color: #797e80;
+}
+.headList>span:nth-child(4){
+    display: inline-block;
+    color: #ffffff;
+    background: #2196f3;
+    width: 68px;
+    height: 30px;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 16px;
+    margin-right: 21px;
+    cursor: pointer;
+}
+.headList>span:nth-child(3){
+    display: inline-block;
+    color: #ffffff;
+    background: #2196f3;
+    width: 68px;
+    height: 30px;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 16px;
+    margin-right: 21px;
+    cursor: pointer;
+    margin-left: 59px;
+}
+table {
+    margin: auto;
+    width: 95%;
+    color: #797e80;
+    font-size: 14px;
+    border: 1px solid #e6e5e4;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+}
+table th {
+    background: #efefef;
+    padding: 8px 7px;
+    border-right: 1px solid #e6e5e4;
+    border-bottom: 1px solid #e6e5e4;
+}
+
+table tr td {
+    text-align: center;
+    border-right: 1px solid #e6e5e4;
+    border-bottom: 1px solid #e6e5e4;
+    padding: 10px 10px;
+}
+table tr td:first-child{
+    text-align: left;
+    padding-left: 10px;
+}
+.tableList{
+    margin-top: 20px;
+}
+table tr td:last-child span{
+    color:#2196f3;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.noDate {
+    text-align: center;
+    font-size: 14px;
+
+}
+.hid {
+    display: none;
+}
+#pageContent {
+    margin: auto;
+    text-align: center;
+    margin-top: 47px;
+}

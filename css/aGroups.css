@@ -1,0 +1,242 @@
+.floatB{
+    float: left;
+}
+ul li{
+    list-style: none;
+}
+ul{
+    margin:0;
+}
+.wrapB{
+    background: #FAFAFA;
+    padding-right: 0!important;
+    padding-left: 0!important;
+    border: 1px solid transparent;
+    border-radius: 9px;
+}
+.headB{
+    background: #F3F3F3;
+    padding-right:0!important;
+    padding-left:0!important;
+    height:50px;
+    border: 1px solid transparent;
+    border-radius: 9px 9px 0 0;
+    padding: 0 40px 0 40px!important;
+}
+.searBtn{
+    float: right;
+    height: 50px;
+    line-height: 50px;
+}
+.searBtn input{
+    height: 28px!important;
+    border: 1px solid transparent!important;
+    border-radius: 5px 0 0 5px!important;
+    line-height: initial!important;
+    padding: 0!important;
+}
+.tit{
+    float: left;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 16px;
+}
+.btnS{
+    border: 1px solid transparent;
+    height: 28px;
+    background: red;
+    color: #ffffff;
+    outline: none;
+    line-height: 13px;
+    width: 55px;
+    border-radius: 0 5px 5px 0!important;
+    font-size: 18px;
+    padding: 0!important;
+}
+
+.pubB{
+    background: red;
+    color: #ffffff;
+    padding: 3px 14px;
+    border-radius: 5px;
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+.wrapBox{
+    border-radius: 5px 5px 0 0;
+    margin-top: 7px;
+}
+
+.wrapB ul li{
+    border-bottom: 1px solid #F3F3F3;
+    margin:0 40px 0 40px;
+   padding:20px 0 20px 0 ;
+}
+.wrapB ul li:after{
+    clear: both;
+    visibility: hidden;
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+}
+.na{
+    margin-bottom: 22px;
+    color: red;
+    font-size: 14px;
+    margin-top: 2px;
+}
+.timeB{
+    font-size: 12px;
+    color:#666666;
+}
+.right{
+    margin-left: 14px;
+    margin-top: -7px;
+}
+.left img{
+    width:62px;
+    height:60px;
+}
+.lookM{
+    float: right;
+    margin-top: 2%;
+    font-size: 14px;
+}
+.mess{
+    background:red ;
+    color:#ffffff;
+    padding:5px 10px;
+    border-radius: 5px;
+    margin-right:10px;
+}
+.exit{
+    background:red ;
+    color:#ffffff;
+    padding:5px 10px;
+    border-radius: 5px;
+}
+.check{
+    background: red;
+    color:#ffffff;
+    padding:4px 6px;
+    border-radius: 5px ;
+    margin-left: 5px;
+}
+.askCen{
+    background: red;
+    color:#ffffff;
+    padding:4px 6px;
+    border-radius: 5px ;
+    margin-left: 5px;
+}
+.lock img{
+    width: 37px;
+    margin-bottom: 3px;
+
+}
+.headBEr{
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 86px;
+}
+a{
+    text-decoration: none;
+}
+a:hover{
+    color:#ffffff;
+    text-decoration: none!important;
+}
+.member{
+    margin-left: 20px;
+}
+.dataTables_paginate{
+    text-align: center;
+}
+.pagination > li > a{
+    border-radius: 28px!important;
+    margin-left: 14px;
+}
+.previous a,.next a{
+    border-color:transparent!important;
+    background: #ffffff!important;
+}
+.pagination > li.active > a, .pagination > li.active > a:hover{
+    background-color: red!important;
+    border-color: red!important;
+    color:#ffffff!important;
+}
+.pageCode a{
+    color: #000000!important;
+}
+.pagination > li > a, .pagination > li > span{
+    padding: 2px 8px;
+}
+.divpage {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.page-content{
+    padding: 8px 10px 24px;
+}
+/**搜索按钮**/
+.searchB {
+    float: right!important;
+    margin-top: 5px;
+}
+.searchBTN {
+    margin-top: -2px;
+}
+.input-icon > input {
+    padding-left: 4px;
+    height: 22px;
+    border: 1px solid transparent;
+    border-radius: 5px!important;
+    margin-top: 8px;
+    outline: none;
+}
+.input-icon > .ace-icon {
+    right: 3px!important;
+    left: auto!important;
+    color: #9E9E9E!important;
+    font-size: 11px !important;
+    line-height: 23px !important;
+    margin-top: 8px;
+}
+.addN {
+    float: right!important;
+    margin-top: 3px;
+    color: red;
+    margin-left: 11px;
+    margin-bottom: -2px!important;
+}
+.addN span {
+    margin-left: -3px!important;
+    font-size: 16px;
+}
+.icon-xinzeng {
+    font-size: 27px;
+    vertical-align: middle;
+}
+.icon-xinzeng {
+    font-size: 27px;
+    vertical-align: middle;
+}
+::-webkit-input-placeholder { /* WebKit browsers */
+    font-size:12px;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    font-size:12px;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    font-size:12px;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    font-size:12px;
+}
+.input-icon > input:hover,.input-icon > input:focus{
+    outline: none;
+    border-color:transparent ;
+}

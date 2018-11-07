@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/planEntryInput.css">
+    <link rel="stylesheet" type="text/css" href="../css/zTreeStyle.css">
+    <link rel="stylesheet" type="text/css" href="../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+    <style>
+        .hanging{
+            color:#da0109;
+        }
+        .kind,.danW{
+            position: relative;
+            left:0;
+        }
+        .selectBtn ul li,.officeBtn ul li{
+            list-style: none;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 5px;
+            padding: 2px 0;
+        }
+
+        .selectBtn,.officeBtn{
+            z-index: 100000;
+            width: 99%;
+            position: absolute;
+            top: 37px;
+            background: #e0e0e0;
+            border: 1px solid #d5d5d5;
+            height: 151px;
+            overflow: auto;
+        }
+        .hid{
+            display: none;
+        }
+        .activeSelcet{
+            background: #2198f2;
+            color: #ffffff;
+        }
+        .selectBtn1{
+            display: inline-block;
+            width: 79px;
+            border: 1px solid #c4c4c4;
+            text-align: center;
+            height: 38px;
+            line-height: 38px;
+            border-radius: 5px;
+        }
+        .overSelected{
+            color: #2196f1!important;
+        }
+        .ztree li span.button.chk.checkbox_true_disable {
+            background-position: -14px 0px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="talkRecord">
+            <span id="backBtn">
+                 <img src="../img/back.png"><span class="back">返回</span>
+            </span>
+        <span id="where">计划录入</span>
+    </div>
+    <div class="kindList">
+        <div class="headProcess"><div class="firstImg"><img src="../img/handingB.png"><span>1</span><div class="wordSetting  hanging">基本设置</div></div><div class="lineRed"></div><div class="lastImg"><img src="../img/noHanding.png"><span>2</span><div class="checkRegular ">计划录入</div></div></div>
+        <div class="kindListContent">
+            <div class="formList">
+                <div>
+                    <div><span class="redX">*</span>计划标题</div><div><input type="text" id="planTitle" value=""></div>
+                </div>
+                <div>
+                    <div><span class="redX">*</span>计划接收类别</div><div class="kind"><input type="hidden" value="" id="orgaKind"><input type="text" readonly value="" id="planKind"><img src="../img/select.png">
+                        <div id="checkKind" class="selectBtn" style="display: none">
+                            <ul>
+                                <li data-id="1">党委中心组</li>
+                                <li data-id="2">党委</li>
+                                <li data-id="3">党总支</li>
+                                <li data-id="4">党支部</li>
+                                <li data-id="5">党员</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div><span class="redX">*</span>计划下发单位</div><div class="danW"><input type="hidden" value="" id="publishId"><input type="text" readonly value="" id="publichOffice"><img src="../img/select.png">
+                        <div class="officeBtn" style="display: none">
+                            <ul>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div><span class="redX">*</span>工作计划周期</div><div class="beginDate"><input type="text" readonly value="" id="dateA"><img src="../img/date.png"></div>至<div class="overDate"><input type="text" readonly value="" id="dateB"><img src="../img/date.png"></div>
+                </div>
+                <div>
+                    <div><span class="redX">*</span>计划接收单位</div><div><span class="selectBtn1">＋</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="btnList1"><span id="nextB">下一步</span></div>
+
+</div>
+
+<div class="mask hid" id="mask"></div>
+<div class="popBox hid" id="poper1">
+    <div class="popB_Top">
+        <span class="addW" id="titleC">计划接收单位</span><span class="close" id="close"><img src="../img/close.png"></span>
+    </div>
+    <div class="popB_bottom">
+        <div>快速选择</div>
+        <div class="checkList">
+
+        </div>
+    </div>
+    <div class="treeList">
+        <div id="menuContent" class="menuContent">
+            <ul id="treeDemo" class="ztree" style="margin-top:0; width:206px;"></ul>
+        </div>
+        <div class="noData hid">你所选择得</div>
+    </div>
+    <div class="btnList"><input type="button" class="s" id="sure" value="确定"><input type="button" class="c" id="cancel" value="取消"></div>
+</div>
+</body>
+<script src="../assets/js/jquery.js"></script>
+<script src="../js/jquery.ztree.core.min.js"></script>
+<script src="../js/jquery.ztree.excheck.min.js"></script>
+<script src="../js/layer.js"></script>
+<script src="../js/laydate.js"></script>
+<script src="../js/layui.js"></script>
+
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+
+<script>
+	var plan=null,publishId=null,orgaKind=null;
+    $(function () {
+            function getQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return decodeURI(r[2]);
+                return null;
+            }
+
+            var id = getQueryString("id");
+            var path = "";
+            var iframe = document.getElementById("common");
+            ///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+            iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+            if (iframe.attachEvent) {//判断iframe是否加载完成
+                iframe.attachEvent("onload", function () {
+                    getCommon();
+                });
+            } else {
+                iframe.onload = function () {
+                    getCommon();
+                };
+            }
+
+            //获取公共参数  一般为存储在session里面的数据
+            function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+                var frames = window.frames["common"];
+                path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+                var _qiniuImageHost = frames._qiniuImageHost;//七牛云公共地址头
+
+                $("#backBtn").click(function () {
+                    window.history.back(-1);
+                });
+                //时间插件方法
+                laydate.render({
+                    elem: "#dateA",
+                    type:"date"
+                });
+                //时间插件方法
+                laydate.render({
+                    elem: "#dateB",
+                    type:"date"
+                });
+
+                // 查看
+                if(typeof id !== "undefined" && id !==null){
+                    $.ajax({
+                        type: "POST",
+                        url: path + "/planBasic/findPlanById.action",
+                        data: {"basicId":id},
+                        dataType: "json",
+                        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                        success: function (data) {
+                            var data=data.data;
+                            plan=data;
+                            $("#planTitle").val(data.title);
+                            if(data.type==1){
+                                $("#planKind").val("党委中心组")
+                                $("#orgaKind").val(data.type);
+                            }
+                            if(data.type==2){
+                                $("#planKind").val("党委");
+                                $("#orgaKind").val(data.type);
+                            }
+                            if(data.type==3){
+                                $("#planKind").val("党总支");
+                                $("#orgaKind").val(data.type);
+                            }
+                            if(data.type==4){
+                                $("#planKind").val("党支部");
+                                $("#orgaKind").val(data.type);
+                            }
+                            if(data.type==5){
+                                $("#planKind").val("党员");
+                                $("#orgaKind").val(data.type);
+                            }
+                            $("#planKind").attr("disabled",true);
+                            $("#planKind").unbind("click");
+                            $("#publichOffice").val(data.bumenName);
+                            $("#publichOffice").attr("disabled",true);
+                            $("#publichOffice").unbind("click");
+                            $("#publishId").val(data.bumenId);
+                            $("#dateA").val(data.formStarPlanDate);
+                            $("#dateB").val(data.formEndPlanDate);
+                            $(".selectBtn1").text("已选择").addClass("overSelected");
+                        }
+                    })
+
+
+                }
+                $("#planKind").click(function (e) {
+                    $(this).next().next().slideDown();
+                    e.stopPropagation();
+                });
+                $("#checkKind ul li").mouseover(function () {
+                    $("#checkKind ul li").removeClass("activeSelcet");
+                    $(this).addClass("activeSelcet");
+                });
+                $("body").click(function () {
+                    $("#checkKind").slideUp();
+                });
+                $("#checkKind ul li").click(function () {
+                    $(this).parents("#checkKind").prevAll("#planKind").val($(this).text());
+                    $(this).parents("#checkKind").prevAll("#planKind").prev().val($(this).attr("data-id"));
+                });
+                // 组织架构
+                var selectednodeName="";
+                var selectednodeId="";
+                $(".selectBtn1").click(function () {
+                    if(plan==null){//创建
+                        $(".checkList").empty();
+                        if ($("#planKind").val() == "") {
+                            parent.layer.alert('请选择计划接收类别！');
+                            return;
+                        }
+                        if ($("#publichOffice").val() == "") {
+                            parent.layer.alert('请选择计划下发单位！');
+                            return;
+                        }
+                        $("#poper1").removeClass("hid");
+                        $("#mask").removeClass("hid");
+                        if ($("#planKind").val() == "党支部" || $("#planKind").val() == "党员") {
+                            $(".checkList").append("<div>\n" +
+                                "            <label><input type=\"checkbox\" name=\"items\" value=\"\"  id='it'>全部党支部</label>\n" +
+                                "        </div>")
+                        }
+                        if ($("#planKind").val() == "党委" || $("#planKind").val()=="党委中心组") {
+                            $(".checkList").append(" <div>\n" +
+                                "            <label><input type=\"checkbox\"  name=\"items\" value=\"\" id='it'>全部党委</label>\n" +
+                                "        </div>");
+                        }
+                        if ($("#planKind").val() == "党总支") {
+                            $(".checkList").append(" <div>\n" +
+                                "            <label><input type=\"checkbox\"  name=\"items\" value=\"\"  id='it'>全部党总支</label>\n" +
+                                "        </div>");
+                        }
+                        var zNodes = [];
+                        //tree
+                        var setting = {
+							check: {
+								enable: true,
+								chkboxType: { "Y" : "", "N" : "" }
+							},
+							data: {
+								simpleData: {
+									enable: true
+								}
+							}
+						};
+
+                        // 点击选择或取消的判断
+                        function onCheck(e, treeId, treeNode) {
+                            console.log(treeNode.name);
+                            // 判断是否全部选中
+                            if(allNodes()){
+                                //全部选中了
+                                $("#it").prop("checked","checked");
+                            }
+                            function allNodes() {
+                                var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                                var nodes = treeObj.transformToArray(treeObj.getNodes());
+                                //遍历所有节点
+                                for(var node in nodes){
+                                    if(nodes[node].chkDisabled==true){//如果是禁选状态进入下一次循环
+                                        continue;
+                                    }else{
+                                        //判断节点是否选中
+                                        var checked = nodes[node].checked;
+                                        if(!checked){//有一个未选中 就退出
+                                            $("#it").prop("checked","");
+                                            return false;
+                                        }else{//选中了 进行下一次循环
+                                            continue;
+                                        }
+                                    }
+
+                                }
+                                //全部选中啦
+                                return true;
+
+                            }
+
+                        }
+                        if(publishId!=$("#publishId").val()||orgaKind!=$("#orgaKind").val()){
+	                        buildTree();//获取新的组织结构树
+	                        publishId=$("#publishId").val();
+	                        orgaKind=$("#orgaKind").val();
+                        }
+                        //生成树
+                        function buildTree() {
+                            $.ajax({
+                                type: "POST",
+                                url: path + "/zTreeData/findBumsPlan.action",
+                                data: {
+                                    "bumenId": $("#publishId").val(),
+                                    "type": $("#orgaKind").val()
+                                },
+                                dataType: "json",
+                                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                                success: function (data) {
+                                    var data = data.data;
+                                    if (data) {
+                                        zNodes = data;
+                                        var zTree = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                                        var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                                        treeObj.expandAll(true);
+
+                                    }
+                                }
+                            });
+                        }
+
+                        $(".checkList input").click(function (e) {//点击相应的chekbox,进行全选和全部取消
+                            e.stopPropagation();
+                            if ($(this).prop("checked") == true) {
+                                if ($(this).parent().text() == "全部党支部") {
+                                    //全选
+                                    CheckAllNodes();
+                                }
+                                if ($(this).parent().text() == "全部党总支") {
+                                    //全选
+                                    CheckAllNodes();
+                                }
+                                if ($(this).parent().text() == "全部党委") {
+                                    //全选
+                                    CheckAllNodes();
+                                }
+                            } else {
+                                if ($(this).parent().text() == "全部党支部") {
+                                    //取消
+                                    cancelAllNodes();
+                                }
+                                if ($(this).parent().text() == "全部党总支") {
+                                    //取消
+                                    cancelAllNodes();
+                                }
+                                if ($(this).parent().text() == "全部党委") {
+                                    //取消
+                                    cancelAllNodes();
+                                }
+                            }
+
+                        });
+
+                        // 取消选择方法
+                        function cancelAllNodes() {
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                            treeObj.checkAllNodes(false);
+                        }
+
+                        //全部勾选方法
+                        function CheckAllNodes() {
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                            treeObj.checkAllNodes(true);
+                        }
+                    }else{//查看树
+                        $("#poper1").removeClass("hid");
+                        $("#mask").removeClass("hid");
+                        $(".popB_bottom").remove();
+                        $(".btnList").remove();
+                        var zNodes = [];
+                        //tree
+                        var setting = {
+                            view: {
+                                dblClickExpand: false
+                            },
+                            data: {
+                                simpleData: {
+                                    enable: true,
+                                    idKey: "id",
+                                    pIdKey: "pId"
+                                },
+                                key: {
+                                    name: "name"
+                                }
+                            },
+                            check: {
+                                enable: true,
+                                chkDisabledInherit: true,
+                                chkStyle: "checkbox",
+                                chkboxType: {"Y": "", "N": ""}
+                            },
+                            callback: {
+
+                            }
+                        };
+                        buildTree();
+
+                        function buildTree() {
+                            $.ajax({
+                                type: "POST",
+                                url: path + "/zTreeData/findBuPlanLook.action",
+                                data: {
+                                    "planId":id
+                                },
+                                dataType: "json",
+                                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                                success: function (data) {
+                                    var data = data.data;
+                                    if (data) {
+                                        zNodes = data;
+                                        var zTree = $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                                        var node = zTree.getNodeByParam("id", 0);
+                                        //alert(JSON.stringify(node));
+                                        zTree.selectNode(node);
+                                        zTree.expandNode(node, true, false, false);
+                                    }
+                                    hibb_Nodes();
+
+                                }
+                            });
+                        }
+
+                        $("#cancel").click(function () {
+                            $("#poper1").addClass("hid");
+                            $("#mask").addClass("hid");
+                        });
+                        $("#close").click(function () {
+                            $("#poper1").addClass("hid");
+                            $("#mask").addClass("hid");
+                        });
+                        $("#mask").click(function () {
+                            $("#poper1").addClass("hid");
+                            $("#mask").addClass("hid");
+                        });
+                        $("#sure").click(function () {
+                            $("#poper1").addClass("hid");
+                            $("#mask").addClass("hid");
+
+                        });
+
+                        function hibb_Nodes() {
+                            var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                            var nodes = treeObj.transformToArray(treeObj.getNodes());
+                            for(var node in nodes){
+                                treeObj.setChkDisabled(nodes[node],true);
+                            }
+                        }
+
+                    }
+
+
+                });
+                $("#cancel").click(function () {
+                    $("#poper1").addClass("hid");
+                    $("#mask").addClass("hid");
+                });
+                $("#close").click(function () {
+                    $("#poper1").addClass("hid");
+                    $("#mask").addClass("hid");
+                });
+                $("#mask").click(function () {
+                    $("#poper1").addClass("hid");
+                    $("#mask").addClass("hid");
+                });
+                $("#sure").click(function () {
+                    allSelectedNode();
+                    $("#poper1").addClass("hid");
+                    $("#mask").addClass("hid");
+                    $(".selectBtn1").text("已选择").addClass("overSelected");
+
+                });
+                //所有选中的节点
+                function allSelectedNode() {
+                    var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                    var nodes = treeObj.transformToArray(treeObj.getNodes());
+                    for(var node in nodes){
+                        if(nodes[node].chkDisabled==true){
+                            continue;
+                        }else {
+                            //判断节点是否选中
+                            var checked = nodes[node].checked;
+                            if(checked==true){
+                                selectednodeName+= nodes[node].name+",";
+                                selectednodeId+=nodes[node].id+",";
+                            }
+                        }
+                    }
+                }
+                $.ajax({
+                    type: "POST",
+                    url: path + "/planBasic/findRoleBumens.action",
+                    data: {},
+                    dataType: "json",
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    success: function (data) {
+                        var data = data;
+                        for (var i = 0; i < data.length; i++) {
+                            var oLi = "<li data-id=" + data[i]._id + ">" + data[i].name + "</li>";
+                            $(".officeBtn ul").append(oLi);
+                        }
+                        //考核发布单位
+                        $("#publichOffice").click(function (e) {
+                            $(this).next().next().slideDown();
+                            e.stopPropagation();
+                        });
+                        $(".officeBtn ul li").mouseover(function () {
+                            $(".officeBtn ul li").removeClass("activeSelcet");
+                            $(this).addClass("activeSelcet");
+                        });
+                        $("body").click(function () {
+                            $(".officeBtn").slideUp();
+                        });
+                        $(".officeBtn ul li").click(function () {
+                            $(this).parents(".officeBtn").prevAll("#publichOffice").val($(this).text());
+                            $(this).parents(".officeBtn").prevAll("#publichOffice").prev().val($(this).attr("data-id"));
+                        });
+                    }
+                });
+
+
+
+
+               $("#nextB").click(function () {
+                   if(typeof id !== "undefined" && id !==null){//查看的提交
+                       if($("#planTitle").val()==""){
+                           parent.layer.alert('请填写计划标题！');
+                           return;
+                       }
+                       if($("#dateA").val()==""){
+                           parent.layer.alert('请选择开始时间！');
+                           return;
+                       }
+                       if($("#dateB").val()==""){
+                           parent.layer.alert('请选择结束时间！');
+                           return;
+                       }
+                      
+                    	   $.ajax({
+                               type: "POST",
+                               url: path + "/planBasic/upsert.action",
+                               data: {
+                                   "title":$("#planTitle").val(),
+                                   "starPlanDate":$("#dateA").val(),
+                                   "endPlanDate":$("#dateB").val(),
+                                   "_id":id
+                               },
+                               dataType: "json",
+                               contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                               success: function (data) {
+                                   if(data.success){
+                                	   plan=data.data;
+                                       window.location.href="planEntryList.html?id="+id+"&&type="+$("#orgaKind").val();
+                                   }else{
+                                       parent.layer.alert(data.message);
+                                       window.location.href="EntryPlan.html";
+                                   }
+
+                               }
+                           })
+                           
+                   }else{//创建的提交
+                       if($("#planTitle").val()==""){
+                           parent.layer.alert('请填写计划标题！');
+                           return;
+                       }
+                       if($("#planKind").val()==""){
+                           parent.layer.alert('请选择计划接收类别！');
+                           return;
+                       }
+                       if($("#publichOffice").val()==""){
+                           parent.layer.alert('请选择计划下发单位！');
+                           return;
+                       }
+                       if($("#dateA").val()==""){
+                           parent.layer.alert('请选择开始时间！');
+                           return;
+                       }
+                       if($("#dateB").val()==""){
+                           parent.layer.alert('请选择结束时间！');
+                           return;
+                       }
+                       if($(".selectBtn1").text()!="已选择"){
+                           parent.layer.alert('请选择计划接收单位！');
+                           return;
+                       }
+                       parent.layer.confirm('请进行信息核对，提交后计划类型和接收单位将不能进行修改', {icon: 3, title: '提示'}, function (index) {
+                       $.ajax({
+                           type: "POST",
+                           url: path + "/planBasic/upsert.action",
+                           data: {
+                               "title":$("#planTitle").val(),
+                               "type":$("#orgaKind").val(),
+                               "bumenId":$("#publishId").val(),
+                               "bumenName":$("#publichOffice").val(),
+                               "starPlanDate":$("#dateA").val(),
+                               "endPlanDate":$("#dateB").val(),
+                               "bumenIds":selectednodeId,
+                               "bumenNames":selectednodeName
+                           },
+                           dataType: "json",
+                           contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                           success: function (data) {
+                        	   parent.layer.close(index);
+                        	   if(data.success){
+	                        	   plan=data.data;
+	                               window.location.href="planEntryList.html?id="+data.data._id+"&&type="+$("#orgaKind").val();
+                        	   }else{
+                                   parent.layer.alert(data.message);
+                                   window.location.href="EntryPlan.html";
+                               }
+                           }
+                       })
+                       })
+                   }
+
+
+               })
+            }
+        })
+        </script>
+</html>

@@ -1,0 +1,282 @@
+$color: #2198F1 !default;/*定义全局颜色*/
+html {
+    min-width: 1000px;
+}
+header {
+    padding: 1rem 1.5rem 0 1.5rem;
+    div.right {
+        line-height: 3rem;
+        vertical-align: middle;
+        margin-left: 2rem;
+        &.rela {
+            position: relative;
+        }
+        span {
+            font-size: 1rem;
+            color: #fff;
+            font-weight: bold;
+        }
+        .badge {
+            position: absolute;
+            top: 0.3rem;
+            right: -0.2rem;
+            font-weight: 400;
+            font-size: 0.8rem;
+            display: inline-block;
+            width: 1.1rem;
+            height: 1.1rem;
+            line-height: 1.1rem;
+            text-align: center;
+            background: #d80c18;
+            border-radius: 50%;
+        }
+        img {
+            width: 1.55rem;
+            height: auto;
+            vertical-align: middle;
+            &.userimg {
+                width: 3rem;
+                height: 3rem;
+                border-radius: 50%;
+            }
+        }
+    }
+}
+nav.header {
+    .breadcrumb {
+        background: #fff;
+        border-bottom: 1px solid #dcdcdc;
+        margin: 0;
+        padding: 10px 15px;
+        a {
+            color: #333;
+        }
+        li.active {
+            color: $color;
+        }
+    }
+}
+.cursor {
+    cursor: hand;
+    cursor:pointer;
+}
+article {
+    section {
+        width: 100%;
+        padding: 15px 15px 8px 15px;
+        &.row {
+            margin: 0;
+        }
+    }
+    nav {
+        padding: 0 15px;
+        border-bottom: 1px solid #dcdcdc;
+        ul {
+            li {
+               padding: 15px 0 8px 0;
+               margin: 0 37px;
+               &.active {
+                   border-bottom: 2px solid #d80c18;
+               }
+               &:first-of-type {margin-left: 0;}
+               &:last-of-type {margin-right: 0;}
+            }
+        }
+    }
+}
+.btnbg {
+    width: 70px;
+    height: 33px;
+    background: url('../img/exportbg.png') left top no-repeat;
+    background-size: 100% 100%;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #fff;
+}
+.btnbg2 {
+    width: auto;
+    height: 33px;
+    padding: 0 12px;
+    background: url('../img/btnbg2.png') left top no-repeat;
+    background-size: 100% 100%;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #fff;
+}
+table {
+    &.table {
+        margin: 0;
+        td,th {
+            vertical-align: middle;
+            a {
+                margin:  0 5px;
+            }
+            a:first-of-type {
+                margin-left: 0;
+            }
+        }
+    }
+    &.table-layout{
+        table-layout: fixed;
+    }
+    &.tableNoBor {
+        border: 1px solid #ddd;
+        &.table>tbody>tr:first-of-type>th,&.table>tbody>tr:first-of-type>td {
+            border-bottom: 1px solid #ddd;
+        }
+        &.table>tbody>tr>th,&.table>tbody>tr>td {
+            border-top: none;
+        }
+    }
+}
+aside {
+    position: fixed;
+    right: 0;
+    bottom: 10%;
+    height: 110px;
+    z-index: 20;
+    img {
+        height: 100%;
+    }
+}
+label {
+    margin: 0;
+}
+.ellipsis {
+    width: 100%;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.ellipsisTwo {
+    width: 100%;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+.lineHeight {
+    line-height: 34px;
+}
+.widthMin {
+    display: inline-block;
+    width: 150px !important;
+}
+.widthMax {
+    display: inline-block;
+    width: 230px !important;
+}
+.verticalalignTop {
+    vertical-align: top !important;
+}
+/*提示弹窗*/
+.alertBox,.alertBox2 {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.1);
+    display: none;
+    .alert,.alert2 {
+        padding: 0;
+        width: 45%;
+        height: auto;
+        margin: 0 auto;
+        margin-top: 100px;
+        min-width: 400px;
+        background: #fff;
+        border: none;
+        box-shadow: 0 0 14px 3px rgba(0,0,0,0.3);
+        .header {
+            width: 100%;
+            padding: 10px 27px;
+            background: linear-gradient(#d81a1e,#ed0f45);
+            position: relative;
+            p {
+                text-align: center;
+                padding: 0 45px;
+                font-size: 18px;
+                color: #fff;
+            }
+            img {
+                width: 15px;
+                position: absolute;
+                right: 27px;
+                top: 15px;
+            }
+        }
+        .alert_content {
+            padding: 20px 30px 30px 30px;
+            font-size: 16px;
+            min-height: 200px;
+            strong {
+                line-height: 30px;
+            }
+            .indent {
+                font-size: 14px;
+                text-indent: 28px;
+            }
+            .col-xs-4,.col-xs-8 {
+                padding-right: 0;
+                padding-left: 0;
+            }
+            .form-group:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+        .alert_footer {
+            padding: 10px 0;
+            text-align: center;
+            background: #F7F7F7;
+            button {
+                width: 70px;
+                height: 33px;
+                font-size: 16px;
+                vertical-align: top;
+                padding: 0;
+            }
+        }
+    }
+}
+.footerBtnBox {
+    text-align: center;
+    button {
+        min-width: 84px;
+        height: 39px;
+        font-size: 16px;
+        vertical-align: top;
+        padding: 0 12px;
+    }
+}
+.red {
+  color: #d81a1e;
+  margin-right: 5px;  
+}
+a{text-decoration:none;color:$color;}
+a:focus, a:hover{
+    text-decoration: none;
+    color: $color;
+}
+a:link {color:$color;text-decoration:none;}
+.form-group {
+    margin-bottom: 30px;
+    label {
+        text-align: right;
+    }
+}
+.btn-primary,.btn-primary.focus, .btn-primary:focus, .btn-primary:active:focus, .btn-primary:active:hover,.btn-primary:hover{
+    background: $color;
+    border: none;
+}
+.btn {
+    vertical-align: top;
+}
+.tabCon>div {
+    display: none;
+    &:first-of-type {
+        display: block;
+    }
+}

@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>题库管理</title>
+	<link rel="stylesheet" type="text/css" href="css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css"/>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css"/>
+	<link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
+	<link rel="stylesheet" type="text/css" href="css/build.css"/>
+	<link rel="stylesheet" type="text/css" href="css/question_bank.css"/>
+	<style type="text/css">
+		.navi{
+			text-align: center;
+		}
+		.form-group{
+			margin-right: 0;
+		}
+		.tableBox tr>td:nth-of-type(3),.tableBox tr>td:nth-of-type(4),.tableBox tr>td:nth-of-type(6){
+			min-width: 66px;
+		}
+		.tableBox tr>td:nth-of-type(7){
+			min-width: 140px;
+		}
+		.tableBox tr>td:nth-of-type(1){
+			min-width: 70px;
+		}
+		.tableBox tr>td:nth-of-type(1) p{
+			width: 100px;
+			margin: 0;
+			text-align: left;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		.tableBox tr>td:nth-of-type(8){
+			min-width: 100px;
+		}
+		.tableBox tr>td:nth-of-type(9),.tableBox tr>td:nth-of-type(5){
+			min-width: 55px;
+		}
+		.tableBox tr>td:last-of-type{
+			min-width: 260px;
+		}
+	</style>
+</head>
+<body>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="gridSystemModalLabel">新建题库</h4>
+			</div>
+			<div class="modal-body" style="max-height: 300px;overflow: auto;">
+				<div class="row form-inline">
+					<div class="form-group col-xs-7 col-xs-offset-2">
+						<label class="col-xs-3">题库名称</label>
+						<div class=" col-xs-9">
+							<input type="text" class="form-control questions" placeholder="请输入题库名称(最多可输入二十字)" />
+							<p class="promptsmallText" style="display: none;"><small style="color: red;">题库名称不可大于20字。</small></p>
+						</div>
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-xs-7 col-xs-offset-2">
+						<label class="col-xs-3">题库分类</label>
+						<div class="cl-xs-8">
+							<a href="javascript:;" class="itemList">请选择</a>
+							<div class="col-xs-9 col-xs-offset-3">
+								<ul class="list-group">
+									<li class="list-group-item">
+										<div class="checkbox checkbox-info">
+											<input id="checkbox4" class="styled" type="checkbox">
+											<label for="checkbox4">默认</label>
+										</div>
+
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary preservation">保存</button>
+				<button type="button" class="btn btn-default cancel" data-dismiss="modal">取消</button>
+			</div>
+		</div><!-- /.modal-content -->
+
+	</div><!-- /.modal -->
+</div>
+<div class="header">
+	<header class="container-fluid">
+		<div class="row">
+			<div class="col-xs-2">
+				<h4>题库管理</h4>
+			</div>
+			<div class="col-xs-5 col-xs-offset-5 text-right">
+				<div class="form-inline">
+					<div class="form-group">
+						<label for="exampleInputName2"><img src="img/list.png"/></label>
+						<label class="export"><a href="" target="_blank">导出此列表</a></label>
+					</div>
+					<div class="form-group">
+						<button class="btn btn-primary sortManagement">分类管理</button>
+						<button class="btn btn-primary newQuestions" data-toggle="modal" data-target="#myModal">新建题库</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+</div>
+<article class="container-fluid">
+	<div class="row content_header">
+		<div class="form-inline">
+			<div class="form-group selectBox" style="width: 200px;">
+				<label class="col-xs-5" style="min-width: 80px;">请选择类别</label>
+				<div class="col-xs-7">
+					<select class="selectlist form-control">
+						<option>分类</option>
+						<!--<option>Ketchup</option>
+                        <option>Relish</option>-->
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-5 text-center">
+					<label>时间范围</label>
+				</div>
+				<div class="col-xs-7 clearfloat">
+					<input type='text' readonly class="form-control form_datetime" id="datetimeStart" />
+					<img src="img/calendar.png" class="dataImg"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 text-center">
+					<label>到</label>
+				</div>
+				<div class="col-xs-9 clearfloat">
+					<input type='text' readonly class="form-control form_datetime" id="datetimeEnd" />
+					<img src="img/calendar.png" class="dataImg"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-12">
+					<input style="width: 150px;" type="text" class="form-control titleSearch" placeholder="输入标题搜索" />
+				</div>
+			</div>
+			<div class="form-group">
+				<button class="btn btn-primary query">查询</button>
+			</div>
+		</div>
+	</div>
+	<div class="row tableBox">
+
+	</div>
+	<div class="navfooter">
+
+	</div>
+</article>
+<div class="modal prompt" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">提示</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row promptText">
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary promptSure">确定</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+<div class="modal promptdelete" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">提示</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row deleteText">
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary deleteSure">确定</button>
+				<button class="btn btn-default cancelDelete">取消</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+</body>
+<script type="text/javascript" src="../../r/wx/common/pathimage"></script>
+<script src="js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/bootstrap-select.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/bootstrap-paginator.js"></script>
+<script src="js/bootstrap-datetimepicker.min.js"></script>
+<script src="js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="js/moment-with-locales.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null)
+            return decodeURI(r[2]);
+        return null;
+    }
+    var banks={}//题库信息
+        ,vailde=0;//创建/编辑的题库的状态
+    //调用日历插件
+    $("#datetimeStart").datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        minView:'hour',
+        language: 'zh-CN',
+        autoclose:true
+    }).on("click",function(){
+        $("#datetimeStart").datetimepicker("setEndDate",$("#datetimeEnd").val())
+    });
+    $("#datetimeEnd").datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        minView:'hour',
+        language: 'zh-CN',
+        autoclose:true,
+        startDate:new Date()
+    }).on("click",function(){
+        $("#datetimeEnd").datetimepicker("setStartDate",$("#datetimeStart").val())
+    });
+    $(".export>a").attr("href",_ctxPath+"pc/managementQuestionBankPc/exportBankMessage.action")
+    //分类
+    $.ajax({
+        type:"get",
+        url:_ctxPath+"pc/examClassificationPc/queryClassification.action",
+        dataType:"json",
+        success:function(data){
+            var data = data.data;
+            var optionList = '<option>全部</option>';
+            for (var a = 0;a<data.length;a++) {
+                optionList += "<option id='"+data[a]._id+"'>"+data[a].name+"</option>";
+            }
+            $(".selectlist").html(optionList);
+            //题库查询
+            $(".selectlist").attr("id",$(".selectlist option").eq(0).attr("id"));
+            $(".selectlist").on("change",function(){
+                $.each($(".selectlist option"), function(index) {
+                    if($(".selectlist option").eq(index).text() == $(".selectlist").val()){
+                        $(".selectlist").attr("id",$(this).attr('id'));
+                    }
+                })
+            });
+            $(".query").off("click").on("click",function(){
+                page = 1;
+                searchFun(page);
+            })
+        }
+    });
+    //查询
+    function searchFun(page){
+        var startTime = $("#datetimeStart").val();
+        var endTime = $("#datetimeEnd").val();
+        var titleText = $(".titleSearch").val();
+        if($(".selectlist").val() == "全部"){
+            var selectId = "";
+        } else{
+            var selectId = $(".selectlist").attr("id");
+        }
+        if (startTime == "" && endTime != "") {
+            $(".prompt").fadeIn();
+            $(".promptText").text("请输入完整的时间段！");
+            $(".promptSure,.prompt .close").on("click",function(){
+                $(".prompt").fadeOut();
+            })
+        } else if(startTime != "" && endTime == ""){
+            $(".prompt").fadeIn();
+            $(".promptText").text("请输入完整的时间段！");
+            $(".promptSure,.prompt .close").on("click",function(){
+                $(".prompt").fadeOut();
+            })
+        } else {
+            startTime = startTime == ""?"":startTime+":00";
+            endTime = endTime == ""?"":endTime+":00";
+            $.ajax({
+                type:"get",
+                url:_ctxPath+"pc/managementQuestionBankPc/query.action",
+                dataType:"json",
+                data:{
+                    "gte:createTime|datetime":startTime,
+                    "lte:createTime|datetime":endTime,
+                    "regex:name":titleText,
+                    "in:labIds":selectId,
+                    page:page,
+                    size:10
+                },
+                success:function(data){
+                    var conData = data.data;
+                    contentFun(conData);
+                }
+            });
+        }
+    }
+    //去往分类管理页面
+    $(".sortManagement").on("click",function(){
+        location.href = "./classification.html"
+    })
+    var page = 1;
+    searchFun(page);
+
+    function contentFun(connData){
+        var conData = connData.data;
+        if (conData.length == 0) {
+            $(".tableBox").html("未检索到题库");
+            $(".navfooter").html("");
+        } else{
+            var tableHtml = '<table class="table table-striped table-condensed"><tr><th>题库名称</th><th>类别</th><th>单选题数</th><th>多选题数</th><th>填空题</th><th>判断题数</th><th>创建日期</th><th>来源</th><th>状态</th><th>操作</th></tr>';
+            for (var n = 0;n<conData.length;n++) {
+                if(conData[n].source=="自建"){
+                    tableHtml += '<tr id="'+conData[n]._id+'"><td title="'+conData[n].name+'"><p>'+conData[n].name+'</p></td><td class="textEllipsis" title="'+conData[n].labIds.join("")+'"><p class="textEllipsis">'+conData[n].labIds.join("")+'</p></td><td>'+conData[n].singleElection+'</td><td>'+conData[n].multiSelection+'</td><td>'+conData[n].fillAVacancy+'</td><td>'+conData[n].judge+'</td><td>'+conData[n].createTime+'</td><td>'+conData[n].source+'</td><td>已启用</td><td type="'+conData[n].type+'"><a href="javascript:;" class="editQuestionbank" data-toggle="modal" vaild="'+conData[n].vaild+'" data-target="#myModal">编辑</a><input type="hidden" value="'+conData[n].tandlabIds.join(",")+'"/><a href="javascript:;" class="delete">删除</a><a href="javascript:;" class="seeSubject">查看题目</a><a href="javascript:;" class="disenable" vaild="'+conData[n].vaild+'">禁用</a><a href="javascript:;">导出题库</a></td></tr>'
+                }else{
+                    tableHtml += '<tr id="'+conData[n]._id+'"><td title="'+conData[n].name+'"><p>'+conData[n].name+'</p></td><td class="textEllipsis" title="'+conData[n].labIds.join("")+'"><p class="textEllipsis">'+conData[n].labIds.join("")+'</p></td><td>'+conData[n].singleElection+'</td><td>'+conData[n].multiSelection+'</td><td>'+conData[n].fillAVacancy+'</td><td>'+conData[n].judge+'</td><td>'+conData[n].createTime+'</td><td>'+conData[n].source+'</td><td>已启用</td><td type="'+conData[n].type+'"><a href="javascript:;" class="editQuestionbank" data-toggle="modal" vaild="'+conData[n].vaild+'" data-target="#myModal">编辑</a><input type="hidden" value="'+conData[n].tandlabIds.join(",")+'"/><a href="javascript:;" class="seeSubjectlib">查看题目</a><a href="javascript:;" class="disenable" vaild="'+conData[n].vaild+'">禁用</a></td></tr>'
+                }
+                banks[conData[n]._id]=conData[n];
+            }
+            $(".tableBox").html(tableHtml);
+            $.each($(".disenable"),function(index){
+                if ($(this).attr('vaild') == 1) {
+                    $(this).text('禁用');
+                    $(this).parent().parent().children().eq(8).text('已启用');
+                } else{
+                    $(this).text('启用');
+                    $(this).parent().parent().children().eq(8).text('未启用');
+                }
+            })
+            $.each($(".tableBox a:contains('导出题库')"), function() {
+                var id = $(this).parent().parent().attr('id');
+                $(this).attr("href",_ctxPath+"pc/examQuestionsPc/exportQuestionMessage.action?bankId="+id);
+            });
+            $(".editQuestionbank").off("click").on("click",function(){
+                var edittype = 1;
+                $("#myModal #gridSystemModalLabel").text("编辑题库");
+                var id = $(this).parent().parent().attr('id');
+                vailde = $(this).attr("vaild");
+                $(".itemList").text('已选择');
+                $(".list-group").hide();
+                $(".questions").val($(this).parent().parent().children().eq(0).text());
+                newedit(edittype,id);
+            });
+            $(".disenable").off("click").on("click",function(){
+                var id = $(this).parent().parent().attr('id');
+                var vaild = $(this).attr("vaild") == 0?1:0;
+                var questionName = $(this).parent().parent().children('td').eq(0).text();
+                if($(this).text() == "启用"){
+                    $(".promptdelete").fadeIn();
+                    $(".deleteText").text('确认启用该题库吗？');
+                    $(".promptdelete .close").off("click").on("click",function(){
+                        $(".promptdelete").fadeOut();
+                    })
+                    $(".deleteSure").off("click").on("click",function(){
+                        disenFun(id,vaild,questionName);
+                        $(".promptdelete").fadeOut();
+                    });
+                }else{
+                    $(".promptdelete").fadeIn();
+                    $(".deleteText").text('确认禁用该题库吗？');
+                    $(".promptdelete .close").off("click").on("click",function(){
+                        $(".promptdelete").fadeOut();
+                    })
+                    $(".deleteSure").off("click").on("click",function(){
+                        disenFun(id,vaild,questionName);
+                        $(".promptdelete").fadeOut();
+                    });
+                }
+                $(".cancelDelete").off("click").on("click",function(){
+                    $(".promptdelete").fadeOut();
+                })
+            })
+            $("a.delete").off("click").on("click",function(){
+                var bankId = $(this).parent().parent().attr('id');
+                $(".promptdelete").fadeIn();
+                $(".deleteText").text('确认删除该题库吗？');
+                $(".promptdelete .close").off("click").on("click",function(){
+                    $(".promptdelete").fadeOut();
+                })
+                $(".deleteSure").off("click").on("click",function(){
+                    $.ajax({
+                        type:"get",
+                        url:_ctxPath+"pc/managementQuestionBankPc/delBank.action",
+                        dataType:"json",
+                        data:{
+                            bankId:bankId
+                        },
+                        success:function(deleteData){
+                            if (deleteData.success == true) {
+                                searchFun(page);
+                                $(".prompt").fadeIn();
+                                $(".promptText").text("删除成功。");
+                                $(".promptSure,.prompt .close").on("click",function(){
+                                    $(".prompt").fadeOut();
+                                })
+                            } else{
+                                $(".prompt").fadeIn();
+                                $(".promptText").text(deleteData.message);
+                                $(".promptSure,.prompt .close").on("click",function(){
+                                    $(".prompt").fadeOut();
+                                })
+                            }
+                        }
+                    });
+                    $(".promptdelete").fadeOut();
+                });
+                $(".cancelDelete").on("click",function(){$(".promptdelete").fadeOut();});
+            });
+            $(".seeSubject").on("click",function(){
+                var questionName = $(this).parent().parent().children('td').eq(0).text();
+                var bankId = $(this).parent().parent().attr("id");
+                location.href = encodeURI("seeSubject.html?name="+questionName+"&id="+bankId);
+            })
+            $(".seeSubjectlib").on("click",function(){
+                var questionName = $(this).parent().parent().children('td').eq(0).text();
+                var bankId = $(this).parent().parent().attr("id");
+                location.href = "../studys/studysResourceLibrary/questionBankResource/seeQuestionBankResource.html?bankId="+bankId;
+                //location.href = encodeURI("seeSubject.html?name="+questionName+"&id="+bankId);
+            })
+            $(".navfooter").html('<nav class="navi" aria-label="Page navigation"><ul class="pagination paginationLists" id="paginationLists"></ul></nav>');
+
+            $('#paginationLists').bootstrapPaginator({
+                currentPage: connData.page,//当前的请求页面。
+                totalPages: connData.pages,//一共多少页。
+                size:"normal",//应该是页眉的大小。
+                bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                alignment:"right",
+                numberOfPages:10,//一页列出多少数据。
+                itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                    switch (type) {
+                        case "prev": return "上一页";
+                        case "next": return "下一页";
+                        case "page": return page;
+                    }
+                }
+            });
+            $("#paginationLists a").off("click").on("click",function(){
+                if ($(this).text() == "下一页") {
+                    if (page >= connData.pages) {
+                        page = connData.pages;
+                    } else{
+                        page++;
+                    }
+                    searchFun(page);
+                } else if($(this).text() == "上一页") {
+                    if (page <= 1) {
+                        page = 1;
+                    } else{
+                        page--;
+                    }
+                    searchFun(page);
+                } else{
+                    page = $(this).text();
+                    searchFun(page);
+                }
+            })
+        }
+    }
+    $(".newQuestions").on("click",function(){
+        $("#myModal #gridSystemModalLabel").text("新建题库");
+        $(".questions").val('');
+        $(".list-group").hide();
+        $(".itemList").text('请选择');
+        $(".promptsmallText").hide();
+        vailde=0;
+        var newtype = 0;
+        itemarr = [];
+        newedit(newtype);
+    })
+
+    $(".itemList").on("click",function(){
+        $(".list-group").toggle();
+        $.ajax({
+            type:"get",
+            url:_ctxPath+"pc/examClassificationPc/queryClassification.action",
+            dataType:"json",
+            success:function(data){
+                var data = data.data;
+                var liList = '';
+                for (var a = 0;a<data.length;a++) {
+                    //if(banks[])
+                    liList += '<li class="list-group-item"><div class="checkbox checkbox-info"><input id="checkbox'+a+'" class="styled" type="checkbox"><label for="checkbox'+a+'" id="'+data[a]._id+'">'+data[a].name+'</label></div></li>';
+                }
+                $(".list-group-item input[type=checkbox]").prop("checked",false);
+                $(".list-group").html(liList);
+            }
+        });
+
+    })
+    //禁用、启用
+    function disenFun(id,vaild,questionName){
+        var ur="disable";
+        if(vaild==1)ur="enable";
+        $.ajax({
+            type:"get",
+            url:_ctxPath+"pc/managementQuestionBankPc/"+ur+"/"+id+".action",
+            dataType:"json",
+            success:function(nbData){
+                if (nbData.success == true) {
+                    searchFun(page);
+                } else{
+                    $(".prompt").fadeIn();
+                    $(".promptText").text(nbData.message);
+                    $(".promptSure,.prompt .close").on("click",function(){
+                        $(".prompt").fadeOut();
+                    })
+                }
+            }
+        });
+    }
+    //新建、编辑
+    var itemarr = [];
+    function newedit(netype,_id){
+        $('.preservation').off("click").on("click",function(){
+            var questions = $(".questions").val();
+            itemarr = [];
+            for (var i = 0;i<$(".list-group-item input[type=checkbox]").length;i++) {
+                if($(".list-group-item input[type=checkbox]").eq(i).is(":checked")){
+                    itemarr.push($(".list-group-item label").eq(i).attr('id'))
+                }
+            }
+            itemStr = itemarr.join(";");
+            console.log(itemStr);
+            if (questions.length == 0) {
+                $(".promptsmallText").show();
+                $(".promptsmallText small").text("题库名称不可为空！");
+            } else if(questions.length>20){
+                $(".promptsmallText").show();
+                $(".promptsmallText small").text("题库名称最多可输入20字！");
+            } else if(itemarr.length == 0){
+                $(".promptsmallText").show();
+                $(".promptsmallText small").text("请选择题库的分类。");
+            } else {
+                $.ajax({
+                    type:"get",
+                    url:_ctxPath+"pc/managementQuestionBankPc/newlyBuildBank.action",
+                    dataType:"json",
+                    data:{
+                        name:questions,
+                        strLabIds:itemStr,
+                        "vaild":vailde,
+                        _id:_id
+                    },
+                    success:function(nbData){
+                        if (nbData.success == true) {
+                            searchFun(page);
+                            $(".modal-backdrop,#myModal").hide();
+                            $(".prompt").fadeIn();
+                            $(".promptText").text("编辑题库成功！");
+                            $(".promptSure,.prompt .close").on("click",function(){
+                                $(".prompt").fadeOut();
+                            })
+                        } else{
+                            $(".prompt").fadeIn();
+                            $(".promptText").text(deleteData.message);
+                            $(".promptSure,.prompt .close").on("click",function(){
+                                $(".prompt").fadeOut();
+                            })
+                        }
+                    }
+                });
+            }
+
+        })
+
+    }
+</script>
+</html>

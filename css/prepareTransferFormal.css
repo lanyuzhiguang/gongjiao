@@ -1,0 +1,171 @@
+*{
+    font-family: "苹方";
+    font-size: 14px;
+    color:#5b5b5b;
+    margin: 0;
+    padding: 0;
+
+}
+.topTransfer{
+    width: 79.6%;
+    margin: auto;
+    margin-top: 44px;
+}
+.topTransfer div{
+    display: inline-block;
+
+}
+.topTransfer div:nth-child(2){
+    margin-left: 14px;
+    margin-right: 38px;
+    position: relative;
+}
+.topTransfer div:nth-child(2) img{
+    position: absolute;
+    right: 0;
+    width: 25px;
+    height: 23px;
+
+}
+.topTransfer div:nth-child(2) input{
+    width: 167px;
+    height: 21px;
+    border: 1px solid #d5d5d5;
+    outline: none;
+}
+.sear{
+    display: inline-block;
+    width: 98px;
+    height: 29px;
+    border: 1px solid #007aff;
+    background: #007aff;
+    color: #ffffff;
+    font-size: 14px;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px ;
+    border-radius:4px ;
+    text-align: center;
+    line-height: 29px;
+    cursor: pointer;
+
+}
+.joinParty{
+    margin-top: 37px;
+}
+.partyTitle{
+    margin-top: 40px;
+    margin-left: 2%;
+}
+.partyList{
+    width: 100%;
+    margin: auto;
+    margin-top: 19px;
+}
+.partyList table{
+    width: 100%;
+    border-collapse: collapse;
+    border:1px solid  #c6c6c6;
+}
+.partyList table,.partyList table tr td,.partyList table th{
+    border:1px solid  #c6c6c6;
+    text-align: center;
+}
+.curParty{
+    width: 83%;
+    margin: auto;
+}
+.partyList table tr{
+    height: 40px;
+}
+
+
+.selectTop ul li{
+    list-style: none;
+    float: left;
+    height: 29px;
+    text-align: center;
+    font-size: 16px;
+    font-family: "苹方";
+    border: 1px solid #e0e0e0;
+    line-height: 29px;
+    padding-left: 20px;
+    padding-right: 21px;
+    margin-right: 1px;
+    border-bottom: 1px solid transparent;
+    cursor: pointer;
+}
+.selectTop{
+    width: 82.8%;
+    margin: auto;
+    overflow: hidden;
+}
+.add{
+    display: block;
+    width: 80px;
+    height: 29px;
+    border-radius: 2px;
+    background: #2198f2;
+    color: #ffffff;
+    font-size: 14px;
+    text-align: center;
+    line-height: 29px;
+    margin-left: 23px;
+    float: right;
+    cursor: pointer;
+}
+
+.thoughtRList table{
+    /* overflow-x: scroll; */
+    width: 1664px;
+    margin: auto;
+    font-size: 14px;
+    border-collapse: collapse;
+}
+.thoughtRList{
+    overflow-x: scroll;
+    border-top: 1px solid #e0e0e0;
+    width: 91%;
+    margin: auto;
+}
+.thoughtRList table tr{
+    height:48px;
+    border-bottom: 1px solid #d8d8d8;
+}
+.thoughtRList table th{
+    text-align: center;
+    background: #f1f4f3;
+    border-right: 1px solid #d8d8d8;
+    color: #949796;
+}
+.thoughtRList table tr:nth-child(even){
+    background: #f1f4f3;
+}
+.thoughtRList table tr td{
+    border-right: 1px solid #d8d8d8;
+    text-align: center;
+}
+.thoughtRList table tr td:first-child{
+    text-align: center;
+}
+.thoughtRList table tr td:nth-child(2){
+    text-align: center;
+}
+.thoughtRList table tr td:nth-child(3) span{
+    margin-left: 18px;
+}
+.thoughtRList table tr td:nth-child(4){
+    text-align: center;
+}
+.thoughtRList table tr td:nth-child(5){
+    text-align: center;
+}
+.look{
+    color:#2198f2;
+}
+
+/*激活的选项*/
+.active{
+    background: #2198f2!important;
+    color:#ffffff!important;
+    border: 1px solid #2198f2!important;
+}

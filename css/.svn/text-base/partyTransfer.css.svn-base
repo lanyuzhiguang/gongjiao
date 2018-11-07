@@ -1,0 +1,414 @@
+#toBumen{
+	border: 1px solid #cacaca !important;
+	width: 405px;
+	height: 20px;
+	padding: 0;
+}
+.partyTransfer{
+    margin-top: 20px;
+}
+.partyTransfer>div{
+    background: #f8f8f8;
+    height:35px;
+    line-height: 35px;
+    padding-left: 20px;
+}
+.partyTransfer>div span:last-child{
+   float:right;
+    padding-right: 20px;
+
+}
+.peopleInfo{
+    margin-top: 20px;
+}
+.peopleInfo>div{
+    margin-bottom: 10px;
+}
+.peopleInfo>div div{
+    display: inline-block;
+}
+.peopleInfo>div>div:first-child{
+    width: 22%;
+    text-align: right;
+    display: inline-block;
+    margin-right: 2%;
+}
+.required{
+    color:#CF0000;
+}
+.transferList{
+    margin-top: 20px;
+}
+.transferList>div{
+    margin-bottom:10px;
+}
+.textB{
+    margin-top: 20px;
+}
+.transferList>div>div{
+    display: inline-block;
+}
+.transferList>div>div:first-child{
+    width: 22%;
+    display: inline-block;
+    text-align: right;
+    margin-right: 2%;
+    vertical-align: top;
+}
+.transferList p{
+    color: #999999;
+    font-size: 9px;
+    margin-left: 24%;
+}
+.radio span{
+    font-size: 14px!important;
+}
+.radio{
+    margin-top: 0;
+    font-size: 14px;
+}
+input[type=radio].ace + .lbl::before {
+    border-radius: 100%;
+    font-size: 1px;
+    font-family: FontAwesome;
+    line-height: 14px;
+    height: 15px;
+    min-width: 15px;
+    text-shadow: none;
+    margin-right: 10px;
+}
+input[type="radio"].ace + .lbl::before {
+    line-height: 14.5px;
+    text-shadow: none;
+}
+.radio label{
+    padding-left: 7px;
+}
+input[type=checkbox].ace + .lbl::before, input[type=radio].ace + .lbl::before{
+    color: #CF0000;
+    box-shadow: none;
+}
+#submitB{
+    width:80px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background: #CF0000;
+    color:#ffffff;
+    border: 1px solid #CF0000;
+    padding:0 0;
+    border-radius: 10px;
+    margin-left: 20%;
+    margin-top: 20px;
+}
+#cancelB{
+    width:80px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background: #d7d7d7;
+    color:#ffffff;
+    border: 1px solid #d7d7d7;
+    padding:0 0;
+    border-radius: 10px;
+    margin-right: 60%;
+    float:right;
+    margin-top: 20px;
+}
+#submitB,#cancelB{
+    outline:none;
+}
+.selectR{
+    margin-bottom: 0!important;
+}
+.edit{
+    color:#428bca;
+    cursor: pointer!important;
+}
+
+.floatC{
+    position: absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    right:0;
+    background: #000000;
+    opacity: 0.5;
+    z-index: 1000;
+}
+#editInfo{
+    width: 50%;
+    height:50%;
+    position: absolute;
+    left:25%;
+    top:8%;
+    z-index: 1100;
+}
+
+/*弹框样式*/
+p {
+    margin-bottom: 0;
+}
+
+.baseInfo {
+    margin-top: 20px;
+    background: #ffffff;
+}
+
+
+.infoB {
+    width: 62%;
+    margin: auto;
+    font-size: 14px;
+}
+.infoB>div{
+    margin-bottom: 20px;
+}
+.name {
+    margin-left: 0;
+    margin-top: 30px;
+}
+
+.dateBrith {
+    margin-left: 0;
+}
+
+.name input {
+    width: 150px;
+    height: 20px;
+    vertical-align: bottom;
+    margin-bottom: 0;
+    margin-left:47px;
+    padding: 0 0;
+    border: 1px solid #cacaca!important;
+}
+
+.dateBrith input {
+    width: 150px;
+    height: 20px;
+    vertical-align: bottom;
+    margin-bottom: 0;
+    margin-left:20px;
+    background: #e2e2e2;
+    padding: 0 0;
+    text-align: center;
+    padding-right:20px;
+    border: 1px solid #cacaca!important;
+}
+
+.dateBrith label {
+    position: relative;
+}
+
+.dateBrith img {
+    position: absolute;
+    width: 10px;
+    right: 5px;
+    top: 5px;
+}
+
+.nation {
+    margin-left: 0;
+}
+
+.nation input {
+    width: 150px;
+    height: 20px;
+    vertical-align: bottom;
+    margin-bottom: 0;
+    margin-left: 48px;
+    padding: 0 0;
+    text-align: center;
+    border: 1px solid #cacaca!important;
+    padding-right: 10px;
+
+}
+
+.nation label,
+.personKind label {
+    position: relative;
+}
+
+.redBox {
+    position: absolute;
+    right: 0;
+    height: 19px;
+    top: 1px;
+    width: 20px;
+    border-left: 1px solid #bbbbbb;
+    text-align: center;
+    line-height: 19px;
+}
+
+.redBox img {
+    width: 10px;
+}
+
+.personKind {
+    margin-left: 0;
+}
+label{
+    margin-bottom: 0;
+}
+.sex .radio{
+    margin-bottom: 0;
+}
+.personKind input {
+    width: 150px;
+    height: 20px;
+    vertical-align: bottom;
+    margin-bottom: 0;
+    margin-left: 20px;
+    padding: 0 0;
+    text-align: center;
+    border: 1px solid #cacaca!important;
+    padding-right: 10px;
+
+}
+
+.w {
+    padding-top: 10px;
+    color: #595959;
+}
+
+.w:after {
+    position: absolute;
+    height: 1px;
+    background: #818181;
+    left:20px;
+    right: 20px;
+    content: "";
+    top: 60px;
+}
+
+.sex div{
+    display: inline-block;
+}
+.sex>div:first-child{
+    margin-right: 48px;
+
+}
+.radio{
+    margin-right: 10px;
+}
+
+
+.mui-input-row {
+    clear: none;
+}
+input{
+    font-family: "苹方";
+    font-size:14px;
+    color:#9c9c9c;
+    border: 1px solid transparent!important;
+}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    color: #8f8f8f;
+    font-size: 14px;
+}
+
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+    color: #8f8f8f;
+    font-size:14px;
+}
+
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+    color: #8f8f8f;
+    font-size:14px;
+}
+
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+    color: #8f8f8f;
+    font-size:14px;
+}
+
+.onBranch {
+
+}
+
+.cer {
+
+}
+
+.cer input {
+    width: 150px;
+    height: 20px;
+    vertical-align: bottom;
+    margin-bottom: 0;
+    margin-left: 20px;
+    padding: 0 0;
+    border: 1px solid #cacaca!important;
+}
+
+.onBranch div:first-child {
+    display: inline-block;
+}
+
+.onBranch div:last-child {
+    display: inline-block;
+    width: 72%;
+    margin-left:20px;
+    vertical-align: top;
+}
+.btnList{
+    padding-bottom: 20px;
+}
+.btnList input {
+    width: 100px;
+    font-size:14px;
+    font-family: "苹方";
+    text-align: center;
+    line-height: 20px;
+    transition: none;
+    padding: 0 0;
+    outline: none;
+    height: 28px;
+    border-radius: 10px;
+}
+
+#submitB1 {
+    color: #ffffff;
+    background: #CF0000;
+    border: 1px solid #CF0000;
+    margin-left:100px;
+    margin-right: 40px;
+}
+
+#cancelB1 {
+    border: 1px solid #bbbbbb;
+    color: #5c5c5c;
+}
+
+.btnList {
+    margin-top: 20px;
+}
+
+.mui-checkbox input[type=checkbox]:before,
+.mui-radio input[type=radio]:before {
+    font-size: 23px;
+}
+
+.mui-checkbox input[type=checkbox],
+.mui-radio input[type=radio] {
+    top: 6px;
+}
+.mui-checkbox input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before{
+    color:#d61c1c;
+}
+
+.hid{
+    display: none;
+}
+
+input.ace.input-lg[type="radio"] + .lbl::before {
+
+    font-size: 13px;
+    height: 20px;
+    line-height: 17px;
+    min-width: 20px;
+    top: 1px;
+}

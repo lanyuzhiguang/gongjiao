@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>审核详情</title>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/index.css"/>
+		<style type="text/css">
+			td img {
+				width: 20px;
+			}
+			article section:first-of-type {
+				padding-bottom: 0;
+			}
+			article section:nth-of-type(2) p {
+				line-height: 30px;
+			}
+			article section:nth-of-type(2) p strong:first-of-type {
+				display: inline-block;
+				margin-right: 200px;
+			}
+			.btn-default,.btn-default:active,.btn-default:hover,.btn-default.focus,.btn-default:focus,.btn-default:active:hover {
+				border-color: #d81a1e;
+				color: #d81a1e;
+				outline: none;
+				background: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<aside>
+			<img src="../img/nonews.png"/>
+		</aside>
+		<nav class="header">
+			<ol class="breadcrumb">
+			  <li><a href="javascript:;">经费管理</a></li>
+			  <li><a href="javascript:;">活动经费管理</a></li>
+			  <li><a href="javascript:;">党建活动管理</a></li>
+			  <li class="active cursor">党建活动计划</li>
+			</ol>
+		</nav>
+		<article>
+			<section>
+				<button class="btnbg adopt">通过</button>
+				<button class="btn btn-default noadopt">不通过</button>
+			</section>
+			<section>
+				<p><label for="">单位名称：<span>××××党委××××支部</span></label></p>
+				<p>
+					<strong>党员人数：<span>100</span></span></strong>
+					<strong>党费金额：<span>30000</span></strong></p>
+			</section>
+			<section>
+				<table class="table table-striped tableNoBor">
+					<tr>
+						<th colspan="10" style="text-align: center;">党建活动计划</th>
+					</tr>
+					<tr style="display: none;"></tr>
+					<tr>
+						<th>类型</th>
+						<th>时间</th>
+						<th>党建活动名称</th>
+						<th>地点</th>
+						<th>内容简介</th>
+						<th>形式</th>
+						<th>参与人数</th>
+						<th>预算总额</th>
+						<th>党建活动经费（预算编号）</th>
+						<th>经费不足部分</th>
+					</tr>
+					<tr>
+						<td><p class="ellipsis">正常计划</p></td>
+						<td>2018-10-29 16:45</td>
+						<td>这是活动名称</td>
+						<td>中关村创客小镇</td>
+						<td><img class="seeContent" src="../img/see.png"/></td>
+						<td>会议</td>
+						<td>100</td>
+						<td>100</td>
+						<td>100</td>
+						<td>0</td>
+					</tr>
+				</table>
+			</section>
+		</article>
+		<div class="alertBox">
+			<div class="alert">
+				<div class="header">
+					<p class="ellipsis">内容简介</p>
+					<img class="closeAlert" src="../img/close.png"/>
+				</div>
+				<div class="alert_content">
+					<p class="indent">原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="../../../moduleweb/resources/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../resources/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function(){
+		//查看内容
+		$(".seeContent").off("click").on("click",function(){
+			$(".alertBox").fadeIn();
+		});
+		$(".alertBox .closeAlert").off("click").on("click",function(){
+			$(".alertBox").fadeOut();
+		});
+		//审核结果
+		$(".adopt,.noadopt").off("click").on("click",function(){
+			window.history.go(-1);
+		});
+	});
+</script>

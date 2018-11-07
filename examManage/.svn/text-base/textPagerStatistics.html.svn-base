@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>试卷统计</title>
+		<link rel="stylesheet" type="text/css" href="css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css"/>
+		<link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/build.css"/>
+		<link rel="stylesheet" type="text/css" href="css/question_bank.css"/>
+		<style type="text/css">
+			.btnList .btn{
+				margin-bottom: 6px;
+			}
+			/*.tableBox tr>td:first-of-type{
+				width: 250px;
+			}*/
+			.tableBox tr>td:first-of-type p{
+				margin: 0;
+				text-align: left;
+				max-width: 200px;
+				overflow: hidden;
+		        white-space: nowrap;
+		        text-overflow: ellipsis;
+			}
+			.tableBox tr>td:last-of-type,.tableBox tr>td:nth-of-type(3){
+				min-width: 85px;
+			}
+			.tableBox tr>td:nth-of-type(6){
+				min-width: 75px;
+			}
+			.tableBox tr>td:nth-of-type(4){
+				min-width: 60px;
+			}
+			.tableBox tr>td:nth-of-type(5){
+				min-width: 150px;
+			}
+			.tableBox tr>td:nth-of-type(2){
+				min-width: 280px;
+			}
+			.form-group{
+				margin-right: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<header class="container-fluid">
+				<div class="row">
+					<div class="col-xs-2">
+						<h4>答题统计</h4>
+					</div>
+				</div>
+			</header>
+		</div>
+		<article class="container-fluid">
+			<div class="row content_header">
+				<div class="form-inline">
+					<div class="form-group selectBox" style="min-width: 200px;">
+						<label class="col-xs-5" style="min-width: 80px;">请选择状态</label>
+						<div class="col-xs-7">
+							<select class="selectlist form-control">
+								<option>全部</option>
+								<option>进行中</option>
+								<option>已结束</option>
+								<option>提前结束</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-5 text-center">
+							<label>创建日期：</label>
+						</div>
+						<div class="col-xs-7 clearfloat">
+							<input type='text' readonly class="form-control form_datetime" id="datetimeStart" placeholder="请选择时间" />
+							<img src="img/calendar.png" class="dataImg"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-2 text-center">
+							<label>到</label>
+						</div>
+						<div class="col-xs-9 clearfloat">
+							<input type='text' readonly class="form-control form_datetime" id="datetimeEnd" placeholder="请选择时间" />
+							<img src="img/calendar.png" class="dataImg"/>
+						</div>
+					</div>
+					<div class="form-group" style="max-width: 150px;">
+						<div class="col-xs-12">
+							<input type="text" class="form-control titleSearch" placeholder="输入标题搜索" />
+						</div>
+					</div>
+					<div class="form-group">
+						<button class="btn btn-primary query">查询</button>
+					</div>
+				</div>
+			</div>
+			<div class="row tableBox">
+				
+			</div>
+			<div class="row">
+	      		<nav class="navi" aria-label="Page navigation" style="text-align: center;">
+					<ul class="pagination paginationList">
+						  
+					</ul>
+				</nav>
+	    	</div>
+		</article>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        				<h5 class="modal-title" id="gridSystemModalLabel">答题提醒</h5>
+		            </div>
+		            <div class="modal-body">
+		            	<div class="row btnListBox">
+		            		<div class="col-xs-3 modalTitle text-center">
+			            		
+			            	</div>
+			            	<div class="btnList col-xs-9">
+			            		
+			            	</div>
+		            	</div>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-primary preservation" data-dismiss="modal">答题提醒</button>
+        				<button type="button" class="btn btn-default cancel" data-dismiss="modal">取消</button>
+		            </div>
+		        </div><!-- /.modal-content -->
+		        
+		    </div><!-- /.modal -->
+		</div>
+		<div class="modal promptdelete" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+        				<h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+		            </div>
+		            <div class="modal-body">
+		            	<div class="row deleteText">
+		            		
+		            	</div>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-primary deleteSure">确定</button>
+		                <button class="btn btn-default cancelDelete">取消</button>
+		            </div>
+		        </div><!-- /.modal-content -->
+		    </div><!-- /.modal -->
+		</div>
+	</body>
+	<script type="text/javascript" src="../../r/wx/common/pathimage"></script>
+	<script src="js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/bootstrap-paginator.js"></script>
+	<script src="js/bootstrap-datetimepicker.min.js"></script>
+	<script src="js/bootstrap-datetimepicker.zh-CN.js"></script>
+	<script src="js/moment-with-locales.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+$(function(){
+	function getQueryString(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null)
+			return decodeURI(r[2]);
+			return null;
+	}
+	//调用日历插件
+	$("#datetimeStart").datetimepicker({
+        format: 'yyyy-mm-dd',
+        minView:'month',
+        language: 'zh-CN',
+        autoclose:true
+    }).on("click",function(){
+        $("#datetimeStart").datetimepicker("setEndDate",$("#datetimeEnd").val())
+    });
+    $("#datetimeEnd").datetimepicker({
+        format: 'yyyy-mm-dd',
+        minView:'month',
+        language: 'zh-CN',
+        autoclose:true,
+        startDate:new Date()
+    }).on("click",function(){
+        $("#datetimeEnd").datetimepicker("setStartDate",$("#datetimeStart").val())
+    });
+    //试卷数据展示
+    exhibition();
+    function exhibition(){
+    	$.ajax({
+			type:"get",
+			url:_ctxPath+"pc/examPaperStatisPc/queryStatis.action",
+			dataType:"json",
+			success:function(data){
+				var data = data.data;
+				exam(data);
+			}
+		})
+    }
+    //查询
+    $(".query").on("click",function(){
+    	var state = 0;
+		if ($(".selectlist").val() == "全部") {
+			state = "";
+		} else if ($(".selectlist").val() == "定时发布") {
+			state = 0;
+		} else if($(".selectlist").val() == "未开始"){
+			state = 1;
+		} else if($(".selectlist").val() == "待操作"){
+			state = 2;
+		} else if($(".selectlist").val() == "进行中"){
+			state = 3;
+		} else if($(".selectlist").val() == "已结束"){
+			state = 4;
+		} else if($(".selectlist").val() == "提前结束"){
+			state = 5;
+		}
+		var datetimeStart = $("#datetimeStart").val() == ""?"":$("#datetimeStart").val()+":00";
+		var datetimeEnd = $("#datetimeEnd").val() == ""?"":$("#datetimeStart").val()+":00";
+    	$.ajax({
+			type:"get",
+			url:_ctxPath+"pc/examPaperStatisPc/queryStatis.action",
+			dataType:"json",
+			data:{
+				"state|integer":state,
+				"gte:createTime|date":datetimeStart,
+				"lte:createTime|date":datetimeEnd,
+				"regex:title":$(".titleSearch").val()
+			},
+			success:function(data){
+				var data = data.data;
+				exam(data);
+			}
+		})
+    })
+    function exam(data){
+    	var trList = '<table class="table table-striped"><tr><th>试卷名称</th><th>试卷有效期</th><th>未答/全部</th><th>合格率</th><th>创建日期</th><th>状态</th><th>操作</th></tr>';
+    	for (var a = 0;a<data.length;a++) {
+    		trList += '<tr id="'+data[a]._id+'"><td><p title="'+data[a].title+'">'+data[a].title+'</p></td><td>'+data[a].formStarValidity+' '+data[a].formEndValidity+'</td><td><a href="javascript:;" class="peoplestatistics" data-toggle="modal" data-target="#myModal">'+data[a].toNoTolal+'/</a>'+data[a].totalp+'</td><td>'+data[a].qualificationRate+'%</td><td>'+data[a].createTime+'</td><td state="'+data[a].state+'"></td><td><a href="javascript:;" class="statistics">答题统计</a></td></tr>';
+    	}
+    	$(".tableBox").html(trList+"</table>");
+    	//分页	
+		var index = 0;
+		var size = 10;
+		var liList = '';
+		var liListNum = Math.ceil($("tr[id]").length / size);
+		for(var i = 0;i < liListNum;i++){
+			liList += '<li><a href="javascript:;" name="page">'+(i+1)+'</a></li>'
+		}
+		$(".pagination").html('<li class="preve"><a href="javascript:;" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>'+liList+'<li class="next"><a href="javascript:;" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>');
+		function pagingMethod(){
+			$("tr[id]").hide();
+			$(".pagination>li").removeClass("active");
+			$("li").removeClass("disabled");
+			$(".pagination>li").eq(index+1).attr("class","active");
+			if(index == 0){
+				$("tr[id]:lt("+size+")").show();
+				$(".preve").addClass("disabled");
+				$(".pagination>li").eq(index+1).attr("class","active");
+				
+			}else {
+	      		$("tr[id]:gt(" + (index * size - 1) + "):lt("+size+")").show();
+	   		}
+			if(index == Math.floor(($("tr[id]").length-1) / size)){
+				$(".next").addClass("disabled");
+			}
+		};
+		pagingMethod();
+		$(".next").on("click",function(){
+			if(index == Math.floor(($("tr[id]").length-1) / size)){
+				index == Math.floor(($("tr[id]").length-1) / size);
+			}else{
+				index++;
+			}
+			pagingMethod();
+		});
+		$(".preve").on("click",function(){
+			if(index == 0){
+				
+			}else{
+				index--;
+			}
+			pagingMethod();
+		});
+		$(".pagination a[name]").on("click",function(){
+			index = $(this).parent().index()-1;
+			pagingMethod();
+		})
+    	$(".statistics").off("click").on("click",function(){
+    		var statisticsId = $(this).parent().parent().attr("id");
+    		location.href = "answerStatistics.html?id="+statisticsId;
+    	})
+    	$.each($("td[state]"), function() {
+    		if ($(this).attr("state") == "0") {
+				$(this).text("定时发布");
+			} else if($(this).attr("state") == "1"){
+				$(this).text("未开始");
+			} else if($(this).attr("state") == "2"){
+				$(this).text("待操作");
+			} else if($(this).attr("state") == "3"){
+				$(this).text("进行中");
+			} else if($(this).attr("state") == "4"){
+				$(this).text("已结束");
+			} else if($(this).attr("state") == "5"){
+				$(this).text("提前结束");
+			}
+    	});
+    	$(".peoplestatistics").off("click").on("click",function(){
+    		var paperId = $(this).parent().parent().attr("id");
+    		if ($(this).parent().next().next().next().text() == "已结束"||$(this).parent().next().next().next().text() == "提前结束") {
+    			$(".preservation").hide();
+    		} else{
+    			$(".preservation").show();
+    		}
+    		peoplestatisticsFun(paperId);
+    	})
+    }
+    function peoplestatisticsFun(paperId){
+    	$.ajax({
+    		type:"get",
+			url:_ctxPath+"pc/examPaperStatisPc/findNotAnsweringQuestions.action",
+			dataType:"json",
+			data:{paperId:paperId},
+			success:function(psdata){
+				if (psdata != 0) {
+					var btnListHtml = '';
+					$(".btnListBox").html('<div class="col-xs-3 modalTitle text-center"></div><div class="btnList col-xs-9"></div>');
+					for (var a = 0;a<psdata.length;a++) {
+						btnListHtml += '<button class="btn btn-primary">'+psdata[a]+'</button>';
+					}
+					$(".modalTitle").text("姓名（"+psdata.length+"人）：");
+					$(".btnList").html(btnListHtml);
+					$(".preservation").off("click").on("click",function(){
+						$(".promptdelete").fadeIn();
+						$(".promptdelete .close,.promptdelete .cancelDelete").off("click").on("click",function(){
+							$(".promptdelete").fadeOut();
+						})
+						$(".deleteText").text('确定向'+psdata.length+'位未参加考试人员再次发送提醒吗？');
+						$(".deleteSure").off("click").on("click",function(){
+							$.ajax({
+								type:"get",
+								url:_ctxPath+"pc/examPaperStatisPc/answerReminding.action",
+								dataType:"json",
+								data:{paperId:paperId},
+								success:function(remindData){
+									
+								}
+							});
+							$(".promptdelete").fadeOut();
+						});
+					});
+				} else{
+					$(".btnListBox").html('<p style="text-align: center;">参与该试卷的人员已全部作答。</p>');
+					$(".preservation").hide();
+				}
+			}
+    	});
+    }
+})
+	</script>
+</html>

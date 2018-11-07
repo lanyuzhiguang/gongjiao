@@ -1,0 +1,287 @@
+body{
+    font-family: "苹方";
+
+}
+.talkRecord{
+    height:44px;
+    background:#f1f1f1 ;
+    line-height: 44px;
+    font-size: 16px;
+}
+.talkRecord img{
+    width: 15px;
+    margin-left: 42px;
+    margin-right: 10px;
+    vertical-align: middle;
+
+}
+.back{
+    margin-right: 20px;
+}
+#backBtn{
+    cursor: pointer;
+}
+#look{
+    color:#2196f3;
+    cursor: pointer;
+}
+.checkList{
+    width: 100%;
+    margin-top: 24px;
+}
+.checkLeft,.checkRight{
+    display: inline-block;
+    width: 40%;
+}
+.checkLeft>div>div,.checkRight>div>div{
+    display: inline-block;
+}
+.checkLeft>div>div:first-child{
+    width: 40%;
+    text-align: right;
+    font-size: 14px;
+    color:#969797;
+    margin-right: 20px;
+}
+
+.checkLeft>div>div:last-child{
+    width:50%;
+    text-align: left;
+    font-size: 14px;
+    color:#969797;
+}
+.checkRight>div>div:first-child{
+    width: 40%;
+    text-align: right;
+    font-size: 14px;
+    color:#969797;
+    margin-right: 20px;
+}
+.checkRight>div>div:last-child{
+    width: 50%;
+    text-align: left;
+    font-size: 14px;
+    color:#969797;
+}
+.checkLeft>div,.checkRight>div{
+    margin-bottom: 10px;
+}
+
+.contentTitle{
+    width: 100%;
+    height: 48px;
+    line-height: 48px;
+    background: #f2f4f3;
+    font-size: 14px;
+    color:#969797;
+    position: relative;
+}
+.contentTitle img{
+    position: absolute;
+    right: 30px;
+    top:50%;
+    margin-top: -5.5px;
+    cursor: pointer;
+}
+.innerTitle{
+    width: 100%;
+    height: 48px;
+    line-height: 48px;
+    background: #f9fafa;
+    font-size: 14px;
+    color:#969797;
+    position: relative;
+}
+.innerTitle span:nth-of-type(2),.contentTitle span:nth-of-type(2){
+	display: inline-block;
+	max-width: 400px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	vertical-align: middle;
+}
+.innerTitle img{
+    position: absolute;
+    right: 30px;
+    top:50%;
+    margin-top: -5.5px;
+    cursor: pointer;
+}
+
+.checkContent{
+    margin-top: 11px;
+}
+
+.kindN{
+    margin-left: 50px;
+    margin-right: 14px;
+}
+.projectN{
+    margin-left: 80px;
+    margin-right: 14px;
+}
+.allF{
+    margin-left: 14px;
+}
+table{
+    color:#797e80;
+    font-size: 14px;
+    border: 1px solid #e6e5e4;
+    border-top: 1px solid transparent;
+    border-bottom:1px solid transparent;
+}
+
+table tr td{
+    text-align: center;
+    border-right: 1px solid #e6e5e4;
+    border-bottom:1px solid #e6e5e4;
+
+}
+table tr td:last-child{
+    border-right:1px solid transparent;
+}
+table th:last-child{
+    border-right:1px solid transparent;
+}
+table th{
+    padding: 8px 7px;
+    border-right: 1px solid #e6e5e4;
+    border-bottom:1px solid #e6e5e4;
+}
+table tr td:nth-child(2){
+    text-align: left;
+    padding: 10px;
+}
+table tr td:nth-child(3){
+    width: 10%;
+}
+table tr td:nth-child(4){
+    text-align: left;
+    padding: 10px;
+}
+table tr td:nth-child(5){
+    text-align: left;
+    padding: 10px;
+}
+table tr td:nth-child(6){
+    text-align: center!important;
+    padding: 15px;
+}
+table tr td:nth-child(6)>span{
+    color:#2196f3;
+    margin: 0 10px;
+    cursor: pointer;
+}
+table tr td:nth-child(6)>span img{
+    width: 8px;
+}
+.innerWrap table,.checkContent table{
+    width: 100%;
+}
+/*弹窗*/
+.mask{
+    position: fixed;
+    top:0;
+    left:0;
+    bottom: 0;
+    right: 0;
+    height:100%;
+    width: 100%;
+    z-index: 1000;
+    background: #000000;
+    opacity: 0.14;
+}
+.popBox{
+    position: fixed;
+    left: 50%;
+    margin-left: -275px;
+    width: 493px;
+    border-radius: 4px;
+    z-index: 1001;
+    background: #ffffff;
+    height: auto;
+    top:5%;
+}
+.popB_Top{
+    border-bottom: 1px solid #c4c4c4;
+    padding-bottom: 15px;
+    padding-top: 16px;
+}
+.addW{
+    font-size:16px ;
+    margin-left: 24px;
+    margin-top: 16px;
+    margin-bottom: 15px;
+}
+.close{
+    float: right;
+    margin-right: 22px;
+    width: 20px;
+    cursor: pointer;
+}
+.close img{
+    width: 15px;
+}
+.btnList{
+    width: 61%;
+    margin: auto;
+    overflow: hidden;
+    padding-bottom: 27px;
+    margin-top: 23px;
+}
+.btnList input{
+    width: 96px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    font-size: 14px;
+    padding: 0 0;
+    outline: auto;
+    border-radius: 4px;
+}
+
+.s{
+    float: left;
+    background: #2198f2;
+    color:#ffffff;
+    border:1px solid #2198f2;
+    cursor: pointer;
+}
+.c{
+    float: right;
+    color:#4d4d4d ;
+    border: 1px solid #d2d2d2;
+    outline: none!important;
+    cursor: pointer;
+}
+
+.popB_bottom{
+    width: 100%;
+    font-size: 14px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #c4c4c4;
+    padding-left: 20px;
+}
+.popB_bottom div{
+    display: inline-block;
+    margin-right: 10px;
+}
+.checkList>div input {
+    vertical-align: middle;
+}
+.menuContent{
+    width: 48%;
+    margin: auto;
+    padding-bottom: 31px;
+}
+.menuContent1{
+    width: 48%;
+    padding-bottom: 31px;
+}
+
+.treeList{
+    margin-top: 15px;
+    height: 200px;
+    overflow: auto;
+}

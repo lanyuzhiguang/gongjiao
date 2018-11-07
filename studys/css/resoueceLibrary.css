@@ -1,0 +1,237 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+html, body {
+  font-family: "鑻规柟"; }
+
+a, a:focus, a:hover {
+  color: #2198F1;
+  text-decoration: none;
+  margin-right: 5px; }
+
+.btn-primary, .btn-primary.focus, .btn-primary:focus, .btn-primary:active:focus, .btn-primary:active:hover, .btn-primary:hover {
+  background: #2198F1;
+  border: 1px solid #2198F1; }
+
+.btn-primary {
+  margin: 0 6px; }
+
+.dropdown-toggle:hover {
+  background: white;
+  border: 1px solid #ccc; }
+
+.btn-group .dropdown-toggle:active, .open > .dropdown-toggle.btn-default:hover, .btn-default:focus {
+  background: white;
+  border: 1px solid #ccc; }
+
+.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn) {
+  width: auto; }
+
+.col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
+  padding: 0; }
+
+.row {
+  margin-left: 0;
+  margin-right: 0; }
+
+.clearfloat:after {
+  display: block;
+  clear: both;
+  content: "";
+  visibility: hidden;
+  height: 0; }
+
+.table {
+  margin: 0; }
+
+td, th {
+  text-align: center;
+  white-space: nowrap; }
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+  vertical-align: middle; }
+
+.modal-footer {
+  text-align: center; }
+
+.header {
+  background: #F6F6F6;
+  border-bottom: 1px solid #ccc; }
+
+header.container-fluid {
+  padding: 14px 30px; }
+  header.container-fluid .h4, header.container-fluid h4 {
+    font-weight: bolder;
+    font-size: 18px;
+    margin-right: 20px;
+    display: inline-block; }
+  header.container-fluid p {
+    font-size: 16px;
+    display: inline-block; }
+    header.container-fluid p span {
+      font-weight: 600; }
+
+article.container-fluid {
+  padding: 12px 30px; }
+  article.container-fluid .article_header p {
+    border: 1px solid #ccc;
+    font-weight: bold;
+    text-align: center; }
+    article.container-fluid .article_header p.active {
+      border: 1px solid #2198F1;
+      color: white;
+      background: #2198F1; }
+  article.container-fluid .content_header ul {
+    margin: 0;
+    background: #F6F6F6; }
+    article.container-fluid .content_header ul li {
+      padding: 15px 0;
+      text-align: center;
+      border-right: 1px solid #CCCCCC; }
+      article.container-fluid .content_header ul li:last-of-type {
+        border: none; }
+      article.container-fluid .content_header ul li.active {
+        background: #999999;
+        color: #fff; }
+  article.container-fluid .content_header div.curriculumName, article.container-fluid .content_header div.timeInp, article.container-fluid .content_header div.contentProvider, article.container-fluid .content_header div.state, article.container-fluid .content_header .search {
+    line-height: 50px; }
+  article.container-fluid .tableBox {
+    margin-top: 12px;
+    overflow: auto; }
+
+.promptdelete, .importSubjectAlert {
+  background: rgba(0, 0, 0, 0.5); }
+  .promptdelete .deleteText, .importSubjectAlert .deleteText {
+    text-align: center; }
+
+footer {
+  text-align: center; }
+  footer button.btn {
+    padding: 10px 30px;
+    font-size: 16px; }
+
+.optionTab {
+  display: none; }
+  .optionTab .row {
+    margin: 10px -15px; }
+  .optionTab .form-group:hover .deleteicon {
+    display: block; }
+  .optionTab .deleteicon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #2198F1;
+    color: white;
+    text-align: center;
+    line-height: 30px;
+    font-size: 28px;
+    display: none; }
+
+.table {
+  margin-bottom: 0; }
+
+#tabtitleBox {
+  border-bottom: 1px solid #ccc; }
+
+.tabtitle div.swiper-slide {
+  text-align: center;
+  padding: 0 25px;
+  height: 34px;
+  line-height: 34px;
+  border-right: 1px solid #ccc; }
+  .tabtitle div.swiper-slide a {
+    display: inline-block;
+    width: 100%;
+    height: 34px;
+    line-height: 34px;
+    color: #333; }
+  .tabtitle div.swiper-slide.active a {
+    border-bottom: 2px solid #2198F1;
+    color: #2198F1; }
+
+.branchSetting > div {
+  margin: 8px 0; }
+  .branchSetting > div span {
+    color: #333; }
+
+.btnTab {
+  text-align: center;
+  display: none;
+  margin: 50px 0; }
+  .btnTab button.btn-primary, .btnTab button.btn-default {
+    padding: 10px 45px; }
+
+.tabArticleContent {
+  display: none; }
+  .tabArticleContent span {
+    color: #e4080F; }
+
+.altogether {
+  line-height: 34px; }
+  .altogether span {
+    color: #2198F1; }
+
+.releaseTime {
+  display: none; }
+
+.bg_con {
+  width: 42px;
+  margin-top: 5px; }
+  .bg_con .switch {
+    display: none; }
+  .bg_con label {
+    position: relative;
+    display: block;
+    padding: 1px;
+    border-radius: 24px;
+    height: 22px;
+    margin-bottom: 15px;
+    background-color: #eee;
+    cursor: pointer;
+    vertical-align: top;
+    -webkit-user-select: none; }
+  .bg_con label:before {
+    content: '';
+    display: block;
+    border-radius: 24px;
+    height: 22px;
+    background-color: white;
+    -webkit-transform: scale(1, 1);
+    -webkit-transition: all 0.3s ease; }
+  .bg_con label:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -10px;
+    margin-left: -10px;
+    width: 22px;
+    height: 22px;
+    border-radius: 22px;
+    background-color: white;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.08);
+    -webkit-transform: translateX(-9px);
+    -webkit-transition: all 0.3s ease; }
+  .bg_con .switch:checked ~ label:after {
+    -webkit-transform: translateX(9px); }
+  .bg_con .switch:checked ~ label:before {
+    background-color: #2198F1; }
+
+.randomtableBox th, .randomtableBox td {
+  text-align: center; }
+
+.randomtableBox tr > th:first-of-type, .randomtableBox tr > td:first-of-type {
+  text-align: left;
+  border-right: 1px solid #ccc; }
+
+.randomtableBox tr > td:first-of-type:hover {
+  background: #2198F1;
+  color: white; }
+
+.navfooter {
+  text-align: center; }
+
+/*# sourceMappingURL=resoueceLibrary.css.map */

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>试卷管理</title>
+		<link rel="stylesheet" type="text/css" href="css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css"/>
+		<link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/build.css"/>
+		<link rel="stylesheet" type="text/css" href="css/question_bank.css"/>
+		<style type="text/css">
+			.checkbox{
+				margin: 0;
+			}
+			.checkbox label::before{
+				top: -1px;
+				margin-left: -19px;
+			}
+			.checkbox label{
+				padding: 0;
+			}
+			/*.table tr>td:first-of-type{
+				width: 250px;
+			}*/
+			.table tr>td:first-of-type p{
+				margin: 0;
+				text-align: left;
+				max-width: 150px;
+				overflow: hidden;
+		        white-space: nowrap;
+		        text-overflow: ellipsis;
+			}
+			.table tr>td:nth-of-type(3){
+				min-width: 100px;
+			}
+			.table tr>td:nth-of-type(2){
+				min-width: 281px;
+			}
+			.table tr>td:nth-of-type(4){
+				min-width: 118px;
+			}
+			.table tr>td:nth-of-type(5){
+				min-width: 150px;
+			}
+			.table tr>td:nth-of-type(6),.table tr>td:nth-of-type(7),.table tr>td:nth-of-type(8){
+				min-width: 83px;
+			}
+			.form-group{
+				margin-right: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<header class="container-fluid">
+				<div class="row">
+					<div class="col-xs-2">
+						<h4>试卷管理</h4>
+					</div>
+					<div class="col-xs-5 col-xs-offset-5 text-right">
+						<button class="btn btn-primary newQuestions">新建试卷</button>
+					</div>
+				</div>
+			</header>
+		</div>
+		<article class="container-fluid">
+			<div class="row content_header">
+				<div class="form-inline">
+					<!--<div class="form-group">
+						<a href="javascript:;">批量删除</a>
+					</div>-->
+					<div class="form-group selectBox" style="min-width: 200px;">
+						<label class="col-xs-5" style="min-width: 80px;">请选择状态</label>
+						<div class="col-xs-7">
+							<select class="selectlist form-control">
+								<option>全部</option>
+								<option>定时发布</option>
+								<option>待开始</option>
+								<option>待操作</option>
+								<option>进行中</option>
+								<option>已结束</option>
+								<option>提前结束</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-5 text-center">
+							<label>创建时间范围：</label>
+						</div>
+						<div class="col-xs-7 clearfloat">
+							<input type='text' readonly class="form-control form_datetime" id="datetimeStart" placeholder="请选择时间" />
+							<img src="img/calendar.png" class="dataImg"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-2 text-center">
+							<label>到</label>
+						</div>
+						<div class="col-xs-9 clearfloat">
+							<input type='text' readonly class="form-control form_datetime" id="datetimeEnd" placeholder="请选择时间" />
+							<img src="img/calendar.png" class="dataImg"/>
+						</div>
+					</div>
+					<div class="form-group" style="max-width: 150px;">
+						<div class="col-xs-12">
+							<input type="text" class="form-control titleSearch" placeholder="输入标题搜索" />
+						</div>
+					</div>
+					<div class="form-group">
+						<button class="btn btn-primary query">查询</button>
+					</div>
+				</div>
+			</div>
+			<div class="row tableBox">
+				
+			</div>
+			<div class="navfooter" style="text-align: center;">
+				
+			</div>
+		</article>
+		<div class="modal promptdelete" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+        				<h4 class="modal-title">提示</h4>
+		            </div>
+		            <div class="modal-body">
+		            	<div class="row deleteText">
+		            		
+		            	</div>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-primary deleteSure">确定</button>
+		                <button class="btn btn-default cancelDelete">取消</button>
+		            </div>
+		        </div><!-- /.modal-content -->
+		    </div><!-- /.modal -->
+		</div>
+		<div class="modal prompt" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+        				<h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+		            </div>
+		            <div class="modal-body">
+		            	<div class="row promptText">
+		            		
+		            	</div>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-primary promptSure">确定</button>
+		            </div>
+		        </div><!-- /.modal-content -->
+		    </div><!-- /.modal -->
+		</div>
+	</body>
+	<script type="text/javascript" src="../../r/wx/common/pathimage"></script>
+	<script src="js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/bootstrap-paginator.js"></script>
+	<script src="js/bootstrap-datetimepicker.min.js"></script>
+	<script src="js/bootstrap-datetimepicker.zh-CN.js"></script>
+	<script src="js/moment-with-locales.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+$(function(){
+	function getQueryString(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null)
+			return decodeURI(r[2]);
+			return null;
+	}
+	//调用日历插件
+	$("#datetimeStart").datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        minView:'hour',
+        language: 'zh-CN',
+        autoclose:true
+    }).on("click",function(){
+        $("#datetimeStart").datetimepicker("setEndDate",$("#datetimeEnd").val())
+    });
+    $("#datetimeEnd").datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        minView:'hour',
+        language: 'zh-CN',
+        autoclose:true,
+        startDate:new Date()
+    }).on("click",function(){
+        $("#datetimeEnd").datetimepicker("setStartDate",$("#datetimeStart").val())
+    });
+    //隐藏弹窗
+    $(".promptSure,.prompt .close").on("click",function(){
+		$(".prompt").fadeOut();
+	})
+    //新建试卷
+    $(".newQuestions").on("click",function(){
+    	location.href = "new_text_pager.html";
+    })
+    //试卷数据展示
+    var page = 1;
+    exhibition(page);
+    function exhibition(){
+    	$.ajax({
+			type:"get",
+			url:_ctxPath+"pc/examPaperPc/queryAdmin.action",
+			dataType:"json",
+			data:{
+				page:page,
+				size:10
+			},
+			success:function(data){
+				var data = data;
+				exam(data,1);
+			}
+		})
+    }
+    //提前结束
+    function overTextPager(subjectId){
+    	$.ajax({
+			type:"get",
+			url:_ctxPath+"pc/examPaperPc/advanceEnd.action",
+			dataType:"json",
+			data:{
+				paperId:subjectId
+			},
+			success:function(copyData){
+				exhibition();
+			}
+		})
+    }
+    //复制试卷
+	function copyTextPager(subjectId,subjectTitle){
+		$.ajax({
+			type:"get",
+			url:_ctxPath+"pc/examPaperPc/copyPaper.action",
+			dataType:"json",
+			data:{
+				paperId:subjectId,
+				title:subjectTitle
+			},
+			success:function(copyData){
+				exhibition();
+			}
+		})
+	}
+	//删除试卷
+	function deleteTextPager(subjectId){
+		$.ajax({
+			type:"get",
+			url:_ctxPath+"pc/examPaperPc/delPaper.action",
+			dataType:"json",
+			data:{
+				paperIds:subjectId
+			},
+			success:function(copyData){
+				exhibition();
+			}
+		})
+	}
+	//查询
+	$(".query").on("click",function(){
+		searchFun(page);
+	});
+	function searchFun(page){
+		var state = 0;
+		if ($(".selectlist").val() == "定时发布") {
+			state = 0;
+		} else if($(".selectlist").val() == "待开始"){
+			state = 1;
+		} else if($(".selectlist").val() == "待操作"){
+			state = 2;
+		} else if($(".selectlist").val() == "进行中"){
+			state = 3;
+		} else if($(".selectlist").val() == "已结束"){
+			state = 4;
+		} else if($(".selectlist").val() == "提前结束"){
+			state = 5;
+		} else if($(".selectlist").val() == "全部") {
+			state = "";
+		}
+		var datetimeStart = $("#datetimeStart").val() == ""?"":$("#datetimeStart").val()+":00";
+		var datetimeEnd = $("#datetimeEnd").val() == ""?"":$("#datetimeEnd").val()+":00";
+		$.ajax({
+			type:"get",
+			url:_ctxPath+"pc/examPaperPc/queryAdmin.action",
+			dataType:"json",
+			data:{
+				"state|integer":state,
+				"gte:createTime|datetime":datetimeStart,
+				"lte:createTime|datetime":datetimeEnd,
+				"regex:title":$(".titleSearch").val(),
+				page:page,
+				size:10
+			},
+			success:function(data){
+				var data = data;
+				exam(data);
+			}
+		});
+	}
+	//页面数据展示
+    function exam(datas,searchType){
+    	var data = datas.data;
+		var subjectArr = [];
+		if (data.length == 0) {
+			$(".tableBox").html("暂无试卷");
+			$(".navfooter").html("");
+		} else{
+			var tableHtml = '<table class="table table-striped"><tr><th>试卷名称</th><th>试卷有效期</th><th>选题模式</th><th>合格分/试卷总分</th><th>创建日期</th><th>状态</th><th>未考/应考</th><th>操作</th></tr>';
+//				<th><div class="checkbox checkbox-info"><input id="checkbox0" class="styled" type="checkbox"><label for="checkbox0"></label></div></th>
+			for (var a = 0;a<data.length;a++) {
+				tableHtml += '<tr id="'+data[a]._id+'"><td title="'+data[a].title+'"><p>'+data[a].title+'</p></td><td class="range">'+data[a].formStarValidity+'-'+data[a].formEndValidity+'</td><td type="'+data[a].mode+'"></td><td>'+data[a].qualfraction+'/'+data[a].totalScore+'</td><td>'+data[a].createTime+'</td><td state="'+data[a].state+'"></td><td>'+data[a].toNoTolal+'/'+data[a].totalp+'</td><td></td></tr>';
+			}
+//				<td><div class="checkbox checkbox-info"><input id="checkbox'+a+'" class="styled" type="checkbox"><label for="checkbox'+a+'"></label></div></td>
+			$(".tableBox").html(tableHtml+"</table>");
+			$.each($(".tableBox td[type]"), function() {
+				if ($(this).attr("type") == "1") {
+					$(this).text("自定义选题");
+				} else{
+					$(this).text("后台随机选题");
+				}
+			});
+			$.each($(".tableBox .range"),function(){
+				if ($(this).text() == "undefined-undefined") {
+					$(this).text("");
+				}
+			})
+			$.each($(".tableBox td[state]"), function() {
+				if ($(this).attr("state") == "0") {
+					$(this).text("定时发布");
+					$(this).next().next().html('<a href="javascript:;" class="delete">删除</a>');//<a href="javascript:;" class="edit">编辑</a>
+				} else if($(this).attr("state") == "1"){
+					$(this).text("待开始");
+					$(this).next().next().html('<a href="javascript:;" class="delete">删除</a>');//<a href="javascript:;" class="edit">编辑</a>
+				} else if($(this).attr("state") == "2"){
+					$(this).text("待操作");
+					$(this).next().next().html('<a href="javascript:;" class="delete">删除</a>');//<a href="javascript:;" class="edit">编辑</a>
+				} else if($(this).attr("state") == "3"){
+					$(this).text("进行中");
+					$(this).next().next().html('<a href="javascript:;" class="endAdvance">提前结束</a>');
+				} else if($(this).attr("state") == "4"){
+					$(this).text("已结束");
+					$(this).next().next().html('<a href="javascript:;" class="delete">删除</a>');
+				} else if($(this).attr("state") == "5"){
+					$(this).text("提前结束");
+					$(this).next().next().html('<a href="javascript:;" class="delete">删除</a>');
+				}
+			});
+			$(".tableBox td a:contains('复制试卷')").off("click").on("click",function(){
+				var subjectId = $(this).parent().parent().attr("id");
+				$(".promptdelete").show();
+				$(".promptdelete .modal-header").html('<button type="button" class="close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title">复制试卷</h4>')
+				$(".deleteText").html('<label class="col-xs-3 col-xs-offset-1">试卷名称</label><div class="col-xs-6"><input type="text" class="form-control subjectTitle" placeholder="请输入试卷名称" /></div>');
+				$(".subjectTitle").val("");
+				$(".promptdelete .close,.promptdelete .cancelDelete").off("click").on("click",function(){
+					$(".promptdelete").hide();
+				})
+				$(".deleteSure").off("click").on("click",function(){
+					var subjectTitle = $(".subjectTitle").val();
+					if (subjectTitle == "") {
+						$(".prompt").fadeIn();
+						$(".promptText").text("请输入试卷名称！");
+					} else{
+						copyTextPager(subjectId,subjectTitle);
+						$(this).removeAttr("disabled");
+						$(".promptdelete").hide();
+					}
+				})
+			});
+			$(".tableBox td a:contains('删除')").off("click").on("click",function(){
+				var subjectId = $(this).parent().parent().attr("id");
+				$(".promptdelete").show();
+//					$(".promptdelete .modal-header").html('<button type="button" class="close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title">复制试卷</h4>')
+				$(".deleteText").html('确定删除该试卷吗？');
+				$(".promptdelete .close,.promptdelete .cancelDelete").off("click").on("click",function(){
+					$(".promptdelete").hide();
+				})
+				$(".deleteSure").off("click").on("click",function(){
+					deleteTextPager(subjectId);
+					$(".promptdelete").hide();
+				})
+			});
+			$(".tableBox tr:first-child input").off("click").on("click",function(){
+				if ($(this).attr("checked") == undefined) {
+					$(this).attr("checked","true");
+					$(".tableBox tr[id] input").attr("checked","true");
+					$(".tableBox tr[id] input").next().addClass("labelin").removeClass("labelout");
+					$(".tableBox tr[id] input").next().addClass("labele").removeClass("labeler");
+					$.each($(".tableBox tr[id]"), function() {
+						subjectArr.push($(this).attr("id"));
+					});
+				} else if($(this).attr("checked") == "checked"){
+					$(this).removeAttr("checked");
+					$(".tableBox tr[id] input").removeAttr("checked");
+					$(".tableBox tr[id] input").next().addClass("labelout").removeClass("labelin");
+					$(".tableBox tr[id] input").next().addClass("labeler").removeClass("labele");
+					subjectArr = [];
+				}
+			})
+			$(".tableBox tr[id] input").off("click").on("click",function(){
+				if ($(this).attr("checked") == undefined) {
+					$(this).attr("checked","true");
+					$(this).next().addClass("labelin").removeClass("labelout");
+					$(this).next().addClass("labele").removeClass("labeler");
+					subjectArr.push($(this).parent().parent().parent().attr("id"));
+				} else if($(this).attr("checked") == "checked"){
+					$(this).removeAttr("checked");
+					$(this).next().addClass("labelout").removeClass("labelin");
+					$(this).next().addClass("labeler").removeClass("labele");
+					for(var arrn = 0;arrn<subjectArr.length;arrn++){
+						if (subjectArr[arrn] == $(this).parent().parent().parent().attr("id")) {
+							subjectArr.splice(arrn,1);
+						}
+					}
+				}
+			});
+//				$("a:contains('批量删除')").off("click").on("click",function(){
+//					var subjectId = subjectArr.join(",");
+//					$(".promptdelete").show();
+//					$(".promptdelete .modal-header").html('<button type="button" class="close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title">复制试卷</h4>')
+//					$(".deleteText").html('确定删除选中的试卷吗？');
+//					$(".promptdelete .close,.promptdelete .cancelDelete").off("click").on("click",function(){
+//						$(".promptdelete").hide();
+//					})
+//					$(".deleteSure").off("click").on("click",function(){
+//						deleteTextPager(subjectId);
+//						$(".promptdelete").hide();
+//					})
+//				})
+			$("a:contains('提前结束')").off("click").on("click",function(){
+				var subjectId = $(this).parent().parent().attr("id");
+				$(".promptdelete").show();
+//					$(".promptdelete .modal-header").html('<button type="button" class="close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title">复制试卷</h4>')
+				$(".deleteText").html('确定提前结束考试吗？');
+				$(".promptdelete .close,.promptdelete .cancelDelete").off("click").on("click",function(){
+					$(".promptdelete").hide();
+				})
+				$(".deleteSure").off("click").on("click",function(){
+					overTextPager(subjectId);
+					$(".promptdelete").hide();
+				})
+			});
+			$("a:contains('编辑')").off("click").on("click",function(){
+				var subjectId = $(this).parent().parent().attr("id"); 
+				location.href = "new_text_pager.html?edit=1&id="+subjectId;
+			});
+			$(".navfooter").html('<nav class="navi" aria-label="Page navigation"><ul class="pagination paginationLists" id="paginationLists"></ul></nav>');
+			$('#paginationLists').bootstrapPaginator({
+			    currentPage: datas.page,//当前的请求页面。
+			    totalPages: datas.pages,//一共多少页。
+			    size:"normal",//应该是页眉的大小。
+			    bootstrapMajorVersion: 3,//bootstrap的版本要求。
+			    alignment:"right",
+			    numberOfPages:10,//一页列出多少数据。
+			    itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+			        switch (type) {
+				        case "prev": return "上一页";
+				        case "next": return "下一页";
+				        case "page": return page;
+			        }
+			    }
+			});
+			$("#paginationLists a").off("click").on("click",function(){
+				if ($(this).text() == "下一页") {
+					if (page >= datas.pages) {
+						page = datas.pages;
+					} else{
+						page++;
+					}
+					if (searchType == 1) {
+						exhibition(page);
+					} else{
+						searchFun(page);
+					}
+				} else if($(this).text() == "上一页") {
+					if (page <= 1) {
+						page = 1;
+					} else{
+						page--;
+					}
+					if (searchType == 1) {
+						exhibition(page);
+					} else{
+						searchFun(page);
+					}
+				} else{
+					page = $(this).text();
+					if (searchType == 1) {
+						exhibition(page);
+					} else{
+						searchFun(page);
+					}
+				}
+			})
+		}
+	}	
+})
+	</script>
+</html>

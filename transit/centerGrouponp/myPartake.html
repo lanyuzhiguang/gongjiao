@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>我参与的</title>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/index.css"/>
+	</head>
+	<body>
+		<aside>
+			<img src="../img/nonews.png"/>
+		</aside>
+		<nav class="header">
+			<ol class="breadcrumb">
+			  <li><a href="javascript:;">中心组学习</a></li>
+			  <li class="active cursor">我参与的</li>
+			</ol>
+		</nav>
+		<article>
+			<nav>
+				<ul class="clear">
+					<li class="left cursor active">我参与的</li>
+				</ul>
+			</nav>
+			<section>
+				<label for="">选择转账拨款时间：</label>
+				<input type="text" class="form-control widthMin verticalalignTop" placeholder="请输入" />
+				<label for="">状态</label>
+				<select class="form-control widthMax verticalalignTop">
+					<option>请假</option>
+					<option>请假获批</option>
+					<option>确认完成学习笔记</option>
+				</select>
+				<button class="btnbg">查询</button>
+				<button class="btnbg">重置</button>
+			</section>
+			<section>
+				<table class="table table-striped tableNoBor">
+					<tr>
+						<th>学习标题</th>
+						<th>学习开始时间</th>
+						<th>学习地点</th>
+						<th>会议类型</th>
+						<th>状态</th>
+						<th>操作</th>
+					</tr>
+					<tr>
+						<td>学习标题内容</td>
+						<td>2018-01-01</td>
+						<td>创客小镇</td>
+						<td>扩大会议</td>
+						<td class="gray">未开始</td>
+						<td><a href="javascript:;">请假</a></td>
+					</tr>
+					<tr>
+						<td>学习标题内容</td>
+						<td>2018-01-01</td>
+						<td>创客小镇</td>
+						<td>普通会议</td>
+						<td class="blue">进行中</td>
+						<td><a href="javascript:;">请假获批</a></td>
+					</tr>
+					<tr>
+						<td>学习标题内容</td>
+						<td>2018-01-01</td>
+						<td>创客小镇</td>
+						<td>普通会议</td>
+						<td class="green">进行中</td>
+						<td><a href="javascript:;">确认完成学习笔记</a></td>
+					</tr>
+					<tr>
+						<td>学习标题内容</td>
+						<td>2018-01-01</td>
+						<td>创客小镇</td>
+						<td>普通会议</td>
+						<td class="orange">已取消</td>
+						<td>--</td>
+					</tr>
+				</table>
+			</section>
+		</article>
+		<div class="alertBox alertBox1">
+			<div class="alert">
+				<div class="header">
+					<p class="ellipsis">请假</p>
+					<img class="closeAlert" src="../img/close.png"/>
+				</div>
+				<div class="alert_content">
+					您确认要请假吗？如果请假后需要取消请假，请与中心组负责人联系，恢复请假信息。
+				</div>
+				<div class="alert_footer">
+					<button class="btnbg sure">确定</button>
+					<button class="btn btn-default cancel">取消</button>
+				</div>
+			</div>
+		</div>
+		<div class="alertBox alertBox1_1">
+			<div class="alert">
+				<div class="header">
+					<p class="ellipsis">请假</p>
+					<img class="closeAlert" src="../img/close.png"/>
+				</div>
+				<div class="alert_content row">
+					<form class="form-horizontal col-xs-12">
+						<div class="form-group col-xs-6">
+							<label for="inputPassword" class="col-xs-4 control-label"><span class="red">*</span>姓名：</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" placeholder="请输入" />
+							</div>
+					  	</div>
+					  	<div class="form-group col-xs-6">
+							<label for="inputPassword" class="col-xs-4 control-label"><span class="red">*</span>所属支部：</label>
+							<div class="col-xs-8">
+								<input type="text" class="form-control" placeholder="请输入" />
+							</div>
+					  	</div>
+					  	<div class="form-group col-xs-12">
+							<label style="padding: 0;" for="inputPassword" class="col-xs-2 control-label"><span class="red">*</span>请假事由：</label>
+							<div class="col-xs-10" style="padding: 0;">
+								<textarea rows="4" cols="" class="form-control" placeholder="请输入"></textarea>
+							</div>
+					  	</div>
+					</form>
+				</div>
+				<div class="alert_footer">
+					<button class="btnbg sure">确定</button>
+					<button class="btn btn-default cancel">取消</button>
+				</div>
+			</div>
+		</div>
+		<div class="alertBox2">
+			<div class="alert2">
+				<div class="header">
+					<p class="ellipsis">学习笔记</p>
+					<img class="closeAlert2" src="../img/close.png"/>
+				</div>
+				<div class="alert_content">
+					如果您确认完成学习笔记点击确定按钮，没有完成点击取消按钮，确认后默认您完成了学习笔记？
+				</div>
+				<div class="alert_footer">
+					<button class="btnbg sure">确定</button>
+					<button class="btn btn-default cancel">取消</button>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="../../../moduleweb/resources/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../resources/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function(){
+		$("td a").off("clcik").on("click",function(){
+			if ($(this).text() == "请假") {
+				$(".alertBox1_1").fadeIn();
+			} else if ($(this).text() == "确认完成学习笔记") {
+				$(".alertBox2").fadeIn();
+			}
+		});
+		$(".alertBox2 .closeAlert2,.alertBox2 .cancel,.alertBox2 .sure").off("click").on("click",function(){
+			$(".alertBox2").fadeOut();
+		});
+		$(".alertBox1 .closeAlert,.alertBox1 .cancel,.alertBox1 .sure").off("click").on("click",function(){
+			$(".alertBox1").fadeOut();
+		});
+		$(".alertBox1_1 .closeAlert,.alertBox1_1 .cancel,.alertBox1_1 .sure").off("click").on("click",function(){
+			$(".alertBox1_1").fadeOut();
+		});
+	});
+</script>

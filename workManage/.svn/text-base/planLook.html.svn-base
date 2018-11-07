@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/planLook.css">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+
+        .hid {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <div>
+        <div class="talkRecord">
+            <span id="back"><img src="../img/back.png"><span class="back">返回</span></span>
+            <span id="titleName">计划查看</span>
+        </div>
+        <div class="talkList">
+            <div class="talkC">
+                <div>内容</div>
+                <div id="content">
+                    你好
+                </div>
+            </div>
+            <div class="left">
+                <div>
+                    <div>图片</div>
+                    <div id="img">
+
+                    </div>
+                </div>
+            </div>
+            <div class="fuJ">
+                <div>附件</div>
+                <div class="file">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mask hid" id="mask" style="z-index:1001;"></div>
+<div class="popBox hid" id="poper">
+    <span class="close" id="close"><img src="../img/close.png"></span>
+    <img src="" id="imgList">
+</div>
+</body>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script src="../assets/js/jquery.js"></script>
+
+<script>
+    $(function () {
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+
+        var id = getQueryString("id");
+        var path = "";
+        var iframe = document.getElementById("common");
+///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+        iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+        if (iframe.attachEvent) {//判断iframe是否加载完成
+            iframe.attachEvent("onload", function () {
+                getCommon();
+            });
+        } else {
+            iframe.onload = function () {
+                getCommon();
+            };
+        }
+
+//获取公共参数  一般为存储在session里面的数据
+        function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+            var frames = window.frames["common"];
+            path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+            var _qiniuImageHost = frames._qiniuImageHost;//七牛云公共地址头
+            $("#back").click(function () {
+                window.history.back(-1);
+            });
+
+
+            $("#mask").height($(document).height());
+
+            $("#img").on("click",function (e) {
+                 var oSrc=$(e.target).attr("src");
+                 $("#poper").removeClass("hid");
+                 $("#mask").removeClass("hid");
+                 $("#imgList").attr("src",oSrc);
+            });
+            $("#mask").click(function () {
+                $(this).addClass("hid");
+                $("#poper").addClass("hid");
+            });
+            $("#close").click(function () {
+                $("#mask").addClass("hid");
+                $("#poper").addClass("hid");
+            });
+            $.ajax({
+                type: "POST",
+                url: path + "/planTerm/findRuleById.action",
+                data: {
+                    "planTermId": id
+                },
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                success: function (data) {
+                    var data = data.data;
+                    $("#content").text(data.content);
+                    for (var i = 0; i < data.fileDatas.length; i++) {
+                        $(".file").append("<a href=" + _qiniuImageHost + data.fileDatas[i].fileId + "   target='_blank'>" + data.fileDatas[i].fileName + "</a>");
+                    }
+                    for (var j = 0; j < data.imgDatas.length; j++) {
+                        $("#img").append("<a class='cboxElement' href='javascript:;' ><img  src=" + _qiniuImageHost + data.imgDatas[j].fileId + "></a>")
+                    }
+                }
+
+            })
+
+        }
+    })
+</script>
+
+
+</html>

@@ -1,0 +1,150 @@
+body{
+    font-family: "苹方";
+    box-sizing: border-box;
+}
+ul,li{
+    margin: 0;
+    padding: 0;
+}
+.talkRecord{
+    height:44px;
+    background:#f1f1f1 ;
+    line-height: 44px;
+    font-size: 16px;
+    width: 98%;
+}
+.talkRecord img{
+    width: 15px;
+    margin-left: 42px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.back{
+    margin-right: 20px;
+}
+.talkList{
+    width: 80%;
+    margin: auto;
+    font-size: 14px;
+    overflow: hidden;
+    margin-top: 22px;
+}
+
+.left{
+    width:100%;
+    margin-top: 25px;
+}
+.right{
+    float: right;
+    width: 50%;
+}
+#back{
+    cursor: pointer;
+}
+.left>div:first-child{
+    width: 20%;
+    margin-bottom: 20px;
+}
+.left>div:last-child{
+    width: 100%;
+}
+.left>div>div{
+    display: inline-block;
+}
+.left>div>div:first-child{
+    margin-right: 40px;
+    width: 10%;
+    text-align: right;
+    vertical-align: top;
+}
+.left>div>div:last-child{
+   width: 80%;
+}
+
+.talkC{
+    clear: both;
+}
+.talkC>div{
+    display: inline-block;
+}
+.talkC>div:first-child{
+    width: 10%;
+    text-align: right;
+    margin-right: 40px;
+}
+.talkC>div:last-child{
+    text-indent: 2em;
+    width: 80%;
+    vertical-align: top;
+    line-height: 180%;
+}
+.fuJ{
+    margin-top: 22px;
+}
+.fuJ>div{
+    display: inline-block;
+}
+.fuJ>div:first-child{
+    width: 10%;
+    text-align: right;
+    margin-right: 40px;
+}
+.fuJ>div:last-child{
+    width: 80%;
+}
+.fuJ>div:last-child span{
+    color:#2198f2;
+    margin-right: 28px;
+}
+#img a img{
+    width: 81px;
+    height: 81px;
+
+}
+#img a{
+    margin-right: 10px;
+}
+.file a{
+    margin-right: 20px;
+}
+
+
+.mask{
+    position: absolute;
+    top:0;
+    left:0;
+    bottom: 0;
+    right: 0;
+    height:100%;
+    width: 100%;
+    z-index: 1000;
+    background: #000000;
+    opacity: 0.14;
+}
+
+
+.popBox{
+    position: absolute;
+    left: 50%;
+    margin-left: -275px;
+    width:500px;
+    border-radius: 4px;
+    z-index: 1001;
+    background: #ffffff;
+    height:500px;
+    top: 10%;
+    text-align: center;
+    display: table-cell;
+}
+.popBox>img{
+    margin-top: 50%;
+    margin-left: 50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    height: 400px;
+}
+.popBox>span>img{
+    position: absolute;
+    right: 5px;
+    top: 4px;
+}

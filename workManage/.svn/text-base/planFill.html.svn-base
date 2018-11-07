@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/planFill.css">
+    <link rel="stylesheet" type="text/css" href="../css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+    <style>
+        .layui-layer-msg{
+            text-align: center;
+            margin: auto;
+            margin-top: -150px!important;
+        }
+
+    </style>
+</head>
+<body>
+<div >
+    <div>
+        <div class="talkRecord">
+                <span id="back">
+                      <img src="../img/back.png"><span class="back">返回</span>
+                </span>
+            <span id="tanTile">计划填报</span>
+        </div>
+        <div class="talkInput">
+            <div class="textA">
+                <div><span class="redX">*</span>内容</div>
+                <div>
+                    <textarea id="content"></textarea>
+                </div>
+            </div>
+            <div class="talkLeft">
+                <div>
+                    <div class="time">图片</div><div class="inputBox" >
+                        <img src="../img/addPic.png" id="upload">
+                    </div>
+                </div>
+            </div>
+            <div class="fuJ comp" >
+            <div >附件</div><div id="fileUpload"><img src="../img/fuJ.png"><span>上传附件</span></div>
+            </div>
+            <div class="fuJList" >
+
+            </div>
+        </div>
+        <div class="btnList">
+            <input type="button" value="提交" id="submit"><input type="button" value="取消" id="cancel">
+        </div>
+    </div>
+</div>
+
+</body>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script src="../assets/js/jquery.js"></script>
+<script src="../js/laydate.js"></script>
+<script src="../js/layui.js"></script>
+<script src="../js/layer.js"></script>
+
+<script>
+    var _ctxPath="";
+    $(function () {
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+
+
+        var id=getQueryString("id");
+        var path = "";
+        var iframe = document.getElementById("common");
+        ///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+        iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+        if (iframe.attachEvent) {//判断iframe是否加载完成
+            iframe.attachEvent("onload", function () {
+                getCommon();
+            });
+        } else {
+            iframe.onload = function () {
+                getCommon();
+            };
+        }
+
+        //获取公共参数  一般为存储在session里面的数据
+        function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+            var frames = window.frames["common"];
+            path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+            var _qiniuImageHost = frames._qiniuImageHost;//七牛云公共地址头
+            $("#back").click(function () {
+                window.history.back(-1);
+            });
+            var imgArr=new Array();
+            var filesArr=new Array();
+            //上传图片
+            layui.use('upload', function(){
+                var upload = layui.upload;
+                var fileUpload=upload.render({
+                    elem: '#upload'
+                    ,field:"_fileupload_onlyFile"
+                    ,accept:"images"
+                    ,data:{isPrivate:false}
+                    ,url: path + '/back/super/file/upload.do'
+                    ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                        parent.layer.load(); //上传loading
+                    }
+                    ,done: function(res, index, upload){
+                        parent.layer.closeAll('loading'); //关闭loading
+                        for(var i=0;i<res.params.fileDate.length;i++){
+                            $(".inputBox").append("<img src="+_qiniuImageHost+res.params.fileDate[i].fileId+">");
+                            imgArr.push(res.params.fileDate[i].fileId);
+                        }
+                    }
+                    ,error: function(index, upload){
+                        parent.layer.closeAll('loading'); //关闭loading
+                    }
+                });
+            });
+            //上传文件
+            layui.use('upload', function(){
+                var upload = layui.upload;
+                var fileUpload=upload.render({
+                    elem: '#fileUpload'
+                    ,field:"_fileupload_onlyFile"
+                    ,accept:"file"
+                    ,data:{isPrivate:false}
+                    ,url: path + '/back/super/file/upload.do'
+                    ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                        parent.layer.load(); //上传loading
+                    }
+                    ,done: function(res, index, upload){
+                        parent.layer.closeAll('loading'); //关闭loading
+                        for(var i=0;i<res.params.fileDate.length;i++){
+                            $(".fuJList").append("<a href="+_qiniuImageHost+res.params.fileDate[i].fileId+"  target='_blank'>"+res.params.fileDate[i].fileName+"</a>")
+                            filesArr.push(res.params.fileDate[i].fileId);
+                        }
+                    }
+                    ,error: function(index, upload){
+                        parent.layer.closeAll('loading'); //关闭loading
+                    }
+                });
+            });
+            $("#submit").click(function () {
+                if ($("#content").val().trim() == "") {
+                    parent.layer.alert('请填写内容！');
+                    return;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: path + "/planTerm/upsert.action",
+                    data: {
+                        "_id":id,
+                        "content": $("#content").val(),
+                        "imgs":imgArr.toString(),
+                        "files":filesArr.toString()
+                    },
+                    dataType: "json",
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    success: function (data) {
+                        window.history.back(-1);
+                    }
+
+                })
+
+            })
+
+
+
+        }
+
+    })
+</script>
+
+</html>

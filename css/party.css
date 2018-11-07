@@ -1,0 +1,147 @@
+.wrapB{
+    padding-left: 80px;
+    padding-right:80px;
+    margin-top: 36px;
+}
+.wrapper{
+    margin-top: 20px;
+    margin-left: 100px;
+    margin-right: 100px;
+    background: #FAFAFA;
+    padding-bottom: 100px;
+}
+.imgW{
+    font-size: 14px;
+}
+.timeN{
+    padding-left: 6px;
+}
+.floatL{
+    float: left;
+}
+.floatR{
+    float: right;
+    font-size: 14px;
+}
+.posiB{
+    clear: both;
+    font-size: 14px;
+}
+.listI{
+    display: block;
+    margin: auto;
+    width:635px;
+    margin-top: 20px;
+}
+.innerC{
+    font-size: 16px;
+}
+.centerB{
+    display: block;
+    margin: auto;
+    background: red;
+    color: #ffffff;
+    width: 12%;
+    height: 33px;
+    line-height: 33px;
+    text-align: center;
+    text-decoration: none!important;
+    border-radius: 5px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.centerB:hover{
+    color:#ffffff!important;
+}
+.line_{
+    clear: both;
+    margin-bottom: 8px;
+}
+
+.grid3 {
+    width: 12%;
+    float: right;
+    padding:0;
+    margin: 0;
+    text-align: center;
+}
+.grid2:first-child, .grid3:first-child, .grid4:first-child{
+    border-left: 1px solid #E3E3E3;
+}
+.clearfix{
+    padding-bottom: 8px;
+}
+.grid3  i span{
+    margin-left: 3px;
+    font-size: 12px!important;
+}
+.grid3  i{
+    color:#2196f3!important;
+    font-size: 12px;
+}
+.grid3  i:hover{
+    color:red!important;
+}
+.headList{
+    width: 72%;
+    background: #EEEEEE;
+    margin: auto;
+    overflow: auto;
+    height:400px;
+}
+ul, li{
+    margin:0;
+    padding:0;
+}
+ul li{
+    list-style: none;
+}
+.headB img{
+    border-radius: 200px;
+}
+.asked{
+    color: #f4834b;
+    padding-top: 11px;
+    padding-left: 26px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+.headList ul li{
+    float: left;
+    width:14%;
+    margin-bottom: 20px;
+}
+.headB{
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}
+.nameW{
+    font-family: "微软雅黑";
+    font-size: 14px;
+}
+body{
+    color:#333333;
+    font-size: 16px;
+}
+.title{
+    font-size: 18px!important;
+    font-weight: bold;
+}
+.floatR span img{
+    width: 24px;
+    margin-bottom: 8px;
+}
+.floatL span img{
+    width: 30px;
+    margin-bottom: 10px;
+}
+.posiB img{
+    width: 26px;
+    margin-left: 5px;
+}
+.posiB ,.floatR span,.floatL span{
+    color:#666666;
+}

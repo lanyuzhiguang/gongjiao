@@ -1,0 +1,362 @@
+body{
+    font-family: "苹方";
+
+}
+.talkRecord{
+    height: 44px;
+    background: #f1f1f1;
+    line-height: 44px;
+    font-size: 16px;
+    width: 98%;
+    margin: auto;
+}
+.talkRecord img{
+    width: 15px;
+    margin-left: 42px;
+    margin-right: 10px;
+    vertical-align: middle;
+
+}
+.back{
+    margin-right: 20px;
+}
+#backBtn{
+    cursor: pointer;
+}
+.kindList{
+    width: 100%;
+}
+.headProcess{
+    width: 69%;
+    margin: auto;
+    height: 37px;
+    line-height: 37px;
+    position: relative;
+    margin-top: 36px;
+}
+.headProcess>div:first-child>img{
+    /*float:left;*/
+    position: absolute;
+    left:0;
+    top:50%;
+    margin-top: -18px;
+    z-index: 1;
+    width: 36px;
+    height: 36px;
+}
+.headProcess>div:last-child>img{
+    /*float: right;*/
+    position: absolute;
+    right: 0;
+    width: 36px;
+    height: 36px;
+}
+.lineRed{
+    border-bottom: 3px solid #ff8a86;
+    position: absolute;
+    top:50%;
+    width: 89%;
+    left: 5.5%;
+}
+.firstImg{
+    width: 36px;
+    height: 36px;
+
+}
+.lastImg{
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    right: 0;
+    top: 1%;
+}
+.firstImg span{
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    text-align: center;
+    line-height: 36px;
+    position: absolute;
+    z-index: 2;
+    color:#ffffff;
+}
+.lastImg span{
+    display: inline-block;
+    width: 35px;
+    height: 36px;
+    text-align: center;
+    line-height: 36px;
+    position: absolute;
+    z-index: 2;
+    color:#ffffff;
+}
+
+.wordSetting{
+    position: absolute;
+    top:34px;
+    width:100px;
+    left: -11px;
+    font-size: 14px;
+    color:#656565;
+}
+.checkRegular{
+    position: absolute;
+    top:34px;
+    width:100px;
+    left:-25px;
+    font-size: 14px;
+    color:#656565;
+}
+#look{
+    color:#2196f3;
+    cursor: pointer;
+}
+.redX{
+    color:#d71e01;
+}
+.formList{
+    width: 80%;
+    margin: auto;
+    margin-top: 72px;
+}
+.formList>div>div{
+    display: inline-block;
+    font-size: 14px;
+    color:#4d4d4d;
+    margin-bottom:26px;
+}
+.formList>div>div:first-child{
+    width: 20%;
+    text-align: right;
+    margin-right: 18px;
+}
+
+.formList>div>div:last-child{
+    text-align: left;
+    width: 406px;
+    height:38px;
+    position: relative;
+    cursor: pointer
+}
+.formList>div>div:last-child>img{
+    position: absolute;
+    top: 0;
+    right: 0px;
+    bottom: 0;
+    height: 100%;
+}
+.formList>div>div:last-child>input{
+    width: 404px;
+    height: 36px;
+    border: 1px solid #c4c4c4;
+    outline: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.beginDate{
+    width: 100px!important;
+    height: 40px;
+    position: relative;
+    margin-right: 14px;
+}
+.beginDate>input{
+    width: 100px;
+    height: 36px;
+    cursor: pointer;
+    border: 1px solid #c4c4c4;
+    border-radius: 4px;
+
+}
+.beginDate>img{
+    position: absolute;
+    top: 50%;
+    right: 4px;
+    width: 19px;
+    height: 22px!important;
+    margin-top: -11px;
+}
+.overDate{
+    width:100px!important;
+    height:40px;
+    position: relative!important;
+    margin-left: 14px;
+}
+.overDate>input{
+    width: 100px!important;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.overDate>img{
+    position: absolute;
+    top: 50%!important;
+    right: 4px!important;
+    width: 19px!important;
+    height: 22px!important;
+    margin-top: -11px;
+
+}
+.selectBtn{
+    display: inline-block;
+    border: 1px solid #c4c4c4;
+    width:79px;
+    height: 36px;
+    text-align: center;
+    line-height: 36px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.btnList{
+    margin-top: 48px;
+    text-align: center;
+
+}
+.btnList span{
+    display: inline-block;
+    background: #2196f3;
+    color:#ffffff;
+    height:46px;
+    border-radius:4px ;
+    text-align: center;
+    line-height: 46px;
+    padding: 0 20px;
+    font-size: 16px;
+    margin-right: 76px;
+    cursor: pointer;
+}
+.btnList span:last-child{
+    width:116px;
+    background: #ffffff;
+    color:#4d4d4d;
+    border: 1px solid #c4c4c4;
+    padding: 0 0;
+}
+#checkK,#officeBox,#daFBox{
+    position: relative;
+}
+.rulerBtn ul li,.officeBtn ul li,.daF ul li{
+    list-style: none;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 2px 0;
+}
+.rulerBtn,.officeBtn,.daF{
+    z-index: 100000;
+    width: 99%;
+    position: absolute;
+    top:38px;
+    background: #e0e0e0;
+    border: 1px solid #d5d5d5;
+    height: 151px;
+    overflow: auto;
+}
+.activeSelcet{
+    background: #2198f2;
+    color: #ffffff;
+}
+.hidden{
+    display: none;
+}
+
+
+/*弹窗*/
+.mask{
+    position: fixed;
+    top:0;
+    left:0;
+    bottom: 0;
+    right: 0;
+    height:100%;
+    width: 100%;
+    z-index: 1000;
+    background: #000000;
+    opacity: 0.14;
+}
+.popBox{
+    position: fixed;
+    left: 50%;
+    margin-left: -275px;
+    width: 493px;
+    border-radius: 4px;
+    z-index: 1001;
+    background: #ffffff;
+    height: auto;
+    top: 2%;
+}
+.popB_Top{
+    border-bottom: 1px solid #c4c4c4;
+    padding-bottom: 15px;
+    padding-top: 16px;
+}
+.addW{
+    font-size:16px ;
+    margin-left: 24px;
+    margin-top: 16px;
+    margin-bottom: 15px;
+}
+.close{
+    float: right;
+    margin-right: 22px;
+    width: 20px;
+    cursor: pointer;
+}
+.close img{
+    width: 15px;
+}
+.btnList{
+    width: 61%;
+    margin: auto;
+    overflow: hidden;
+    padding-bottom: 27px;
+    margin-top: 23px;
+}
+.btnList input{
+    width: 96px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    font-size: 14px;
+    padding: 0 0;
+    outline: auto;
+    border-radius: 4px;
+}
+
+.s{
+    float: left;
+    background: #2198f2;
+    color:#ffffff;
+    border:1px solid #2198f2;
+    cursor: pointer;
+}
+.c{
+    float: right;
+    color:#4d4d4d ;
+    border: 1px solid #d2d2d2;
+    outline: none!important;
+    cursor: pointer;
+}
+
+.popB_bottom{
+    width: 100%;
+    font-size: 14px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #c4c4c4;
+    padding-left: 20px;
+}
+.popB_bottom div{
+    display: inline-block;
+    margin-right: 10px;
+}
+.checkList>div input {
+    vertical-align: middle;
+}
+.menuContent{
+    width: 48%;
+    margin: auto;
+}
+.treeList{
+    margin-top: 15px;
+    height: 200px;
+    overflow: auto;
+}

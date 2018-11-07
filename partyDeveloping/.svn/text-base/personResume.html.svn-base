@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/personResume.css">
+    <link rel="stylesheet" type="text/css" href="../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+    <style>
+        .hid{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="personResume">
+    <div class="innerResume">
+        <div class="personTop">
+            <span id="backBtn"><span class="arrow"><img src="../img/back.png"></span><span class="back">返回</span></span>
+            <span
+                class="personResumW">个人简历</span>
+        </div>
+        <div class="infoW"><span class="xing">*</span>个人详历（包括学历、个人简历）</div>
+        <div class="thoughtRList" id="resume">
+            <div class="operate" id="exp">
+                <img class="plus" src="../img/plus.png">
+                <img class="dele" src="../img/dele.png">
+            </div>
+            <table cellspacing="0" id="tableDiv">
+                <thead>
+                <th>开始年月</th>
+                <th>结束年月</th>
+                <th style="width:25%">单位</th>
+                <th>职务</th>
+                <th>证明人</th>
+                </thead>
+                <tbody id="expBody" style="position: relative">
+                <tr>
+                    <td><input type="text" readonly="readonly" class="beginDate" value="" placeholder="请选择起始年月"></td>
+                    <td><input type="text" readonly="readonly" class="overDate" value="" placeholder="请选择截止年月"></td>
+                    <td><input type="text" value="" placeholder="请填写单位名称"></td>
+                    <td><input type="text" value="" placeholder="请填写职务"></td>
+                    <td><input type="text" value="" placeholder="请填写证明人"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="infoW"><span class="xing">*</span>家庭成员和社会关系成员情况</div>
+        <div class="thoughtRList home" id="family">
+            <div class="operate" id="home">
+                <img class="plus" src="../img/plus.png">
+                <img class="dele" src="../img/dele.png">
+            </div>
+            <table cellspacing="0" id="table">
+                <thead>
+                <th>姓名</th>
+                <th style="width: 25%">单位</th>
+                <th>职务</th>
+                <th>与本人关系</th>
+                <th>政治面貌</th>
+                </thead>
+                <tbody id="homeBody" style="position: relative">
+                <tr>
+                    <td><input type="text" value="" placeholder="请填写姓名"></td>
+                    <td><input type="text" value="" placeholder="请填写单位名称"></td>
+                    <td><input type="text" value="" placeholder="请填写职务"></td>
+                    <td><input type="text" value="" placeholder="请填写与本人关系"></td>
+                    <td><input type="text" value="" placeholder="请填写政治面貌"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="infoW"><span class="xing">*</span>何时、何地、何原因、受过何种奖励或处分</div>
+        <div class="textareaB">
+            <textarea id="rL"></textarea>
+        </div>
+        <div class="btnList">
+            <input type="button" id="submit" value="提交"><input type="button" id="back" value="返回">
+        </div>
+
+    </div>
+</div>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script src="../assets/js/jquery.js"></script>
+<script src="../js/laydate.js"></script>
+<script src="../js/layer.js"></script>
+<script>
+    $(function () {
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+
+        var resumeId = getQueryString("resumeId");
+        var overSumbt = getQueryString("overSumbt");
+        var recrutId=getQueryString("recrutId");
+        var resId;
+        var path = "";
+        var iframe = document.getElementById("common");
+        ///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+        iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+        if (iframe.attachEvent) {//判断iframe是否加载完成
+            iframe.attachEvent("onload", function () {
+                getCommon();
+            });
+        } else {
+            iframe.onload = function () {
+                getCommon();
+            };
+        }
+
+        //获取公共参数  一般为存储在session里面的数据
+        function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+            var frames = window.frames["common"];
+            path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+            var _qiniuImageHost = frames._qiniuImageHost;//七牛云公共地址头
+            //            alert(_ctxPath+_qiniuImageHost);
+
+            $("#exp").find(".plus").click(function () {
+                var expTr = ' <tr>\n' +
+                    '                        <td><input type="text" class="beginDate"  readonly="readonly"  value="" placeholder="请选择起始年月"></td>\n' +
+                    '                        <td><input type="text" class="overDate" readonly="readonly"   value="" placeholder="请选择截止年月"></td>\n' +
+                    '                        <td><input type="text" value=""  placeholder="请填写单位名称"></td>\n' +
+                    '                        <td><input type="text" value="" placeholder="请填写职务"></td>\n' +
+                    '                        <td><input type="text" value="" placeholder="请填写证明人"></td>\n' +
+                    '                    </tr>';
+                $("#expBody").append(expTr);
+
+            });
+            $("#exp").find(".dele").click(function () {
+                $("#expBody tr:last-child").remove();
+            });
+            $("#home").find(".plus").click(function () {
+                var homeTr = '<tr>\n' +
+                    '                        <td><input type="text"  value="" placeholder="请填写姓名"></td>\n' +
+                    '                        <td><input type="text" value="" placeholder="请填写单位名称"></td>\n' +
+                    '                        <td><input type="text" value="" placeholder="请填写职务"></td>\n' +
+                    '                        <td><input type="text" value="" placeholder="请填写与本人关系"></td>\n' +
+                    '                        <td><input type="text" value="" placeholder="请填写政治面貌"></td>\n' +
+                    '                    </tr>';
+                $("#homeBody").append(homeTr);
+            });
+            $("#home").find(".dele").click(function () {
+                $("#homeBody tr:last-child").remove();
+            });
+
+            //开始时间
+            laydate.render({
+                elem: ".beginDate"
+            });
+            var startDate = {
+//                elem: ".beginDate",
+                zIndex:1
+            };
+            //结束时间
+            laydate.render({
+                elem: ".overDate"
+            });
+            var endDate = {
+//               elem: ".overDate",
+                zIndex: 1
+            };
+            $("#expBody").on("click", function (ev) {
+                var ev = ev || window.event;
+                var target = ev.target || ev.srcElement;
+                if (target.className == "beginDate") {
+                    startDate.elem = target;
+                    laydate.render(startDate)
+                }
+                if (target.className == "overDate") {
+                    endDate.elem = target;
+                    laydate.render(endDate)
+                }
+            });
+
+            $("#backBtn").click(function () {
+                window.history.back(-1);
+            });
+            $("#back").click(function () {
+                window.history.back(-1);
+            });
+            var expJson = {};
+            $("#submit").click(function () {
+                var expTr = $("#expBody tr");
+                for (var i = 0; i < expTr.length; i++) {
+                    var oTd = $(expTr[i]).find("td");
+                    var titles = $("#tableDiv th");
+                    for (var j = 0; j < oTd.length; j++) {
+                        if ($(oTd[j]).find("input").val() == "") {
+                            parent.layer.alert('请填写' + $(titles[j]).text());
+                            return;
+                        }
+                    }
+                }
+                var homeTr = $("#homeBody tr");
+                for (var n = 0; n < homeTr.length; n++) {
+                    var oTd = $(homeTr[n]).find("td");
+                    var titles = $("#table th");
+                    for (var m = 0; m < oTd.length; m++) {
+                        if ($(oTd[m]).find("input").val() == "") {
+                            parent.layer.alert('请填写' + $(titles[m]).text());
+                            return;
+                        }
+                    }
+                }
+                if ($(".textareaB textarea").val().trim() == "") {
+                    parent.layer.alert('请填写何时、何地、何原因、受过何种奖励或处分');
+                    return;
+                }
+                parent.layer.confirm('确认要提交个人简历？ 一旦提交不可更改。', {icon: 3, title: '提示'}, function (index) {
+                    parent.layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: path + "/reResume/getMeResume.action",
+                        data: {"recrutId": resumeId},
+                        dataType: "json",
+                        success: function (data) {
+
+                            resId = data.data._id;
+                            var expTr = $("#expBody tr");
+                            for (var p = 0; p < expTr.length; p++) {
+                                expJson = {};
+                                var expTd = $(expTr[p]).find("td");
+                                expJson.resId = resId;
+                                expJson.startStr = $(expTd[0]).find("input").val();
+                                expJson.endStr = $(expTd[1]).find("input").val();
+                                expJson.company = $(expTd[2]).find("input").val();
+                                expJson.reterence = $(expTd[3]).find("input").val();
+                                expJson.service = $(expTd[4]).find("input").val();
+                                $.ajax({
+                                    type: "POST",
+                                    url: path + "/reResume/upsertExper.action",
+                                    data: expJson,
+                                    dataType: "json",
+                                    success: function (data) {
+                                        parent.layer.close(index);
+
+                                    }
+                                });
+                            }
+                            expJson = {};
+                            var homeTr = $("#homeBody tr");
+                            for (var q = 0; q < homeTr.length; q++) {
+                                expJson = {};
+                                var homeTd = $(homeTr[q]).find("td");
+                                expJson.resId = resId;
+                                expJson.memUserName = $(homeTd[0]).find("input").val();
+                                expJson.memCompany = $(homeTd[1]).find("input").val();
+                                expJson.memService = $(homeTd[2]).find("input").val();
+                                expJson.nexus = $(homeTd[3]).find("input").val();
+                                expJson.memPolitical = $(homeTd[4]).find("input").val();
+                                $.ajax({
+                                    type: "POST",
+                                    url: path + "/reResume/upsertMember.action",
+                                    data: expJson,
+                                    dataType: "json",
+                                    success: function (data) {
+                                        parent.layer.close(index);
+                                    }
+                                });
+                            }
+                            expJson = {};
+                            var because = $(".textareaB textarea");
+                            expJson.userAbout = because.val();
+                            expJson.type = 1;
+                            expJson._id = resId;
+                            $.ajax({
+                                type: "POST",
+                                url: path + "/reResume/upsertResume.action",
+                                data: expJson,
+                                dataType: "json",
+                                success: function (data) {
+                                    parent.layer.close(index);
+                                    if(data.success==true){
+                                         window.location.href = "developingObj4.html";
+                                    }else{
+                                        parent.layer.alert(data.message);
+                                    }
+
+                                }
+                            });
+
+                        }
+                    });
+                    parent.layer.close(index);
+                });
+
+
+            });
+
+            if (overSumbt == 1) {
+                $(".operate").addClass("hid");
+                $("#expBody").empty();
+                $("#homeBody").empty();
+                $("#submit").addClass("hid");
+                $("#back").addClass("hid");
+                $.ajax({
+                    type: "POST",
+                    url: path + "/reResume/getMeResume.action",
+                    data: {"recrutId": resumeId},
+                    dataType: "json",
+                    success: function (data) {
+                        resId = data.data._id;
+                        $.ajax({
+                            type: "POST",
+                            url: path + "/reResume/findResumeById.action",
+                            data: {
+                                resId: resId
+                            },
+                            dataType: "json",
+                            success: function (data) {
+                                var experice = data.data.experiences;
+                                for (var i = 0; i < experice.length; i++) {
+                                    var otr = ' <tr>\n' +
+                                        '                    <td><input type="text" readonly="readonly" class="beginDate" value=' + experice[i].startStr + ' placeholder="请选择起始年月"></td>\n' +
+                                        '                    <td><input type="text" readonly="readonly" class="overDate" value=' + experice[i].endStr + ' placeholder="请选择截止年月"></td>\n' +
+                                        '                    <td><input type="text"  readonly="readonly" disabled value=' + experice[i].company + ' placeholder="请填写单位名称"></td>\n' +
+                                        '                    <td><input type="text"  readonly="readonly" disabled value=' + experice[i].service + ' placeholder="请填写职务"></td>\n' +
+                                        '                    <td><input type="text"  readonly="readonly" disabled value=' + experice[i].reterence + ' placeholder="请填写证明人"></td>\n' +
+                                        '                </tr>';
+                                    $("#expBody").append(otr);
+                                }
+                                var familyD = data.data.memberships;
+                                for (var j = 0; j < familyD.length; j++) {
+                                    var otr1 = ' <tr>\n' +
+                                        '                    <td><input type="text"  readonly="readonly" disabled value=' + familyD[j].memUserName + ' placeholder="请填写姓名"></td>\n' +
+                                        '                    <td><input type="text"  readonly="readonly" disabled value=' + familyD[j].memCompany + ' placeholder="请填写单位名称"></td>\n' +
+                                        '                    <td><input type="text"  readonly="readonly" disabled value=' + familyD[j].memService + ' placeholder="请填写职务"></td>\n' +
+                                        '                    <td><input type="text"  readonly="readonly" disabled value=' + familyD[j].nexus + ' placeholder="请填写与本人关系"></td>\n' +
+                                        '                    <td><input type="text"  readonly="readonly" disabled value=' + familyD[j].memPolitical + ' placeholder="请填写政治面貌"></td>\n' +
+                                        '                </tr>';
+                                    $("#homeBody").append(otr1);
+                                }
+                                $("#rL").val(data.data.userAbout);
+                                $("#rL").attr("disabled","true").attr("readonly","readonly");
+                            }
+                        });
+                    }
+                });
+
+
+            }
+
+            if(overSumbt == 2){
+                $(".operate").addClass("hid");
+                $("#expBody").empty();
+                $("#homeBody").empty();
+                $("#submit").addClass("hid");
+                $("#back").addClass("hid");
+                $.ajax({
+                    type: "POST",
+                    url: path + "/reResume/findMemberByRecId.action",
+                    data: {
+                        "recrutId": recrutId
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        var experice = data.data.experiences;
+                        for (var i = 0; i < experice.length; i++) {
+                            var otr = ' <tr>\n' +
+                                '                    <td><input type="text" readonly="readonly" disabled class="beginDate" value=' + experice[i].startStr + ' placeholder="请选择起始年月"></td>\n' +
+                                '                    <td><input type="text" disabled readonly="readonly" class="overDate" value=' + experice[i].endStr + ' placeholder="请选择截止年月"></td>\n' +
+                                '                    <td><input type="text"  readonly="readonly" disabled value=' + experice[i].company + ' placeholder="请填写单位名称"></td>\n' +
+                                '                    <td><input type="text" readonly="readonly" disabled value=' + experice[i].service + ' placeholder="请填写职务"></td>\n' +
+                                '                    <td><input type="text" readonly="readonly" disabled value=' + experice[i].reterence + ' placeholder="请填写证明人"></td>\n' +
+                                '                </tr>';
+                            $("#expBody").append(otr);
+                        }
+                        var familyD = data.data.memberships;
+                        for (var j = 0; j < familyD.length; j++) {
+                            var otr1 = ' <tr>\n' +
+                                '                    <td><input type="text" readonly="readonly" disabled value=' + familyD[j].memUserName + ' placeholder="请填写姓名"></td>\n' +
+                                '                    <td><input type="text" readonly="readonly" disabled value=' + familyD[j].memCompany + ' placeholder="请填写单位名称"></td>\n' +
+                                '                    <td><input type="text" readonly="readonly" disabled value=' + familyD[j].memService + ' placeholder="请填写职务"></td>\n' +
+                                '                    <td><input type="text" readonly="readonly" disabled value=' + familyD[j].nexus + ' placeholder="请填写与本人关系"></td>\n' +
+                                '                    <td><input type="text" readonly="readonly" disabled value=' + familyD[j].memPolitical + ' placeholder="请填写政治面貌"></td>\n' +
+                                '                </tr>';
+                            $("#homeBody").append(otr1);
+                        }
+                        $("#rL").val(data.data.userAbout);
+                        $("#rL").attr("disabled","true").attr("readonly","readonly");
+
+
+                    }
+                });
+            }
+
+
+
+        }
+    })
+</script>
+</body>
+</html>

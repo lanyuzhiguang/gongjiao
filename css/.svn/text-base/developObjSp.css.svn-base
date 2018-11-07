@@ -1,0 +1,354 @@
+body{
+    font-family: "苹方";
+    box-sizing: border-box;
+}
+ul,li{
+    margin: 0;
+    padding: 0;
+}
+.talkRecord{
+    height:44px;
+    background:#f1f1f1 ;
+    line-height: 44px;
+    font-size: 16px;
+    width: 90%;
+    margin: auto;
+}
+.talkRecord img{
+    width: 15px;
+    margin-left: 42px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.back{
+    margin-right: 20px;
+}
+.left{
+    width: 71%;
+    float: left;
+    /*border-right: 1px solid #d2d2d2;*/
+}
+.right{
+    float: left;
+    width: 27%;
+}
+.developW{
+    font-size: 16px;
+    margin-left: 102px;
+    margin-top: 18px;
+}
+/*处理过程轴*/
+.boxWrapper {
+    width: 100%;
+    height: 102px;
+}
+
+.inner {
+    width: 100%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.inner>div {
+    width: 16%;
+    display: inline-block;
+    position: relative;
+}
+
+.itemdiv {
+    padding-right: 3px;
+    position: relative;
+}
+
+.itemdiv.dialogdiv:before {
+    background-color: #c5c5c5!important;
+    border: 1px solid #c5c5c5!important;
+    left: 16px!important;
+    width: 1px!important;
+}
+
+.itemdiv.dialogdiv:first-child{
+    padding-left: 8%;
+}
+.itemdiv.dialogdiv:not(:first-child):before {
+    position: absolute;
+    display: block;
+    content: "";
+    left: 0!important;
+    right: 0!important;
+    width: 100%!important;
+    background-color: #c5c5c5;
+    border: 1px solid #c5c5c5;
+    border-width: 0 1px;
+}
+
+.user img{
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}
+.itemdiv>.user{
+    display: inline-block;
+    position: absolute;
+    right: -15px;
+    top: -10px;
+    z-index: 1000;
+
+}
+
+.body div {
+    position: absolute;
+    right: -36px;
+    top: 18px;
+    font-size: 14px;
+}
+.applyTime{
+    top: 45px!important;
+    right: -47px!important;
+}
+/*处理过程轴结束*/
+.ziL{
+    font-size: 14px;
+    margin-left: 21px;
+    margin-top: 18px;
+}
+.p{
+    font-size: 14px;
+    margin-left: 21px;
+    margin-top: 14px;
+}
+.p img{
+    width: 12px;
+    vertical-align: middle;
+    margin-right: 12px;
+}
+.sure{
+    margin-left: 24px;
+    color:#2198f2;
+    font-size: 14px;
+
+}
+.waitB{
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.waitList ul{
+    padding-left: 0;
+    margin: 0;
+}
+.waitList ul li{
+    list-style: none;
+    font-size: 14px;
+    margin-bottom: 12px;
+
+}
+.waitList ul li img{
+    width: 14px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+.waitList ul li span{
+    color:#2198f2;
+}
+.rightBottom{
+    margin-left: 21px;
+    margin-top: 13px;
+}
+.geyJ{
+    margin-top: 118px;
+}
+.thoughtB>div:first-child{
+    margin-left: 40px;
+    margin-right: 12px;
+}
+.thoughtB>div:last-child{
+    color:#2198f2;
+    cursor: pointer;
+}
+.thoughtB div{
+    margin-top: 0!important;
+    height: 64px;
+    line-height: 64px;
+}
+.list{
+    width: 86%;
+    float: right;
+    font-size: 14px;
+    border: 1px solid #e0e0e0;
+    /*border-right: 1px solid transparent;*/
+}
+.list>div{
+    margin-top: 22px;
+    display: block;
+    float: left;
+}
+.listLeft{
+    width: 50%;;
+}
+.listRight{
+    width: 49%;
+}
+.listLeft>div>div:first-child{
+    width: 28%;
+    text-align: right;
+    margin-right: 28px;
+}
+.listLeft>div>div{
+    display: inline-block;
+}
+.listLeft>div{
+    margin-bottom: 20px;
+}
+.listRight>div>div{
+    display: inline-block;
+}
+.listRight>div>div:first-child{
+    margin-bottom:22px;
+    width: 25%;
+    text-align: right;
+    margin-right: 28px;
+}
+.listRight>div>div:last-child{
+    width: 60%;
+    vertical-align: top;
+}
+.jG span,.birthL span{
+    margin-right: 15px;
+}
+.sugest{
+    width: 86%;
+    float: right;
+    text-align: left;
+    font-size: 14px;
+    margin-top: 18px;
+    margin-bottom:13px ;
+}
+
+.list_Right{
+    float: right;
+    width: 40%;
+}
+.list_Left{
+    float: left;
+    width: 60%;
+}
+.list_Left{
+    padding-bottom: 10px;
+}
+.list_Left>div{
+    width: 100%;
+
+}
+.list_Left>div>div{
+    display: inline-block;
+}
+.list_Left>div>div:first-child{
+    margin-bottom: 14px;
+    width: 40%;
+    text-align: right;
+    margin-right: 18px;
+}
+.list_Left>div>div:last-child span{
+    color: #2198f2;
+    cursor: pointer;
+}
+.list_Right{
+    padding-bottom: 10px;
+}
+.list_Right>div{
+    width: 100%;
+}
+.list_Right>div>div{
+    display: inline-block;
+
+}
+.list_Right>div>div:first-child{
+    margin-bottom: 14px;
+    width: 45%;
+    text-align: right;
+    margin-right: 18px;
+}
+.list_Right>div>div:last-child span{
+    color: #2198f2;
+    cursor: pointer;
+}
+.personR{
+    color: #2198f2;
+}
+#back{
+    cursor: pointer;
+}
+.dengJ{
+    clear: both;
+    width: 86%;
+    float: right;
+    font-size: 14px;
+    margin-top: 37px;
+    margin-bottom: 50px;
+}
+.dengJ>div{
+    display: inline-block;
+}
+.dengJ>div:first-child{
+    margin-right: 28px;
+}
+.dengJ>div:last-child{
+    width: 100px;
+    height: 38px;
+    line-height: 38px;
+    color: #ffffff;
+    background: #2198f2;
+    text-align: center;
+    font-size:16px ;
+    border-radius:4px ;
+}
+.yiJ{
+    min-width: 571px;
+}
+.developObj{
+    font-size: 16px;
+    margin-top: 8px;
+    background:#f1f1f1 ;
+    height: 44px;
+    line-height: 44px;
+    width:80%;
+    float: right;
+    margin-right: 5px;
+    position: relative;
+}
+.developObj>span:first-child{
+    margin-left: 26px;
+}
+#accessBtn{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-right: 16px;
+    width: 92px;
+    height: 30px;
+    color: #333333;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 30px;
+}
+#accessSp{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-right: 16px;
+    width: 92px;
+    height: 30px;
+    background: #2198f2;
+    color: #ffffff;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+
+}

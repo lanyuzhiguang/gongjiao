@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>基层e党建</title>
+    <meta name="description" content="overview &amp; stats" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.css" />
+    <link rel="stylesheet" href="../assets/css/font-awesome.css" />
+    <link href="../css/iconfont.css" rel="stylesheet"/>
+    <!-- page specific plugin styles -->
+    <!-- text fonts -->
+    <link rel="stylesheet" href="../assets/css/ace-fonts.css" />
+    <!-- ace styles -->
+    <link rel="stylesheet" href="../assets/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="../assets/css/ace-part2.css" class="ace-main-stylesheet" />
+    <![endif]-->
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="../assets/css/ace-ie.css" />
+    <![endif]-->
+    <!-- inline styles related to this page -->
+    <!-- ace settings handler -->
+    <script src="../assets/js/ace-extra.js"></script>
+    <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+    <!--[if lte IE 8]>
+    <script src="../assets/js/html5shiv.js"></script>
+    <script src="../assets/js/respond.js"></script>
+    <![endif]-->
+    <link href="../css/index.css" rel="stylesheet"/>
+    <link href="../css/ColumnPage.css"  rel="stylesheet">
+</head>
+
+<body class="no-skin">
+<!--主要内容部分-->
+<div class="main-content">
+    <div class="main-content-inner">
+        <div class="page-content">
+            <div class="row">
+                <div class="col-xs-12 wrapperL">
+                    <div class="col-sm-8 leftW">
+                        <div class="tabbable">
+                            <ul class="nav nav-tabs padding-18 tab-size-bigger" id="myTab">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#faq-tab-1">
+                                        栏目一
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a data-toggle="tab" href="#faq-tab-2">
+                                        我发布的
+                                    </a>
+                                </li>
+                                <li class="addN">
+                                    <i class="icon-xinzeng iconfont"></i>新增
+                                </li>
+                                <li class="searchB">
+                                    <div class="searchBTN" id="nav-search">
+                                        <form class="form-search">
+								<span class="input-icon">
+									<input type="text" placeholder="输入信息发送人或内容" class="nav-search-input" id="nav-search-input" autocomplete="off">
+									<i class="ace-icon fa fa-search nav-search-icon"></i>
+								</span>
+                                        </form>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="tab-content no-border padding-24">
+                                <div id="faq-tab-1" class="tab-pane fade in active">
+                                    <div class="newslist">
+                                        <ul>
+                                            <li>
+                                                <div class="topW">
+                                                    <p class="tit">标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题......</p>
+                                                    <span class="LM">栏目一</span>
+                                                </div>
+                                                <div class="bottomW">
+                                                    <div class="imgB"><img src="../img/list.png"></div>
+                                                    <div class="contentW">
+                                                        <p class="cT">
+                                                            容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+                                                            ...<span class="readMore">【阅读更多】</span>
+                                                        </p>
+                                                        <div class="smallT">
+                                                            <div class="clearfix">
+                                                                <div class="grid3 huoyJ" style="width:15%; text-align: right">
+                                                                    <i class="ace-icon fa icon-pinglun iconfont fa-2x red" ><span>评论(100)</span></i>
+                                                                </div>
+                                                                <div class="grid3 huoyJ" style="width:14%">
+                                                                    <i class="ace-icon fa icon-dianzan iconfont fa-2x red" ><span>点赞(100)</span></i>
+                                                                </div>
+                                                                <div class="grid3 huoyJ"  style="width:14%">
+                                                                    <i class="ace-icon fa icon-shoucang iconfont fa-2x red"><span>收藏(100)</span></i>
+                                                                </div>
+                                                                <div class="grid3 stuJ"  >
+                                                                    <i class="ace-icon fa icon-jubao1 iconfont  fa-2x purple"><span>举报</span></i>
+                                                                </div>
+
+                                                                <div class="rig">
+                                                                    <span class="name_">张三</span>
+                                                                    <span class="time_">2015-02-21<span class="ho">09:21</span></span>
+                                                                    <span class="see">
+                                                                    <i class="ace-icon fa icon-chakan iconfont fa-2x"><span>XXX</span></i>
+                                                                </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="topW">
+                                                    <p class="tit">标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题......</p>
+                                                    <span class="LM">栏目一</span>
+                                                </div>
+                                                <div class="bottomW">
+                                                    <div class="imgB"><img src="../img/list.png"></div>
+                                                    <div class="contentW">
+                                                        <p class="cT">
+                                                            容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+                                                            ...<span class="readMore">【阅读更多】</span>
+                                                        </p>
+                                                        <div class="smallT">
+                                                            <div class="clearfix">
+                                                                <div class="grid3 huoyJ" style="width:15%; text-align: right">
+                                                                    <i class="ace-icon fa icon-pinglun iconfont fa-2x red" ><span>评论(100)</span></i>
+                                                                </div>
+                                                                <div class="grid3 huoyJ" style="width:17%">
+                                                                    <i class="ace-icon fa icon-dianzan iconfont fa-2x red" ><span>点赞(100)</span></i>
+                                                                </div>
+                                                                <div class="grid3 huoyJ"  style="width:17%">
+                                                                    <i class="ace-icon fa icon-shoucang iconfont fa-2x red"><span>收藏(100)</span></i>
+                                                                </div>
+                                                                <div class="grid3 stuJ"  >
+                                                                    <i class="ace-icon fa icon-jubao1 iconfont  fa-2x purple"><span>举报</span></i>
+                                                                </div>
+
+                                                                <div class="rig">
+                                                                    <span class="name_">张三</span>
+                                                                    <span class="time_">2015-02-21<span class="ho">09:21</span></span>
+                                                                    <span class="see">
+                                                                    <i class="ace-icon fa icon-chakan iconfont fa-2x"><span>XXX</span></i>
+                                                                </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="topW">
+                                                    <p class="tit">标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题......</p>
+                                                    <span class="LM">栏目一</span>
+                                                </div>
+                                                <div class="bottomW">
+                                                    <div class="imgB"><img src="../img/list.png"></div>
+                                                    <div class="contentW">
+                                                        <p class="cT">
+                                                            容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+                                                            ...<span class="readMore">【阅读更多】</span>
+                                                        </p>
+                                                        <div class="smallT">
+                                                            <div class="clearfix">
+                                                                <div class="grid3 huoyJ" style="width:15%; text-align: right">
+                                                                    <i class="ace-icon fa icon-pinglun iconfont fa-2x red" ><span>评论(100)</span></i>
+                                                                </div>
+                                                                <div class="grid3 huoyJ" style="width:17%">
+                                                                    <i class="ace-icon fa icon-dianzan iconfont fa-2x red" ><span>点赞(100)</span></i>
+                                                                </div>
+                                                                <div class="grid3 huoyJ"  style="width:17%">
+                                                                    <i class="ace-icon fa icon-shoucang iconfont fa-2x red"><span>收藏(100)</span></i>
+                                                                </div>
+                                                                <div class="grid3 stuJ"  >
+                                                                    <i class="ace-icon fa icon-jubao1 iconfont  fa-2x purple"><span>举报</span></i>
+                                                                </div>
+
+                                                                <div class="rig">
+                                                                    <span class="name_">张三</span>
+                                                                    <span class="time_">2015-02-21<span class="ho">09:21</span></span>
+                                                                    <span class="see">
+                                                                    <i class="ace-icon fa icon-chakan iconfont fa-2x"><span>XXX</span></i>
+                                                                </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+
+                                <div id="faq-tab-2" class="tab-pane fade">
+                                    <div class="newslist">
+                                        <ul>
+                                            <li>
+                                                <div class="topW">
+                                                    <p class="tit">标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题......</p>
+                                                    <span class="LM">栏目一</span>
+                                                </div>
+                                                <div class="bottomW">
+                                                    <div class="imgB"><img src="../img/list.png"></div>
+                                                    <div class="contentW">
+                                                        <p class="cT">
+                                                            容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+                                                            ...<span class="readMore">【阅读更多】</span>
+                                                        </p>
+                                                        <div class="smallT">
+                                                            <div class="clearfix">
+                                                                <div class="grid3 huoyJ" style="width:15%; text-align: right">
+                                                                    <i class="ace-icon fa icon-pinglun iconfont fa-2x red" ><span>评论(100)</span></i>
+                                                                </div>
+                                                                <div class="grid3 huoyJ" style="width:14%">
+                                                                    <i class="ace-icon fa icon-dianzan iconfont fa-2x red" ><span>点赞(100)</span></i>
+                                                                </div>
+                                                                <div class="grid3 huoyJ"  style="width:14%">
+                                                                    <i class="ace-icon fa icon-shoucang iconfont fa-2x red"><span>收藏(100)</span></i>
+                                                                </div>
+                                                                <div class="grid3 stuJ"  >
+                                                                    <i class="ace-icon fa icon-jubao1 iconfont  fa-2x purple"><span>举报</span></i>
+                                                                </div>
+
+                                                                <div class="rig">
+                                                                    <span class="name_">张三</span>
+                                                                    <span class="time_">2015-02-21<span class="ho">09:21</span></span>
+                                                                    <span class="see">
+                                                                    <i class="ace-icon fa icon-chakan iconfont fa-2x"><span>XXX</span></i>
+                                                                </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="topW">
+                                                    <p class="tit">标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题......</p>
+                                                    <span class="LM">栏目一</span>
+                                                </div>
+                                                <div class="bottomW">
+                                                    <div class="imgB"><img src="../img/list.png"></div>
+                                                    <div class="contentW">
+                                                        <p class="cT">
+                                                            容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+                                                            ...<span class="readMore">【阅读更多】</span>
+                                                        </p>
+                                                        <div class="smallT">
+                                                            <div class="clearfix">
+                                                                <div class="grid3 huoyJ" style="width:15%; text-align: right">
+                                                                    <i class="ace-icon fa icon-pinglun iconfont fa-2x red" ><span>评论(100)</span></i>
+                                                                </div>
+                                                                <div class="grid3 huoyJ" style="width:17%">
+                                                                    <i class="ace-icon fa icon-dianzan iconfont fa-2x red" ><span>点赞(100)</span></i>
+                                                                </div>
+                                                                <div class="grid3 huoyJ"  style="width:17%">
+                                                                    <i class="ace-icon fa icon-shoucang iconfont fa-2x red"><span>收藏(100)</span></i>
+                                                                </div>
+                                                                <div class="grid3 stuJ"  >
+                                                                    <i class="ace-icon fa icon-jubao1 iconfont  fa-2x purple"><span>举报</span></i>
+                                                                </div>
+
+                                                                <div class="rig">
+                                                                    <span class="name_">张三</span>
+                                                                    <span class="time_">2015-02-21<span class="ho">09:21</span></span>
+                                                                    <span class="see">
+                                                                    <i class="ace-icon fa icon-chakan iconfont fa-2x"><span>XXX</span></i>
+                                                                </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="topW">
+                                                    <p class="tit">标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题......</p>
+                                                    <span class="LM">栏目一</span>
+                                                </div>
+                                                <div class="bottomW">
+                                                    <div class="imgB"><img src="../img/list.png"></div>
+                                                    <div class="contentW">
+                                                        <p class="cT">
+                                                            容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容
+                                                            ...<span class="readMore">【阅读更多】</span>
+                                                        </p>
+                                                        <div class="smallT">
+                                                            <div class="clearfix">
+                                                                <div class="grid3 huoyJ" style="width:15%; text-align: right">
+                                                                    <i class="ace-icon fa icon-pinglun iconfont fa-2x red" ><span>评论(100)</span></i>
+                                                                </div>
+                                                                <div class="grid3 huoyJ" style="width:17%">
+                                                                    <i class="ace-icon fa icon-dianzan iconfont fa-2x red" ><span>点赞(100)</span></i>
+                                                                </div>
+                                                                <div class="grid3 huoyJ"  style="width:17%">
+                                                                    <i class="ace-icon fa icon-shoucang iconfont fa-2x red"><span>收藏(100)</span></i>
+                                                                </div>
+                                                                <div class="grid3 stuJ"  >
+                                                                    <i class="ace-icon fa icon-jubao1 iconfont  fa-2x purple"><span>举报</span></i>
+                                                                </div>
+
+                                                                <div class="rig">
+                                                                    <span class="name_">张三</span>
+                                                                    <span class="time_">2015-02-21<span class="ho">09:21</span></span>
+                                                                    <span class="see">
+                                                                    <i class="ace-icon fa icon-chakan iconfont fa-2x"><span>XXX</span></i>
+                                                                </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 hotTopice">
+                        <div class="hotT">
+                            <div class=hotN>热门新闻</div>
+                            <div class="hotNList">
+                                <ul>
+                                    <li>
+                                        标题标题标题标题标题标题标题题标题标题题标题标题标题题.....
+                                    </li>
+                                    <li>
+                                        标题标题标题标题标题标题标题题标题标题题标题标题标题题.....
+                                    </li>
+                                    <li>
+                                        标题标题标题标题标题标题标题题标题标题题标题标题标题题.....
+                                    </li>
+                                    <li>
+                                        标题标题标题标题标题标题标题题标题标题题标题标题标题题.....
+                                    </li>
+                                    <li>
+                                        标题标题标题标题标题标题标题题标题标题题标题标题标题题.....
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row divpage">
+                <div class="col-xs-12">
+                    <div class="dataTables_paginate paging_simple_numbers" id="sample-table-2_paginate">
+                        <ul class="pagination">
+                            <li class="paginate_button previous disabled" aria-controls="sample-table-2" tabindex="0" id="sample-table-2_previous">
+                                <a href="#"><</a>
+                            </li>
+                            <li class="paginate_button pageCode active" aria-controls="sample-table-2" tabindex="0">
+                                <a href="#">1</a>
+                            </li>
+                            <li class="paginate_button pageCode" aria-controls="sample-table-2" tabindex="0">
+                                <a href="#">2</a>
+                            </li>
+                            <li class="paginate_button pageCode " aria-controls="sample-table-2" tabindex="0">
+                                <a href="#">3</a>
+                            </li>
+                            <li class="paginate_button next" aria-controls="sample-table-2" tabindex="0" id="sample-table-2_next">
+                                <a href="#">></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--[if !IE]> -->
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='../assets/js/jquery.js'>"+"<"+"/script>");
+</script>
+<!-- <![endif]-->
+<!--[if IE]>
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='../assets/js/jquery1x.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+<script type="text/javascript">
+    if('ontouchstart' in document.documentElement) document.write("<script src='../assets/js/jquery.mobile.custom.js'>"+"<"+"/script>");
+</script>
+<script src="../assets/js/bootstrap.js"></script>
+<!--[if lte IE 8]>
+<script src="../assets/js/excanvas.js"></script>
+<![endif]-->
+<script src="../js/index.js"></script>
+
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+    jQuery(function($) {})
+
+
+</script>
+</body>
+</html>

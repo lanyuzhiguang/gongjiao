@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				text-decoration: none;
+			}
+			.header{
+				display: inline-block;
+				width: 60%;
+				height: 4.375rem;
+				line-height: 4.375rem;
+				color: #666;
+				font-size: 1.125rem;
+				margin: 0 0 0 4.25rem;
+			}
+			.tab{
+				background: #009fe8;
+				display: inline-block;
+				width: 8.75rem;
+				text-align: center;
+				color: #fff;
+				font-size: 1.125rem;
+				position: absolute;
+				top: 0;
+				right: 0;
+				height: 4.375rem;
+				line-height: 4.375rem;
+			}
+			#con{
+				width: 100%;
+			}
+			#con img{
+				width: 100%;
+				height: 100%;
+			}
+			.tk1{
+				width: 27.25rem;
+				background: #fff;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				margin-left: -13.625rem;
+				margin-top:  -11rem;
+				opacity: 1;
+				z-index: 2;
+			}
+			.jj{
+				margin-left: 0!important;
+				padding-left: 2.6875rem;
+			}
+			.title{
+				color: #D71E07;
+				font-size: 1.125rem;
+				display: inline-block;
+				font-weight: bolder;
+				position: absolute;
+				top: 1rem;
+				left: 2.7rem;
+			}
+			.a{
+				display: inline-block;
+				width: 5.25rem;
+				height: 1.3125rem;
+				text-align: center;
+				color: #fff;
+				font-size: 0.75rem;
+				border: none;
+				position: absolute;
+				top: 1.1rem;
+				right: 1rem;
+				border-radius: 2px;
+				line-height: 1.3125rem;
+				background:#009FE8 ;
+			}
+			.title1 img{
+				margin: 0.9375rem 0.75rem 0 0.8125rem;
+			}
+			.clo{
+				color: #5D5D5D;
+				font-size: 0.875rem;
+			}
+			.address,.tel,.name,.jj{
+				margin-left: 2.6875rem;
+				line-height: 1.8rem;
+			}
+			.jj{
+				width: 100%;
+				height: 1.875rem;
+				line-height: 1.875rem;
+				background: #F8F8F8;
+			}
+			.clo1{
+				font-size: 0.75rem;
+				color: #5D5D5D;
+				display: inline-block;
+				text-align: center;
+				width: 4.75rem;
+				height: 2.4rem;
+			}
+			.a1{
+				color: #fff!important;
+				background: #009ef8;
+			}
+			.b{
+				width: 9.5rem;
+			}
+			.rank{
+				position: absolute;
+				right: 0;
+				top: 25%;
+				border-top: 1px solid #E8E8E8;
+				border-bottom: 1px solid #E8E8E8;
+			}
+			.zz{
+				position: absolute;
+				right: 4.75rem;
+				top: 25%;
+				border-top: 1px solid #E8E8E8;
+				border-bottom: 1px solid #E8E8E8;
+			}
+			.jj1{
+				margin: 0.75rem 5% 0 2.6875rem;
+				margin-left: 2.6875rem;
+				line-height: 1.25rem;
+			}
+			.img{
+				position: absolute;
+				right: -0.5rem;
+				top: -0.5rem;
+			}
+			#tab1,#tab2{
+				display: none;
+			}
+			#name2,#name3{
+				position: absolute;
+				color: #000;
+				font-size: 0.75rem;
+				cursor: pointer;
+			}
+			#name2{
+				bottom: 16%;
+				left: 0;
+			}
+			#name3{
+				top: 13.6%;
+				left: 61%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header">"互联网+党建"大数据平台</div>
+		<div class="tab">党建地图</div>
+		<div id="con">
+			<img src="img/map.png" onclick="a()"/>
+		</div>
+		<div class="tk1" id="tab1">
+			<div class="title1">
+				<img src="img/dh2.png" />
+				<div class="title">丹凤县江南医院党支部</div>
+				<a class="a" href="pc1.html">组织展示</a>
+			</div>
+			<div class="clo address">地址:丹凤县江滨南路西段</div>
+			<div class="clo tel">联系电话:13165777038</div>
+			<div class="clo name">书记:贺怀德</div>
+			<div class="b">
+				<span class="clo1 a1 zz">组织积分<br><span>33712</span></span>
+				<span class="clo1 a2 rank">排名<br><span>1</span></span>
+			</div>
+			<div class="jj clo">组织简介</div>
+			<div class="jj1 clo">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;丹凤县江南医院党支部成立于2012年8月，现有党员10名，2017年发展党员2名，要求进步向党组织递交入党申请书的青年22人。江南医院党支部认真贯彻落实全县四位一体部署，强推社会组织党建工作，坚持以“巩固提升年”活动为抓手，以创建“党建强、服务优”支部为目标，突出发挥社会组织党组织服务发展、服务医院、服务员工的作用，积极实施“三个纳入、四个带头、五大工程”和“评星晋级，争创双强”活动，全面加强社会组织服务型党组织建设，实现党建与服务两促进两提升，2017年医院党支部被商洛市委授予“先进基层党组织”。
+			</div>
+			<img src="img/gb.png"  class="img" onclick="sharp()"/>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery.min.js" ></script>
+	<script>
+		var h1=document.documentElement.clientHeight;
+		var h=h1/16-4.375;
+		$('#con').css('height',h+'rem');
+		
+		function a() {
+			$('#tab1').show();
+		}
+		function sharp(){
+			$('#tab1').hide();
+		}
+	</script>
+</html>

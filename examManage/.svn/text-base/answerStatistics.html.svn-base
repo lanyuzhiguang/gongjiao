@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>答题统计</title>
+    <link rel="stylesheet" type="text/css" href="css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-datetimepicker.min.css"/>
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/build.css"/>
+    <link rel="stylesheet" type="text/css" href="css/question_bank.css"/>
+</head>
+<body>
+<div class="header">
+    <header class="container-fluid">
+        <div class="row">
+            <div class="col-xs-3">
+                <a href="javascript:history.go(-1);" style="color: #333;"><i class="fa fa-angle-double-left"></i>返回</a>
+                <h4 style="display: inline-block;">试卷统计</h4>
+            </div>
+        </div>
+    </header>
+</div>
+<article class="container-fluid">
+    <div class="row content_header">
+        <div class="form-inline col-xs-9">
+            <div class="form-group selectBox" style="min-width: 200px;">
+                <label class="col-xs-5" style="min-width: 80px;">请选择状态</label>
+                <div class="col-xs-7">
+                    <select class="selectlist form-control">
+                        <option>全部</option>
+                        <option>通过</option>
+                        <option>未通过</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <input type="text" class="form-control nameSearch" placeholder="输入姓名查询"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <input type="text" class="form-control bnameSearch" placeholder="输入组织名称查询"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary query">查询</button>
+            </div>
+        </div>
+        <div class="col-xs-3 text-right">
+            <button class="btn btn-primary exportList"><a href="" target="_blank" style="color: white;">导出此列表</a>
+            </button>
+        </div>
+    </div>
+    <div class="row tableBox">
+
+    </div>
+    <div class="navfooter" style="text-align: center;">
+
+    </div>
+</article>
+</body>
+<script type="text/javascript" src="../../r/wx/common/pathimage"></script>
+<script src="js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/bootstrap-paginator.js"></script>
+<script src="js/bootstrap-datetimepicker.min.js"></script>
+<script src="js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="js/moment-with-locales.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null)
+            return decodeURI(r[2]);
+        return null;
+    }
+
+    //获取地址栏参数
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return decodeURI(r[2]);
+        return null;
+    };
+    var examPaperId = GetQueryString("id");
+    $(".exportList a").attr("href", _ctxPath + "pc/examPaperStatisPc/exportExamRecordMessage.action?paperId=" + examPaperId);
+    var qualfraction;
+    //数据展示
+    var page = 1;
+    personnel(page);
+
+    function personnel(page) {
+        $.ajax({
+            type: "get",
+            url: _ctxPath + "pc/examPaperStatisPc/examPaperStatis.action",
+            dataType: "json",
+            data: {
+                "examPaper._id": examPaperId,
+                page: page,
+                size: 10
+            },
+            success: function (data) {
+                if (data.data.length != 0) {
+                    qualfraction = data.data[0].examPaper.qualfraction;
+                }
+                personnelHtml(data, 1);
+            }
+        })
+    }
+
+    //查询
+    $(".query").on("click", function () {
+        var gteQualfraction = "", ltQualfraction = "";
+        if ($(".selectlist").val() == "全部") {
+            gteQualfraction = "";
+            ltQualfraction = "";
+        } else if ($(".selectlist").val() == "通过") {
+            gteQualfraction = qualfraction;
+            ltQualfraction = "";
+        } else if ($(".selectlist").val() == "未通过") {
+            gteQualfraction = "";
+            ltQualfraction = qualfraction;
+        }
+        searchFun(page);
+    })
+
+    function searchFun(page) {
+        $.ajax({
+            type: "get",
+            url: _ctxPath + "pc/examPaperStatisPc/examPaperStatis.action",
+            dataType: "json",
+            data: {
+                "examPaper._id": examPaperId,
+                "regex:userName": $(".nameSearch").val(),
+                "regex:bumenName": $(".bnameSearch").val(),
+                "gte:score|integer": gteQualfraction,
+                "lt:score|integer": ltQualfraction,
+                page: page,
+                size: 10
+            },
+            success: function (data) {
+                personnelHtml(data);
+            }
+        })
+    }
+
+    function timeFun(time) {
+        var minutes = parseInt(time / 1000 / 60);
+        var seconds = parseInt(time / 1000 % 60);
+        return minutes + "分" + seconds + "秒";
+    }
+
+    function personnelHtml(datas, searchType) {
+        var data = datas.data;
+        if (data.length > 0) {
+            var trList = '<table class="table table-striped"><tr><th>排名</th><th>姓名</th><th>组织名称</th><th>答题用时</th><th>答题时间</th><th>成绩（分）</th><th>状态</th></tr>';
+            for (var a = 0; a < data.length; a++) {
+                trList += '<tr><td>' + ((page - 1) * 10 + a + 1) + '</td><td>' + data[a].userName + '</td><td>' + data[a].bumenName + '</td><td>' + timeFun(data[a].usTime) + '</td><td>' + data[a].createTime + '</td><td>' + data[a].score + '</td><td score="' + data[a].score + '" qualfraction="' + data[a].examPaper.qualfraction + '"></td></tr>';
+            }
+            $(".tableBox").html(trList + "</table>");
+            $.each($(".table td[score]"), function () {
+                if (parseInt($(this).attr("score")) >= parseInt($(this).attr("qualfraction"))) {
+                    $(this).text("通过");
+                } else {
+                    $(this).text("未通过");
+                }
+            });
+            $(".navfooter").html('<nav class="navi" aria-label="Page navigation"><ul class="pagination paginationLists" id="paginationLists"></ul></nav>');
+            $('#paginationLists').bootstrapPaginator({
+                currentPage: datas.page,//当前的请求页面。
+                totalPages: datas.pages,//一共多少页。
+                size: "normal",//应该是页眉的大小。
+                bootstrapMajorVersion: 3,//bootstrap的版本要求。
+                alignment: "right",
+                numberOfPages: 10,//一页列出多少数据。
+                itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                    switch (type) {
+                        case "prev":
+                            return "上一页";
+                        case "next":
+                            return "下一页";
+                        case "page":
+                            return page;
+                    }
+                }
+            });
+            $("#paginationLists a").off("click").on("click", function () {
+                if ($(this).text() == "下一页") {
+                    if (page >= datas.pages) {
+                        page = datas.pages;
+                    } else {
+                        page++;
+                    }
+                    if (searchType == 1) {
+                        personnel(page);
+                    } else {
+                        searchFun(page);
+                    }
+                } else if ($(this).text() == "上一页") {
+                    if (page <= 1) {
+                        page = 1;
+                    } else {
+                        page--;
+                    }
+                    if (searchType == 1) {
+                        personnel(page);
+                    } else {
+                        searchFun(page);
+                    }
+                } else {
+                    page = $(this).text();
+                    if (searchType == 1) {
+                        personnel(page);
+                    } else {
+                        searchFun(page);
+                    }
+                }
+            })
+        }
+    }
+</script>
+</html>

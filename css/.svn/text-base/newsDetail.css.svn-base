@@ -1,0 +1,524 @@
+.wrapB{
+    margin-top: 36px;
+}
+.wrapper{
+    margin-top: 20px;
+    margin-left: 100px;
+    margin-right: 100px;
+    background: #FAFAFA;
+}
+.imgW{
+    overflow: hidden;
+    font-size: 14px;
+    margin-left: 17px;
+}
+.floatR{
+    float:left;
+}
+.content{
+    clear:both;
+    font-size: 16px;
+}
+.activeN{
+    margin-left: 20px;
+    margin-bottom: 30px;
+}
+.listI{
+    display: block;
+    margin: auto;
+    width:635px;
+    margin-top: 20px;
+}
+.centerB{
+    display: block;
+    margin: auto;
+    background: red;
+    color: #ffffff;
+    width: 12%;
+    height: 33px;
+    line-height: 33px;
+    text-align: center;
+    text-decoration: none!important;
+    border-radius: 5px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.centerB:hover{
+    color:#ffffff!important;
+}
+.line_{
+    clear: both;
+    margin-bottom: 8px;
+}
+
+.grid3 {
+    width: 12%;
+    float: right;
+    padding:0;
+    margin: 0;
+    text-align: center;
+}
+.grid2:first-child, .grid3:first-child, .grid4:first-child{
+    border-left: 1px solid #E3E3E3;
+}
+.clearfix{
+    padding-bottom: 8px;
+}
+.grid3  i span{
+    margin-left: 3px;
+    font-size: 14px;
+}
+.grid3  i{
+    color:#000000;
+}
+.headList{
+    width: 72%;
+    background: #EEEEEE;
+    margin: auto;
+    overflow: auto;
+    height:400px;
+}
+ul, li{
+    margin:0;
+    padding:0;
+}
+ul li{
+    list-style: none;
+}
+.headB img{
+    border-radius: 200px;
+}
+.asked{
+    color: #f4834b;
+    padding-top: 11px;
+    padding-left: 26px;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+.headList ul li{
+    float: left;
+    width:14%;
+    margin-bottom: 20px;
+}
+.headB{
+    margin: auto;
+    width: 50%;
+    text-align: center;
+}
+.nameW{
+    font-family: "方正中等线";
+    font-size: 16px;
+}
+body{
+    color:#333333;
+    font-size: 16px;
+}
+.title{
+    font-size: 22px!important;
+    font-weight: bold;
+    margin-left: 17px;
+}
+.floatR span img{
+    width: 24px;
+    margin-bottom: 8px;
+}
+.floatL span img{
+    width: 30px;
+    margin-bottom: 10px;
+}
+.posiB img{
+    width: 26px;
+    margin-left: 5px;
+}
+.posiB ,.floatR span,.floatL span{
+    color:#666666;
+}
+.ho{
+    margin-left: 20px;
+}
+.hr-32, .hr32 {
+    margin: 32px 0 0px 0;
+}
+.clearfix {
+    padding-bottom: 8px;
+    clear: both;
+    margin-top: 10px;
+}
+.grid2:first-child, .grid3:first-child, .grid4:first-child {
+    border-left: 1px solid #E3E3E3;
+}
+.grid3 {
+    width: 12%;
+    float: right;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+.grid3 i {
+    color: #2196f3;
+    font-size: 13px;
+    cursor: pointer;
+}
+.grid3 i:hover{
+    color:red;
+}
+.grid3 i span {
+    margin-left: 3px;
+    font-size: 12px;
+}
+.icon-dianzan {
+    font-size: 18px;
+}
+.icon-pinglun{
+    font-size: 12px!important;
+}
+.icon-shoucang {
+    font-size: 14px;
+}
+.icon-shoucang span {
+    font-size: 14px;
+}
+.icon-bianji {
+    font-size: 14px;
+}
+
+.widget-box.transparent{
+    margin-bottom: 20px;
+}
+.icon-hudong{
+    color:#83AF70;
+}
+.look{
+    float: left;
+    border-left: 1px solid transparent;
+    text-align: left;
+}
+.listB{
+    width: 100%;
+    margin-bottom: 25px;
+    margin-top: 10px;
+}
+#inputB{
+    width: 90%;
+    height: 40px;
+    margin-top: 7px;
+}
+.icon-img{
+    color: #65C3F9;
+    /* margin-top: 5px; */
+    font-size: 24px;
+    margin-top: 10px;
+}
+.icon-img span{
+    color:#000000;
+    font-size: 16px;
+    vertical-align: middle;
+}
+.replyB{
+    float: right;
+    background: red;
+    color: #ffffff;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 1.1%;
+    margin-left: 22px;
+    margin-right: 1px;
+    padding: 4px 16px;
+}
+.boxL{
+    width: 100%;
+}
+.wrapB {
+    overflow: hidden;
+    margin: auto;
+    font-size: 14px!important;
+    padding-top: 20px;
+}
+.leftL {
+    width: 10%;
+}
+.ListC {
+    float: left!important;
+}
+.leftL img {
+    width: 50px;
+    border: 1px solid transparent;
+}
+.rightL {
+    width: 90%;
+}
+.sp {
+    width: 100%;
+}
+.nameW {
+    color: #58BFFA;
+}
+.zuW {
+    float: right;
+    background: red;
+    color: #ffffff;
+    padding: 0px 6px;
+    border-radius: 5px;
+}
+.timeB {
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+.time_ {
+    margin-left: 10px;
+}
+.imgB img {
+    width: 100px;
+}
+
+
+.botB{
+    padding-left: 0;
+    padding-right: 0;
+}
+.inB{
+    width: 80%;
+    margin: auto;
+}
+.conB{
+   width: 80%;
+    margin: auto;
+}
+.botB{
+    background: #f4f4f4;
+}
+.forC{
+    width: 91%;
+}
+.bottomR {
+    float: right;
+    color: #58BFFA;
+}
+
+/*分页*/
+.dataTables_paginate{
+    text-align: center;
+}
+.pagination > li > a{
+    border-radius: 28px!important;
+    margin-left: 14px;
+}
+.previous a,.next a{
+    border-color:transparent!important;
+    background: #ffffff!important;
+}
+.pagination > li.active > a, .pagination > li.active > a:hover{
+    background-color: red!important;
+    border-color: red!important;
+    color:#ffffff!important;
+}
+.pageCode a{
+    color: #000000!important;
+}
+.pagination > li > a, .pagination > li > span{
+    padding: 2px 8px;
+}
+.divpage {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.nav.nav-tabs.padding-16{
+    background-color: #f4f4f4;
+}
+.inbox-tabs.nav-tabs.tab-size-bigger > li > a{
+    padding: 21px 15px 7px;
+}
+.message-navbar{
+    background-color: transparent;
+}
+.page-content {
+    margin-top: 20px;
+}
+
+/**评论**/
+.commentB {
+    width: 100%;
+    background: #EEEEEE;
+    position: relative;
+    padding-top: 20px;
+    padding-bottom: 70px;
+}
+.commentB:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -7px;
+    right: 184px;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #EEEEEE;
+    border-width: 2px 0 0 2px;
+    background-color: #EEEEEE;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+.wrapBox {
+    overflow: hidden;
+    width: 75%;
+    margin: auto;
+    margin-top: 20px;
+}
+.changeS {
+    background: #EEEEEE!important;
+}
+.imageUp {
+    background: #FAFAFA;
+    margin-top: 20px;
+}
+#editor2 {
+    background: #ffffff;
+}
+.wysiwyg-editor {
+    height: 100px;
+    width: 92%;
+    margin: auto;
+}
+.btn-group:first-child {
+    margin-left: 9px;
+}
+.wysiwyg-toolbar .btn-group {
+    float: left!important;
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+.dropdown-menu {
+    min-width: 107px;
+    padding: 0px 0;
+    margin: 2px 0 0;
+}
+.dropdown-menu-right {
+    left: 0;
+}
+.selectB {
+    float: right;
+    margin-right: 20px;
+    margin-top: 10px;
+}
+.changeS .selectB select, .changeS .selectB .publish {
+    display: none!important;
+}
+.selectB select {
+    width: 57px;
+    border: transparent;
+    background: transparent;
+    color: #000000;
+    font-size: 14px;
+}
+.repBox {
+    float: right;
+    /* width: 45px; */
+    /* height: 20px; */
+    background: red;
+    color: #ffffff;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 2%;
+    padding: 2px 12px;
+    line-height: initial;
+    color: #ffffff;
+    text-decoration: none;
+}
+.wrapC {
+    padding: 15px 0;
+    border-bottom: 1px solid #d3d3d3;
+}
+.topB {
+    float: left;
+    margin-top: 5px;
+}
+.topHead {
+    width: 7%;
+    text-align: left;
+}
+.topHead img {
+    width: 50px;
+    border-radius: 100%;
+}
+.replyBox {
+    width: 92%;
+    overflow: hidden;
+}
+.replyN {
+    width: 100%;
+    font-size: 14px;
+}
+.sb {
+    color: #2196f3;
+}
+.forN {
+    width: 100%;
+}
+.forName_ {
+    color: #2196f3;
+    font-size: 14px;
+}
+.imgB img {
+    width: 100px;
+}
+.timeB_ {
+    font-size: 12px;
+    margin-bottom: 5px;
+    clear: both;
+    margin-top: 10px;
+    color: #999999;
+}
+.time_ {
+    margin-left: 10px;
+}
+.deReply {
+    float: right;
+}
+.dele {
+    margin-right: 24px;
+}
+.yi {
+    color: #2196f3;
+}
+.fistS .selectB .repBox {
+    display: none;
+}
+
+.innerB {
+    overflow: hidden;
+    width: 86%;
+    margin-bottom: 32px;
+    margin: auto;
+}
+.inputB {
+    width: 75%;
+    margin-left: 61px;
+}
+.topB {
+    float: left;
+}
+
+.inputB input {
+    height: 41px;
+    width: 100%;
+    margin: auto;
+    outline: none;
+    border-color: transparent!important;
+}
+.reply {
+    float: right;
+    background: red;
+    color: #ffffff;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 1%;
+    margin-left: 22px;
+    padding: 4px 16px;
+    margin-right: 64px!important;
+}

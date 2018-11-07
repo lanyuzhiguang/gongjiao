@@ -1,0 +1,5 @@
+//4727	return;// 解决重置大小错误的问题
+
+---------解决横向滚动条问题
+//3747	grid.hDiv.style.width = ts.p.tblwidth + "px";//(grid.width - bstw) + "px";
+//3978	.css({ height: ts.p.height+(isNaN(ts.p.height)?"":"px"), width: ts.p.tblwidth + "px"})//(grid.width - bstw)+"px"})

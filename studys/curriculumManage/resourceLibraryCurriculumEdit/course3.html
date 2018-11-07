@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>其他设置</title>
+		<link rel="stylesheet" type="text/css" href="../css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../iconFont/iconfont.css"/>
+		<link rel="stylesheet" type="text/css" href="../font-awesome/css/font-awesome.min.css"/>
+		<link rel="stylesheet" href="../layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/resoueceLibrary.css"/>
+		<style type="text/css">
+			/*进度*/
+			.clear>p,.clear>div{
+				float: left;
+			}
+			.clear>p{
+				width: 25px;
+				height: 25px;
+				border: 1px solid #333;
+				border-radius: 50%;
+				text-align: center;
+				line-height: 23px;
+				margin-bottom: 8px;
+			}
+			.clear>p.active{
+				background: #2198F1;
+				border: none;
+				color: #fff;
+			}
+			.clear>div{
+				width: 315px;
+				height: 1px;
+				margin-top: 12px;
+				background: #333;
+				line-height: 20px;
+			}
+			.clear{
+				width: 710px;
+				margin: 0 auto;
+			}
+			.clear>span{
+				position: relative;
+			}
+			.clear>span:first-of-type{
+				right: 13px;
+			}
+			.clear>span:nth-of-type(2){
+				margin-left: 264px;
+			}
+			.clear>span:nth-of-type(3){
+				left: 282px;
+			}
+			
+			.form-inline{
+				margin-top: 12px;
+			}
+			div.radio{
+				padding-bottom: 8px;
+			}
+			.gray{
+				color: #999;
+			}
+			.text-right{
+				margin-right: 12px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<header class="container-fluid">
+				<div class="row">
+					<div class="col-xs-6 text-left">
+						<a href="javascript:history.go(-1);" style="color: #333;"><i class="fa fa-angle-double-left"></i>返回</a>
+						<h4>课程</h4>
+					</div>
+				</div>
+			</header>
+		</div>
+		<article class="container-fluid">
+			<div class="row content_header">
+				<div class="clear">
+					<p>1</p>
+					<div class="solid"></div>
+					<p>2</p>
+					<div class="solid"></div>
+					<p class="active">3</p>
+					<span>基本信息</span>
+					<span>章节管理</span>
+					<span>其他设置</span>
+				</div>
+			</div>
+			<div class="content row">
+				<div class="form-inline col-xs-12">
+					<label class="form-group col-xs-2 col-xs-offset-2 text-right"><span style="color: red;">*</span>课程学时设置&nbsp;</label>
+					<div class="col-xs-5">
+						<div class="radio">
+						  	<label>
+						    	<input type="radio" name="optionsRadios1" id="optionsRadios1" value="option1" checked>
+						    	按课程章节时间统计学时	共10学时
+						  	</label>
+						</div><br />
+						<div class="radio">
+  							<label>
+						    	<input type="radio" name="optionsRadios1" id="optionsRadios2" value="option2">
+						    	设置课程学时
+						    	<input type="text" class="form-control" style="width: 100px;"/>学时
+						  	</label>
+						</div>
+						<p class="gray">系统学时转换规则：章节内容累计满60分钟，为1学时；30分钟为0.5学时。小于0.5学时按0.5学时计算，大于0.5学时小于1学时，按1学时计算</p>
+					</div>
+				</div>
+				<div class="form-inline col-xs-12">
+					<label class="form-group col-xs-2 col-xs-offset-2 text-right"><span style="color: red;">*</span>是否公开课程&nbsp;</label>
+					<div class="col-xs-5">
+						<div class="radio">
+						  	<label>
+						    	<input type="radio" name="optionsRadios2">
+						    	是
+						  	</label>
+						</div>
+						<div class="radio">
+  							<label>
+						    	<input type="radio" name="optionsRadios2">
+						    	否
+						  	</label>
+						</div>
+						<p class="gray">若设置为公开，则课程发布时全部党员均可参与该课程学习；若需要将此课程对部分党员开放，可设置为不公开，可从学习任务中按照范围下发</p>
+					</div>
+				</div>
+				<div class="form-inline col-xs-12">
+					<label class="form-group col-xs-2 col-xs-offset-2 text-right"><span style="color: red;">*</span>学习笔记是否必填&nbsp;</label>
+					<div class="col-xs-5">
+						<div class="radio">
+						  	<label>
+						    	<input type="radio" name="optionsRadios3">
+						    	是
+						  	</label>
+						</div>
+						<div class="radio">
+  							<label>
+						    	<input type="radio" name="optionsRadios3">
+						    	否
+						  	</label>
+						</div>
+						<p class="gray">设置学习笔记提交是否是课程完成的判定标准之一</p>
+					</div>
+				</div>
+				<div class="form-inline col-xs-12">
+					<label class="form-group col-xs-2 col-xs-offset-2 text-right"><span style="color: red;">*</span>是否关联考试&nbsp;</label>
+					<div class="col-xs-5">
+						<div class="radio">
+						  	<label>
+						    	<input type="radio" name="optionsRadios4">
+						    	是
+						  	</label>
+						</div>
+						<div class="radio">
+  							<label>
+						    	<input type="radio" name="optionsRadios4">
+						    	否
+						  	</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-inline col-xs-12">
+					<label class="form-group col-xs-2 col-xs-offset-2 text-right"><span style="color: red;">*</span>课程通过积分奖励&nbsp;</label>
+					<div class="col-xs-5">
+						<input type="text" class="form-control" style="width: 120px;">&nbsp;分
+						<p class="gray">根据设置，用户通过课程学习后获取的积分。积分计入课程积分项中。请输入非负整数积分值，0分为不积分。如果设置了心得和考试，需要完成全部课程内容学习，并满足心得提交数量及考试通过的要求才判定为课程通过</p>
+					</div>
+				</div>
+				<div class="form-inline col-xs-12">
+					<label class="form-group col-xs-2 col-xs-offset-2 text-right"><span style="color: red;">*</span>是否推荐置顶&nbsp;</label>
+					<div class="col-xs-5">
+						<div class="radio">
+						  	<label>
+						    	<input type="radio" name="optionsRadios5">
+						    	是
+						  	</label>
+						</div>
+						<div class="radio">
+  							<label>
+						    	<input type="radio" name="optionsRadios5">
+						    	否
+						  	</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-inline col-xs-12">
+					<label class="form-group col-xs-2 col-xs-offset-2 text-right"><span style="color: red;">*</span>是否推送消息提醒&nbsp;</label>
+					<div class="col-xs-5">
+						<div class="radio">
+						  	<label>
+						    	<input type="radio" name="optionsRadios6">
+						    	是
+						  	</label>
+						</div>
+						<div class="radio">
+  							<label>
+						    	<input type="radio" name="optionsRadios6">
+						    	否
+						  	</label>
+						</div>
+						<p class="gray">课程发布时向用户推荐该课程的提醒信息</p>
+					</div>
+				</div>
+			</div>
+		</article>
+		<footer>
+			<button class="btn btn-primary">保存并发布</button>
+			<button class="btn btn-default">保存,暂不发布</button>
+			<button class="btn btn-default" onclick="history.go(-1)">上一步</button>
+		</footer>
+	</body>
+</html>

@@ -1,0 +1,86 @@
+body{
+    font-family: "苹方";
+}
+.talkRecord{
+    height:44px;
+    background:#f1f1f1 ;
+    line-height: 44px;
+    font-size: 16px;
+}
+.talkRecord img{
+    width: 15px;
+    margin-left: 42px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.back{
+    margin-right: 20px;
+
+}
+#backBtn{
+    cursor: pointer;
+}
+.kaoC{
+    width: 80%;
+    margin: auto;
+    font-size: 14px;
+    margin-top: 14px;
+}
+.kaoC>div{
+    margin-bottom: 16px;
+}
+.kaoC>div>div{
+    display:inline-block;
+}
+.kaoC>div>div:first-child{
+    width: 15%;
+    text-align: right;
+    margin-right: 16px;
+}
+.kaoC>div>div:last-child{
+    vertical-align: top;
+    width: 80%;
+}
+.date{
+    vertical-align: middle!important;
+    position: relative;
+    width: 172px!important;
+}
+#dateImg{
+    position: absolute;
+    right: 7px;
+    top:9px;
+}
+.kaoC>div>div:last-child textarea{
+    height: 400px;
+    border: 1px solid #d2d2d2;
+    border-radius: 2px;
+    width: 90%;
+    outline: none;
+}
+.kaoC>div>div:last-child input{
+    border: 1px solid #d2d2d2;
+    border-radius: 2px;
+    height: 30px;
+    width: 172px;
+    outline: none;
+    text-align: left;
+}
+#submit{
+    width: 268px;
+    height: 46px;
+    text-align: center;
+    line-height: 46px;
+    font-size:18px ;
+    padding: 0 0;
+    border-radius: 4px;
+    border: 1px solid #2198f2;
+    background:#2198f2 ;
+    color: #ffffff;
+    display: block;
+    margin: auto;
+    outline: none;
+    margin-top: 70px;
+    margin-bottom: 138px;
+    cursor: pointer;
+}

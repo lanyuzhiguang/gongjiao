@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>课程统计首页</title>
+		<link rel="stylesheet" type="text/css" href="../css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap-datetimepicker.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/resoueceLibrary.css"/>
+		<link rel="stylesheet" type="text/css" href="../layui/css/modules/layer/default/layer.css"/>
+		<style type="text/css">
+			.listUl{
+				padding-right: 20px;
+				height: 300px;
+			}
+			.listUl li{
+				border: 1px solid #ccc;
+				padding: 25px 5px;
+				height: 50%;
+			}
+			.examDataLeft{
+				padding-right: 20px;
+			}
+			.examDataLeft>div{
+				border: 1px solid #ccc;
+				text-align: center;
+				padding: 10px 5px;
+			}
+			.listUl .h3,.listUl h3{
+				margin-bottom: 30px;
+				margin-top: 30px;
+				font-weight: bolder;
+				color: #D75F68;
+			}
+			.examDataLeft .h3,.examDataLeft h3{
+				margin-bottom: 25px;
+				margin-top: 25px;
+				font-weight: bolder;
+				color: #D75F68;
+			}
+			.examDataBox{
+				padding: 0 15px;
+				/*padding-bottom: 20px;*/
+				height: 300px;
+				border: 1px solid #ccc;
+			}
+			.examDataBox .title{
+				padding: 12px 0;
+			}
+			.smallEcharts{
+				border: 1px solid #ccc;
+				padding: 0 12px;
+				height: 237px;
+			}
+			.echartsBox{
+				position: relative;
+			}
+			.percent{
+				position: absolute;
+				left: 4%;
+				bottom: 0;
+				width: 100%;
+				display: flex;
+				justify-content: space-between;
+				font-size: 12px;
+			}
+			.borderBox{
+				border: 1px solid #ccc;
+			}
+			.smallEcharts .h2,.smallEcharts h2{
+				margin-top: 10px;
+				line-height: 1;
+				font-size: 26px;
+			}
+			.smallEcharts p{
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<header class="container-fluid">
+				<div class="row">
+					<div class="col-xs-6 text-left">
+						<h4>学习统计</h4>
+					</div>
+					<div class="col-xs-6 text-right">
+						<a href="curriculumStatistics.html"><button class="btn btn-primary">按课程统计</button></a>
+					</div>
+				</div>
+			</header>
+		</div>
+		<article class="container-fluid">
+			<div class="row col-xs-12">
+				<div class="col-xs-6">
+					<ul class="col-xs-12 listUl">
+						<li class="col-xs-4 text-center">
+							<p>累计参与学习人数</p>
+							<h3>14854</h3>
+						</li>
+						<li class="col-xs-4 text-center">
+							<p>累计参与学习人数</p>
+							<h3>14854</h3>
+						</li>
+						<li class="col-xs-4 text-center">
+							<p>累计参与学习人数</p>
+							<h3>14854</h3>
+						</li>
+						<li class="col-xs-4 text-center">
+							<p>累计参与学习人数</p>
+							<h3>14854</h3>
+						</li>
+						<li class="col-xs-4 text-center">
+							<p>累计参与学习人数</p>
+							<h3>14854</h3>
+						</li>
+						<li class="col-xs-4 text-center">
+							<p>累计参与学习人数</p>
+							<h3>14854</h3>
+						</li>
+					</ul>
+				</div>
+				<div class="col-xs-6 borderBox">
+					<div id="main" style="width: 100%;height:300px;"></div>
+				</div>
+			</div>
+			<div class="row col-xs-12">
+				<div class="col-xs-6" style="padding-right: 20px;">
+					<div class="borderBox">
+						<div id="myCharts" style="width: 100%;height:300px;"></div>
+					</div>
+				</div>
+				<div class="col-xs-6 examDataBox">
+					<div class="title col-xs-12">
+						在线考试数据
+					</div>
+					<div class="col-xs-12">
+						<div class="col-xs-7 examDataLeft">
+							<div class="col-xs-6">
+								<p>累计答题人数</p>
+								<h3>13455</h3>
+							</div>
+							<div class="col-xs-6">
+								<p>累计答题人数</p>
+								<h3>13455</h3>
+							</div>
+							<div class="col-xs-6">
+								<p>累计答题人数</p>
+								<h3>13455</h3>
+							</div>
+							<div class="col-xs-6">
+								<p>累计答题人数</p>
+								<h3>13455</h3>
+							</div>
+						</div>
+						<div class="col-xs-5 smallEcharts">
+							<div class="echartsBox">
+								<div id="myChar" style="width: 100%;height:180px;"></div>
+								<ul class="clear percent">
+									<li>0</li>
+									<li>20%</li>
+									<li>40%</li>
+									<li>60%</li>
+									<li>80%</li>
+									<li>100%</li>
+								</ul>
+							</div>
+							<div class="row">
+								<div class="col-xs-6">
+									<h2>81.53%</h2>
+								</div>
+								<div class="col-xs-6">
+									<p>总回答数 <b>123</b></p>
+									<p>过均分数 <b>989</b></p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</article>
+	</body>
+</html>
+<script src="../../../r/wx/common/pathimage"></script>
+<script src="../js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../partyDeve/js/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+	var myChart = echarts.init(document.getElementById('main'));
+	var myCharts = echarts.init(document.getElementById('myCharts'));
+	var myChar = echarts.init(document.getElementById('myChar'));
+	//得分分布图
+	var options = {
+	    color: ['#3398DB'],
+	    title: {
+	        text: '得分分布',
+	        top: 5,
+	        left: 0,
+	        textStyle: {
+	        	fontWeight: 'bold',
+	        	color: '#999',//D75F68
+	        	fontSize: 14
+	      	}
+	    },
+	    tooltip : {
+	        trigger: 'axis',
+	        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+	            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+	        },
+	        show:false
+	    },
+	    legend: {
+	    	x: "right",
+	        data:['答题平均得分率'],
+	        top: 5,
+	        textStyle:{
+	        	fontSize: 10,
+	        	color: "#999"
+	        }
+	    },
+	    grid: {
+	        left: '-15%',
+	        right: '0%',
+	        bottom: '3%',
+	        top: "5%",
+	        containLabel: true
+	    },
+	    xAxis : [
+	        {
+	            type : 'category',
+	            data : ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'],
+	            axisTick: {
+	                alignWithLabel: true
+	            },
+	            axisLabel:{
+	            	show: true,
+	            	interval: "auto",
+	            	formatter: "{value}%"
+	            },
+	            show: false
+	        }
+	    ],
+	    yAxis : [
+	        {
+	            type : 'value',
+	            show: false
+	        }
+	    ],
+	    series : [
+	        {
+	            name:'答题平均得分率',
+	            type:'bar',
+	            barWidth: '60%',
+	            data:[1000, 52, 200, 334, 390, 330, 220,1200,2000,3500,2530,1502,1689,1786,2584,2045,2012,2018],
+	        }
+	    ]
+	};
+	myChar.setOption(options);
+	//学习时长
+	var option = {
+//		backgroundColor: '#0D1428',
+	    title: {
+	        text: '党员学习时长',
+	        top: 10,
+	        left: 10,
+	        textStyle: {
+	        	fontWeight: 'normal',
+	        	color: '#D75F68'
+	      	}
+	    },
+	    tooltip: {
+	        trigger: 'axis'
+	    },
+	    legend: {
+	        data:['学习时长'],
+	        right: 30,
+	        top: 20,
+	        textStyle:{
+	        	fontSize: 10,
+	        }
+	    },
+	    grid: {
+	        left: '5%',
+	        right: '10%',
+	        bottom: '5%',
+	        top: "25%",
+	        containLabel: true
+	    },
+	    xAxis: {
+	        type: 'category',
+	        name: "时间",
+	        boundaryGap: false,
+	        data: ['周一','周二','周三','周四','周五','周六','周日'],
+	        axisLabel: {
+	        	interval:0,
+	        	rotate: 30,
+	        	textStyle: {
+	        		fontSize: 10,
+//	        		color: "#ffffff"
+	        	}
+	        },
+	        nameTextStyle: {
+//	        	color: ["#ffffff"]
+	        },
+	        axisLine: {
+	        	lineStyle:{
+//	        		color: "#1D425D",
+	        		width: 1
+	        	}
+	        }
+	    },
+	    yAxis: {
+	        type: 'value',
+	        name: "时长（小时）",
+	        splitLine: {
+	        	lineStyle: {
+//	        		color: ["#101A30"]
+	        	}
+	        },
+	        axisLabel: {
+	        	textStyle: {
+	        		fontSize: 10,
+//	        		color: "#ffffff"
+	        	}
+	        },
+	        nameTextStyle: {
+//	        	color: ["#ffffff"]
+	        },
+	        axisLine: {
+	        	lineStyle: {
+//	        		color: "#1D425D",
+	        		width: 1
+	        	}
+	        }
+	    },
+	    series: [
+	        {
+	            name:'学习时长',
+	            type:'line',
+	            stack: '总量',
+	            data:[120, 132, 101, 134, 90, 230, 210],
+	        }
+	    ]
+	};
+	myChart.setOption(option);
+	//心得发布数量
+	var optiont = {
+//		backgroundColor: '#0D1428',
+	    title: {
+	        text: '心得发布数量',
+	        top: 10,
+	        left: 10,
+	        textStyle: {
+	        	fontWeight: 'bold',
+	        	fontSize: 14,
+	        	color: '#D75F68'
+	      	}
+	    },
+	    tooltip: {
+	        trigger: 'axis'
+	    },
+//	    legend: {
+//	        data:['学习时长'],
+//	        right: 30,
+//	        top: 20,
+//	        textStyle:{
+//	        	fontSize: 10,
+//	        	color: "#ffffff"
+//	        }
+//	    },
+	    grid: {
+	        left: '5%',
+	        right: '10%',
+	        bottom: '5%',
+	        top: "25%",
+	        containLabel: true
+	    },
+	    xAxis: {
+	        type: 'category',
+	        name: "时间",
+	        boundaryGap: false,
+	        data: ['周一','周二','周三','周四','周五','周六','周日'],
+	        axisLabel: {
+	        	interval:0,
+	        	rotate: 30,
+	        	textStyle: {
+	        		fontSize: 10,
+//	        		color: "#ffffff"
+	        	}
+	        },
+	        nameTextStyle: {
+//	        	color: ["#ffffff"]
+	        },
+	        axisLine: {
+	        	lineStyle:{
+//	        		color: "#1D425D",
+	        		width: 1
+	        	}
+	        }
+	    },
+	    yAxis: {
+	        type: 'value',
+	        name: "条数",
+	        splitLine: {
+	        	lineStyle: {
+//	        		color: ["#101A30"]
+	        	}
+	        },
+	        axisLabel: {
+	        	textStyle: {
+	        		fontSize: 10,
+//	        		color: "#ffffff"
+	        	}
+	        },
+	        nameTextStyle: {
+//	        	color: ["#ffffff"]
+	        },
+	        axisLine: {
+	        	lineStyle: {
+//	        		color: "#1D425D",
+	        		width: 1
+	        	}
+	        }
+	    },
+	    series: [
+	        {
+	            name:'心得发布数量',
+	            type:'line',
+	            stack: '总量',
+	            data:[1200, 1320, 1010, 1340, 900, 230, 2100],
+	        }
+	    ]
+	};
+	myCharts.setOption(optiont);
+</script>

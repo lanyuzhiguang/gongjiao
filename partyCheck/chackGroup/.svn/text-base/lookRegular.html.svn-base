@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../../css/lookRegular.css">
+    <link rel="stylesheet" type="text/css" href="../../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../../css/layer.css">
+    <link rel="stylesheet" type="text/css" href="../../css/zTreeStyle.css">
+    <style>
+        .hid {
+            display: none;
+        }
+        
+        .ztree li span.button.chk.checkbox_true_disable {
+            background-position: -14px 0px;
+        }
+        
+        #submit {
+            cursor: pointer;
+        }
+        
+        .resultExport {
+            display: block;
+            background: #2196f3;
+            font-size: 14px;
+            border-radius: 2px;
+            text-align: center;
+            height: 30px;
+            width: 110px;
+            color: #ffffff;
+            line-height: 30px;
+            top: 50%;
+            margin-top: 7px;
+            right: 20px;
+            float: right;
+        }
+        
+        .innerTitle>span:nth-of-type(2),
+        .name {
+            display: inline-block;
+            max-width: 400px;
+            overflow: hidden;
+            vertical-align: bottom;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="talkRecord">
+            <span id="backBtn">
+                 <img src="../../img/back.png"><span class="back">返回</span>
+            </span>
+            <span id="where"></span>
+            <span class="resultExport" id="submit">考核结果导出</span>
+        </div>
+        <div class="checkList">
+            <div class="checkLeft">
+                <div>
+                    <div>考核发布单位</div>
+                    <div id="danw"></div>
+                </div>
+                <div>
+                    <div>考核周期位</div>
+                    <div><span id="bg"></span>至<span id="og"></span></div>
+                </div>
+                <div>
+                    <div>打分方式</div>
+                    <div id="fenWay"></div>
+                </div>
+            </div>
+            <div class="checkRight">
+                <div>
+                    <div>考核类型</div>
+                    <div id="checkind"></div>
+                </div>
+                <div style="display: none;">
+                    <div>总分</div>
+                    <div id="totalScore"></div>
+                </div>
+                <div>
+                    <div>考核适用范围</div>
+                    <div id="look">查看</div>
+                </div>
+            </div>
+            <div class="checkList check">
+            </div>
+        </div>
+        <div class="mask hid" id="mask"></div>
+        <div class="popBox hid" id="poper1">
+            <div class="popB_Top">
+                <span class="addW" id="titleC">考核适用范围</span><span class="close" id="close"><img src="../../img/close.png"></span>
+            </div>
+            <div class="treeList">
+                <div id="menuContent1" class="menuContent">
+                    <ul id="treeDemo1" class="ztree" style="margin-top:0; width:206px;"></ul>
+                </div>
+            </div>
+        </div>
+</body>
+<script type="text/javascript" src="../../../r/wx/common/pathimage"></script>
+<script src="../../assets/js/jquery.js"></script>
+<script src="../../js/laydate.js"></script>
+<script src="../../js/layer.js"></script>
+<script src="../../js/jquery.ztree.core.min.js"></script>
+<script src="../../js/jquery.ztree.excheck.min.js"></script>
+<script>
+    // 民主测评功能，张良修改，begin,20181031
+    // var path = "",
+    var id, me, check;
+    var path = _ctxPath; //获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+    // 民主测评功能，张良修改，end,20181031
+    $(function() {
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+        id = getQueryString("id");
+        me = getQueryString("me");
+        path = _ctxPath; //获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+        $("#backBtn").click(function() {
+            window.history.back(-1);
+        });
+        $.ajax({
+            type: "GET",
+            url: path + "partyCheck/findCheckById.action",
+            data: {
+                "checkId": id
+            },
+            dataType: "json",
+            success: function(data) {
+                check = data.data;
+                $("#danw").text(check.bumenName);
+                $("#bg").text(check.formtStarCycle);
+                $("#og").text(check.formtEndCycle);
+                if (check.markType == 1) {
+                    $("#fenWay").text("自查+评分");
+                }
+                if (check.markType == 2) {
+                    $("#fenWay").text("评分");
+                }
+                if (check.type == 1) {
+                    if (check.checkType == 1) {
+                        $("#checkind").text("党委");
+                    }
+                    if (check.checkType == 2) {
+                        $("#checkind").text("党工委");
+                    }
+                    if (check.checkType == 3) {
+                        $("#checkind").text("党总支");
+                    }
+                    if (check.checkType == 4) {
+                        $("#checkind").text("党支部");
+                    }
+                    if (check.checkType == 5) {
+                        $("#checkind").text("联合党支部");
+                    }
+                }
+                if (check.type == 2) {
+                    if (check.checkType == 1) {
+                        $("#checkind").text("党员");
+                    }
+                    if (check.checkType == 2) {
+                        $("#checkind").text("干部");
+                    }
+
+                }
+                $("#totalScore").text(check.totalScore);
+                $("#where").text(check.title);
+                ruleas(id);
+            }
+        })
+
+    })
+
+    function ruleas(Id) {
+        $.ajax({ //父
+            type: "GET",
+            url: path + "checkReule/checkRules.action",
+            data: {
+                "checkId": Id
+            },
+            dataType: "json",
+            success: function(data) {
+                var project = data;
+                if (project.length != 0) {
+                    $(".noDate").addClass("hid");
+                    $("#subBtn").removeClass("hid");
+                }
+                for (var i = 0; i < project.length; i++) {
+                    if (project[i].type === 1) {
+                        var contentBox = "<div class=\"checkContent\" id=\"" + project[i]._id + "\"></div>";
+                        $(".check").append(contentBox);
+                        var projectK = '<div class="contentTitle"><span class="kindN"></span><span class="name" title="' + project[i].name + '">' + project[i].name + '</span><span\n' +
+                            '                            class="allF" style="display: none;">总分' + project[i].score + '分</span>\n' +
+                            '                            <img class="img" src="../../img/down.png">\n' +
+                            '                    </div>';
+                        $("#" + project[i]._id).append(projectK);
+                        ruleaChaild(project, project[i]);
+                    }
+                }
+                initClik();
+            }
+        });
+    }
+
+    function ruleaChaild(data, pRule) {
+        var childItem = data;
+        var pId = pRule._id;
+        if (pRule.chaildType == 3) {
+            var tableWrap = '<table cellpadding="0" cellspacing="0">\n' +
+                '                        <thead>\n' +
+                '                        <tr>\n' +
+                '                            <th style="width:6%">序号</th>\n' +
+                '                            <th style="width:18%">积分项</th>\n' +
+                '                            <th style="width:5%;display: none;">基础分值</th>\n' +
+                '                            <th style="width:15%">评分标准</th>\n' +
+                '                            <th style="width:17%">考核方式</th>\n' +
+                '                        </tr>\n' +
+                '\n' +
+                '                        </thead>\n' +
+                '                        <tbody class="innerItem"></tbody>\n' +
+                '                    </table>';
+            $("#" + pId).append(tableWrap);
+        }
+        var len = 0;
+        for (var j = 0; j < childItem.length; j++) {
+            if (childItem[j].parentId != "undefined" && childItem[j].parentId === pId) {
+                len++;
+            }
+        }
+        var nen = 0;
+        for (var j = 0; j < childItem.length; j++) {
+            if (childItem[j].parentId != "undefined" && childItem[j].parentId === pId) {
+                if (childItem[j].type == 2) {
+                    if (childItem[j].score > childItem[j].nowScore) {
+                        childContent = "添加计分项";
+                    } else {
+                        childContent = "";
+                    }
+                }
+                if (pRule.chaildType == 3) {
+                    var jiFItem = ' <tr>\n' +
+                        '                            <td>' + childItem[j].oder + '</td>\n' +
+                        '                            <td>' + childItem[j].name + '</td>\n' +
+                        '                            <td style="display: none;">' + childItem[j].score + '</td>\n' +
+                        '                            <td>' + childItem[j].standard + '</td>\n' +
+                        '                            <td>' + childItem[j].mode + '</td>\n' +
+                        '                            </tr>';
+                    $("#" + pId).find(".innerItem").append(jiFItem);
+                } else {
+                    var twoC = "<div class=\"innerWrap\" id=\"" + childItem[j]._id + "\"></div>";
+                    $("#" + pId).append(twoC);
+                    var child = ' <div class="innerTitle"><span class="projectN"></span><span title="' + childItem[j].name + '">' + childItem[j].name + '</span><span class="allF" style="display: none;">总分' + childItem[j].score + '分</span>\n' +
+                        '                           <img class="img" src="../../img/down.png">\n' +
+                        '                    </div>';
+                    $("#" + childItem[j]._id).append(child);
+                }
+                nen++;
+                if (childItem[j].type != 3) {
+                    ruleaChaild(childItem, childItem[j]);
+                }
+            }
+        }
+    }
+
+    /******初始化监听*******/
+    function initClik() {
+        $(".check").on("click", function(e) {
+            e.stopPropagation();
+            var tar = e.target;
+            var closeList = '../../img/right.png';
+            var openList = '../../img/down.png';
+            if ($(tar).attr("class") == 'img') {
+                if ($(tar).parent().attr("class") == "contentTitle") {
+                    console.log($(tar));
+                    if ($(tar).attr("src") == closeList) { //合上
+                        $(tar).parent().nextAll().css("display", "block");
+                        $(tar).attr("src", openList);
+                    } else {
+                        $(tar).parent().nextAll().css("display", "none");
+                        $(tar).attr("src", closeList);
+                    }
+                }
+                if ($(tar).parent().attr("class") == "innerTitle") {
+                    console.log($(tar));
+                    if ($(tar).attr("src") == closeList) { //合上
+                        $(tar).parent().nextAll().css("display", "table");
+                        $(tar).attr("src", openList);
+                    } else {
+                        $(tar).parent().nextAll().css("display", "none");
+                        $(tar).attr("src", closeList);
+                    }
+                }
+            }
+        })
+
+        $("#look").click(function() {
+                $("#poper1").removeClass("hid");
+                $("#mask").removeClass("hid");
+                var zNodes = [];
+                //tree
+                var setting = {
+                    view: {
+                        dblClickExpand: false
+                    },
+                    data: {
+                        simpleData: {
+                            enable: true,
+                            idKey: "id",
+                            pIdKey: "pId"
+                        },
+                        key: {
+                            name: "name"
+                        }
+                    },
+                    check: {
+                        enable: true,
+                        chkDisabledInherit: true,
+                        chkStyle: "checkbox",
+                        chkboxType: {
+                            "Y": "",
+                            "N": ""
+                        }
+                    },
+                    callback: {
+
+                    }
+                };
+                buildTree();
+
+                function buildTree() {
+                    if (check.type == 1) {
+                        $.ajax({
+                            type: "POST",
+                            url: path + "partyCheck/checkLook.action",
+                            data: {
+                                "checkId": id
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                var data = data.data;
+                                if (data) {
+                                    zNodes = data;
+                                    var zTree = $.fn.zTree.init($("#treeDemo1"), setting, zNodes);
+                                    var node = zTree.getNodeByParam("id", 0);
+                                    //alert(JSON.stringify(node));
+                                    zTree.selectNode(node);
+                                    zTree.expandNode(node, true, false, false);
+                                    var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                                    treeObj.expandAll(true);
+                                }
+                                hibb_Nodes();
+
+                            }
+                        });
+                    } else {
+                        $.ajax({
+                            type: "POST",
+                            url: path + "partyCheck/checkLook.action",
+                            data: {
+                                "checkId": id
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                var data = data.data;
+                                if (data) {
+                                    zNodes = data;
+                                    var zTree = $.fn.zTree.init($("#treeDemo1"), setting, zNodes);
+                                    var node = zTree.getNodeByParam("id", 0);
+                                    //alert(JSON.stringify(node));
+                                    zTree.selectNode(node);
+                                    zTree.expandNode(node, true, false, false);
+                                    var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                                    treeObj.expandAll(true);
+                                }
+                                hibb_Nodes();
+
+                            }
+                        });
+                    }
+
+                }
+
+                $("#cancel").click(function() {
+                    $("#poper1").addClass("hid");
+                    $("#mask").addClass("hid");
+                });
+                $("#close").click(function() {
+                    $("#poper1").addClass("hid");
+                    $("#mask").addClass("hid");
+                });
+                $("#mask").click(function() {
+                    $("#poper1").addClass("hid");
+                    $("#mask").addClass("hid");
+                });
+                $("#sure").click(function() {
+                    $("#poper1").addClass("hid");
+                    $("#mask").addClass("hid");
+
+                });
+
+                function hibb_Nodes() {
+                    var treeObj = $.fn.zTree.getZTreeObj("treeDemo1");
+                    var nodes = treeObj.transformToArray(treeObj.getNodes());
+                    for (var node in nodes) {
+                        treeObj.setChkDisabled(nodes[node], true);
+                    }
+                }
+            })
+            //导出结果处理接口
+        $("#submit").click(function() {
+            window.location.href = path + "/export/exportExaminationRule/" + id + ".action";
+        })
+    }
+</script>
+
+</html>

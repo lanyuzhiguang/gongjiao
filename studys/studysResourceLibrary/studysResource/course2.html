@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>章节管理</title>
+		<link rel="stylesheet" type="text/css" href="../../css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../iconFont/iconfont.css"/>
+		<link rel="stylesheet" type="text/css" href="../../font-awesome/css/font-awesome.min.css"/>
+		<link rel="stylesheet" href="../../layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/resoueceLibrary.css"/>
+		<link rel="stylesheet" type="text/css" href="../../layui/css/modules/layer/default/layer.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/uploadFile.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../resources/plugins/toastr/toastr.css"/>
+		<style type="text/css">
+			/*进度*/
+			.clear>p,.clear>div{
+				float: left;
+			}
+			.clear>p{
+				width: 25px;
+				height: 25px;
+				border: 1px solid #333;
+				border-radius: 50%;
+				text-align: center;
+				line-height: 23px;
+				margin-bottom: 8px;
+			}
+			.clear>p.active{
+				background: #2198F1;
+				border: none;
+				color: #fff;
+			}
+			.clear>div{
+				width: 315px;
+				height: 1px;
+				margin-top: 12px;
+				background: #333;
+				line-height: 20px;
+			}
+			.clear{
+				width: 710px;
+				margin: 0 auto;
+			}
+			.clear>span{
+				position: relative;
+			}
+			.clear>span:first-of-type{
+				right: 13px;
+			}
+			.clear>span:nth-of-type(2){
+				margin-left: 264px;
+			}
+			.clear>span:nth-of-type(3){
+				left: 282px;
+			}
+			
+			.danger{
+				width: 100%;
+				background: rgba(242, 242, 242, 1);
+				line-height: 34px;
+				padding-left: 10px;
+				border-radius: 2px;
+				margin: 12px 0;
+			}
+			footer{
+				text-align: center;
+			}
+			.promptdelete .deleteText{
+				text-align: left;
+			}
+			.promptdelete .deleteText *{
+				line-height: 35px;
+			}
+			.radio-inline,.radio-inline label{
+				font-weight: 400;
+				line-height: 20px !important;
+			}
+			.edui-body-container{
+				max-height: 300px;
+			}
+			.tab{
+				display: none;
+			}
+			input[type=checkbox]{
+				margin: 0;
+				vertical-align: middle;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<header class="container-fluid">
+				<div class="row">
+					<div class="col-xs-6 text-left">
+						<a href="javascript:history.go(-1);" style="color: #333;"><i class="fa fa-angle-double-left"></i>返回</a>
+						<h4>课程</h4>
+					</div>
+				</div>
+			</header>
+		</div>
+		<article class="container-fluid">
+			<div class="row content_header">
+				<div class="clear">
+					<p>1</p>
+					<div class="solid"></div>
+					<p class="active">2</p>
+					<div class="solid"></div>
+					<p>3</p>
+					<span>基本信息</span>
+					<span>章节管理</span>
+					<span>其他设置</span>
+				</div>
+			</div>
+			<div class="danger clear">
+				提示：每个课程只能包含视频或音频一种多媒体课件格式。文档限制格式为PDF。
+			</div>
+			<div class="tableBox">
+				<table class="table table-bordered">
+					<tr>
+						<th>序号</th>
+						<th>标题</th>
+						<th>类型</th>
+						<th>创建时间</th>
+						<th>排序</th>
+						<th>操作</th>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>党章轻松学 （一）</td>
+						<td>视频</td>
+						<td>2018-05-21 14:00</td>
+						<td>
+							<img src="../img/topnoicon.png"/>
+							<img src="../img/bottomyesicon.png"/>
+						</td>
+						<td>
+							<a href="javascript:;">预览</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</article>
+		<footer>
+			<button class="btn btn-default" onclick="history.go(-1)">上一步</button>
+			<button class="btn btn-primary">保存，退出</button>
+			<button class="btn btn-primary" onclick="location.href='course3.html'">保存，下一步</button>
+		</footer>
+		<div class="modal promptdelete" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+	    				<h4 class="modal-title" id="gridSystemModalLabel">提示</h4>
+		            </div>
+		            <div class="modal-body">
+		            	<div class="row deleteText">
+		            		<div class="form-inline">
+		            			<label style="width: 80px;margin-right: 12px;text-align: right;"><span style="color: red;">*</span>选择类型：</label>
+		            			<div style="display: inline-block;vertical-align: top;">
+								  	<label class="radio-inline">
+								    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">视频
+								  	</label>
+		  							<label class="radio-inline">
+								    	<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">音频
+								  	</label>
+		  							<label class="radio-inline">
+								    	<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">PDF文档
+								  	</label>
+		            			</div>
+		            		</div>
+		            		<div class="form-inline">
+		            			<label style="width: 80px;margin-right: 12px;text-align: right;"><span style="color: red;">*</span>章节名称：</label>
+		            			<input type="text" class="form-control" style="width: 75%;" placeholder="不超过30个字" />
+		            		</div>
+		            		<div class="form-inline tab">
+		            			<label style="width: 80px;margin-right: 12px;text-align: right;"><span style="color: red;">*</span>视频上传：</label>
+		            			<div style="display: inline-block;vertical-align: top">
+		            				<p>文件格式仅支持mp4格式</p>
+		            				<span class="btn btn-primary fileinput-button" style="margin: 0;line-height: 28px;">
+										<span style="line-height: 28px;">选择文件并上传</span>
+										<input type="file" name="myfile" id="myfile" value="选择上传文件" onchange="fileChange(this,'video',true,314572800)" />
+									</span>
+									<div class="progress">
+										<div class="progressSon">0%</div>
+									</div>
+									<div class="fileUtil">
+										<p><span>文件大小：</span><span class="filesize">0B</span></p>
+										<p><span>文件名字：</span><span class="filename">名字</span></p>
+									</div>
+		            			</div>
+		            		</div>
+		            		<div class="tab">
+		            			<div class="form-inline">
+			            			<label style="width: 80px;margin-right: 12px;text-align: right;"><span style="color: red;">*</span>音频上传：</label>
+			            			<div style="display: inline-block;vertical-align: top">
+			            				<p>文件格式仅支持mp3格式，文件最大100M</p>
+			            				<span class="btn btn-primary fileinput-button" style="margin: 0;line-height: 28px;">
+											<span style="line-height: 28px;">选择文件并上传</span>
+											<input type="file" name="myfile" id="myfile" value="选择上传文件" onchange="fileChange(this,'audio',true,104857600)" />
+										</span>
+										<div class="progress">
+											<div class="progressSon">0%</div>
+										</div>
+										<div class="fileUtil">
+											<p><span>文件大小：</span><span class="filesize">0B</span></p>
+											<p><span>文件名字：</span><span class="filename">名字</span></p>
+										</div>
+			            			</div>
+			            		</div>
+			            		<div class="form-inline">
+			            			<label style="width: 80px;margin-right: 12px;text-align: right;">音频文本：</label>
+			            			<textarea class="form-control" style="width: 75%;height: 200px;"></textarea>
+			            		</div>
+		            		</div>
+		            		<div class="tab">
+		            			<div class="form-inline">
+			            			<label style="width: 80px;margin-right: 12px;text-align: right;"><span style="color: red;">*</span>资料上传：</label>
+			            			<div style="display: inline-block;vertical-align: top">
+			            				<p>文件格式仅支持PDF格式，文件最大50M</p>
+			            				<span class="btn btn-primary fileinput-button" style="margin: 0;line-height: 28px;">
+											<span style="line-height: 28px;">选择文件并上传</span>
+											<input type="file" name="myfile" id="myfile" value="选择上传文件" onchange="fileChange(this,'pdf',true,52428800)" />
+										</span>
+										<div class="progress">
+											<div class="progressSon">0%</div>
+										</div>
+										<div class="fileUtil">
+											<p><span>文件大小：</span><span class="filesize">0B</span></p>
+											<p><span>文件名字：</span><span class="filename">名字</span></p>
+										</div>
+			            			</div>
+			            		</div>
+			            		<div class="form-inline">
+			            			<label style="width: 80px;margin-right: 12px;text-align: right;">资料介绍：</label>
+			            			<textarea class="form-control" style="width: 75%;height: 200px;"></textarea>
+			            		</div>
+		            		</div>
+		            		<div class="form-inline">
+		            			<label style="width: 80px;margin-right: 12px;text-align: right;"></label>
+		            			<div style="display: inline-block;">
+									<input type="checkbox" />
+									同意<a href="javascript:;">上传协议</a>
+								</div>
+		            		</div>
+		            	</div>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-primary deleteSure">确定</button>
+		                <button class="btn btn-default cancelDelete">取消</button>
+		                <p style="line-height: 30px;">提示：上传过程中请勿刷新页面或关闭浮层，否则将可能导致上传失败</p>
+		            </div>
+		        </div><!-- /.modal-content -->
+		    </div><!-- /.modal -->
+		</div>
+	</body>
+</html>
+<script src="../../js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../layui/lay/modules/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/uploadFile.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(".deleteText input[type=radio]").eq(0).prop("checked",true);
+	$(".deleteText .tab").eq(0).show();
+	$(".deleteText .radio-inline").off("click").on("click",function(){
+		$(this).siblings().children("input[type=radio]").prop("checked",false);
+		$(this).children("input[type=radio]").prop("checked",true);
+		$(".deleteText .tab").eq($(this).index()).show().siblings(".tab").hide();
+	});
+	$(".addCon").off("click").on("click",function(){
+		$(".promptdelete").fadeIn();
+	});
+	$(".promptdelete .deleteSure,.promptdelete .cancelDelete,.promptdelete .close").click(function(){
+		$(".promptdelete").fadeOut();
+	});
+</script>

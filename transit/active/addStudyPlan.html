@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>添加学习计划</title>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../resources/css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/index.css"/>
+		<style type="text/css">
+			.tableFooter {
+				padding: 50px 0 30px 0;
+				text-align: center;
+			}
+			.tableFooter button {
+				width: 130px;
+				height: 50px;
+				font-size: 18px;
+			}
+			.tableFooter p {
+				color: #999;
+				font-size: 12px;
+				line-height: 16px;
+			}
+			td img:first-of-type,th img {
+				width: 12px;
+				margin-right: 5px;
+			}
+			td img:last-of-type{
+				width: 12px;
+			}
+		</style>
+	</head>
+	<body>
+		<aside>
+			<img src="../img/nonews.png"/>
+		</aside>
+		<nav class="header">
+			<ol class="breadcrumb">
+			  <li><a href="javascript:;">经费管理</a></li>
+			  <li><a href="javascript:;">活动经费管理</a></li>
+			  <li><a href="javascript:;">党建活动管理</a></li>
+			  <li class="active cursor">党建活动计划</li>
+			</ol>
+		</nav>
+		<article>
+			<section>
+				<table class="table table-striped tableNoBor">
+					<tr>
+						<th>时间</th>
+						<th>学习内容</th>
+						<th>活动内容</th>
+						<th>操作</th>
+					</tr>
+					<tr style="display: none;"></tr>
+					<tr>
+						<td>2018-08-26 12:56</td>
+						<td>学习的内容</td>
+						<td>活动的内容</td>
+						<td>
+							<img class="edit" src="../img/edit.png" />
+							<img src="../img/delect.png"/>
+						</td>
+					</tr>
+					<tr>
+						<td>2018-08-26 12:56</td>
+						<td>学习的内容</td>
+						<td>活动的内容</td>
+						<td>
+							<img class="edit" src="../img/edit.png" />
+							<img src="../img/delect.png"/>
+						</td>
+					</tr>
+					<tr class="add cursor" style="background: #F9F9F9;">
+						<th style="text-align: center;color: #1c8dff;" colspan="4"><img src="../img/add.png"/>添加</th>
+					</tr>
+				</table>
+				<div class="tableFooter">
+					<button disabled="disabled" class="btn">提交</button>
+					<button class="btn btn-default cancelCreat">取消</button>
+					<p>（填满十二条才允许提交）</p>
+				</div>
+			</section>
+		</article>
+		<div class="alertBox2">
+			<div class="alert2">
+				<div class="header">
+					<p class="ellipsis">添加</p>
+					<img class="closeAlert2" src="../img/close.png"/>
+				</div>
+				<div class="alert_content row">
+					<form class="form-horizontal col-xs-10 col-xs-offset-1">
+						<div class="form-group">
+							<label for="inputPassword" class="col-xs-4 control-label"><span class="red">*</span>选择时间：</label>
+							<div class="col-xs-8">
+								<select class="form-control">
+									<option>请选择</option>
+									<option>1月</option>
+								</select>
+							</div>
+					  	</div>
+					  	<div class="form-group">
+							<label for="inputPassword" class="col-xs-4 control-label"><span class="red">*</span>学习内容：</label>
+							<div class="col-xs-8">
+								<textarea class="form-control" rows="4" cols="" placeholder="请输入"></textarea>
+							</div>
+					  	</div>
+					  	<div class="form-group">
+							<label for="inputPassword" class="col-xs-4 control-label"><span class="red">*</span>活动内容：</label>
+							<div class="col-xs-8">
+								<textarea class="form-control" rows="4" cols="" placeholder="请输入"></textarea>
+							</div>
+					  	</div>
+					</form>
+				</div>
+				<div class="alert_footer">
+					<button class="btnbg sure">确定</button>
+					<button class="btn btn-default cancel">取消</button>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="../../../moduleweb/resources/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../resources/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	$(function(){
+		$(".add").off("click").on("click",function(){
+			$(".alertBox2").fadeIn();
+		});
+		$(".alertBox2 .closeAlert2,.cancel,.sure").off("click").on("click",function(){
+			$(".alertBox2").fadeOut();
+		});
+		$(".cancelCreat").off("click").on("click",function(){
+			window.history.go(-1);
+		});
+	});
+</script>

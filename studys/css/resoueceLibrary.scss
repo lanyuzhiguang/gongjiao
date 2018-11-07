@@ -1,0 +1,285 @@
+$color: #2198F1 !default;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html,body{
+    font-family: "苹方";
+}
+a,a:focus, a:hover{
+    color: #2198F1;
+    text-decoration: none;
+    margin-right: 5px;
+}
+.btn-primary,.btn-primary.focus, .btn-primary:focus, .btn-primary:active:focus, .btn-primary:active:hover,.btn-primary:hover{
+    background: $color;
+    border: 1px solid $color;
+}
+.btn-primary{
+    margin: 0 6px;
+}
+.dropdown-toggle:hover{
+    background: white;
+    border: 1px solid #ccc;
+}
+.btn-group .dropdown-toggle:active,.open>.dropdown-toggle.btn-default:hover, .btn-default:focus{
+    background: white;
+    border: 1px solid #ccc;
+}
+.bootstrap-select:not([class*=col-]):not([class*=form-control]):not(.input-group-btn){
+    width: auto;
+}
+.col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9{
+    padding: 0;
+}
+.row{
+    margin-left: 0;
+    margin-right: 0;
+}
+.clearfloat:after{
+    display:block;
+    clear:both;
+    content:"";
+    visibility:hidden;
+    height:0
+}
+.checkbox input[type=checkbox], .checkbox-inline input[type=checkbox], .radio input[type=radio], .radio-inline input[type=radio]{
+//  margin-left: 0;
+}
+.table{
+    margin: 0;
+}
+td,th{
+    text-align: center;
+    white-space:nowrap;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+    vertical-align: middle;
+}
+.modal-footer{
+    text-align: center;
+}
+
+.header{
+    background: #F6F6F6;
+    border-bottom: 1px solid #ccc;
+}
+header.container-fluid{
+    padding: 14px 30px;
+    .h4,h4{
+         font-weight: bolder;
+         font-size: 18px;
+         margin-right: 20px;
+         display: inline-block;
+    }
+    p{
+        font-size: 16px;
+        display: inline-block;
+        span{
+            font-weight: 600;
+        }
+    }
+}
+article.container-fluid{
+    padding: 12px 30px;
+    .article_header{
+        p{
+            border: 1px solid #ccc;
+            font-weight: bold;
+            text-align: center;
+            &.active{
+                border: 1px solid $color;
+                color: white;
+                background: $color;
+            }
+        }
+    }
+    .content_header{
+        ul{
+            margin: 0;
+            background: #F6F6F6;
+            li{
+                padding: 15px 0;
+                text-align: center;
+                border-right: 1px solid #CCCCCC;
+                &:last-of-type{
+                    border: none;
+                }
+                &.active{
+                    background: #999999;
+                    color: #fff;
+                }
+            }
+        }
+        div.curriculumName,div.timeInp,div.contentProvider,div.state,.search{
+            line-height: 50px;
+        }
+    }
+    .tableBox{
+        margin-top: 12px;
+        overflow: auto;
+    }
+}
+
+.promptdelete,.importSubjectAlert{
+    background: rgba(0,0,0,0.5);
+    .deleteText{
+        text-align: center;
+    }
+}
+footer{
+    text-align: center;
+    button.btn{
+        padding: 10px 30px;
+        font-size: 16px;
+    }
+}
+
+.optionTab{
+    display: none;
+    .row{
+        margin: 10px -15px;
+    }
+    .form-group:hover{
+        .deleteicon{
+            display: block;
+        }
+    }
+    .deleteicon{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: $color;
+        color: white;
+        text-align: center;
+        line-height: 30px;
+        font-size: 28px;
+        display: none;
+    }
+}
+.table{
+    margin-bottom: 0;
+}
+#tabtitleBox{
+    border-bottom: 1px solid #ccc;
+}
+.tabtitle{
+    div.swiper-slide{
+        text-align: center;
+        padding: 0 25px;
+        height: 34px;
+        line-height: 34px;
+        border-right: 1px solid #ccc;
+        a{
+            display: inline-block;
+            width: 100%;
+            height: 34px;
+            line-height: 34px;
+            color: #333;
+        }
+        &.active{
+            a{
+                border-bottom: 2px solid $color;
+                color: $color;
+            }
+        }
+    }            
+}
+.branchSetting{
+    &>div{
+        margin: 8px 0;
+        span{
+            color: #333;
+        }
+    }
+}
+.btnTab{
+    text-align: center;
+    display: none;
+    margin: 50px 0;
+    button.btn-primary,button.btn-default{
+        padding: 10px 45px;
+    }
+}
+.tabArticleContent{
+    display: none;
+    span{
+        color: #e4080F;
+    }
+}
+.altogether{
+    line-height: 34px;
+    span{
+        color: $color;
+    }
+}
+.releaseTime{
+    display: none;
+}
+
+
+//滑块
+.bg_con{
+    width: 42px;
+    margin-top: 5px;
+    .switch{   
+        display:none;   
+    }   
+    label{   
+        position:relative;   
+        display: block;   
+        padding: 1px;   
+        border-radius: 24px;   
+        height: 22px;   
+        margin-bottom: 15px;   
+        background-color: #eee;   
+        cursor: pointer;   
+        vertical-align: top;   
+        -webkit-user-select: none;   
+    }   
+    label:before{   
+        content: '';   
+        display: block;   
+        border-radius: 24px;   
+        height: 22px;   
+        background-color: white;   
+        -webkit-transform: scale(1, 1);   
+        -webkit-transition: all 0.3s ease;   
+    }   
+    label:after{   
+        content: '';   
+        position: absolute;   
+        top: 50%;     
+        left: 50%;     
+        margin-top: -10px;     
+        margin-left: -10px;   
+        width: 22px;   
+        height: 22px;   
+        border-radius: 22px;   
+        background-color: white;   
+        box-shadow: 1px 1px 1px 1px rgba(0,0,0,0.08);   
+        -webkit-transform: translateX(-9px);   
+        -webkit-transition: all 0.3s ease;   
+    }   
+    .switch:checked~label:after{   
+        -webkit-transform: translateX(9px);   
+    }   
+    .switch:checked~label:before{   
+        background-color:$color;   
+    } 
+}
+.randomtableBox th,.randomtableBox td{
+    text-align: center;
+}
+.randomtableBox tr>th:first-of-type,.randomtableBox tr>td:first-of-type{
+    text-align: left;
+    border-right: 1px solid #ccc;
+}
+.randomtableBox tr>td:first-of-type:hover{
+    background: $color;
+    color: white;
+}
+.navfooter{
+    text-align: center;
+}

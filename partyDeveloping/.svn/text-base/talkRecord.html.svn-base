@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/talkRecord.css">
+    <link rel="stylesheet" type="text/css" href="../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+</head>
+<body>
+    <div >
+        <div>
+            <div class="talkRecord">
+                <span id="back">
+                      <img src="../img/back.png"><span class="back">返回</span>
+                </span>
+              <span id="tanTile">同入党申请人谈话记录</span>
+            </div>
+            <div class="talkInput">
+                <div class="talkLeft">
+                    <div>
+                        <div class="time">时间</div><div class="inputBox"><input readonly="readonly" id="date" type="text" class="input"></div>
+                    </div>
+                    <div>
+                        <div class="time">谈话人</div><div class="inputBox"><input type="text" id="talker" class="input"></div>
+                    </div>
+
+                </div>
+                <div class="talkRight">
+                    <div>
+                        <div class="local">地点</div><div  class="inputBox"><input type="text" id="local" class="input"></div>
+                    </div>
+                    <div>
+                        <div class="local">谈话人职务</div><div  class="inputBox"><input id="task" type="text" class="input"></div>
+                    </div>
+
+                </div>
+                <div class="textA">
+                    <div>谈话内容</div>
+                    <div>
+                        <textarea id="content"></textarea>
+                    </div>
+                </div>
+                <!--<input type="hidden" id="fileid" name="fileid">-->
+                <!--<div class="fuJ comp" >-->
+                    <!--<div >附件</div><div><img src="../img/fuJ.png"><span>上传附件</span></div>-->
+                <!--</div>-->
+                <!--<div class="fuJList" >-->
+                    <!--<span>附件1</span><span>附件2</span><span>附件3</span>-->
+                <!--</div>-->
+            </div>
+            <input type="button" value="提交" id="submit">
+            <!--<div class="form-group organr">-->
+                <!--<label class="col-sm-2 control-label">文档文件</label>-->
+                <!--<div class="col-sm-10">-->
+                    <!--<div id="attachesDiv" class="f-left"></div>-->
+                    <!--<div class="f-left" style="width: 120px; padding-top: 10px">-->
+                        <!--<input type="hidden" id="fileid" name="fileid">-->
+                        <!--<button type="button" class="btn bgm-teal btn-block comp"-->
+                                <!--comp="type:'fileupload',attachesDiv:'attachesDiv',showAttach:true,showAttachCallback:doCallback,isPrivate:true">选择上传文档</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+            </body>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script src="../assets/js/jquery.js"></script>
+<script src="../js/laydate.js"></script>
+<script src="../js/layer.js"></script>
+
+<script>
+    var _ctxPath="";
+    $(function () {
+            function getQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return decodeURI(r[2]);
+                return null;
+            }
+
+            var recId = getQueryString("recId");
+            var type= getQueryString("type");
+            var stKey=getQueryString("stKey");
+            var devId=getQueryString("devId");
+            var path = "";
+            var iframe = document.getElementById("common");
+            ///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+            iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+            if (iframe.attachEvent) {//判断iframe是否加载完成
+                iframe.attachEvent("onload", function () {
+                    getCommon();
+                });
+            } else {
+                iframe.onload = function () {
+                    getCommon();
+                };
+            }
+
+            //获取公共参数  一般为存储在session里面的数据
+            function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+                var frames = window.frames["common"];
+                path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+                var _qiniuImageHost = frames._qiniuImageHost;//七牛云公共地址头
+                _ctxPath=path;
+                //时间插件方法
+                var startDate = laydate.render({
+                    elem: "#date"
+                    //type:"datetime",
+                });
+                $("#back").click(function () {
+                    window.history.back(-1);
+                });
+                if(typeof devId !== 'undefined'&& devId !== null){
+                    $("#tanTile").text("编辑谈话记录");
+                    var type1="";
+                    var recrutId1="";
+                    var stKey1="";
+                    $.ajax({
+                        type: "POST",
+                        url: path + "/deveRecord/findDevRcoById.action",
+                        data: {"devId": devId},
+                        dataType: "json",
+                        success: function (data) {
+                            var data = data.data;
+                            $("#date").val(data.frmtCrtTime);
+                            $("#talker").val(data.userName);
+                            $("#local").val(data.adress);
+                            $("#task").val(data.post);
+                            $("#content").val(data.content);
+                            type1=data.type;
+                            recrutId1=data.recrutId;
+                            stKey1=data.stKey;
+                        }
+                    });
+                    $("#submit").click(function () {
+                        if($("#date").val()==""){
+                            parent.layer.alert('请选择日期！');
+                            return;
+                        }
+                        if($("#talker").val().trim()==""){
+                            parent.layer.alert('请填写谈话人！');
+                            return;
+                        }
+                        if($("#local").val().trim()==""){
+                            parent.layer.alert('请填写谈话地点！');
+                            return;
+                        }
+                        if($("#task").val().trim()==""){
+                            parent.layer.alert('请填写谈话人职务！');
+                            return;
+                        }
+                        if($("#content").val().trim()==""){
+                            parent.layer.alert('请填写谈话内容！');
+                            return;
+                        }
+                        $.ajax({
+                            type: "POST",
+                            url: path + "/deveRecord/upsert.action",
+                            data: {
+                                "type": type1,
+                                "recrutId": recrutId1,
+                                "stKey": stKey1,
+                                "_id":devId,
+                                "crtTime":$("#date").val(),
+                                "adress":$("#local").val().trim(),
+                                "userName":$("#talker").val().trim(),
+                                "post":$("#task").val().trim(),
+                                "content":$("#content").val().trim()
+                                // "fileids":,
+                            },
+                            dataType: "json",
+                            success: function (data) {
+                                window.history.back(-1);
+                            }
+
+                        })
+                    })
+                }else{
+                    if(type==5){
+                        $("#submit").click(function () {
+                            if($("#date").val()==""){
+                                parent.layer.alert('请选择日期！');
+                                return;
+                            }
+                            if($("#talker").val().trim()==""){
+                                parent.layer.alert('请填写谈话人！');
+                                return;
+                            }
+                            if($("#local").val().trim()==""){
+                                parent.layer.alert('请填写谈话地点！');
+                                return;
+                            }
+                            if($("#task").val().trim()==""){
+                                parent.layer.alert('请填写谈话人职务！');
+                                return;
+                            }
+                            if($("#content").val().trim()==""){
+                                parent.layer.alert('请填写谈话内容！');
+                                return;
+                            }
+                            $.ajax({
+                                type: "POST",
+                                url: path + "/deveRecord/upsert.action",
+                                data: {
+                                    "type": type,
+                                    "recrutId": recId,
+                                    "stKey": stKey,
+                                    "crtTime":$("#date").val(),
+                                    "adress":$("#local").val().trim(),
+                                    "userName":$("#talker").val().trim(),
+                                    "post":$("#task").val().trim(),
+                                    "content":$("#content").val().trim()
+                                    // "fileids":,
+                                },
+                                dataType: "json",
+                                success: function (data) {
+                                    window.location.href="applyerInfo.html?recId="+recId;
+                                }
+
+                            })
+                        })
+                    }
+                    if(type==1){
+                        $("#tanTile").text("添加谈话记录");
+                        $("#submit").click(function () {
+                            if($("#date").val()==""){
+                                parent.layer.alert('请选择日期！');
+                                return;
+                            }
+                            if($("#talker").val().trim()==""){
+                                parent.layer.alert('请填写谈话人！');
+                                return;
+                            }
+                            if($("#local").val().trim()==""){
+                                parent.layer.alert('请填写谈话地点！');
+                                return;
+                            }
+                            if($("#task").val().trim()==""){
+                                parent.layer.alert('请填写谈话人职务！');
+                                return;
+                            }
+                            if($("#content").val().trim()==""){
+                                parent.layer.alert('请填写谈话内容！');
+                                return;
+                            }
+                            $.ajax({
+                                type: "POST",
+                                url: path + "/deveRecord/upsert.action",
+                                data: {
+                                    "type": type,
+                                    "recrutId": recId,
+                                    "stKey": stKey,
+                                    "crtTime":$("#date").val(),
+                                    "adress":$("#local").val().trim(),
+                                    "userName":$("#talker").val().trim(),
+                                    "post":$("#task").val().trim(),
+                                    "content":$("#content").val().trim()
+                                    // "fileids":,
+                                },
+                                dataType: "json",
+                                success: function (data) {
+                                    window.location.href="thoughtReport.html?recId=" + recId + "&&type="+type+"&&stKey="+stKey;
+                                }
+
+                            })
+                        })
+                    }
+                }
+
+
+
+            }
+
+    })
+</script>
+<script src="../resources/all.min.js?v=1.0.0"></script>
+    </html>

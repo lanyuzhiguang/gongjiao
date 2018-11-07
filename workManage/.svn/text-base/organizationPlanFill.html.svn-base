@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/organizationPlanFill.css">
+    <link rel="stylesheet" type="text/css" href="../css/layui.css">
+    <link rel="stylesheet" type="text/css" href="../css/laydate.css">
+    <link rel="stylesheet" type="text/css" href="../css/layer.css">
+    <style>
+        .noActive {
+            background: #cdd4d6 !important;
+            color: #616161 !important;
+        }
+
+        .hid {
+            display: none;
+        }
+
+        .hibinenState {
+            color: #bcbcbc !important;
+            cursor: not-allowed !important;
+        }
+
+        .partyMember table tbody tr td:nth-child(2){
+            text-align: left!important;
+            padding-left: 10px;
+        }
+        table tr{
+            padding: 10px;
+        }
+        #pageContent,#pageContent1 {
+            margin: auto;
+            text-align: center;
+            margin-top: 47px;
+        }
+        .noDate,.noDate1{
+            text-align: center;
+            font-size: 14px;
+
+        }
+        /*已越期*/
+        .overDate{
+            color:#d8272a;
+        }
+        /*未提交*/
+        .noSubmit{
+
+        }
+        /*已越期未提交*/
+        .overDateNoSubmit{
+
+        }
+        /*已填报*/
+        .overTian{
+
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div class="rulesHead">
+        <ul id="biaoQ">
+            <li id="organizationLi">当前任务</li>
+            <li id="partyMemberLi" class="noActive">全部计划</li>
+        </ul>
+        <div style="clear:both;"></div>
+        <div class="partyMember hid">
+            <div class="tableList">
+                <table cellpadding="0" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th style="width: 5%">序号</th>
+                        <th style="">计划标题</th>
+                        <th style="width: 10%">计划下发单位</th>
+                        <th style="width:10%">组织类别</th>
+                        <th style="width: 20%">工作计划周期</th>
+                        <th style="width:10%">计划下发日期</th>
+                        <th style="width:10%">逾期未填报任务数</th>
+                        <th style="width:5%">操作</th>
+                    </tr>
+
+                    </thead>
+                    <tbody id="talkR">
+                    <!--<tr>-->
+                        <!--<td>1</td>-->
+                        <!--<td>计划标题计划标题</td>-->
+                        <!--<td>xx党支部</td>-->
+                        <!--<td>党支部</td>-->
+                        <!--<td>2018-01-01到2019-02-12</td>-->
+                        <!--<td>2019-01-12</td>-->
+                        <!--<td>2</td>-->
+                        <!--<td><span>填报</span></td>-->
+                    <!--</tr>-->
+                </table>
+                <div class="noDate hid">暂无数据</div>
+            </div>
+            <div id="pageContent"></div>
+        </div>
+        <div class="partyOrganization">
+            <div class="tableList">
+                <table cellpadding="0" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th style="width: 5%">序号</th>
+                        <th style="width: 10%">开始时间</th>
+                        <th style="width: 10%">截止时间</th>
+                        <th style="width:10%">任务类型</th>
+                        <th style="">任务内容</th>
+                        <th style="width:10%">参与人员</th>
+                        <th style="width:10%">计划标题</th>
+                        <th style="width:10%">计划下发单位</th>
+                        <th style="width:5%">状态</th>
+                        <th style="width:5%">操作</th>
+                    </tr>
+
+                    </thead>
+                    <tbody id="talkR1">
+                    <!--<tr>-->
+                        <!--<td>1</td>-->
+                        <!--<td>2018-01-01</td>-->
+                        <!--<td>2018-01-01</td>-->
+                        <!--<td>学习</td>-->
+                        <!--<td>任务内容任务内容任务内容任务内容任务内容任务内容任务内</td>-->
+                        <!--<td>人员信息</td>-->
+                        <!--<td>标题标题</td>-->
+                        <!--<td>xx党委</td>-->
+                        <!--<td class="overDate">已逾期</td>-->
+                        <!--<td><span>填报</span></td>-->
+                    <!--</tr>-->
+                </table>
+                <div class="noDate1 hid">暂无数据</div>
+            </div>
+            <div id="pageContent1"></div>
+        </div>
+
+    </div>
+
+</div>
+</body>
+<script src="../assets/js/jquery.js"></script>
+<script src="../js/layer.js"></script>
+<script src="../js/layui.js"></script>
+<iframe id="common" name="common" style="display: none;" src=""></iframe>
+<script>
+    $(function () {
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return decodeURI(r[2]);
+            return null;
+        }
+
+        var recId = getQueryString("recId");
+        var path = "";
+        var iframe = document.getElementById("common");
+        ///公共页面有公共的属性 一般为使用静态页面获取不到的参数存储的页面
+        iframe.src = "../common/common.jsp";//common.jsp  也就是公共页面的相对地址
+        if (iframe.attachEvent) {//判断iframe是否加载完成
+            iframe.attachEvent("onload", function () {
+                getCommon();
+            });
+        } else {
+            iframe.onload = function () {
+                getCommon();
+            };
+        }
+
+        //获取公共参数  一般为存储在session里面的数据
+        function getCommon() {//如果有需要在session 里面的参数可以在common.jsp页面里面获取
+            var frames = window.frames["common"];
+            path = frames._ctxPath;//获取项目名称  即如 /dangjian    /项目名  ---》 这个跟在服务器里面配置的有关
+            var _qiniuImageHost = frames._qiniuImageHost;//七牛云公共地址头
+
+            $("#organizationLi").click(function () {
+                $(this).removeClass("noActive");
+                $("#partyMemberLi").addClass("noActive");
+                $(".partyMember").addClass("hid");
+                $(".partyOrganization").removeClass("hid");
+                partyOrganize();
+            });
+            $("#partyMemberLi").click(function () {
+                $(this).removeClass("noActive");
+                $("#organizationLi").addClass("noActive");
+                $(".partyMember").removeClass("hid");
+                $(".partyOrganization").addClass("hid");
+                all();
+            });
+            function isNum(num) {
+                var re = /^[0-9]+.?[0-9]*$/;
+                if (!re.test(num)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            partyOrganize();
+
+            $("#back").click(function () {
+                window.history.back(-1);
+            });
+            function partyOrganize() {
+                //分页参数设置 这些全局变量关系到分页的功能
+                var pagea = 1; //开始页数
+                var sizea = 10;  //每页最多显示条数
+                var nowpagea = 1;  //当前页数
+                var pagesa = 0;  //总页数
+
+                function page() {
+                    //调用分页
+                    layui.use(['laypage', 'layer'], function () {
+                        var laypage = layui.laypage
+                            , layer = layui.layer;
+                        laypage.render({
+                            elem: 'pageContent1'
+                            , count: pagesa
+                            , limit: sizea  //每页显示的数据的条数,layui会根据count，limit进行分页的计算
+                            , curr: nowpagea
+                            , jump: function (obj, first) {
+                                // var currPage=obj.curr;
+                                // var perPage_num=obj.limit;
+                                nowpagea = obj.curr;
+                                pagea = (obj.curr - 1) * sizea;
+                                if (!first) {//一定要加此判断，否则初始时会无限刷新
+                                    pageAjax();//一定要把翻页的ajax请求放到这里，不然会请求两次。
+                                    location.href = '#top';
+                                    //<a href="#top">返回顶部</a>
+                                }
+
+                            }
+
+                        });
+                    })
+                }
+                pageAjax();
+
+                function pageAjax() {
+                    $.ajax({
+                        type: "POST",
+                        url: path + "/planTerm/querybumen.action",
+                        data: {
+                            "page": nowpagea, //当前页数
+                            "size": sizea//每页显示条数
+                        },
+                        dataType: "json",
+                        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                        success: function (data) {
+                            pagea = data.page;//当前页数(后台返回)
+                            pagesa = data.total;//总页数(后台返回)
+                            var data = data.data;
+                            if (data.length == 0) {
+                                $(".noDate1").removeClass("hid");
+                                $("#pageContent1").addClass("hid");
+                            } else {
+                                handleData(data);
+                            }
+                            page();
+                        }
+                    });
+                }
+
+                function handleData(data) {
+                    $('#talkR1').empty();
+                    for (var i = 0; i < data.length; i++) {
+                        if(data[i].vail==2){
+                            var oTr = '<tr>\n' +
+                                '                        <td>'+(i+1)+'</td>\n' +
+                                '                        <td>'+data[i].planRule.formStarPlanDate+'</td>\n' +
+                                '                        <td>'+data[i].planRule.formEndPlanDate+'</td>\n' +
+                                '                        <td>'+data[i].planRule.taskName+'</td>\n' +
+                                '                        <td>'+data[i].planRule.content+'</td>\n' +
+                                '                        <td>'+data[i].adName+'</td>\n' +
+                                '                        <td>'+data[i].planRule.planBasic.title	+'</td>\n' +
+                                '                        <td>'+data[i].planRule.planBasic.bumenName+'</td>\n' +
+                                '                        <td class="overDate">已逾期</td>\n' +
+                                '                        <td><input type="hidden" value='+data[i]._id+'><span class="tianB">填报</span></td>\n' +
+                                '                    </tr>';
+                        }
+                        if(data[i].vail==0){
+                            var oTr = '<tr>\n' +
+                                '                        <td>'+(i+1)+'</td>\n' +
+                                '                        <td>'+data[i].planRule.formStarPlanDate+'</td>\n' +
+                                '                        <td>'+data[i].planRule.formEndPlanDate+'</td>\n' +
+                                '                        <td>'+data[i].planRule.taskName+'</td>\n' +
+                                '                        <td>'+data[i].planRule.content+'</td>\n' +
+                                '                        <td>'+data[i].adName+'</td>\n' +
+                                '                        <td>'+data[i].planRule.planBasic.title	+'</td>\n' +
+                                '                        <td>'+data[i].planRule.planBasic.bumenName+'</td>\n' +
+                                '                        <td>未填报</td>\n' +
+                                '                        <td><input type="hidden" value='+data[i]._id+'><span class="tianB">填报</span></td>\n' +
+                                '                    </tr>';
+                        }
+                        if(data[i].vail==1){
+                            var oTr = '<tr>\n' +
+                                '                        <td>'+(i+1)+'</td>\n' +
+                                '                        <td>'+data[i].planRule.formStarPlanDate+'</td>\n' +
+                                '                        <td>'+data[i].planRule.formEndPlanDate+'</td>\n' +
+                                '                        <td>'+data[i].planRule.taskName+'</td>\n' +
+                                '                        <td>'+data[i].planRule.content+'</td>\n' +
+                                '                        <td>'+data[i].adName+'</td>\n' +
+                                '                        <td>'+data[i].planRule.planBasic.title	+'</td>\n' +
+                                '                        <td>'+data[i].planRule.planBasic.bumenName+'</td>\n' +
+                                '                        <td>已填报</td>\n' +
+                                '                        <td><input type="hidden" value='+data[i]._id+'><span class="look">查看</span></td>\n' +
+                                '                    </tr>';
+                        }
+                        if(data[i].vail==3){
+                            var oTr = '<tr>\n' +
+                                '                        <td>'+(i+1)+'</td>\n' +
+                                '                        <td>'+data[i].planRule.formStarPlanDate+'</td>\n' +
+                                '                        <td>'+data[i].planRule.formEndPlanDate+'</td>\n' +
+                                '                        <td>'+data[i].planRule.taskName+'</td>\n' +
+                                '                        <td>'+data[i].planRule.content+'</td>\n' +
+                                '                        <td>'+data[i].adName+'</td>\n' +
+                                '                        <td>'+data[i].planRule.planBasic.title	+'</td>\n' +
+                                '                        <td>'+data[i].planRule.planBasic.bumenName+'</td>\n' +
+                                '                        <td>已越期提交</td>\n' +
+                                '                        <td><input type="hidden" value='+data[i]._id+'><span class="look">查看</span></td>\n' +
+                                '                    </tr>';
+                        }
+                        $('#talkR1').append(oTr);
+                    }
+                    $('#talkR1').on("click", function (e) {
+                        var target = e.target;
+                        var currId = $(target).parent().find("input").val();
+                        if($(target).text()=="填报"){
+                             window.location.href="planFill.html?id="+currId;
+                        }
+                        if($(target).text()=="查看"){
+                            window.location.href="planLook.html?id="+currId;
+                        }
+                    })
+                }
+            }
+            function all(type) {
+                //分页参数设置 这些全局变量关系到分页的功能
+                var pagea = 1; //开始页数
+                var sizea = 10;  //每页最多显示条数
+                var nowpagea = 1;  //当前页数
+                var pagesa = 0;  //总页数
+
+                function page() {
+                    //调用分页
+                    layui.use(['laypage', 'layer'], function () {
+                        var laypage = layui.laypage
+                            , layer = layui.layer;
+                        laypage.render({
+                            elem: 'pageContent'
+                            , count: pagesa
+                            , limit: sizea  //每页显示的数据的条数,layui会根据count，limit进行分页的计算
+                            , curr: nowpagea
+                            , jump: function (obj, first) {
+                                // var currPage=obj.curr;
+                                // var perPage_num=obj.limit;
+                                nowpagea = obj.curr;
+                                pagea = (obj.curr - 1) * sizea;
+                                if (!first) {//一定要加此判断，否则初始时会无限刷新
+                                    pageAjax();//一定要把翻页的ajax请求放到这里，不然会请求两次。
+                                    location.href = '#top';
+                                    //<a href="#top">返回顶部</a>
+                                }
+
+                            }
+
+                        });
+                    })
+                }
+                pageAjax();
+
+                function pageAjax() {
+                    $.ajax({
+                        type: "POST",
+                        url: path + "/planBasic/queryBumen.action",
+                        data: {
+                            "page": nowpagea, //当前页数
+                            "size": sizea//每页显示条数
+                        },
+                        dataType: "json",
+                        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                        success: function (data) {
+                            pagea = data.page;//当前页数(后台返回)
+                            pagesa = data.total;//总页数(后台返回)
+                            var data = data.data;
+                            if (data.length == 0) {
+                                $(".noDate").removeClass("hid");
+                                $("#pageContent").addClass("hid");
+                            } else {
+                                handleData(data);
+                            }
+                            page();
+                        }
+                    });
+                }
+
+                function handleData(data) {
+                    $('#talkR').empty();
+                    for (var i = 0; i < data.length; i++) {
+                            if(data[i].type==1){
+                                var type="党委中心组";
+                            }
+                            if(data[i].type==2){
+                                var type="党委";
+                            }
+                            if(data[i].type==3){
+                                var type="党总支";
+                            }
+                            if(data[i].type==4){
+                                var type="党支部";
+                            }
+                            if(data[i].type==5){
+                                var type="党员";
+                            }
+                            if(data[i].subSum+data[i].passSum==data[i].sum){
+                                var oTr = ' <tr>\n' +
+                                    '                        <td>'+(i+1)+'</td>\n' +
+                                    '                        <td>'+data[i].title+'</td>\n' +
+                                    '                        <td>'+data[i].bumenName+'</td>\n' +
+                                    '                        <td>'+type+'</td>\n' +
+                                    '                        <td>'+data[i].formStarPlanDate+'到'+data[i].formEndPlanDate+'</td>\n' +
+                                    '                        <td>'+data[i].formIssuedDate+'</td>\n' +
+                                    '                        <td>'+data[i].passed+'</td>\n' +
+                                    '                        <td><input type="hidden" value='+data[i]._id+'><span class="tianBtn">查看</span></td>\n' +
+                                    '                    </tr>';
+
+                            }else{
+                                var oTr = ' <tr>\n' +
+                                    '                        <td>'+(i+1)+'</td>\n' +
+                                    '                        <td>'+data[i].title+'</td>\n' +
+                                    '                        <td>'+data[i].bumenName+'</td>\n' +
+                                    '                        <td>'+type+'</td>\n' +
+                                    '                        <td>'+data[i].formStarPlanDate+'到'+data[i].formEndPlanDate+'</td>\n' +
+                                    '                        <td>'+data[i].formIssuedDate+'</td>\n' +
+                                    '                        <td>'+data[i].passed+'</td>\n' +
+                                    '                        <td><input type="hidden" value='+data[i]._id+'><span class="tianBtn">填报</span></td>\n' +
+                                    '                    </tr>';
+                            }
+
+
+                        $('#talkR').append(oTr);
+                    }
+                    $('#talkR').on("click", function (e) {
+                        var target = e.target;
+                        var currId = $(target).parent().find("input").val();
+                        if($(target).text()=="填报"){
+                            window.location.href="searchPlanList.html?id="+currId;
+                        }
+                        if($(target).text()=="查看"){
+                            window.location.href="searchPlanList.html?id="+currId;
+                        }
+                    })
+                }
+            }
+        }
+    })
+
+</script>
+
+</html>

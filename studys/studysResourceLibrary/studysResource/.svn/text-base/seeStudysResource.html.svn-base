@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>查看课程</title>
+		<link rel="stylesheet" type="text/css" href="../../css/base.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/resoueceLibrary.css"/>
+		<link rel="stylesheet" type="text/css" href="../../iconFont/iconfont.css"/>
+		<link rel="stylesheet" type="text/css" href="../../font-awesome/css/font-awesome.min.css"/>
+		<style type="text/css">
+			article.container-fluid{
+				padding: 12px 0;
+				padding-top: 0;
+				background: #F5F5F5;
+			}
+			.content_header{
+				padding: 12px 125px;
+				background: #FFFFFF;
+				border-bottom: 1px solid #ccc;
+			}
+			.clear>*{
+				float: left;
+			}
+			.content_header>div.image_left{
+				width: 400px;
+				height: 248px;
+				margin-right: 12px;
+			}
+			.content_header>div.image_left img{
+				width: 100%;
+				height: 100%;
+			}
+			.content_header>div.image_right{
+				color: #999;
+				font-size: 16px;
+				line-height: 30px;
+			}
+			.content_header>div.image_right h3{
+				color: #333;
+				font-size: 24px;
+				margin: 0;
+				margin-bottom: 10px;
+			}
+			.content_header>div.image_right i{
+				margin-right: 3px;
+			}
+			
+			.tabBox{
+				padding: 0 125px;
+				padding-top: 20px;
+			}
+			.tab{
+				background: #fff;
+			}
+			.tab_nav li{
+				font-size: 20px;
+				width: 160px;
+				height: 50px;
+				line-height: 50px;
+				text-align: center;
+			}
+			.tab_nav li.tabActive{
+				color: #2198F1;
+				border-bottom: 3px solid #2198F1;
+			}
+			.tab_content{
+				padding: 20px;
+				font-size: 18px;
+				letter-spacing: 1px;
+			}
+			.tabCon{
+				display: none;
+			}
+			.tabCon:first-of-type{
+				display: block;
+			}
+			.tabCon1 img{
+				width: 80%;
+				margin-left: 10%;
+			}
+			.table_list .tdbadge{
+				display: inline-block;
+				padding: 2px 8px;
+				color: #2198F1;
+				font-size: 14px;
+				border: 1px solid #2198F1;
+				border-radius: 4px;
+				margin: 0;
+			}
+			.table_list tr td{
+				text-align: left;
+			}
+			.table_list tr td:first-of-type{
+				width: 48px;
+			}
+			.table_list tr td:last-of-type{
+				text-align: right;
+			}
+			.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+				border-top: none;
+				padding: 14px 8px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<header class="container-fluid">
+				<div class="row">
+					<div class="col-xs-6 text-left">
+						<a href="javascript:history.go(-1);" style="color: #333;"><i class="fa fa-angle-double-left"></i>返回</a>
+						<h4>查看课程</h4>
+					</div>
+				</div>
+			</header>
+		</div>
+		<article class="container-fluid">
+			<div class="row content_header clear">
+				<div class="image_left">
+					<img src=""/>
+				</div>
+				<div class="image_right">
+					<h3 class="name"></h3>
+					<div>
+						<span>累计学习<span class="studyNum"></span>人</span>
+						<span>|</span>
+						<span><i class="iconfont icon-shoucang"></i>收藏</span>
+					</div>
+					<p>课程分类：<span class="className"></span></p>
+				</div>
+			</div>
+			<div class="tabBox">
+				<div class="tab">
+					<div class="tab_nav">
+						<ul class="clear">
+							<li class="tabActive">详情</li>
+							<li>课件</li>
+							<!--<li>心得</li>-->
+							<!--<li>考试</li>-->
+						</ul>
+					</div>
+					<div class="tab_content">
+						<div class="tabCon tabCon1">
+							<div id="content"></div>
+						</div>
+						<div class="tabCon tabCon2">
+							<table class="table table-striped table_list">
+								<tr class="trList">
+									<td><p class="tdbadge"></p></td>
+									<td></td>
+									<td>时长：<span class="allTime">00:00</span></td>
+								</tr>
+							</table>
+						</div>
+						<div class="tabCon tabCon3">
+							<p>
+								暂无心得发布。
+							</p>
+						</div>
+						<div class="tabCon tabCon4">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</article>
+	</body>
+</html>
+<script type="text/javascript" src="../../../../r/wx/common/pathimage"></script>
+<script src="../../js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+//	var _ctxPath = "http://192.168.3.24:8080/dangjian/";
+	$(function(){
+		//获取地址栏参数
+		function GetQueryString(name){
+		    var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		    var r = window.location.search.substr(1).match(reg);
+		    if(r!=null)return  decodeURI(r[2]); return null;
+		};
+		var id = GetQueryString("id");
+		$(".tab_nav li").off("click").on("click",function(){
+			$(this).addClass("tabActive").siblings().removeClass("tabActive");
+			$(".tab_content .tabCon").eq($(this).index()).show().siblings().hide();
+		});
+		$.ajax({
+			type:"get",
+			url:_ctxPath + "pc/resourcebasePc/queryById.action",
+			data: {
+				"resourceBaseId": id
+			},
+			xhrFields: {				
+	            withCredentials: true	
+	        },							
+	        crossDomain: true,
+	        success: function (data) {
+	    		if (data) {
+	    			$(".image_left img").attr("src",data.image);
+		    		$(".name").text(data.baseName);
+		    		$(".studyNum").text(data.authorizationNum);
+		    		$("#content").html(data.describe);
+		    		$(".className").text(data.baseClassificationName);
+		    		console.log(data);
+	    		}
+	        }
+		});
+		var trList = $(".trList");
+		trList.remove();
+		$.ajax({
+			type:"get",
+			url:_ctxPath + "pc/chapterPc/queryByResourceBaseId.action",
+			data:{
+				"resourceBaseId": id
+			},
+			xhrFields: {				
+	            withCredentials: true	
+	        },
+			crossDomain: true,
+	        success: function (data) {
+	        	var data = data.data;
+	        	$(".table_list").html();
+	        	$.each(data, function(key,value) {
+	        		var trListItem = trList.clone();
+	        		if (value.type == "0") {
+						trListItem.find(".tdbadge").text("视频");
+					} else if (value.type == "1") {
+						trListItem.find(".tdbadge").text("音频");
+					} else if (value.type == "2") {
+						trListItem.find(".tdbadge").text("PDF");
+					}
+					trListItem.find("td").eq(1).text(value.title);
+					trListItem.find(".allTime").text(timeFun(value.allTime));
+					$(".table_list").append(trListItem);
+	        	});
+	        }
+		});
+		function timeFun(time){
+	    	var minute = parseInt(time / 60);
+	    	var second = time % 60;
+	    	return minute + ":" + second;
+	    }
+	});
+</script>

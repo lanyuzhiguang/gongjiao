@@ -1,0 +1,53 @@
+body{
+    font-family: "苹方";
+    box-sizing: border-box;
+}
+ul,li{
+    margin: 0;
+    padding: 0;
+}
+.talkRecord{
+    height:44px;
+    background:#f1f1f1 ;
+    line-height: 44px;
+    font-size: 16px;
+    width: 98%;
+}
+.talkRecord img{
+    width: 15px;
+    margin-left: 42px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+#back{
+    cursor: pointer;
+}
+.back{
+    margin-right: 20px;
+}
+.suggestList{
+    width: 89%;
+    margin: auto;
+    font-size: 14px;
+    margin-top: 50px;
+}
+.suggestList>div>div{
+    display: inline-block;
+    margin-bottom: 22px;
+}
+.suggestList>div>div:first-child{
+    width: 15%;
+    text-align: right;
+    margin-right: 24px;
+
+}
+.suggestList>div>div:last-child{
+    width: 80%;
+    vertical-align: top;
+}
+.suggestList>div>div:last-child span{
+    color:#2198f2;
+}
+.bran{
+    text-indent: 2em;
+}

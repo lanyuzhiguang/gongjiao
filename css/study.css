@@ -1,0 +1,168 @@
+a{
+    color:#2196f3;
+}
+.col-xs-12{
+    padding-left: 28px;
+}
+.page-content {
+    padding: 27px 20px 24px;
+}
+.widget-header > .widget-title > .ace-icon{
+    margin-right: -6px;
+}
+.qxl{
+    border-bottom: 1px solid transparent;
+}
+/*专题学习*/
+.widget-toolbar > a, .widget-toolbar > .widget-menu > a{
+    padding-left: 13px;
+    font-size: 16px;
+}
+.mystu {
+    background: #ffffff;
+    margin-left: 3px;
+    margin-right: 24px;
+}
+.branchTit_1 {
+    margin-left: -10px!important;
+    color: red;
+    font-family: "微软雅黑";
+    font-size: 16px;
+}
+.icon-bi {
+    color: #FFA21E;
+    margin-right: 10px;
+}
+.widget-toolbar {
+    line-height: 35px;
+    padding: 0 1px;
+}
+.More {
+    color: #000000!important;
+}
+.fa-chevron-right {
+    font-size: 13px;
+}
+.list_ {
+    padding-left: 0;
+    margin-top: 11px;
+}
+#contentStudy ul {
+    margin-left: 0px!important;
+}
+ul li, ul {
+    list-style: none;
+    margin: 0!important;
+}
+.list_ ul li {
+    float: left;
+    width: 33.33%;
+    margin-bottom: 10px!important;
+}
+.list_ ul li a {
+    color: #333333;
+    text-decoration: none;
+    font-size: 12px!important;
+}
+.list_ ul li img {
+    width: 38%;
+    float: left;
+    height: 97.66px;
+}
+.word {
+    width: 54%;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    padding-left: 9px;
+    font-size: 14px;
+}
+
+.classT {
+    float: right;
+    color: #666666;
+    margin-right: 37px;
+    width: 49%;
+    margin-top: 35px;
+    font-size: 12px;
+}
+.stued{
+    float: left;
+}
+.lesson{
+    float: right;
+}
+.line_ {
+    margin: 15px 35px;
+}
+
+
+/*视频学习*/
+#contentVideo ul {
+    margin-left: 0px!important;
+}
+.icon-shipin{
+    color:#D0F976;
+    font-size: 24px;
+    vertical-align: middle;
+}
+
+/*音频学习*/
+table{
+    width:100%;
+    text-align:center;
+    border-bottom: 1px solid #BCBCBC;
+}
+
+tbody tr td a:hover{
+    text-decoration: none!important;
+}
+table tr ,table td{
+    padding: 14px 10px;
+    font-size: 14px!important;
+}
+tbody tr td a{
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    width: 421px;
+}
+table tr{
+    border-top:1px solid  #D7D7D7;
+    font-family: "方正中等线简体";
+}
+table td{
+    border-right: 3px solid #ffffff;
+    width: 50%;
+    text-align: left;
+}
+.tableB{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.icon-yinpin{
+    color:#63BEF8;
+}
+.icon-yinpin1{
+    color: red;
+    font-size: 18px;
+    vertical-align: middle;
+    /* margin-right: 5px; */
+    width: 6%;
+}
+/*文档阅读*/
+.icon-wendang {
+    color: #F8E861;
+    font-size: 24px;
+    vertical-align: middle;
+}
+/*考试*/
+.icon-kaoshi{
+    font-size: 28px;
+    vertical-align: middle;
+}
