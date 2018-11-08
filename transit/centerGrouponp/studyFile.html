@@ -31,6 +31,15 @@
 			.titleModal>div:hover {
 				background: #E6F7FF;
 			}
+			.td-omit{
+				width: 23%;
+			}
+			.omit{
+				width: 200px;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
 		</style>
 	</head>
 	<body>
@@ -50,121 +59,49 @@
 				</ul>
 			</nav>
 			<section>
-				<label for="">单位名称：</label>
+				<label for="">学习标题：</label>
 				<input type="text" class="form-control widthMin verticalalignTop" placeholder="请输入" />
+				<label for="">选择单位：</label>
+				<select class="form-control widthMin verticalalignTop">
+					<option>××××党支部</option>
+					<option>×××××党支部</option>
+				</select>
+				<label for="">选择状态：</label>
+				<select class="form-control widthMin verticalalignTop">
+					<option>未开始</option>
+				</select>
 				<button class="btnbg">查询</button>
 				<button class="btnbg">重置</button>
-				<button class="btnbg2 ruleSetting">规则设置</button>
-				<button class="btnbg2 create">创建计划</button>
 			</section>
 			<section>
 				<table class="table table-striped tableNoBor">
 					<tr>
 						<th>单位名称</th>
-						<th>计划开始时间</th>
-						<th>计划结束时间</th>
-						<th>旁听巡听记录</th>
+						<th>学习标题</th>
+						<th>学习开始时间</th>
+						<th>学习地点</th>
 						<th>状态</th>
 						<th>操作</th>
 					</tr>
 					<tr>
 						<td>某某党支部</td>
-						<td>2018-01-01</td>
+						<td class="td-omit"><p class="omit">学习标题学习标题学习标题学习标题标题学习标题学习标题</p></td>
 						<td>2018-01-31</td>
-						<td>0</td>
+						<td class="td-omit"><p class="omit">学习地点学习地点学习地点学习地点标题学习标题学习标题</p></td>
 						<td>未开始</td>
-						<td>
-							<a href="javascript:;" class="changeBtn">
-								变更
-								<div class="titleModal">
-									<div>变更计划</div>
-									<div>取消计划</div>
-								</div>
-							</a>
-						</td>
+						<td><a href="javascript:;" class="changeBtn">查看</a></td>
 					</tr>
 					<tr>
 						<td>某某党支部</td>
-						<td>2018-01-01</td>
+						<td class="td-omit"><p class="omit">学习标题学习标题学习标题学习标题标题学习标题学习标题</p></td>
 						<td>2018-01-31</td>
-						<td>0</td>
-						<td>进行中</td>
-						<td><a href="javascript:;">添加记录</a></td>
-					</tr>
-					<tr>
-						<td>某某党支部</td>
-						<td>2018-01-01</td>
-						<td>2018-01-31</td>
-						<td>0</td>
-						<td>已结束</td>
-						<td><a href="javascript:;">添加记录</a></td>
-					</tr>
-					<tr>
-						<td>某某党支部</td>
-						<td>2018-01-01</td>
-						<td>2018-01-31</td>
-						<td>0</td>
-						<td>已取消</td>
-						<td><a href="javascript:;">删除</a></td>
+						<td class="td-omit"><p class="omit">学习地点学习地点学习地点学习地点标题学习标题学习标题</p></td>
+						<td>未开始</td>
+						<td><a href="javascript:;" class="changeBtn">查看</a></td>
 					</tr>
 				</table>
 			</section>
 		</article>
-		<div class="alertBox alertBox1">
-			<div class="alert">
-				<div class="header">
-					<p class="ellipsis">提示</p>
-					<img class="closeAlert" src="../img/close.png"/>
-				</div>
-				<div class="alert_content">
-					您还未设置规则，不能进行创建计划，是否需要设置规则？
-				</div>
-				<div class="alert_footer">
-					<button class="btnbg sure">确定</button>
-					<button class="btn btn-default cancel">取消</button>
-				</div>
-			</div>
-		</div>
-		<div class="alertBox alertBox2">
-			<div class="alert">
-				<div class="header">
-					<p class="ellipsis">创建计划</p>
-					<img class="closeAlert" src="../img/close.png"/>
-				</div>
-				<div class="alert_content row">
-					<form class="form-horizontal col-xs-11">
-						<div class="form-group">
-							<label for="inputPassword" class="col-xs-4 control-label"><span class="red">*</span>巡听单位：</label>
-							<div class="col-xs-8">
-								<input type="text" class="form-control" placeholder="请输入" />
-							</div>
-					  	</div>
-					  	<div class="form-group">
-							<label for="inputPassword" class="col-xs-4 control-label"><span class="red">*</span>选择被巡听单位：</label>
-							<div class="col-xs-8">
-								<input type="text" class="form-control" placeholder="请输入" />
-							</div>
-					  	</div>
-					  	<div class="form-group">
-							<label for="inputPassword" class="col-xs-4 control-label"><span class="red">*</span>选择开始时间：</label>
-							<div class="col-xs-8">
-								<input type="text" class="form-control" placeholder="请输入" />
-							</div>
-					  	</div>
-					  	<div class="form-group">
-							<label for="inputPassword" class="col-xs-4 control-label"><span class="red">*</span>选择结束时间：</label>
-							<div class="col-xs-8">
-								<input type="text" class="form-control" placeholder="请输入" />
-							</div>
-					  	</div>
-					</form>
-				</div>
-				<div class="alert_footer">
-					<button class="btnbg sure">确定</button>
-					<button class="btn btn-default cancel">取消</button>
-				</div>
-			</div>
-		</div>
 	</body>
 </html>
 <script src="../../../moduleweb/resources/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>

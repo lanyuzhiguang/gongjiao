@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>请假审批</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/index.css"/>
+    <style>
+        /*titltModal*/
+        .changeBtn {
+            position: relative;
+        }
+        .changeBtn:hover .titleModal {
+            display: block;
+        }
+        .titleModal {
+            width: 120px;
+            height: 72px;
+            overflow: hidden;
+            border-radius: 4px;
+            position: absolute;
+            top: 100%;
+            background: #fff;
+            box-shadow: 0 0 5px 1px #ccc;
+            display: none;
+        }
+        .titleModal>div {
+            padding: 8px;
+        }
+        .titleModal>div:hover {
+            background: #E6F7FF;
+        }
+        .td-omit{
+            width: 23%;
+        }
+        .omit{
+            width: 200px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .tabcontent {
+            padding: 15px;
+        }
+        .tabcontent.row {
+            line-height: 30px;
+        }
+        textarea{
+            width: 100%;
+            padding-left: 12px;
+            height: 180px;
+        }
+
+    </style>
+</head>
+<body>
+<aside>
+    <img src="../img/nonews.png"/>
+</aside>
+<nav class="header">
+    <ol class="breadcrumb">
+        <li><a href="javascript:;">中心组学习</a></li>
+        <li class="active cursor">请假审批</li>
+    </ol>
+</nav>
+<article>
+    <nav>
+        <ul class="clear">
+            <li class="left cursor active">请假审批</li>
+        </ul>
+    </nav>
+    <section>
+        <div class="con_title">基本信息</div>
+        <div class="tabcontent row">
+            <div class="col-xs-4">
+                <p>姓名：<span>张三</span></p>
+            </div>
+            <div class="col-xs-4">
+                <p>所属支部：<span>XXXXXXXXXXX党支部</span></p>
+            </div>
+            <div class="col-xs-12">
+                <p>请假事由:</p>
+                <p>正文Text@Black 65%14pt我是正文Text@Black65%14pt我是正文Text@Black 65%14pt我是正文   Text  @Black 65% 14pt我是正文   Text  @Black 65% 14pt我是正文   Text  @Black 65% 14pt我是正文   Text  @Black 65% 14pt我是正文   Text  @Black 65% 14pt我是正文   Text  @Black 65% 14pt我是正文   Text  @Black 65% 14pt我是正文   Text  @Black 65% 14pt我是正文   Text  @Black 65% 14pt我是正文   Text  @Black 65% 14pt我是正文   Text  @Black 65% 14pt我是正文   Text  @Black 65% 14pt我是正文   Text  @Black 65% 14pt我是正文  </p>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="con_title">审核请假信息</div>
+        <div class="tabcontent row">
+            <div class="col-xs-12">
+                <p>审核意见:</p>
+                <textarea name="" id="" cols="30" rows="10" placeholder="请输入审核意见"></textarea>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <p>审核结论:</p>
+            <input type="radio" name="leave">
+            <label for="">批准请假</label>
+            <input type="radio" name="leave">
+            <label for="">驳回请假</label>
+        </div>
+        </div>
+    </section>
+    <section>
+        <div class="footerBtnBox">
+            <button class="btnbg submitBtn">提交</button>
+            <button class="btn btn-default cancelBtn">取消</button>
+        </div>
+    </section>
+</article>
+</body>
+</html>
+<script src="../../../moduleweb/resources/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../resources/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $(function(){
+        $(".create").off("click").on("click",function(){
+//			$(".alertBox1").fadeIn();
+            $(".alertBox2").fadeIn();
+        });
+        $(".alertBox1 .closeAlert,.alertBox1 .cancel,.alertBox1 .sure").off("click").on("click",function(){
+            $(".alertBox1").fadeOut();
+        });
+        $(".alertBox2 .closeAlert,.alertBox2 .cancel,.alertBox2 .sure").off("click").on("click",function(){
+            $(".alertBox2").fadeOut();
+        });
+        //规则设置
+        $(".ruleSetting").off("click").on("click",function(){
+            location.href = "ruleSetting.html";
+        });
+        //
+        $("td a").off("click").on("click",function(){
+            if ($(this).text() == "添加记录") {
+                location.href = "addPlanRecord.html";
+            }
+        });
+    });
+</script>

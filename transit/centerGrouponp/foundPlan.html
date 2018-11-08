@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>创建计划</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/steps.css"/>
+    <style type="text/css">
+        .formFooter {
+            text-align: center;
+        }
+        .formFooter button {
+            width: 84px;
+            height: 39px;
+            font-size: 16px;
+            vertical-align: top;
+            padding: 0;
+        }
+        td img {
+            width: 12px;
+        }
+        td img.seeContent {
+            width: 18px;
+        }
+        article:nth-of-type(2) form .col-xs-5 {
+            padding-right: 0;
+        }
+        article:nth-of-type(2) form .col-xs-7 {
+            padding-left: 0;
+        }
+        article {
+            display: none;
+        }
+        article:first-of-type {
+            display: block;
+        }
+        .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+            background-color:#ffffff;
+            opacity: 1;
+        }
+        .col-xs-offset-1{
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body>
+<aside>
+    <img src="../img/nonews.png"/>
+</aside>
+<nav class="header">
+    <ol class="breadcrumb">
+        <li><a href="javascript:;">中心组学习</a></li>
+        <li><a href="javascript:;">巡听旁听</a></li>
+        <li><a href="javascript:;">创建计划</a></li>
+    </ol>
+</nav>
+<article>
+    <nav>
+        <ul class="clear">
+            <li class="left cursor active">创建计划</li>
+        </ul>
+    </nav>
+    <section class="row">
+        <form class="form-horizontal col-xs-10 col-xs-offset-1">
+            <div class="form-group col-xs-12">
+                <label for="" class="col-xs-5 control-label"><span class="red">*</span>巡听单位：</label>
+                <div class="col-xs-5">
+                    <select class="form-control">
+                        <option>请选择</option>
+                        <option>2017</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-xs-12">
+                <label for="" class="col-xs-5 control-label"><span class="red">*</span>选择被巡听单位：</label>
+                <div class="col-xs-5">
+                    <select class="form-control">
+                        <option>请选择</option>
+                        <option>2017</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-xs-12">
+                <label for="" class="col-xs-5 control-label"><span class="red">*</span>选择旁听巡听开始时间：</label>
+                <div class="col-xs-5">
+                    <input type="text" class="form-control" placeholder="请输入"  readonly/>
+                </div>
+            </div>
+            <div class="form-group col-xs-12">
+                <label for="" class="col-xs-5 control-label"><span class="red">*</span>选择旁听巡听结束时间：</label>
+                <div class="col-xs-5">
+                    <input type="text" class="form-control" placeholder="请输入"  readonly/>
+                </div>
+            </div>
+        </form>
+    </section>
+    <section>
+        <div class="footerBtnBox">
+            <button class="btnbg submitBtn">提交</button>
+            <button class="btn btn-default cancelBtn">取消</button>
+        </div>
+    </section>
+</article>
+<div class="alertBox">
+    <div class="alert">
+        <div class="header">
+            <p class="ellipsis">内容简介</p>
+            <img class="closeAlert" src="../img/close.png"/>
+        </div>
+        <div class="alert_content">
+            <p class="indent">原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容原因内容</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="../../../moduleweb/resources/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../resources/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $(function(){
+        //添加、编辑计划
+        $(".edit,.add").off("click").on("click",function(){
+            $("article:eq(1)").show().siblings("article").hide();
+        });
+        //提交
+        $(".submitBtn,.cancelBtn").off("click").on("click",function(){
+            $("article:eq(0)").show().siblings("article").hide();
+        });
+        //查看内容
+        $(".seeContent").off("click").on("click",function(){
+            $(".alertBox").fadeIn();
+        });
+        $(".alertBox .closeAlert").off("click").on("click",function(){
+            $(".alertBox").fadeOut();
+        });
+        //上、下一步
+        $(".nextBtn").off("click").on("click",function(){
+            $(".tabCon>div").eq(1).show().siblings().hide();
+        });
+        $(".prevBtn").off("click").on("click",function(){
+            $(".tabCon>div").eq(0).show().siblings().hide();
+        });
+        //取消创建
+        $(".cancelCreate").off("click").on("click",function(){
+            window.history.go(-1);
+        });
+    })
+</script>

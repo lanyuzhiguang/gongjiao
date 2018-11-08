@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>扩大会议上传记录</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="../../conferActivities/threeclass/icon/iconfont.css" />
+    <style type="text/css">
+        .tabcontent {
+            padding: 15px;
+        }
+        .tabcontent.row {
+            line-height: 30px;
+        }
+        .tabcontentImg img {
+            float: left;
+            width: 100px;
+            height: 100px;
+            margin-right: 10px;
+        }
+        .form-horizontal{
+            margin-top:40px;
+        }
+        .form-group label{
+            padding: 0;
+        }
+        .col-xs-7,.col-xs-4{
+            padding:0;
+        }
+        .col-xs-8{
+
+        }
+        .form-group{
+            padding-right:20px;
+        }
+        .choose{
+            line-height:34px;
+            padding-left: 12px;
+        }
+        .fileinput-button {
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+            color: #5A5A5A;
+            background-color: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            border: 1px solid #D9D9D9;
+            width: 110px;
+            height: 44px;
+        }
+
+        .fileinput-button input {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            height: 100%;
+            opacity: 0;
+            -ms-filter: 'alpha(opacity=0)';
+        }
+
+        .progress {
+            width: 200px;
+            height: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .progressSon {
+            height: 12px;
+            width: 0%;
+            color: #fff;
+            font-size: 14px;
+            line-height: 12px;
+            text-align: center;
+            background-color: limegreen;
+        }
+
+        .fileUtil,
+        .kuozhan {
+            color: #CCCCCC;
+        }
+        .icon-fujian {
+            color: #CCCCCC;
+            padding-right: 10px;
+        }
+
+        .funjianitem {
+            position: relative;
+        }
+
+        .canlefile {
+            position: absolute;
+            width: 17px!important;
+            height: 17px;
+            right: 0;
+            top: 0;
+        }
+
+        .canlefile img {
+            width: 17px!important;
+            height: auto;
+        }
+        .imgItem {
+            width:100px;
+            height: 100px;
+            margin-right:10px;
+            position: relative;
+        }
+
+        .imgItem .needimg {
+            width: 100%;
+            height: 100px;
+            display: block;
+        }
+        .del {
+            position: absolute;
+            width: 17px!important;
+            height: 17px;
+            right: 0;
+            top: 0;
+        }
+
+        .del img {
+            width: 17px!important;
+            height: auto;
+            right: 0;
+            bottom: 0;
+        }
+
+        .fileImg {
+            width:100px;
+            margin-right:10px;
+            display: block;
+            height: 100px;
+            border: 1px dashed #ddd;
+            text-align: center;
+            position: relative;
+        }
+
+        .fileImg i {
+            line-height: 100px;
+            color: #ddd;
+            font-size: 40px;
+        }
+
+        .fileImg input {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            height: 100%;
+            opacity: 0;
+            -ms-filter: 'alpha(opacity=0)';
+        }
+        .tabcontentImg{
+            display: flex;
+            justify-content: flex-start;
+        }
+
+
+
+    </style>
+</head>
+<body>
+<aside>
+    <img src="../img/nonews.png"/>
+</aside>
+<nav class="header">
+    <ol class="breadcrumb">
+        <li><a href="javascript:;">中心组学习</a></li>
+        <li><a href="javascript:;">中心组学习管理</a></li>
+        <li class="active cursor">扩大会议上传记录</li>
+    </ol>
+</nav>
+<article>
+    <nav>
+        <ul class="clear">
+            <li class="left cursor active">扩大会议上传记录</li>
+        </ul>
+    </nav>
+    <div class="tabCon">
+        <div class="tabContent1">
+            <section class="row">
+                <div class="con_title">现场图片</div>
+                <div class="tabcontent tabcontentImg clear upimglist">
+                    <div class="fileImg">
+                        <input type="file" name="myfile" id="myfile" add=".upimglist" value="选择上传文件" onchange="fileChange(this,'image',true,5242880)" />
+                        <i class="iconfont icon-jia"></i>
+                    </div>
+                </div>
+            </section>
+            <section class="row">
+                <div class="con_title">签到记录</div>
+                <div class="tabcontent tabcontentImg clear upimglist">
+                    <div class="fileImg">
+                        <input type="file" name="myfile" id="myfile" add=".upimglist" value="选择上传文件" onchange="fileChange(this,'image',true,5242880)" />
+                        <i class="iconfont icon-jia"></i>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="con_title">学习记录</div>
+                <div class="tabcontent">
+
+                </div>
+            </section>
+            <section>
+                <div class="con_title">学习附件</div>
+                <div class="tabcontent">
+                    <span class="fileinput-button">
+                        <span>上传</span>
+                        <span class="iconfont icon-1"></span>
+                        <input type="file" name="myfile" add=".upfilelist" id="myfile" value="选择上传文件" onchange="fileFUN(this,true,20971520)" />
+                    </span>
+                    <div class="kuozhan">支持扩展名：.pdf .doc .docx .xls .xlsx .ppt .pptx</div>
+                    <div class="fileUtil upfilelist"></div>
+                </div>
+            </section>
+            <section>
+                <div class="footerBtnBox">
+                    <button class="btnbg submitBtn">提交</button>
+                    <button class="btn btn-default cancelBtn">取消</button>
+                </div>
+            </section>
+        </div>
+    </div>
+</article>
+<!--附件-->
+<div class="funjianitem" style="display: none; ">
+    <a href="" class="ahref" target="_blank">
+        <span class="iconfont icon-fujian"></span>
+        <span class="filename">名字</span>
+    </a>
+    <div class="progress">
+        <div class="progressSon"></div>
+    </div>
+    <div class="canlefile" onclick="cancleupf(this)"><img src="../../conferActivities/threeclass/img/cha.png"></div>
+</div>
+</body>
+</html>
+<script src="../../../moduleweb/resources/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../resources/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/uploadFile.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    var funjianitem = $(".funjianitem");
+    $(function() {
+        //tab切换
+        $("article>nav li").off("click").on("click",function() {
+            $(".tabCon>div").eq($(this).index()).show().siblings().hide();
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+    });
+</script>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>学习笔记确认</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/index.css"/>
+    <style>
+        /*titltModal*/
+        .changeBtn {
+            position: relative;
+        }
+        .changeBtn:hover .titleModal {
+            display: block;
+        }
+        .titleModal {
+            width: 120px;
+            height: 72px;
+            overflow: hidden;
+            border-radius: 4px;
+            position: absolute;
+            top: 100%;
+            background: #fff;
+            box-shadow: 0 0 5px 1px #ccc;
+            display: none;
+        }
+        .titleModal>div {
+            padding: 8px;
+        }
+        .titleModal>div:hover {
+            background: #E6F7FF;
+        }
+        .td-omit{
+            width: 23%;
+        }
+        .omit{
+            width: 200px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body>
+<aside>
+    <img src="../img/nonews.png"/>
+</aside>
+<nav class="header">
+    <ol class="breadcrumb">
+        <li><a href="javascript:;">中心组学习</a></li>
+        <li class="active cursor">学习笔记确认</li>
+    </ol>
+</nav>
+<article>
+    <nav>
+        <ul class="clear">
+            <li class="left cursor active">学习笔记确认</li>
+        </ul>
+    </nav>
+    <section>
+        <label for="">姓名：</label>
+        <input type="text" class="form-control widthMin verticalalignTop" placeholder="请输入" />
+
+        <button class="btnbg">查询</button>
+        <button class="btnbg">添加</button>
+    </section>
+    <section>
+        <table class="table table-striped tableNoBor">
+            <tr>
+                <th>姓名</th>
+                <th>所属支部</th>
+                <th>确认时间</th>
+                <th>操作</th>
+            </tr>
+            <tr>
+                <td>胡彦斌</td>
+                <td class="td-omit"><p class="omit"> XXXXXXXXXXXXXX党支部</p></td>
+                <td>2018-01-31</td>
+                <td><a href="javascript:;" >删除</a></td>
+            </tr>
+            <tr>
+                <td>胡彦斌</td>
+                <td class="td-omit"><p class="omit"> XXXXXXXXXXXXXX党支部</p></td>
+                <td>2018-01-31</td>
+                <td><a href="javascript:;" >删除</a></td>
+            </tr>
+
+        </table>
+    </section>
+</article>
+</body>
+</html>
+<script src="../../../moduleweb/resources/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../resources/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $(function(){
+        $(".create").off("click").on("click",function(){
+//			$(".alertBox1").fadeIn();
+            $(".alertBox2").fadeIn();
+        });
+        $(".alertBox1 .closeAlert,.alertBox1 .cancel,.alertBox1 .sure").off("click").on("click",function(){
+            $(".alertBox1").fadeOut();
+        });
+        $(".alertBox2 .closeAlert,.alertBox2 .cancel,.alertBox2 .sure").off("click").on("click",function(){
+            $(".alertBox2").fadeOut();
+        });
+        //规则设置
+        $(".ruleSetting").off("click").on("click",function(){
+            location.href = "ruleSetting.html";
+        });
+        //
+        $("td a").off("click").on("click",function(){
+            if ($(this).text() == "添加记录") {
+                location.href = "addPlanRecord.html";
+            }
+        });
+    });
+</script>

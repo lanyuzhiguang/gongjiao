@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>签到</title>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/index.css"/>
+    <style>
+        /*titltModal*/
+        .changeBtn {
+            position: relative;
+        }
+        .changeBtn:hover .titleModal {
+            display: block;
+        }
+        .titleModal {
+            width: 120px;
+            height: 72px;
+            overflow: hidden;
+            border-radius: 4px;
+            position: absolute;
+            top: 100%;
+            background: #fff;
+            box-shadow: 0 0 5px 1px #ccc;
+            display: none;
+        }
+        .titleModal>div {
+            padding: 8px;
+        }
+        .titleModal>div:hover {
+            background: #E6F7FF;
+        }
+        .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+            padding-left:25px;
+        }
+    </style>
+</head>
+<body>
+<aside>
+    <img src="../img/nonews.png"/>
+</aside>
+<nav class="header">
+    <ol class="breadcrumb">
+        <li><a href="javascript:;">中心组学习</a></li>
+        <li class="active cursor">签到</li>
+    </ol>
+</nav>
+<article>
+    <nav>
+        <ul class="clear">
+            <li class="left cursor active">签到</li>
+        </ul>
+    </nav>
+    <section>
+        <table class="table table-striped tableNoBor">
+            <tr>
+                <th>姓名</th>
+                <th>所属支部</th>
+                <th>操作</th>
+            </tr>
+            <tr>
+                <td>张三</td>
+                <td >XXXXXXXXXXXXXX党支部</td>
+                <td><a href="javascript:;">签到</a></td>
+            </tr>
+            <tr>
+                <td>张三</td>
+                <td>XXXXXXXXXXXXXX党支部</td>
+                <td>已签到</td>
+            </tr>
+        </table>
+    </section>
+</article>
+</body>
+</html>
+<script src="../../../moduleweb/resources/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../resources/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    $(function(){
+        $(".create").off("click").on("click",function(){
+//			$(".alertBox1").fadeIn();
+            $(".alertBox2").fadeIn();
+        });
+        $(".alertBox1 .closeAlert,.alertBox1 .cancel,.alertBox1 .sure").off("click").on("click",function(){
+            $(".alertBox1").fadeOut();
+        });
+        $(".alertBox2 .closeAlert,.alertBox2 .cancel,.alertBox2 .sure").off("click").on("click",function(){
+            $(".alertBox2").fadeOut();
+        });
+        //规则设置
+        $(".ruleSetting").off("click").on("click",function(){
+            location.href = "ruleSetting.html";
+        });
+        //
+        $("td a").off("click").on("click",function(){
+            if ($(this).text() == "添加记录") {
+                location.href = "addPlanRecord.html";
+            }
+        });
+    });
+</script>

@@ -2,10 +2,21 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>添加记录</title>
 		<link rel="stylesheet" type="text/css" href="../../resources/css/bootstrap.min.css"/>
 		<link rel="stylesheet" type="text/css" href="../../resources/css/base.css"/>
 		<link rel="stylesheet" type="text/css" href="../css/index.css"/>
+		<style>
+			.td-omit{
+				width: 23%;
+			}
+			.omit{
+				width: 200px;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+		</style>
 	</head>
 	<body>
 		<aside>
@@ -24,6 +35,40 @@
 					<li class="left cursor active">添加记录</li>
 				</ul>
 			</nav>
+			<section>
+				<table class="table table-striped tableNoBor">
+					<tr>
+						<th>学习标题</th>
+						<th>学习开始时间</th>
+						<th>学习地点</th>
+						<th>会议类型</th>
+						<th>状态</th>
+						<th>操作</th>
+					</tr>
+					<tr>
+						<td class="td-omit"><p class="omit">学习标题学习标题学习标题学习标题标题学习标题学习标题</p></td>
+						<td>2018-01-31</td>
+						<td class="td-omit"><p class="omit">学习地点学习地点学习地点学习地点标题学习标题学习标题</p></td>
+						<td>普通会议</td>
+						<td>未开始</td>
+						<td><a href="javascript:;" class="changeBtn">添加</a></td>
+					</tr>
+					<tr>
+						<td class="td-omit"><p class="omit">学习标题学习标题学习标题学习标题标题学习标题学习标题</p></td>
+						<td>2018-01-31</td>
+						<td class="td-omit"><p class="omit">学习地点学习地点学习地点学习地点标题学习标题学习标题</p></td>
+						<td>普通会议</td>
+						<td>未开始</td>
+						<td><a href="javascript:;" >添加</a></td>
+					</tr>
+				</table>
+			</section>
+			<section>
+				<div class="footerBtnBox">
+					<button class="btnbg submitBtn">提交</button>
+					<button class="btn btn-default cancelBtn">取消</button>
+				</div>
+			</section>
 		</article>
 	</body>
 </html>
